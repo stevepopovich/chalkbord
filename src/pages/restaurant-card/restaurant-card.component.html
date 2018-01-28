@@ -1,0 +1,10 @@
+<ion-card [hidden]="!cardModel" ngDraggable (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" (stopped)="onDragEnd()" class="card-height">
+    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>
+
+    <ion-card-content>
+        <ion-card-title>
+            {{cardModel.restaurantTitle}}
+        </ion-card-title>
+        {{cardModel.dealDescription}}
+    </ion-card-content>
+</ion-card>

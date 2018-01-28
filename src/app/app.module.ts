@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { AngularDraggableModule } from 'angular2-draggable';
 import { NgModule, ErrorHandler } from '@angular/core';
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -8,15 +9,21 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { IonicStorageModule } from '@ionic/storage';
 
-import { ConferenceApp } from './app.component';
+import { LocaleApp } from './app.component';
+import { ConsumerComponent } from '../pages/consumer/consumer.component';
+import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-card.component';
 
 @NgModule({
   declarations: [
+    LocaleApp,
+    ConsumerComponent,
+    RestaurantCardComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(ConferenceApp, {}, {
+    AngularDraggableModule,
+    IonicModule.forRoot(LocaleApp, {}, {
       links: [
         // { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         // { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
@@ -37,11 +44,12 @@ import { ConferenceApp } from './app.component';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-
+    LocaleApp,
+    RestaurantCardComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     InAppBrowser,
-  ]
+    ]
 })
 export class AppModule { }

@@ -1,0 +1,11 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Locale</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<button ion-button (click)="resetCards()" class="reset-button">Reset</button>
+
+<div *ngFor="let card of restaurantCards">
+    <restaurant-card [cardModel]="card" [destroyCard]="destroyCard" class="restaurant-card"></restaurant-card>
+</div>

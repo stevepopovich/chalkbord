@@ -1,0 +1,17 @@
+$card-top-offest: 8%;
+
+.restaurant-card{
+    top: -webkit-calc(#{$card-top-offest});
+    top:    -moz-calc(#{$card-top-offest});
+    top:         calc(#{$card-top-offest});
+    width: 100%;
+    position: absolute !important;
+    height: 88%;
+}
+
+.reset-button{
+    position: absolute;
+    vertical-align: middle;
+    top: 50%;
+    left: 43%;
+}
