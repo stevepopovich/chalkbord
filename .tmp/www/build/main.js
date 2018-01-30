@@ -58,14 +58,10 @@ var RestaurantCardComponent = (function () {
     function RestaurantCardComponent() {
     }
     RestaurantCardComponent.prototype.swipeRight = function () {
-        this.swipedRight = true;
+        this.destroyCard.next(this.cardModel);
     };
     RestaurantCardComponent.prototype.swipeLeft = function () {
-        this.swipedLeft = true;
-    };
-    RestaurantCardComponent.prototype.onDragEnd = function () {
-        if (this.swipedLeft || this.swipedRight)
-            this.destroyCard.next(this.cardModel);
+        this.destroyCard.next(this.cardModel);
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
@@ -76,9 +72,9 @@ var RestaurantCardComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"])
     ], RestaurantCardComponent.prototype, "destroyCard", void 0);
     RestaurantCardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel" ngDraggable (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" (stopped)="onDragEnd()" class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel" ngDraggable (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
             selector: 'restaurant-card',
-            styleUrls: ['/restaurant-card.component.scss']
+            styleUrls: ['./restaurant-card.component.scss']
         }),
         __metadata("design:paramtypes", [])
     ], RestaurantCardComponent);
@@ -258,7 +254,7 @@ var ConsumerComponent = (function () {
     ConsumerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/'<ion-header>\n    <ion-navbar color="primary">\n        <ion-title>Locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button ion-button (click)="resetCards()" class="reset-button">Reset</button>\n\n<div *ngFor="let card of restaurantCards">\n    <restaurant-card [cardModel]="card" [destroyCard]="destroyCard" class="restaurant-card"></restaurant-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/,
             selector: 'consumer',
-            styleUrls: ['/consumer.component.scss']
+            styleUrls: ['./consumer.component.scss']
         }),
         __metadata("design:paramtypes", [])
     ], ConsumerComponent);

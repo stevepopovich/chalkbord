@@ -1,4 +1,4 @@
-<ion-card [hidden]="!cardModel" ngDraggable (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" (stopped)="onDragEnd()" class="card-height">
+<ion-card [hidden]="!cardModel" ngDraggable (started)="onDragBegin($event)" (stopped)="onDragEnd($event)" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)" class="card-height">
     <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>
 
     <ion-card-content>

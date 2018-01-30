@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 @Component({
   templateUrl: 'consumer.component.html',
   selector: 'consumer',
-  styleUrls: ['/consumer.component.scss']
+  styleUrls: ['./consumer.component.scss']
 })
 
 export class ConsumerComponent implements AfterViewInit {

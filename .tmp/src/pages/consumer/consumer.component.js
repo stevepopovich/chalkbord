@@ -36,7 +36,7 @@ var ConsumerComponent = (function () {
     ConsumerComponent = __decorate([
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/'<ion-header>\n    <ion-navbar color="primary">\n        <ion-title>Locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button ion-button (click)="resetCards()" class="reset-button">Reset</button>\n\n<div *ngFor="let card of restaurantCards">\n    <restaurant-card [cardModel]="card" [destroyCard]="destroyCard" class="restaurant-card"></restaurant-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/,
             selector: 'consumer',
-            styleUrls: ['/consumer.component.scss']
+            styleUrls: ['./consumer.component.scss']
         }),
         __metadata("design:paramtypes", [])
     ], ConsumerComponent);

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   templateUrl: 'restaurant-card.component.html',
@@ -7,30 +8,54 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['/restaurant-card.component.scss']
 })
 
-export class RestaurantCardComponent {
+export class RestaurantCardComponent implements AfterViewInit {
     @Input()
     public cardModel: RestaurantCardModel;
 
     @Input()
     public destroyCard: Subject<RestaurantCardModel>;
 
-    private swipedRight: boolean;
-    private swipedLeft: boolean;
+    public destroying: boolean = false;
 
-    constructor() {
+    public draggableElement;
+
+    constructor(private elRef:ElementRef) {
     }
 
-    public swipeRight(){
-        this.swipedRight = true;
+    ngAfterViewInit(): void {
     }
 
-    public swipeLeft(){
-        this.swipedLeft = true;
-    }
-
-    public onDragEnd(){
-        if(this.swipedLeft || this.swipedRight)
+    public swipeRight(event){
+        this.destroying = true;
+        console.log(this.draggableElement.style);
+        this.draggableElement.style.transition = "transform 0.25s";
+        this.delay(5).then(() => {
             this.destroyCard.next(this.cardModel);
+        });
+    }
+
+    public swipeLeft(event){
+        this.destroyCard.next(this.cardModel);
+    }
+
+    public onDragBegin(event){
+        this.draggableElement = event;
+        event.style.transition = "";
+    }
+
+    public onDragEnd(event){
+        if(!this.destroying){
+            console.log(event.style);
+            event.style.transition = "transform .25s";
+            event.style.transform = "translate(0px, 0px)";
+            event.style["-ms-transform"] = "translate(0px, 0px)";
+            event.style["-o-transform"] = "translate(0px, 0px)";
+            event.style["-moz-transform"] = "translate(0px, 0px)";
+        }
+    }
+
+    public delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 

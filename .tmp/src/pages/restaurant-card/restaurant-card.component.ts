@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 @Component({
   templateUrl: 'restaurant-card.component.html',
   selector: 'restaurant-card',
-  styleUrls: ['/restaurant-card.component.scss']
+  styleUrls: ['./restaurant-card.component.scss']
 })
 
 export class RestaurantCardComponent {
@@ -14,23 +14,15 @@ export class RestaurantCardComponent {
     @Input()
     public destroyCard: Subject<RestaurantCardModel>;
 
-    private swipedRight: boolean;
-    private swipedLeft: boolean;
-
     constructor() {
     }
 
     public swipeRight(){
-        this.swipedRight = true;
+        this.destroyCard.next(this.cardModel);
     }
 
     public swipeLeft(){
-        this.swipedLeft = true;
-    }
-
-    public onDragEnd(){
-        if(this.swipedLeft || this.swipedRight)
-            this.destroyCard.next(this.cardModel);
+        this.destroyCard.next(this.cardModel);
     }
 }
 
