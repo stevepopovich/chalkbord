@@ -1,28 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Component, Input, AfterViewInit } from '@angular/core';
 
 @Component({
-  templateUrl: 'restaurant-card.component.html',
+  templateUrl: './restaurant-card.component.html',
   selector: 'restaurant-card',
-  styleUrls: ['./restaurant-card.component.scss']
+  styleUrls: ['/restaurant-card.component.scss']
 })
 
-export class RestaurantCardComponent {
+export class RestaurantCardComponent implements AfterViewInit {
     @Input()
     public cardModel: RestaurantCardModel;
 
-    @Input()
-    public destroyCard: Subject<RestaurantCardModel>;
+    public destroying: boolean = false;
+
+    public draggableElement;
 
     constructor() {
     }
 
-    public swipeRight(){
-        this.destroyCard.next(this.cardModel);
+    ngAfterViewInit(): void {
     }
 
-    public swipeLeft(){
-        this.destroyCard.next(this.cardModel);
+    public delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 

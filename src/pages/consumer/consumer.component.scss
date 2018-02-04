@@ -4,14 +4,32 @@ $card-top-offest: 8%;
     top: -webkit-calc(#{$card-top-offest});
     top:    -moz-calc(#{$card-top-offest});
     top:         calc(#{$card-top-offest});
-    width: 100%;
     position: absolute !important;
     height: 88%;
+    width: 100%;
 }
 
 .reset-button{
     position: absolute;
     vertical-align: middle;
-    top: 50%;
+    top: 90%;
     left: 40%;
+}
+
+#card-stack {
+    width: 98%;
+    height: 88%;
+    position: relative;
+  }
+ 
+#card-stack ion-card {
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    top: 3%;
+    height: 98%;
+    top: -webkit-calc(#{$card-top-offest});
+    top:    -moz-calc(#{$card-top-offest});
+    top:         calc(#{$card-top-offest});
+    position: absolute !important;
 }

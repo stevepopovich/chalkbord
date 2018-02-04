@@ -13,9 +13,11 @@ import { LocaleApp } from './app.component';
 import { ConsumerComponent } from '../pages/consumer/consumer.component';
 import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-card.component';
 
+import { SwingModule } from 'angular2-swing';
+
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
-      'swipe': {velocity: 2, threshold: 20} // override default settings
+      'swipe': {velocity: 1.3, threshold: 20} // override default settings
   }
 }
 
@@ -28,6 +30,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   imports: [
     BrowserModule,
     HttpModule,
+    SwingModule,
     AngularDraggableModule,
     IonicModule.forRoot(LocaleApp, {}, {
       links: [

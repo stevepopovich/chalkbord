@@ -1,0 +1,4 @@
+#Wed Jan 31 19:32:34 EST 2018
+base.0=/Users/Contence/locale/platforms/android/app/build/intermediates/transforms/dexMerger/x86/debug/0
+renamed.0=classes.dex
+file.0=/Users/Contence/locale/platforms/android/app/build/intermediates/transforms/dexMerger/x86/debug/0/classes.dex

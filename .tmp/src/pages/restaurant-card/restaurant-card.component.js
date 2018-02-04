@@ -8,28 +8,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
 var RestaurantCardComponent = (function () {
     function RestaurantCardComponent() {
+        this.destroying = false;
     }
-    RestaurantCardComponent.prototype.swipeRight = function () {
-        this.destroyCard.next(this.cardModel);
+    RestaurantCardComponent.prototype.ngAfterViewInit = function () {
     };
-    RestaurantCardComponent.prototype.swipeLeft = function () {
-        this.destroyCard.next(this.cardModel);
+    RestaurantCardComponent.prototype.delay = function (ms) {
+        return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
     __decorate([
         Input(),
         __metadata("design:type", RestaurantCardModel)
     ], RestaurantCardComponent.prototype, "cardModel", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Subject)
-    ], RestaurantCardComponent.prototype, "destroyCard", void 0);
     RestaurantCardComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel" ngDraggable (swipeleft)="swipeLeft()" (swiperight)="swipeRight()" class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel"  class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
             selector: 'restaurant-card',
-            styleUrls: ['./restaurant-card.component.scss']
+            styleUrls: ['/restaurant-card.component.scss']
         }),
         __metadata("design:paramtypes", [])
     ], RestaurantCardComponent);

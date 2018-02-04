@@ -4,8 +4,17 @@
     </ion-navbar>
 </ion-header>
 
-<button ion-button (click)="resetCards()" class="reset-button">Reset</button>
-
-<div *ngFor="let card of restaurantCards">
-    <restaurant-card [cardModel]="card" [destroyCard]="destroyCard" class="restaurant-card"></restaurant-card>
+<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)" id="card-stack">
+    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height">
+        <img class="non-draggable-image" src="{{card.imageSource}}"/>
+    
+        <ion-card-content>
+            <ion-card-title>
+                {{card.restaurantTitle}}
+            </ion-card-title>
+            {{card.dealDescription}}
+        </ion-card-content>
+    </ion-card>
 </div>
+
+<button ion-button (click)="resetCards()" class="reset-button">Reset</button>

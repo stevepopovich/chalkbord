@@ -21,19 +21,19 @@
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "locale.alpha"
     },
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "locale.alpha"
     },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "cordova-plugin-ionic-keyboard": {
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "locale.alpha"
     }
   },

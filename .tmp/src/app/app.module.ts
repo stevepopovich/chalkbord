@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -13,6 +13,14 @@ import { LocaleApp } from './app.component';
 import { ConsumerComponent } from '../pages/consumer/consumer.component';
 import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-card.component';
 
+import { SwingModule } from 'angular2-swing';
+
+export class MyHammerConfig extends HammerGestureConfig  {
+  overrides = <any>{
+      'swipe': {velocity: 1.3, threshold: 20} // override default settings
+  }
+}
+
 @NgModule({
   declarations: [
     LocaleApp,
@@ -22,22 +30,10 @@ import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-car
   imports: [
     BrowserModule,
     HttpModule,
+    SwingModule,
     AngularDraggableModule,
     IonicModule.forRoot(LocaleApp, {}, {
       links: [
-        // { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        // { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
-        // { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        // { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
-        // { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
-        // { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
-        // { component: MapPage, name: 'Map', segment: 'map' },
-        // { component: AboutPage, name: 'About', segment: 'about' },
-        // { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
-        // { component: SupportPage, name: 'SupportPage', segment: 'support' },
-        // { component: LoginPage, name: 'LoginPage', segment: 'login' },
-        // { component: AccountPage, name: 'AccountPage', segment: 'account' },
-        // { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
     IonicStorageModule.forRoot()
@@ -50,6 +46,10 @@ import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-car
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     InAppBrowser,
+    { 
+      provide: HAMMER_GESTURE_CONFIG, 
+      useClass: MyHammerConfig 
+    }
     ]
 })
 export class AppModule { }
