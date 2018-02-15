@@ -8,9 +8,9 @@ import {
     SwingCardComponent} from 'angular2-swing';
 
 @Component({
-  templateUrl: './consumer.component.html',
-  selector: 'consumer',
-  styleUrls: ['/consumer.component.scss']
+    templateUrl: './consumer.component.html',
+    selector: 'consumer',
+    styleUrls: ['/consumer.component.scss']
 })
 
 export class ConsumerComponent implements AfterViewInit {
@@ -24,7 +24,6 @@ export class ConsumerComponent implements AfterViewInit {
     ];
 
     stackConfig: StackConfig;
-    recentCard: string = '';
 
     public currentDragged;
 
@@ -48,29 +47,14 @@ export class ConsumerComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         this.swingStack.throwin.subscribe((event: DragEvent) => {
             event.target.style.background = '#000000';
-          });
+        });
     }
 
     onItemMove(element, x, y, r) {
-        var color = '';
-        var abs = Math.abs(x);
-        let min = Math.trunc(Math.min(16*16 - abs, 16*16));
-        let hexCode = this.decimalToHex(min, 2);
-        
-        if (x < 0) {
-            if(hexCode != "00"){
-                color = '#' + hexCode + hexCode + hexCode;
-            }
-          
-        } else {
-          color = '#' + hexCode +  hexCode + "FF";
-        }
-        
-        element.style.background = color;
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
-      }
+    }
 
-      voteUp(like: boolean) {
+    voteUp(like: boolean) {
         this.restaurantCards.pop();
         console.log(like);
         // if (like) {
@@ -79,7 +63,7 @@ export class ConsumerComponent implements AfterViewInit {
         //   this.recentCard = 'You disliked: ' + removedCard.restaurantTitle;
         // }
         
-      }
+    }
        
       // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
     decimalToHex(d, padding) {

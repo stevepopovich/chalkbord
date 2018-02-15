@@ -18,7 +18,6 @@ var ConsumerComponent = (function () {
             new RestaurantCardModel("assets/images/margs.jpg", "J Liu", "Margs half off happy hours prices 2-4pm"),
             new RestaurantCardModel("assets/images/chicken.jpg", "Brazenhead", "Special tonight is chicken marsala")
         ];
-        this.recentCard = '';
         this.destoryingCard = false;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
@@ -39,19 +38,6 @@ var ConsumerComponent = (function () {
         });
     };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
-        var color = '';
-        var abs = Math.abs(x);
-        var min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
-        var hexCode = this.decimalToHex(min, 2);
-        if (x < 0) {
-            if (hexCode != "00") {
-                color = '#' + hexCode + hexCode + hexCode;
-            }
-        }
-        else {
-            color = '#' + hexCode + hexCode + "FF";
-        }
-        element.style.background = color;
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
     ConsumerComponent.prototype.voteUp = function (like) {

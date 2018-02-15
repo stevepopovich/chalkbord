@@ -22,7 +22,7 @@ var RestaurantCardComponent = (function () {
         __metadata("design:type", RestaurantCardModel)
     ], RestaurantCardComponent.prototype, "cardModel", void 0);
     RestaurantCardComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel"  class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
             selector: 'restaurant-card',
             styleUrls: ['/restaurant-card.component.scss']
         }),

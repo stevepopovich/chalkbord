@@ -1,35 +1,75 @@
-$card-top-offest: 8%;
+$card-top-offest: 14%;
+$button-top-offest: 79%;
+
+@mixin rotated-text($num-letters: 100, $angle-span: 180deg, $angle-offset: 0deg) {
+        $angle-per-char: $angle-span / $num-letters;
+        @for $i from 1 through $num-letters {
+            .char#{$i} {
+                @include transform(rotate($angle-offset + $angle-per-char * $i))
+        }
+    }
+}
+
+@function setLongShadow($color, $length) {
+    $value: 0 0 $color;
+ 
+    @for $i from 1 through $length {
+        $value: #{$value}, #{$i}px #{$i}px #{$color};
+    }
+ 
+    @return $value;
+}
+ 
+@mixin longShadow($color, $length:200) {
+    text-shadow: setLongShadow($color, $length);
+}
 
 .restaurant-card{
-    top: -webkit-calc(#{$card-top-offest});
-    top:    -moz-calc(#{$card-top-offest});
-    top:         calc(#{$card-top-offest});
-    position: absolute !important;
-    height: 88%;
     width: 100%;
 }
 
 .reset-button{
-    position: absolute;
     vertical-align: middle;
-    top: 90%;
+    top: 50%;
     left: 40%;
 }
 
 #card-stack {
-    width: 98%;
-    height: 88%;
-    position: relative;
-  }
+    margin-top: 10px;
+}
  
 #card-stack ion-card {
-    border-radius: 5px;
+    border-radius: 10px;
     position: absolute;
     text-align: center;
-    top: 3%;
-    height: 98%;
-    top: -webkit-calc(#{$card-top-offest});
-    top:    -moz-calc(#{$card-top-offest});
-    top:         calc(#{$card-top-offest});
-    position: absolute !important;
+    background-color: #ecec00; 
+    height: 72%;
+}
+
+.non-draggable-image{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    text-align: center;
+    height: 82%;
+}
+
+ion-icon {
+    font-size: 64px !important;
+}
+
+.button-circular{
+    height: 100%;
+    border-radius: 100px;
+}
+
+.card-text{
+    margin-top: -100px;
+    text-align: left;
+    color: black !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

@@ -65,7 +65,7 @@ var RestaurantCardComponent = (function () {
         __metadata("design:type", RestaurantCardModel)
     ], RestaurantCardComponent.prototype, "cardModel", void 0);
     RestaurantCardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/'<ion-card [hidden]="!cardModel"  class="card-height">\n    <img class="non-draggable-image" src="{{cardModel.imageSource}}"/>\n\n    <ion-card-content>\n        <ion-card-title>\n            {{cardModel.restaurantTitle}}\n        </ion-card-title>\n        {{cardModel.dealDescription}}\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
             selector: 'restaurant-card',
             styleUrls: ['/restaurant-card.component.scss']
         }),
@@ -260,7 +260,6 @@ var ConsumerComponent = (function () {
             new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/margs.jpg", "J Liu", "Margs half off happy hours prices 2-4pm"),
             new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/chicken.jpg", "Brazenhead", "Special tonight is chicken marsala")
         ];
-        this.recentCard = '';
         this.destoryingCard = false;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
@@ -281,19 +280,6 @@ var ConsumerComponent = (function () {
         });
     };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
-        var color = '';
-        var abs = Math.abs(x);
-        var min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
-        var hexCode = this.decimalToHex(min, 2);
-        if (x < 0) {
-            if (hexCode != "00") {
-                color = '#' + hexCode + hexCode + hexCode;
-            }
-        }
-        else {
-            color = '#' + hexCode + hexCode + "FF";
-        }
-        element.style.background = color;
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
     ConsumerComponent.prototype.voteUp = function (like) {
