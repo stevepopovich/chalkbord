@@ -46,7 +46,7 @@ $button-top-offest: 79%;
     height: 72%;
 }
 
-.non-draggable-image{
+.non-draggable-card-image{
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -56,6 +56,18 @@ $button-top-offest: 79%;
     height: 82%;
 }
 
+.non-draggable-image{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    margin:auto;
+    display: block;
+    width: 26%;
+    height: 29px !important;
+}
+
 ion-icon {
     font-size: 64px !important;
 }
@@ -63,6 +75,7 @@ ion-icon {
 .button-circular{
     height: 100%;
     border-radius: 100px;
+    background-color: white;
 }
 
 .card-text{

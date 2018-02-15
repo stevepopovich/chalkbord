@@ -30,6 +30,8 @@ export class ConsumerComponent implements AfterViewInit {
 
     public destoryingCard: boolean = false;
   
+    private moveCardIndex = -1;
+
     constructor (){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -52,23 +54,25 @@ export class ConsumerComponent implements AfterViewInit {
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
-    public voteUp(like: boolean): void {
-        console.log(like);
+    public voteUp(): void {
         this.popCard();
     }
 
-    public like():void{
-        this.transitionString = "all 0.5s";//this.swingCards.toArray()[this.swingCards.toArray().length - 1].getElementRef().nativeElement.style['transistion'] = "all 0.5s";
-        this.swingCards.toArray()[this.swingCards.toArray().length - 1].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(800px, 0px) rotate(40deg)`;
-        
-        this.delay(500).then(() => {this.popCard(); this.transitionString = "";});
-    }
+    public voteButton(like: boolean):void{
+        if(this.restaurantCards.length > 0){
+            if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+                this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-    public dislike():void{
-        this.transitionString = "all 0.5s";//this.swingCards.toArray()[this.swingCards.toArray().length - 1].getElementRef().nativeElement.style['transistion'] = "all 0.5s";
-        this.swingCards.toArray()[this.swingCards.toArray().length - 1].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-800px, 0px) rotate(-40deg)`;
-        
-        this.delay(500).then(() => {this.popCard(); this.transitionString = "";});
+            this.transitionString = "all 0.5s";//this.swingCards.toArray()[this.swingCards.toArray().length - 1].getElementRef().nativeElement.style['transistion'] = "all 0.5s";
+            if(like)
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(800px, 0px) rotate(40deg)`;
+            else
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-800px, 0px) rotate(-40deg)`;
+            
+            this.moveCardIndex--;
+
+            this.delay(500).then(() => {this.popCard(); this.transitionString = "";});
+        }
     }
 
     private resetCards(): void{
@@ -82,9 +86,10 @@ export class ConsumerComponent implements AfterViewInit {
 
     private popCard(): void{
         this.restaurantCards.pop();
+        //this.restaurantCards.push(new RestaurantCardModel("assets/images/burger.jpg", "Tuccis", "Half off all burgers from 3-5pm"));
         if(this.restaurantCards.length < 1)
             this.resetCards();
-    }
+    }s
 
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));

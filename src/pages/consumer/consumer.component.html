@@ -1,16 +1,16 @@
 <ion-grid style="height: 100%; padding: 0px">
     <ion-row style="height: 6%">
         <ion-header style="position: relative">
-            <ion-navbar style="min-height: 0px; height: 100%;" color="secondary">
-                <ion-title style="text-align: center">GrabSome</ion-title>
+            <ion-navbar class="nav-round" style="min-height: 0px; height: 100%;" color="secondary">
+                <img class="non-draggable-image" src="assets/images/local-trans.png" />
             </ion-navbar>
         </ion-header>
     </ion-row>
 
     <ion-row style="height: 74%">
-        <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)" id="card-stack">
+        <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp()" (throwoutright)="voteUp()" id="card-stack">
             <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{'transition': transitionString}">
-                <img class="non-draggable-image" src="{{card.imageSource}}" />
+                <img class="non-draggable-card-image" src="{{card.imageSource}}" />
             
                 <ion-card-content class="card-text">
                     <ion-card-title style="color: black !important;">
@@ -27,12 +27,12 @@
             <ion-row style="height: 100%">
                 <ion-col col-2></ion-col>
                 <ion-col col-4>    
-                    <button class="button-circular" (click)="dislike()" ion-button full round icon-only>
+                    <button class="button-circular" (click)="voteButton(false)" ion-button full round icon-only>
                         <img src="assets/images/no.png" style="width : 100% ; height : 100%">
                     </button>
                 </ion-col>
                 <ion-col col-4>    
-                    <button class="button-circular" (click)="like()" ion-button full round icon-only>
+                    <button class="button-circular" (click)="voteButton(true)" ion-button full round icon-only>
                         <img src="assets/images/yes.png" style="width : 100% ; height : 100%">
                     </button>
                 </ion-col>
