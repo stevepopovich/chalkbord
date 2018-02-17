@@ -16,6 +16,7 @@ import { RestaurantCardComponent } from '../components/restaurant-card/restauran
 import { SwingModule } from 'angular2-swing';
 
 import { Dialogs } from '@ionic-native/dialogs';
+import { StatusBar } from '@ionic-native/status-bar';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -52,7 +53,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
       provide: HAMMER_GESTURE_CONFIG, 
       useClass: MyHammerConfig 
     },
-    Dialogs
+    Dialogs,
+    StatusBar
   ]
 })
 export class AppModule { }

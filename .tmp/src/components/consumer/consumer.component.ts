@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { RestaurantCardModel } from '../restaurant-card/restaurant-card.component';
 
 import {
@@ -6,13 +6,14 @@ import {
     SwingStackComponent,
     SwingCardComponent} from 'angular2-swing';
 import { AlertController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent implements AfterViewInit {
+export class ConsumerComponent{
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -31,11 +32,15 @@ export class ConsumerComponent implements AfterViewInit {
   
     private moveCardIndex = -1;
 
-    constructor (private alert: AlertController){
+    private likingCard: boolean = false;
+
+    private animatingCard: boolean = false;
+
+    constructor (private alert: AlertController, private statusBar: StatusBar){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 console.log(offsetY);   
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth/2), 1);
+                return Math.min(Math.abs(offsetX) / (element.offsetWidth/3), 1);
             },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
@@ -43,10 +48,9 @@ export class ConsumerComponent implements AfterViewInit {
             throwOutDistance: () => {
                 return 800;
             }
-          };
-    }
-
-    ngAfterViewInit(): void {
+        };
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByName("black");
     }
 
     public onItemMove(element, x, y, r): void {
@@ -54,46 +58,90 @@ export class ConsumerComponent implements AfterViewInit {
     }
 
     public voteUp(like: boolean): void {
-        if(like)
-            this.popLikeAlert(this.popCard());
+        if(like){
+            if(!this.likingCard){
+                this.likingCard = true;
+
+                this.handleCard(like);
+            }
+        }
         else
-            this.popCard();
+            this.handleCard(like);
     }
 
-    public voteButton(like: boolean):void{
-        if(this.restaurantCards.length > 0){
+    public clickLike(): void {
+        if(this.restaurantCards.length > 0 && !this.likingCard && !this.animatingCard){
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-            this.transitionString = "all 0.5s";
+            this.transitionString = "all 0.75s";
 
-            if(like)
-                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(800px, 0px) rotate(40deg)`;
-            else
-                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-800px, 0px) rotate(-40deg)`;
+            this.likingCard = true;
+
+            this.animatingCard = true;
+
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
             
             this.moveCardIndex--;
 
-            this.delay(500).then(() => {
-                if(like)
-                    this.popLikeAlert(this.popCard());
-                else
-                    this.popCard();
+            this.delay(300).then(() => {
+                this.handleCard(true);
+
+                this.animatingCard = false;
 
                 this.transitionString = "";
             });
         }
     }
 
+    public clickNo(): void {
+        if(this.restaurantCards.length > 0 && !this.animatingCard){
+            if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+                this.moveCardIndex = this.swingCards.toArray().length - 1;
+
+            this.transitionString = "all 0.75s";
+
+            this.animatingCard = true;
+
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
+            
+            this.moveCardIndex--;
+
+            this.delay(300).then(() => {
+                this.handleCard(false);
+
+                this.animatingCard = false;
+
+                this.transitionString = "";
+            });
+        }
+    }
+
+    private handleCard(like: boolean){
+        if(like)
+            this.popLikeAlert(this.popCard());
+        else
+            this.popCard();
+    }
+
     private popLikeAlert(card: RestaurantCardModel): void{
         let likeAlert = this.alert.create({
-            buttons:[],
+            buttons:[{
+                text: 'Directions',
+                role: 'directions',
+                handler: () => {
+                  console.log('Open directions');
+                }
+              }
+            ],
             title: "You are going to " + card.restaurantTitle + "!",
             subTitle: "Your deal code is: 4456",
             message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
-        likeAlert.present();
+        likeAlert.present().then(() => { 
+            this.likingCard = false; 
+        });
     }
 
     private resetCards(): void{

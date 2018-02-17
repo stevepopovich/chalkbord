@@ -24,6 +24,13 @@ $button-top-offest: 79%;
     text-shadow: setLongShadow($color, $length);
 }
 
+.bottom-row{
+    position: absolute;
+    bottom: 11px;
+    left: 22%;
+    height: 14%;
+}
+
 .title-big
 .toolbar-title{
     font-size: 2.4em !important;
@@ -42,6 +49,7 @@ $button-top-offest: 79%;
     text-align: center;
     vertical-align: middle;
     position: relative;
+    color: black;
 }
 
 .restaurant-card{
@@ -49,7 +57,7 @@ $button-top-offest: 79%;
 }
 
 #card-stack {
-    margin-top: 10px;
+    margin-top: 8px;
 }
  
 #card-stack ion-card {
@@ -81,18 +89,15 @@ $button-top-offest: 79%;
     height: 29px !important;
 }
 
-ion-icon {
-    font-size: 64px !important;
-}
-
 .button-circular{
-    height: 100%;
-    border-radius: 100px;
     background-color: white;
+    max-width: 33%;
+    border-radius: 70%;
+    height: 100%;
+    display: inline-block;
 }
 
 .card-text{
-    margin-top: -100px;
     text-align: left;
     color: white !important;
     position: absolute;

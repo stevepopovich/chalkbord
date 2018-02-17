@@ -26,6 +26,7 @@ import { ConsumerComponent } from '../components/consumer/consumer.component';
 import { RestaurantCardComponent } from '../components/restaurant-card/restaurant-card.component';
 import { SwingModule } from 'angular2-swing';
 import { Dialogs } from '@ionic-native/dialogs';
+import { StatusBar } from '@ionic-native/status-bar';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -70,7 +71,8 @@ var AppModule = (function () {
                     provide: HAMMER_GESTURE_CONFIG,
                     useClass: MyHammerConfig
                 },
-                Dialogs
+                Dialogs,
+                StatusBar
             ]
         })
     ], AppModule);

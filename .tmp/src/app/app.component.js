@@ -8,13 +8,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import { StatusBar } from '@ionic-native/status-bar';
 var LocaleApp = (function () {
-    function LocaleApp() {
+    function LocaleApp(statusBar) {
+        this.statusBar = statusBar;
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByName("black");
     }
     LocaleApp = __decorate([
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<consumer></consumer>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [StatusBar])
     ], LocaleApp);
     return LocaleApp;
 }());

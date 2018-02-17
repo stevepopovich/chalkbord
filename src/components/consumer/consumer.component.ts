@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { RestaurantCardModel } from '../restaurant-card/restaurant-card.component';
 
 import {
@@ -6,13 +6,14 @@ import {
     SwingStackComponent,
     SwingCardComponent} from 'angular2-swing';
 import { AlertController } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent implements AfterViewInit {
+export class ConsumerComponent{
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -35,11 +36,11 @@ export class ConsumerComponent implements AfterViewInit {
 
     private animatingCard: boolean = false;
 
-    constructor (private alert: AlertController){
+    constructor (private alert: AlertController, private statusBar: StatusBar){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 console.log(offsetY);   
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth/2), 1);
+                return Math.min(Math.abs(offsetX) / (element.offsetWidth/3), 1);
             },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
@@ -47,10 +48,9 @@ export class ConsumerComponent implements AfterViewInit {
             throwOutDistance: () => {
                 return 800;
             }
-          };
-    }
-
-    ngAfterViewInit(): void {
+        };
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.backgroundColorByName("black");
     }
 
     public onItemMove(element, x, y, r): void {
@@ -74,17 +74,17 @@ export class ConsumerComponent implements AfterViewInit {
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-            this.transitionString = "all 0.5s";
+            this.transitionString = "all 0.75s";
 
             this.likingCard = true;
 
             this.animatingCard = true;
 
-            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(800px, 0px) rotate(40deg)`;
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
             
             this.moveCardIndex--;
 
-            this.delay(500).then(() => {
+            this.delay(300).then(() => {
                 this.handleCard(true);
 
                 this.animatingCard = false;
@@ -99,15 +99,15 @@ export class ConsumerComponent implements AfterViewInit {
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-            this.transitionString = "all 0.5s";
+            this.transitionString = "all 0.75s";
 
             this.animatingCard = true;
 
-            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-800px, 0px) rotate(-40deg)`;
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
             
             this.moveCardIndex--;
 
-            this.delay(500).then(() => {
+            this.delay(300).then(() => {
                 this.handleCard(false);
 
                 this.animatingCard = false;
