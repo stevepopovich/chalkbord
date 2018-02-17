@@ -22,9 +22,10 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocaleApp } from './app.component';
-import { ConsumerComponent } from '../pages/consumer/consumer.component';
-import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-card.component';
+import { ConsumerComponent } from '../components/consumer/consumer.component';
+import { RestaurantCardComponent } from '../components/restaurant-card/restaurant-card.component';
 import { SwingModule } from 'angular2-swing';
+import { Dialogs } from '@ionic-native/dialogs';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -68,7 +69,8 @@ var AppModule = (function () {
                 {
                     provide: HAMMER_GESTURE_CONFIG,
                     useClass: MyHammerConfig
-                }
+                },
+                Dialogs
             ]
         })
     ], AppModule);

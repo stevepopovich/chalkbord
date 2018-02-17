@@ -1,0 +1,46 @@
+<ion-header class="nav-round">
+    <ion-navbar>
+            <ion-title class="title-big">local</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-grid style="height: 100%; padding: 0px">
+    <ion-row style="height: 74%">
+        <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)" id="card-stack">
+            <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{'transition': transitionString}">
+                <img class="non-draggable-card-image" src="{{card.imageSource}}" />
+            
+                <ion-card-content class="card-text">
+                    <ion-card-title style="color: white !important;">
+                        {{card.restaurantTitle}}
+                    </ion-card-title>
+                    {{card.dealDescription}}
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </ion-row>
+
+    <ion-row style="height: 18%">
+        <ion-grid>
+            <ion-row style="height: 100%">
+                <ion-col col-2></ion-col>
+                <ion-col col-4>    
+                    <button class="button-circular" (click)="clickNo()" ion-button full round icon-only>
+                        <img src="assets/images/no_sha.png" style="width : 100% ; height : 100%">
+                    </button>
+                </ion-col>
+                <ion-col col-4>    
+                    <button class="button-circular" (click)="clickLike()" ion-button full round icon-only>
+                        <img src="assets/images/yes_sha.png" style="width : 100% ; height : 100%">
+                    </button>
+                </ion-col>
+                <ion-col col-2></ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-row>
+</ion-grid>
+
+
+
+
+

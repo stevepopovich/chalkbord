@@ -17,7 +17,7 @@ webpackEmptyAsyncContext.id = 111;
 
 /***/ }),
 
-/***/ 152:
+/***/ 153:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -30,11 +30,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 152;
+webpackEmptyAsyncContext.id = 153;
 
 /***/ }),
 
-/***/ 193:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65,7 +65,7 @@ var RestaurantCardComponent = (function () {
         __metadata("design:type", RestaurantCardModel)
     ], RestaurantCardComponent.prototype, "cardModel", void 0);
     RestaurantCardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/pages/restaurant-card/restaurant-card.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-card/restaurant-card.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-card/restaurant-card.component.html"*/,
             selector: 'restaurant-card',
             styleUrls: ['/restaurant-card.component.scss']
         }),
@@ -87,13 +87,13 @@ var RestaurantCardModel = (function () {
 
 /***/ }),
 
-/***/ 201:
+/***/ 203:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(227);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -101,24 +101,25 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 225:
+/***/ 227:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export MyHammerConfig */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_draggable__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_draggable__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_consumer_consumer_component__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_restaurant_card_restaurant_card_component__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_swing__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_consumer_consumer_component__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_swing__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_angular2_swing__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_dialogs__ = __webpack_require__(298);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -135,6 +136,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -165,31 +167,32 @@ var AppModule = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["NgModule"])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */],
-                __WEBPACK_IMPORTED_MODULE_8__pages_consumer_consumer_component__["a" /* ConsumerComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
+                __WEBPACK_IMPORTED_MODULE_8__components_consumer_consumer_component__["a" /* ConsumerComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_10_angular2_swing__["SwingModule"],
                 __WEBPACK_IMPORTED_MODULE_2_angular2_draggable__["a" /* AngularDraggableModule */],
-                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */], {}, {
                     links: []
                 }),
                 __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["a" /* IonicStorageModule */].forRoot()
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* IonicApp */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
             ],
             providers: [
-                { provide: __WEBPACK_IMPORTED_MODULE_3__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicErrorHandler */] },
+                { provide: __WEBPACK_IMPORTED_MODULE_3__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicErrorHandler */] },
                 __WEBPACK_IMPORTED_MODULE_5__ionic_native_in_app_browser__["a" /* InAppBrowser */],
                 {
                     provide: __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["c" /* HAMMER_GESTURE_CONFIG */],
                     useClass: MyHammerConfig
-                }
+                },
+                __WEBPACK_IMPORTED_MODULE_11__ionic_native_dialogs__["a" /* Dialogs */]
             ]
         })
     ], AppModule);
@@ -237,9 +240,10 @@ var LocaleApp = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConsumerComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_swing__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_swing__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_swing__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(112);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -252,15 +256,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ConsumerComponent = (function () {
-    function ConsumerComponent() {
+    function ConsumerComponent(alert) {
         var _this = this;
+        this.alert = alert;
+        this.transitionString = "";
         this.restaurantCards = [
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/burger.jpg", "Tuccis", "Half off all burgers from 3-5pm"),
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/margs.jpg", "J Liu", "Margs half off happy hours prices 2-4pm"),
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/chicken.jpg", "Brazenhead", "Special tonight is chicken marsala")
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
         ];
         this.destoryingCard = false;
+        this.moveCardIndex = -1;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 console.log(offsetY);
@@ -275,44 +284,61 @@ var ConsumerComponent = (function () {
         };
     }
     ConsumerComponent.prototype.ngAfterViewInit = function () {
-        this.swingStack.throwin.subscribe(function (event) {
-            event.target.style.background = '#000000';
-        });
     };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
     ConsumerComponent.prototype.voteUp = function (like) {
-        this.restaurantCards.pop();
-        console.log(like);
-        // if (like) {
-        //   this.recentCard = 'You liked: ' + removedCard.restaurantTitle;
-        // } else {
-        //   this.recentCard = 'You disliked: ' + removedCard.restaurantTitle;
-        // }
+        if (like)
+            this.popLikeAlert(this.popCard());
+        else
+            this.popCard();
     };
-    // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
-    ConsumerComponent.prototype.decimalToHex = function (d, padding) {
-        var hex = Number(d).toString(16);
-        padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
-        while (hex.length < padding) {
-            hex = "0" + hex;
+    ConsumerComponent.prototype.voteButton = function (like) {
+        var _this = this;
+        if (this.restaurantCards.length > 0) {
+            if (this.moveCardIndex == undefined || this.moveCardIndex < 0)
+                this.moveCardIndex = this.swingCards.toArray().length - 1;
+            this.transitionString = "all 0.5s";
+            if (like)
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(800px, 0px) rotate(40deg)";
+            else
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-800px, 0px) rotate(-40deg)";
+            this.moveCardIndex--;
+            this.delay(500).then(function () {
+                if (like)
+                    _this.popLikeAlert(_this.popCard());
+                else
+                    _this.popCard();
+                _this.transitionString = "";
+            });
         }
-        return hex;
+    };
+    ConsumerComponent.prototype.popLikeAlert = function (card) {
+        var likeAlert = this.alert.create({
+            buttons: [],
+            title: "You are going to " + card.restaurantTitle + "!",
+            subTitle: "Your deal code is: 4456",
+            message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+        });
+        likeAlert.present();
     };
     ConsumerComponent.prototype.resetCards = function () {
         this.restaurantCards = [
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/burger.jpg", "Tuccis", "Half off all burgers from 3-5pm"),
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/margs.jpg", "J Liu", "Margs half off happy hours prices 2-4pm"),
-            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/chicken.jpg", "Brazenhead", "Special tonight is chicken marsala")
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
+            new __WEBPACK_IMPORTED_MODULE_1__restaurant_card_restaurant_card_component__["b" /* RestaurantCardModel */]("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
         ];
     };
-    ConsumerComponent.prototype.deleteCard = function (card) {
-        var cardToDeleteIndex = this.restaurantCards.indexOf(card);
-        this.restaurantCards.splice(cardToDeleteIndex, 1);
+    ConsumerComponent.prototype.popCard = function () {
+        var poppedCard = this.restaurantCards.pop();
+        if (this.restaurantCards.length < 1)
+            this.resetCards();
+        return poppedCard;
     };
-    ConsumerComponent.prototype.addCard = function (card) {
-        this.restaurantCards.push(card);
+    ConsumerComponent.prototype.delay = function (ms) {
+        return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('myswing1'),
@@ -323,11 +349,11 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/'<ion-header>\n    <ion-navbar color="primary">\n        <ion-title>Locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height">\n        <img class="non-draggable-image" src="{{card.imageSource}}"/>\n    \n        <ion-card-content>\n            <ion-card-title>\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<button ion-button (click)="resetCards()" class="reset-button">Reset</button>'/*ion-inline-end:"/Users/Contence/locale/src/pages/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">local</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-grid style="height: 100%; padding: 0px">\n    <ion-row style="height: 74%">\n        <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)" id="card-stack">\n            <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n                <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n            \n                <ion-card-content class="card-text">\n                    <ion-card-title style="color: white !important;">\n                        {{card.restaurantTitle}}\n                    </ion-card-title>\n                    {{card.dealDescription}}\n                </ion-card-content>\n            </ion-card>\n        </div>\n    </ion-row>\n\n    <ion-row style="height: 18%">\n        <ion-grid>\n            <ion-row style="height: 100%">\n                <ion-col col-2></ion-col>\n                <ion-col col-4>    \n                    <button class="button-circular" (click)="voteButton(false)" ion-button full round icon-only>\n                        <img src="assets/images/no.png" style="width : 100% ; height : 100%">\n                    </button>\n                </ion-col>\n                <ion-col col-4>    \n                    <button class="button-circular" (click)="voteButton(true)" ion-button full round icon-only>\n                        <img src="assets/images/yes.png" style="width : 100% ; height : 100%">\n                    </button>\n                </ion-col>\n                <ion-col col-2></ion-col>\n            </ion-row>\n        </ion-grid>\n    </ion-row>\n</ion-grid>\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* AlertController */]])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());
@@ -336,5 +362,5 @@ var ConsumerComponent = (function () {
 
 /***/ })
 
-},[201]);
+},[203]);
 //# sourceMappingURL=main.js.map

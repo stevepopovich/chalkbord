@@ -10,10 +10,12 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { LocaleApp } from './app.component';
-import { ConsumerComponent } from '../pages/consumer/consumer.component';
-import { RestaurantCardComponent } from '../pages/restaurant-card/restaurant-card.component';
+import { ConsumerComponent } from '../components/consumer/consumer.component';
+import { RestaurantCardComponent } from '../components/restaurant-card/restaurant-card.component';
 
 import { SwingModule } from 'angular2-swing';
+
+import { Dialogs } from '@ionic-native/dialogs';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -49,7 +51,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     { 
       provide: HAMMER_GESTURE_CONFIG, 
       useClass: MyHammerConfig 
-    }
-    ]
+    },
+    Dialogs
+  ]
 })
 export class AppModule { }

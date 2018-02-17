@@ -1,0 +1,109 @@
+$card-top-offest: 14%;
+$button-top-offest: 79%;
+
+@mixin rotated-text($num-letters: 100, $angle-span: 180deg, $angle-offset: 0deg) {
+        $angle-per-char: $angle-span / $num-letters;
+        @for $i from 1 through $num-letters {
+            .char#{$i} {
+                @include transform(rotate($angle-offset + $angle-per-char * $i))
+        }
+    }
+}
+
+@function setLongShadow($color, $length) {
+    $value: 0 0 $color;
+ 
+    @for $i from 1 through $length {
+        $value: #{$value}, #{$i}px #{$i}px #{$color};
+    }
+ 
+    @return $value;
+}
+ 
+@mixin longShadow($color, $length:200) {
+    text-shadow: setLongShadow($color, $length);
+}
+
+.title-big
+.toolbar-title{
+    font-size: 2.4em !important;
+}
+
+.toolbar-title-ios{
+    color: white;
+}
+
+.toolbar-background{
+    background: black;
+}
+
+.nav-round{
+    font-family: Baumans;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.restaurant-card{
+    width: 100%;
+}
+
+#card-stack {
+    margin-top: 10px;
+}
+ 
+#card-stack ion-card {
+    border-radius: 10px;
+    position: absolute;
+    text-align: center;
+    height: 72%;
+}
+
+.non-draggable-card-image{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    text-align: center;
+    height: 100%;
+}
+
+.non-draggable-image{
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    margin:auto;
+    display: block;
+    width: 26%;
+    height: 29px !important;
+}
+
+ion-icon {
+    font-size: 64px !important;
+}
+
+.button-circular{
+    height: 100%;
+    border-radius: 100px;
+    background-color: white;
+}
+
+.card-text{
+    margin-top: -100px;
+    text-align: left;
+    color: white !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,000000+100&0+0,1+100 */
+    background: -moz-linear-gradient(top, rgba(206,220,231,0) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(206,220,231,0) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(206,220,231,0) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cedce7', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+}
