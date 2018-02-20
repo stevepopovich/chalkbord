@@ -17,6 +17,7 @@ import { SwingModule } from 'angular2-swing';
 
 import { Dialogs } from '@ionic-native/dialogs';
 import { StatusBar } from '@ionic-native/status-bar';
+import { RestaurantDealMakerComponent } from '../components/restaurant-deal-maker/restaurant-deal-maker.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -28,7 +29,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
   declarations: [
     LocaleApp,
     ConsumerComponent,
-    RestaurantCardComponent
+    RestaurantCardComponent,
+    RestaurantDealMakerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
   bootstrap: [IonicApp],
   entryComponents: [
     LocaleApp,
-    RestaurantCardComponent
+    RestaurantCardComponent,
+    RestaurantDealMakerComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

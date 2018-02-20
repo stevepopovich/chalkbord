@@ -6,6 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 })
 
 export class LocaleApp {
+  public dealMaker: boolean = true;
+  public consumer: boolean = false;
+
   constructor(private statusBar: StatusBar) {
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByName("black");

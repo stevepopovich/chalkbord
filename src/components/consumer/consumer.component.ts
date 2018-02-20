@@ -49,6 +49,7 @@ export class ConsumerComponent{
                 return 800;
             }
         };
+        
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByName("black");
     }
@@ -132,10 +133,17 @@ export class ConsumerComponent{
                 handler: () => {
                   console.log('Open directions');
                 }
+              },
+              {
+                text: 'Share',
+                role: 'sahre',
+                handler: () => {
+                  console.log('Share');
+                }
               }
             ],
             title: "You are going to " + card.restaurantTitle + "!",
-            subTitle: "Your deal code is: 4456",
+            subTitle: "Your deal code is: " + this.randomNumber(),
             message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
@@ -163,5 +171,9 @@ export class ConsumerComponent{
 
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    private randomNumber(): string{
+        return String(Math.floor(1000 + Math.random() * 9000));
     }
 }

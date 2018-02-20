@@ -71,7 +71,7 @@
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />
@@ -81,4 +81,5 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashScreenDelay" value="0" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
 </widget>

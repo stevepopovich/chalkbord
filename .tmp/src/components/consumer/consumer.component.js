@@ -104,10 +104,17 @@ var ConsumerComponent = (function () {
                     handler: function () {
                         console.log('Open directions');
                     }
+                },
+                {
+                    text: 'Share',
+                    role: 'sahre',
+                    handler: function () {
+                        console.log('Share');
+                    }
                 }
             ],
             title: "You are going to " + card.restaurantTitle + "!",
-            subTitle: "Your deal code is: 4456",
+            subTitle: "Your deal code is: " + this.randomNumber(),
             message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
         likeAlert.present().then(function () {
@@ -131,6 +138,9 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.delay = function (ms) {
         return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
+    ConsumerComponent.prototype.randomNumber = function () {
+        return String(Math.floor(1000 + Math.random() * 9000));
+    };
     __decorate([
         ViewChild('myswing1'),
         __metadata("design:type", SwingStackComponent)
@@ -140,7 +150,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", QueryList)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">local</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <img src="assets/images/no.png">\n    </button>\n    <button class="button-circular" (click)="clickLike()" ion-button icon-only>\n        <img src="assets/images/yes.png">\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <img src="assets/images/no.png">\n    </button>\n    <button class="button-circular" (click)="clickLike()" ion-button icon-only>\n        <img src="assets/images/yes.png">\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),

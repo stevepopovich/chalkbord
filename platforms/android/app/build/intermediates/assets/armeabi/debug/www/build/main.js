@@ -121,6 +121,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_angular2_swing__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_dialogs__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_restaurant_deal_maker_restaurant_deal_maker_component__ = __webpack_require__(300);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -137,6 +138,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -170,7 +172,8 @@ var AppModule = (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */],
                 __WEBPACK_IMPORTED_MODULE_8__components_consumer_consumer_component__["a" /* ConsumerComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__components_restaurant_deal_maker_restaurant_deal_maker_component__["a" /* RestaurantDealMakerComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -185,7 +188,8 @@ var AppModule = (function () {
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* LocaleApp */],
-                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__components_restaurant_card_restaurant_card_component__["a" /* RestaurantCardComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__components_restaurant_deal_maker_restaurant_deal_maker_component__["a" /* RestaurantDealMakerComponent */]
             ],
             providers: [
                 { provide: __WEBPACK_IMPORTED_MODULE_3__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicErrorHandler */] },
@@ -227,11 +231,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var LocaleApp = (function () {
     function LocaleApp(statusBar) {
         this.statusBar = statusBar;
+        this.dealMaker = true;
+        this.consumer = false;
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByName("black");
     }
     LocaleApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<consumer></consumer>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">WakeWorthy</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */]])
     ], LocaleApp);
@@ -359,10 +365,17 @@ var ConsumerComponent = (function () {
                     handler: function () {
                         console.log('Open directions');
                     }
+                },
+                {
+                    text: 'Share',
+                    role: 'sahre',
+                    handler: function () {
+                        console.log('Share');
+                    }
                 }
             ],
             title: "You are going to " + card.restaurantTitle + "!",
-            subTitle: "Your deal code is: 4456",
+            subTitle: "Your deal code is: " + this.randomNumber(),
             message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
         likeAlert.present().then(function () {
@@ -386,6 +399,9 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.delay = function (ms) {
         return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
+    ConsumerComponent.prototype.randomNumber = function () {
+        return String(Math.floor(1000 + Math.random() * 9000));
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('myswing1'),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_angular2_swing__["SwingStackComponent"])
@@ -395,7 +411,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">local</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <img src="assets/images/no.png">\n    </button>\n    <button class="button-circular" (click)="clickLike()" ion-button icon-only>\n        <img src="assets/images/yes.png">\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <img src="assets/images/no.png">\n    </button>\n    <button class="button-circular" (click)="clickLike()" ion-button icon-only>\n        <img src="assets/images/yes.png">\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
@@ -405,6 +421,50 @@ var ConsumerComponent = (function () {
 }());
 
 //# sourceMappingURL=consumer.component.js.map
+
+/***/ }),
+
+/***/ 300:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestaurantDealMakerComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var RestaurantDealMakerComponent = (function () {
+    function RestaurantDealMakerComponent() {
+    }
+    RestaurantDealMakerComponent.prototype.setFunny = function () {
+        this.funny = true;
+        this.positive = false;
+        this.constructive = false;
+    };
+    RestaurantDealMakerComponent.prototype.setPositive = function () {
+        this.funny = false;
+        this.positive = true;
+        this.constructive = false;
+    };
+    RestaurantDealMakerComponent.prototype.setConstructive = function () {
+        this.funny = false;
+        this.positive = false;
+        this.constructive = true;
+    };
+    RestaurantDealMakerComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<div class="bottom-row">\n    <button ion-button (click)="setPositive()">Positive</button>\n    <button ion-button (click)="setConstructive()">Constructive</button>\n    <button ion-button (click)="setFunny()">Funny</button>\n</div>\n\n<ion-card class="alarm" [ngClass]="{\'show\': positive === true}">\n\n    <ion-card-header class="center-header">\n      Positive\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img class="distort" src="assets/images/wakeworthy/positive.jpg">\n        Be the best you, you can be, today.\n    </ion-card-content>\n  \n</ion-card>\n\n<ion-card class="alarm" [ngClass]="{\'show\': constructive === true}">\n\n    <ion-card-header class="center-header">\n      Constructive\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img src="assets/images/wakeworthy/constructive.jpg">\n        What would your mom think?\n    </ion-card-content>\n  \n</ion-card>\n\n<ion-card class="alarm" [ngClass]="{\'show\': funny === true}">\n\n    <ion-card-header class="center-header">\n      Funny\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img src="assets/images/wakeworthy/funny.jpg">\n        You want to not have a job?\n    </ion-card-content>\n  \n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
+            selector: 'restaurant-deal-maker',
+            styleUrls: ['/restaurant-deal-maker.component.scss']
+        })
+    ], RestaurantDealMakerComponent);
+    return RestaurantDealMakerComponent;
+}());
+
+//# sourceMappingURL=restaurant-deal-maker.component.js.map
 
 /***/ })
 

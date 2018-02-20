@@ -27,6 +27,7 @@ import { RestaurantCardComponent } from '../components/restaurant-card/restauran
 import { SwingModule } from 'angular2-swing';
 import { Dialogs } from '@ionic-native/dialogs';
 import { StatusBar } from '@ionic-native/status-bar';
+import { RestaurantDealMakerComponent } from '../components/restaurant-deal-maker/restaurant-deal-maker.component';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -47,7 +48,8 @@ var AppModule = (function () {
             declarations: [
                 LocaleApp,
                 ConsumerComponent,
-                RestaurantCardComponent
+                RestaurantCardComponent,
+                RestaurantDealMakerComponent
             ],
             imports: [
                 BrowserModule,
@@ -62,7 +64,8 @@ var AppModule = (function () {
             bootstrap: [IonicApp],
             entryComponents: [
                 LocaleApp,
-                RestaurantCardComponent
+                RestaurantCardComponent,
+                RestaurantDealMakerComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },

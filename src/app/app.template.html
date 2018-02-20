@@ -1,1 +1,8 @@
-<consumer></consumer>
+<ion-header class="nav-round">
+    <ion-navbar>
+            <ion-title class="title-big">WakeWorthy</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<consumer *ngIf="consumer"></consumer>
+<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>

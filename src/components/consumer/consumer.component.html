@@ -1,9 +1,3 @@
-<ion-header class="nav-round">
-    <ion-navbar>
-            <ion-title class="title-big">local</ion-title>
-    </ion-navbar>
-</ion-header>
-
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">
     <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{'transition': transitionString}">
         <img class="non-draggable-card-image" src="{{card.imageSource}}" />

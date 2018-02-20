@@ -39896,7 +39896,7 @@ ion-navbar.toolbar {
   position: absolute;
   bottom: 11px;
   left: 22%;
-  height: 14%;
+  height: 14.3%;
 }
 
 .title-big
@@ -39988,4 +39988,34 @@ ion-navbar.toolbar {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.bottom-row {
+  position: relative;
+  left: 5%;
+  display: inline block;
+  margin-top: 1em;
+}
+
+.alarm {
+  -webkit-transition: 1s ease-in-out all;
+  transition: 1s ease-in-out all;
+  height: 98%;
+  opacity: 0;
+  margin-top: 20em !important;
+  position: absolute;
+}
+
+.show {
+  margin-top: -4em !important;
+  opacity: 1 !important;
+}
+
+.center-header {
+  text-align: center;
+  font-size: 24px;
+}
+
+.distort {
+  height: 375px;
 }
