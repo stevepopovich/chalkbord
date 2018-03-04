@@ -67,3 +67,21 @@
     }
   }
 }
+
+.isBrowserView {
+  overflow-y: auto !important;
+}
+
+.nav-round{
+  font-family: Baumans;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  color: black;
+}
+
+.button-left{
+  position: absolute;
+  left: 0;
+  z-index: 10;
+}

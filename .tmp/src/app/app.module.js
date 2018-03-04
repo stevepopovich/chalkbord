@@ -23,11 +23,13 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocaleApp } from './app.component';
 import { ConsumerComponent } from '../components/consumer/consumer.component';
-import { RestaurantCardComponent } from '../components/restaurant-card/restaurant-card.component';
 import { SwingModule } from 'angular2-swing';
 import { Dialogs } from '@ionic-native/dialogs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { RestaurantDealMakerComponent } from '../components/restaurant-deal-maker/restaurant-deal-maker.component';
+import { DealEditorComponent } from '../components/deal-editor/deal-editor.component';
+import { FilterDealComponent } from '../components/filter-deals/filter-deal.component';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -48,8 +50,9 @@ var AppModule = (function () {
             declarations: [
                 LocaleApp,
                 ConsumerComponent,
-                RestaurantCardComponent,
-                RestaurantDealMakerComponent
+                RestaurantDealMakerComponent,
+                DealEditorComponent,
+                FilterDealComponent
             ],
             imports: [
                 BrowserModule,
@@ -64,8 +67,9 @@ var AppModule = (function () {
             bootstrap: [IonicApp],
             entryComponents: [
                 LocaleApp,
-                RestaurantCardComponent,
-                RestaurantDealMakerComponent
+                RestaurantDealMakerComponent,
+                DealEditorComponent,
+                FilterDealComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -75,7 +79,8 @@ var AppModule = (function () {
                     useClass: MyHammerConfig
                 },
                 Dialogs,
-                StatusBar
+                StatusBar,
+                LaunchNavigator
             ]
         })
     ], AppModule);

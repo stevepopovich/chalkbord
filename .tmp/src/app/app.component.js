@@ -12,13 +12,23 @@ import { StatusBar } from '@ionic-native/status-bar';
 var LocaleApp = (function () {
     function LocaleApp(statusBar) {
         this.statusBar = statusBar;
-        this.dealMaker = true;
-        this.consumer = false;
+        this.dealMaker = false;
+        this.consumer = true;
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByName("black");
     }
+    LocaleApp.prototype.changeView = function () {
+        if (this.dealMaker) {
+            this.consumer = true;
+            this.dealMaker = false;
+        }
+        else if (this.consumer) {
+            this.dealMaker = true;
+            this.consumer = false;
+        }
+    };
     LocaleApp = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">WakeWorthy</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon name="sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [StatusBar])
     ], LocaleApp);

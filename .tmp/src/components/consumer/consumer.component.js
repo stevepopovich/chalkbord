@@ -8,22 +8,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { RestaurantCardModel } from '../restaurant-card/restaurant-card.component';
 import { SwingStackComponent } from 'angular2-swing';
-import { AlertController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { AlertController, PopoverController } from 'ionic-angular';
+import { DealModel, DealType } from '../restaurant-deal-maker/restaurant-deal-maker.component';
+import { FilterDealComponent } from '../filter-deals/filter-deal.component';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 var ConsumerComponent = (function () {
-    function ConsumerComponent(alert, statusBar) {
+    function ConsumerComponent(alert, popoverCtrl, launchNavigator) {
         var _this = this;
         this.alert = alert;
-        this.statusBar = statusBar;
+        this.popoverCtrl = popoverCtrl;
+        this.launchNavigator = launchNavigator;
         this.transitionString = "";
         this.restaurantCards = [
-            new RestaurantCardModel("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
-            new RestaurantCardModel("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
         ];
+        this.restaurantViewCards = [];
         this.destoryingCard = false;
         this.moveCardIndex = -1;
         this.likingCard = false;
@@ -31,17 +36,16 @@ var ConsumerComponent = (function () {
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 console.log(offsetY);
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth / 3), 1);
+                return Math.min(Math.abs(offsetX) / (element.offsetWidth / 6), 1);
             },
             transform: function (element, x, y, r) {
                 _this.onItemMove(element, x, y, r);
             },
             throwOutDistance: function () {
-                return 800;
+                return 400;
             }
         };
-        this.statusBar.overlaysWebView(false);
-        this.statusBar.backgroundColorByName("black");
+        this.filterCards(null);
     }
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
@@ -58,7 +62,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.clickLike = function () {
         var _this = this;
-        if (this.restaurantCards.length > 0 && !this.likingCard && !this.animatingCard) {
+        if (this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard) {
             if (this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
             this.transitionString = "all 0.75s";
@@ -75,7 +79,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.clickNo = function () {
         var _this = this;
-        if (this.restaurantCards.length > 0 && !this.animatingCard) {
+        if (this.restaurantViewCards.length > 0 && !this.animatingCard) {
             if (this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
             this.transitionString = "all 0.75s";
@@ -89,6 +93,16 @@ var ConsumerComponent = (function () {
             });
         }
     };
+    ConsumerComponent.prototype.filterDealTypes = function (event) {
+        var _this = this;
+        var filterPopover = this.popoverCtrl.create(FilterDealComponent);
+        filterPopover.onDidDismiss(function (data) {
+            _this.filterCards(DealType[data]);
+        });
+        filterPopover.present({
+            ev: event,
+        });
+    };
     ConsumerComponent.prototype.handleCard = function (like) {
         if (like)
             this.popLikeAlert(this.popCard());
@@ -98,7 +112,8 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.popLikeAlert = function (card) {
         var _this = this;
         var likeAlert = this.alert.create({
-            buttons: [{
+            buttons: [
+                {
                     text: 'Directions',
                     role: 'directions',
                     handler: function () {
@@ -107,31 +122,33 @@ var ConsumerComponent = (function () {
                 },
                 {
                     text: 'Share',
-                    role: 'sahre',
+                    role: 'share',
                     handler: function () {
                         console.log('Share');
                     }
+                },
+                {
+                    text: 'Go',
+                    role: 'go',
+                    handler: function () {
+                        _this.launchNavigator.navigate('Cleveland, OH');
+                    }
                 }
             ],
-            title: "You are going to " + card.restaurantTitle + "!",
+            title: "You are going to " + card.restaurantName + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
-            message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Bring this code to " + card.restaurantName + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
         likeAlert.present().then(function () {
             _this.likingCard = false;
         });
     };
     ConsumerComponent.prototype.resetCards = function () {
-        this.restaurantCards = [
-            new RestaurantCardModel("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
-            new RestaurantCardModel("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
-        ];
+        this.filterCards(null);
     };
     ConsumerComponent.prototype.popCard = function () {
-        var poppedCard = this.restaurantCards.pop();
-        if (this.restaurantCards.length < 1)
+        var poppedCard = this.restaurantViewCards.pop();
+        if (this.restaurantViewCards.length < 1)
             this.resetCards();
         return poppedCard;
     };
@@ -140,6 +157,17 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.randomNumber = function () {
         return String(Math.floor(1000 + Math.random() * 9000));
+    };
+    ConsumerComponent.prototype.filterCards = function (type) {
+        if (type) {
+            this.restaurantViewCards = this.restaurantCards.filter(function (card) {
+                return card.dealType === type;
+            });
+            console.log(this.restaurantViewCards);
+            console.log(type);
+        }
+        else
+            this.restaurantViewCards = this.restaurantCards;
     };
     __decorate([
         ViewChild('myswing1'),
@@ -150,11 +178,11 @@ var ConsumerComponent = (function () {
         __metadata("design:type", QueryList)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantTitle}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <img src="assets/images/no.png">\n    </button>\n    <button class="button-circular" (click)="clickLike()" ion-button icon-only>\n        <img src="assets/images/yes.png">\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<button (click)="filterDealTypes($event)" class="button-top" ion-button icon-only>\n    <ion-icon name="funnel"></ion-icon>\n</button>\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantName}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon name="close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" name="heart"></ion-icon>\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [AlertController, StatusBar])
+        __metadata("design:paramtypes", [AlertController, PopoverController, LaunchNavigator])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());

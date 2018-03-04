@@ -1,0 +1,47 @@
+<ion-header class="nav-round">
+    <ion-navbar>
+            <ion-title class="title-big">locale</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+            <ion-item>
+                <ion-label color="primary" floating>Deal Description</ion-label>
+                <ion-input placeholder="Deal description" [ngModel]="deal.dealDescription"></ion-input>
+            </ion-item>
+            
+            <ion-item>
+                <ion-label floating>Day</ion-label>
+                <ion-datetime displayFormat="MM/DD"></ion-datetime>
+            </ion-item>
+        
+            <ion-item>
+                <ion-label floating>Start time</ion-label>
+                <ion-datetime displayFormat="h:mm a" [(ngModel)]="deal.dealStart"></ion-datetime>
+            </ion-item>
+        
+            <ion-item>
+                <ion-label floating>End time</ion-label>
+                <ion-datetime displayFormat="h:mm a" [(ngModel)]="deal.dealEnd"></ion-datetime>
+            </ion-item>
+        
+            <ion-item>
+                <ion-label>Limited deal number</ion-label>
+                <ion-checkbox [(ngModel)]="limitedDealNumber"></ion-checkbox>
+            </ion-item>
+        
+            <ion-item *ngIf="limitedDealNumber">
+                <ion-label floating>Deal Number</ion-label>
+                <ion-input type="number" [(ngModel)]="dealNumber"></ion-input>
+            </ion-item>
+        
+            <ion-item>
+                <ion-label>Image upload will be here</ion-label>
+            </ion-item>
+        </ion-list>
+
+        <button ion-button (click)="close()" style="left: 38%">
+            Close
+        </button>
+</ion-content>

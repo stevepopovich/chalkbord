@@ -72,6 +72,22 @@ module.exports = [
         "id": "cordova-plugin-statusbar.StatusBarProxy",
         "pluginId": "cordova-plugin-statusbar",
         "runs": true
+    },
+    {
+        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
+        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
+        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+        "clobbers": [
+            "launchnavigator"
+        ]
+    },
+    {
+        "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/localforage.v1.5.0.min.js",
+        "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.LocalForage",
+        "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+        "clobbers": [
+            "localforage"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -85,7 +101,8 @@ module.exports.metadata =
     "cordova-plugin-ionic-webview": "1.1.16",
     "cordova-plugin-splashscreen": "4.1.0",
     "cordova-plugin-statusbar": "2.4.1",
-    "cordova-plugin-whitelist": "1.3.3"
+    "cordova-plugin-whitelist": "1.3.3",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
 }
 // BOTTOM OF METADATA
 });

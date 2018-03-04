@@ -4,32 +4,64 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 import { Component } from "@angular/core";
+import { ModalController } from "ionic-angular";
+import { DealEditorComponent } from "../deal-editor/deal-editor.component";
 var RestaurantDealMakerComponent = (function () {
-    function RestaurantDealMakerComponent() {
+    function RestaurantDealMakerComponent(modalCtrl) {
+        this.modalCtrl = modalCtrl;
+        this.newDatePlusTwo = new Date();
+        this.deals = [];
+        this.newDatePlusTwo.setHours(new Date().getHours() + 2);
+        var sixThirty = new Date();
+        sixThirty.setHours(18);
+        sixThirty.setMinutes(30);
+        var eight = new Date();
+        eight.setHours(20);
+        eight.setMinutes(0);
+        this.deals = [
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg")
+        ];
     }
-    RestaurantDealMakerComponent.prototype.setFunny = function () {
-        this.funny = true;
-        this.positive = false;
-        this.constructive = false;
-    };
-    RestaurantDealMakerComponent.prototype.setPositive = function () {
-        this.funny = false;
-        this.positive = true;
-        this.constructive = false;
-    };
-    RestaurantDealMakerComponent.prototype.setConstructive = function () {
-        this.funny = false;
-        this.positive = false;
-        this.constructive = true;
+    RestaurantDealMakerComponent.prototype.editDeal = function (deal) {
+        console.log(deal);
+        this.modalCtrl.create(DealEditorComponent).present();
     };
     RestaurantDealMakerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<div class="bottom-row">\n    <button ion-button (click)="setPositive()">Positive</button>\n    <button ion-button (click)="setConstructive()">Constructive</button>\n    <button ion-button (click)="setFunny()">Funny</button>\n</div>\n\n<ion-card class="alarm" [ngClass]="{\'show\': positive === true}">\n\n    <ion-card-header class="center-header">\n      Positive\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img class="distort" src="assets/images/wakeworthy/positive.jpg">\n        Be the best you, you can be, today.\n    </ion-card-content>\n  \n</ion-card>\n\n<ion-card class="alarm" [ngClass]="{\'show\': constructive === true}">\n\n    <ion-card-header class="center-header">\n      Constructive\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img src="assets/images/wakeworthy/constructive.jpg">\n        What would your mom think?\n    </ion-card-content>\n  \n</ion-card>\n\n<ion-card class="alarm" [ngClass]="{\'show\': funny === true}">\n\n    <ion-card-header class="center-header">\n      Funny\n    </ion-card-header>\n  \n    <ion-card-content class="center-header">\n        <img src="assets/images/wakeworthy/funny.jpg">\n        You want to not have a job?\n    </ion-card-content>\n  \n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<h4 style="margin-left: 1em">Restaurant name</h4>\n\n<ion-content class="content-override">\n    <ion-card *ngFor="let deal of deals" (click)="editDeal(deal)">\n        <ion-card-header>\n            {{deal.dealDescription}}\n        </ion-card-header>\n        \n        <ion-card-content>\n            <img src="{{deal.imageSource}}">\n            <h2>Deal Time: {{deal.dealStart | date:\'MM/dd hh:mm aa\'}}-{{deal.dealEnd | date: \'hh:mm aa\'}}</h2>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
             selector: 'restaurant-deal-maker',
             styleUrls: ['/restaurant-deal-maker.component.scss']
-        })
+        }),
+        __metadata("design:paramtypes", [ModalController])
     ], RestaurantDealMakerComponent);
     return RestaurantDealMakerComponent;
 }());
 export { RestaurantDealMakerComponent };
+var DealModel = (function () {
+    function DealModel(restaurantName, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
+        this.restaurantName = restaurantName;
+        this.dealDescription = dealDescription;
+        this.dealStart = dealStart;
+        this.dealEnd = dealEnd;
+        this.numberOfDeals = numberOfDeals;
+        this.dealType = dealType;
+        this.imageSource = imageSource;
+    }
+    return DealModel;
+}());
+export { DealModel };
+export var DealType;
+(function (DealType) {
+    DealType[DealType["Drinks"] = 0] = "Drinks";
+    DealType[DealType["Food"] = 1] = "Food";
+    DealType[DealType["Both"] = 2] = "Both";
+})(DealType || (DealType = {}));
 //# sourceMappingURL=restaurant-deal-maker.component.js.map

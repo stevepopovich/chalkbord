@@ -1,10 +1,13 @@
+<button (click)="filterDealTypes($event)" class="button-top" ion-button icon-only>
+    <ion-icon name="funnel"></ion-icon>
+</button>
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">
-    <ion-card #mycards1 swing-card *ngFor="let card of restaurantCards" class="card-height" [ngStyle]="{'transition': transitionString}">
+    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards" class="card-height" [ngStyle]="{'transition': transitionString}">
         <img class="non-draggable-card-image" src="{{card.imageSource}}" />
     
         <ion-card-content class="card-text">
             <ion-card-title style="color: white !important;">
-                {{card.restaurantTitle}}
+                {{card.restaurantName}}
             </ion-card-title>
             {{card.dealDescription}}
         </ion-card-content>
@@ -13,10 +16,10 @@
 
 <div class="bottom-row">
     <button class="button-circular" (click)="clickNo()" ion-button icon-only>
-        <img src="assets/images/no.png">
+        <ion-icon name="close"></ion-icon>
     </button>
-    <button class="button-circular" (click)="clickLike()" ion-button icon-only>
-        <img src="assets/images/yes.png">
+    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>
+        <ion-icon class="padding-top" name="heart"></ion-icon>
     </button>
 </div>
 

@@ -11,13 +11,15 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { LocaleApp } from './app.component';
 import { ConsumerComponent } from '../components/consumer/consumer.component';
-import { RestaurantCardComponent } from '../components/restaurant-card/restaurant-card.component';
 
 import { SwingModule } from 'angular2-swing';
 
 import { Dialogs } from '@ionic-native/dialogs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { RestaurantDealMakerComponent } from '../components/restaurant-deal-maker/restaurant-deal-maker.component';
+import { DealEditorComponent } from '../components/deal-editor/deal-editor.component';
+import { FilterDealComponent } from '../components/filter-deals/filter-deal.component';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -29,8 +31,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
   declarations: [
     LocaleApp,
     ConsumerComponent,
-    RestaurantCardComponent,
-    RestaurantDealMakerComponent
+    RestaurantDealMakerComponent,
+    DealEditorComponent,
+    FilterDealComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +49,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
   bootstrap: [IonicApp],
   entryComponents: [
     LocaleApp,
-    RestaurantCardComponent,
-    RestaurantDealMakerComponent
+    RestaurantDealMakerComponent,
+    DealEditorComponent,
+    FilterDealComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -57,7 +61,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
       useClass: MyHammerConfig 
     },
     Dialogs,
-    StatusBar
+    StatusBar,
+    LaunchNavigator
   ]
 })
 export class AppModule { }

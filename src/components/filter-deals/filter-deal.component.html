@@ -1,0 +1,19 @@
+<ion-list radio-group [(ngModel)]="dealType" (ngModelChange)="closePopover($event)">
+
+    <ion-item>
+      <ion-label>Drinks</ion-label>
+      <ion-radio value="Drinks"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Food</ion-label>
+      <ion-radio value="Food"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>Both</ion-label>
+        <ion-radio value="Both"></ion-radio>
+    </ion-item>
+    <ion-item>
+        <ion-label>All</ion-label>
+        <ion-radio value="null"></ion-radio>
+    </ion-item>
+  </ion-list>

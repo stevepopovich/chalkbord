@@ -27,7 +27,7 @@ $button-top-offest: 79%;
 .bottom-row{
     position: absolute;
     bottom: 11px;
-    left: 22%;
+    left: 23%;
     height: 14.3%;
 }
 
@@ -90,11 +90,34 @@ $button-top-offest: 79%;
 }
 
 .button-circular{
-    background-color: white;
+    background-color: black;
     max-width: 33%;
     border-radius: 70%;
     height: 100%;
     display: inline-block;
+    font-size: 3.8em;
+}
+
+.button-circular-heart{
+    background-color: black;
+    max-width: 33%;
+    border-radius: 70%;
+    height: 100%;
+    display: inline-block;
+    font-size: 3.2em;
+}
+
+.padding-top{
+    padding-top: 0.06em !important;
+}
+
+.button-top{
+    background-color: black;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    z-index: 10;
+    font-size: 1.2em;
 }
 
 .card-text{

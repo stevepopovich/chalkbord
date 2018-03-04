@@ -10,9 +10,9 @@ public final class R {
     public static final class attr {
         public static final int buttonColor = 0x7f020000;
         public static final int buttonRaised = 0x7f020001;
-        public static final int leading = 0x7f02000b;
-        public static final int select_dialog_multichoice = 0x7f02000c;
-        public static final int select_dialog_singlechoice = 0x7f02000d;
+        public static final int leading = 0x7f020013;
+        public static final int select_dialog_multichoice = 0x7f020014;
+        public static final int select_dialog_singlechoice = 0x7f020015;
     }
     public static final class color {
         public static final int color_picker_background_color = 0x7f040000;
@@ -54,54 +54,54 @@ public final class R {
         public static final int verify_checkmark = 0x7f060021;
     }
     public static final class id {
-        public static final int ampm = 0x7f070006;
-        public static final int arrow_image = 0x7f070007;
-        public static final int autofill_keyboard_accessory_item_label = 0x7f070009;
-        public static final int autofill_keyboard_accessory_item_sublabel = 0x7f07000a;
-        public static final int color_button_swatch = 0x7f07000e;
-        public static final int color_picker_advanced = 0x7f07000f;
-        public static final int color_picker_simple = 0x7f070010;
-        public static final int date_picker = 0x7f070011;
-        public static final int date_time_suggestion = 0x7f070012;
-        public static final int date_time_suggestion_label = 0x7f070013;
-        public static final int date_time_suggestion_value = 0x7f070014;
-        public static final int download_service_notification = 0x7f070015;
-        public static final int dropdown_icon = 0x7f070016;
-        public static final int dropdown_label = 0x7f070017;
-        public static final int dropdown_label_wrapper = 0x7f070018;
-        public static final int dropdown_popup_window = 0x7f070019;
-        public static final int dropdown_sublabel = 0x7f07001a;
-        public static final int gradient = 0x7f07001d;
-        public static final int gradient_border = 0x7f07001e;
-        public static final int hour = 0x7f07001f;
-        public static final int icon_view = 0x7f070022;
-        public static final int main_text = 0x7f070027;
-        public static final int milli = 0x7f070029;
-        public static final int minute = 0x7f07002a;
-        public static final int more_colors_button = 0x7f07002b;
-        public static final int more_colors_button_border = 0x7f07002c;
-        public static final int pickers = 0x7f070031;
-        public static final int position_in_year = 0x7f070032;
-        public static final int second = 0x7f070035;
-        public static final int second_colon = 0x7f070036;
-        public static final int second_dot = 0x7f070037;
-        public static final int seek_bar = 0x7f070038;
-        public static final int select_action_menu_copy = 0x7f070039;
-        public static final int select_action_menu_cut = 0x7f07003a;
-        public static final int select_action_menu_paste = 0x7f07003b;
-        public static final int select_action_menu_select_all = 0x7f07003c;
-        public static final int select_action_menu_share = 0x7f07003d;
-        public static final int select_action_menu_text_processing_menus = 0x7f07003e;
-        public static final int select_action_menu_web_search = 0x7f07003f;
-        public static final int selected_color_view = 0x7f070040;
-        public static final int selected_color_view_border = 0x7f070041;
-        public static final int sub_text = 0x7f070043;
-        public static final int text = 0x7f070045;
-        public static final int text_wrapper = 0x7f070047;
-        public static final int time_picker = 0x7f070049;
-        public static final int title = 0x7f07004a;
-        public static final int top_view = 0x7f07004b;
-        public static final int year = 0x7f07004c;
+        public static final int ampm = 0x7f070007;
+        public static final int arrow_image = 0x7f070008;
+        public static final int autofill_keyboard_accessory_item_label = 0x7f07000a;
+        public static final int autofill_keyboard_accessory_item_sublabel = 0x7f07000b;
+        public static final int color_button_swatch = 0x7f070015;
+        public static final int color_picker_advanced = 0x7f070016;
+        public static final int color_picker_simple = 0x7f070017;
+        public static final int date_picker = 0x7f070018;
+        public static final int date_time_suggestion = 0x7f070019;
+        public static final int date_time_suggestion_label = 0x7f07001a;
+        public static final int date_time_suggestion_value = 0x7f07001b;
+        public static final int download_service_notification = 0x7f07001c;
+        public static final int dropdown_icon = 0x7f07001d;
+        public static final int dropdown_label = 0x7f07001e;
+        public static final int dropdown_label_wrapper = 0x7f07001f;
+        public static final int dropdown_popup_window = 0x7f070020;
+        public static final int dropdown_sublabel = 0x7f070021;
+        public static final int gradient = 0x7f070028;
+        public static final int gradient_border = 0x7f070029;
+        public static final int hour = 0x7f07002a;
+        public static final int icon_view = 0x7f07002d;
+        public static final int main_text = 0x7f070033;
+        public static final int milli = 0x7f070035;
+        public static final int minute = 0x7f070036;
+        public static final int more_colors_button = 0x7f070037;
+        public static final int more_colors_button_border = 0x7f070038;
+        public static final int pickers = 0x7f07003e;
+        public static final int position_in_year = 0x7f07003f;
+        public static final int second = 0x7f070043;
+        public static final int second_colon = 0x7f070044;
+        public static final int second_dot = 0x7f070045;
+        public static final int seek_bar = 0x7f070046;
+        public static final int select_action_menu_copy = 0x7f070047;
+        public static final int select_action_menu_cut = 0x7f070048;
+        public static final int select_action_menu_paste = 0x7f070049;
+        public static final int select_action_menu_select_all = 0x7f07004a;
+        public static final int select_action_menu_share = 0x7f07004b;
+        public static final int select_action_menu_text_processing_menus = 0x7f07004c;
+        public static final int select_action_menu_web_search = 0x7f07004d;
+        public static final int selected_color_view = 0x7f07004e;
+        public static final int selected_color_view_border = 0x7f07004f;
+        public static final int sub_text = 0x7f070052;
+        public static final int text = 0x7f070054;
+        public static final int text_wrapper = 0x7f070056;
+        public static final int time_picker = 0x7f070058;
+        public static final int title = 0x7f070059;
+        public static final int top_view = 0x7f07005b;
+        public static final int year = 0x7f07005c;
     }
     public static final class layout {
         public static final int autofill_keyboard_accessory_icon = 0x7f090000;
@@ -232,7 +232,7 @@ public final class R {
         public static final int[] ButtonCompat = { 0x7f020000, 0x7f020001 };
         public static final int ButtonCompat_buttonColor = 0;
         public static final int ButtonCompat_buttonRaised = 1;
-        public static final int[] TextViewWithLeading = { 0x7f02000b };
+        public static final int[] TextViewWithLeading = { 0x7f020013 };
         public static final int TextViewWithLeading_leading = 0;
     }
 }

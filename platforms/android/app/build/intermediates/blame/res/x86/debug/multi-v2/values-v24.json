@@ -4,7 +4,7 @@
             "outputFile": "/Users/Contence/locale/platforms/android/app/build/intermediates/incremental/mergeX86DebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/Contence/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/5d0386dd73b2d77dbbfebca7f13a8612/res/values-v24/values-v24.xml",
+                    "source": "/Users/Contence/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.0.aar/85ba338752dab79b688a36618fe54570/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

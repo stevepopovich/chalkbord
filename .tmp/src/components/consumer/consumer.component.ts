@@ -1,12 +1,13 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { RestaurantCardModel } from '../restaurant-card/restaurant-card.component';
 
 import {
     StackConfig,
     SwingStackComponent,
     SwingCardComponent} from 'angular2-swing';
-import { AlertController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { AlertController, PopoverController } from 'ionic-angular';
+import { DealModel, DealType } from '../restaurant-deal-maker/restaurant-deal-maker.component';
+import { FilterDealComponent } from '../filter-deals/filter-deal.component';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -19,12 +20,16 @@ export class ConsumerComponent{
 
     public transitionString: string = "";
 
-    public restaurantCards = [
-        new RestaurantCardModel("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
-        new RestaurantCardModel("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
-        new RestaurantCardModel("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
-        new RestaurantCardModel("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
+    public restaurantCards: DealModel[] = [
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
     ];
+
+    public restaurantViewCards: DealModel[] = [];
 
     public stackConfig: StackConfig;
 
@@ -36,22 +41,21 @@ export class ConsumerComponent{
 
     private animatingCard: boolean = false;
 
-    constructor (private alert: AlertController, private statusBar: StatusBar){
+    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 console.log(offsetY);   
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth/3), 1);
+                return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
             },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: () => {
-                return 800;
+                return 400;
             }
         };
-        
-        this.statusBar.overlaysWebView(false);
-        this.statusBar.backgroundColorByName("black");
+
+        this.filterCards(null);
     }
 
     public onItemMove(element, x, y, r): void {
@@ -71,7 +75,7 @@ export class ConsumerComponent{
     }
 
     public clickLike(): void {
-        if(this.restaurantCards.length > 0 && !this.likingCard && !this.animatingCard){
+        if(this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard){
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
@@ -96,7 +100,7 @@ export class ConsumerComponent{
     }
 
     public clickNo(): void {
-        if(this.restaurantCards.length > 0 && !this.animatingCard){
+        if(this.restaurantViewCards.length > 0 && !this.animatingCard){
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
@@ -118,6 +122,19 @@ export class ConsumerComponent{
         }
     }
 
+
+    public filterDealTypes(event){
+        var filterPopover = this.popoverCtrl.create(FilterDealComponent);
+
+        filterPopover.onDidDismiss((data: string) => {
+            this.filterCards(DealType[data]);
+        });
+
+        filterPopover.present({
+            ev: event,
+        });
+    }
+
     private handleCard(like: boolean){
         if(like)
             this.popLikeAlert(this.popCard());
@@ -125,26 +142,34 @@ export class ConsumerComponent{
             this.popCard();
     }
 
-    private popLikeAlert(card: RestaurantCardModel): void{
+    private popLikeAlert(card: DealModel): void{
         let likeAlert = this.alert.create({
-            buttons:[{
-                text: 'Directions',
-                role: 'directions',
-                handler: () => {
-                  console.log('Open directions');
-                }
-              },
-              {
-                text: 'Share',
-                role: 'sahre',
-                handler: () => {
-                  console.log('Share');
+            buttons:[
+                {
+                    text: 'Directions',
+                    role: 'directions',
+                    handler: () => {
+                    console.log('Open directions');
+                    }
+                },
+                {
+                    text: 'Share',
+                    role: 'share',
+                    handler: () => {
+                        console.log('Share');
+                    }
+                },
+                {
+                    text: 'Go',
+                    role: 'go',
+                    handler: () => {
+                        this.launchNavigator.navigate('Cleveland, OH');
                 }
               }
             ],
-            title: "You are going to " + card.restaurantTitle + "!",
+            title: "You are going to " + card.restaurantName + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
-            message: "Bring this code to " + card.restaurantTitle + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Bring this code to " + card.restaurantName + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
         likeAlert.present().then(() => { 
@@ -153,17 +178,12 @@ export class ConsumerComponent{
     }
 
     private resetCards(): void{
-        this.restaurantCards = [
-            new RestaurantCardModel("assets/images/foodandliquor/uhhhwtfisthis.jpg", "Tuccis", "Whole menu half off 3-6pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/pastabread.png", "J Liu", "Pasta and bread for two $12"),
-            new RestaurantCardModel("assets/images/foodandliquor/mixeddrink.jpg", "Brazenhead", "$3 mixed drinks 2-4pm"),
-            new RestaurantCardModel("assets/images/foodandliquor/wingsrest.jpg", "Matt The Miller's", "Free wings app with purchase of 2 drinks")
-        ];
+        this.filterCards(null);
     }
 
-    private popCard(): RestaurantCardModel{
-        var poppedCard = this.restaurantCards.pop();
-        if(this.restaurantCards.length < 1)
+    private popCard(): DealModel{
+        var poppedCard = this.restaurantViewCards.pop();
+        if(this.restaurantViewCards.length < 1)
             this.resetCards();
         
         return poppedCard;
@@ -175,5 +195,17 @@ export class ConsumerComponent{
 
     private randomNumber(): string{
         return String(Math.floor(1000 + Math.random() * 9000));
+    }
+
+    private filterCards(type: DealType){
+        if(type){
+            this.restaurantViewCards = this.restaurantCards.filter(function(card){
+                return card.dealType === type;
+            });
+            console.log(this.restaurantViewCards);
+            console.log(type);
+        }
+        else
+            this.restaurantViewCards = this.restaurantCards;
     }
 }
