@@ -24,12 +24,12 @@ export class RestaurantDealMakerComponent{
         eight.setMinutes(0);
 
         this.deals = [
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg")
+            new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
         ];
     }
 
@@ -40,7 +40,7 @@ export class RestaurantDealMakerComponent{
 }
 
 export class DealModel{
-    public restaurantName: string;
+    public restaurant: RestaurantModel;
     public dealDescription: string;
     public dealStart: Date;
     public dealEnd: Date;
@@ -48,8 +48,8 @@ export class DealModel{
     public dealType: DealType;
     public imageSource: string;
 
-    public constructor(restaurantName: string, dealDescription: string, dealStart: Date, dealEnd: Date, numberOfDeals: Number, dealType: DealType,imageSource: string){
-        this.restaurantName = restaurantName;
+    public constructor(restaurant: RestaurantModel, dealDescription: string, dealStart: Date, dealEnd: Date, numberOfDeals: Number, dealType: DealType,imageSource: string){
+        this.restaurant = restaurant;
         this.dealDescription = dealDescription;
         this.dealStart = dealStart;
         this.dealEnd = dealEnd;
@@ -59,8 +59,21 @@ export class DealModel{
     }
 }
 
+export class RestaurantModel {
+    public name: string;
+    public location: string;
+    public imageSource: string;
+
+    public constructor(name: string, location: string, imageSource: string){
+        this.name = name;
+        this.location = location;
+        this.imageSource = imageSource;
+    }
+}
+
 export enum DealType{
     Drinks,
     Food,
     Both
 }
+

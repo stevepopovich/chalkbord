@@ -34,7 +34,14 @@ var RestaurantDealMakerComponent = (function () {
         var eight = new Date();
         eight.setHours(20);
         eight.setMinutes(0);
-        this.deals = [];
+        this.deals = [
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg")
+        ];
     }
     RestaurantDealMakerComponent.prototype.editDeal = function (deal) {
         console.log(deal);
@@ -174,7 +181,7 @@ var FilterDealComponent = (function () {
         this.viewCtrl.dismiss(model);
     };
     FilterDealComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-list radio-group [(ngModel)]="dealType" (ngModelChange)="closePopover($event)">\n\n    <ion-item>\n      <ion-label>Drinks</ion-label>\n      <ion-radio value="Drinks"></ion-radio>\n    </ion-item>\n    <ion-item>\n      <ion-label>Food</ion-label>\n      <ion-radio value="Food"></ion-radio>\n    </ion-item>\n    <ion-item>\n        <ion-label>Both</ion-label>\n        <ion-radio value="Both"></ion-radio>\n    </ion-item>\n    <ion-item>\n        <ion-label>All</ion-label>\n        <ion-radio value="null"></ion-radio>\n    </ion-item>\n  </ion-list>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-list radio-group [(ngModel)]="dealType" (ngModelChange)="closePopover($event)">\n  <ion-item>\n    <ion-label>Deal Type</ion-label>  \n  </ion-item>  \n    <ion-item>\n      <ion-label>Drinks</ion-label>\n      <ion-radio value="Drinks"></ion-radio>\n    </ion-item>\n    <ion-item>\n      <ion-label>Food</ion-label>\n      <ion-radio value="Food"></ion-radio>\n    </ion-item>\n    <ion-item>\n        <ion-label>Both</ion-label>\n        <ion-radio value="Both"></ion-radio>\n    </ion-item>\n    <ion-item>\n        <ion-label>All</ion-label>\n        <ion-radio value="null"></ion-radio>\n    </ion-item>\n  </ion-list>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
             selector: 'filter-deal',
             styleUrls: ['/filter-deal.component.scss']
         }),
@@ -392,6 +399,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+var restaurantCards = [
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name1", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name2", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name3", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name4", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name5", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name6", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+];
 var ConsumerComponent = (function () {
     function ConsumerComponent(alert, popoverCtrl, launchNavigator) {
         var _this = this;
@@ -399,14 +414,6 @@ var ConsumerComponent = (function () {
         this.popoverCtrl = popoverCtrl;
         this.launchNavigator = launchNavigator;
         this.transitionString = "";
-        this.restaurantCards = [
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        ];
         this.restaurantViewCards = [];
         this.destoryingCard = false;
         this.moveCardIndex = -1;
@@ -493,13 +500,6 @@ var ConsumerComponent = (function () {
         var likeAlert = this.alert.create({
             buttons: [
                 {
-                    text: 'Directions',
-                    role: 'directions',
-                    handler: function () {
-                        console.log('Open directions');
-                    }
-                },
-                {
                     text: 'Share',
                     role: 'share',
                     handler: function () {
@@ -524,6 +524,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.resetCards = function () {
         this.filterCards(null);
+        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
     };
     ConsumerComponent.prototype.popCard = function () {
         var poppedCard = this.restaurantViewCards.pop();
@@ -538,15 +539,15 @@ var ConsumerComponent = (function () {
         return String(Math.floor(1000 + Math.random() * 9000));
     };
     ConsumerComponent.prototype.filterCards = function (type) {
+        this.restaurantViewCards = [];
         if (type) {
-            this.restaurantViewCards = this.restaurantCards.filter(function (card) {
+            this.restaurantViewCards = Object.create(restaurantCards).filter(function (card) {
                 return card.dealType === type;
             });
-            console.log(this.restaurantViewCards);
-            console.log(type);
         }
         else
-            this.restaurantViewCards = this.restaurantCards;
+            this.restaurantViewCards = Object.create(restaurantCards);
+        this.moveCardIndex = this.restaurantViewCards.length - 1;
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('myswing1'),

@@ -9,6 +9,15 @@ import { DealModel, DealType } from '../restaurant-deal-maker/restaurant-deal-ma
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
+const restaurantCards: DealModel[] = [
+    new DealModel("Name1", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel("Name2", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel("Name3", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new DealModel("Name4", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel("Name5", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel("Name6", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+];
+
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
@@ -19,15 +28,6 @@ export class ConsumerComponent{
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
     public transitionString: string = "";
-
-    public restaurantCards: DealModel[] = [
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-    ];
 
     public restaurantViewCards: DealModel[] = [];
 
@@ -146,13 +146,6 @@ export class ConsumerComponent{
         let likeAlert = this.alert.create({
             buttons:[
                 {
-                    text: 'Directions',
-                    role: 'directions',
-                    handler: () => {
-                    console.log('Open directions');
-                    }
-                },
-                {
                     text: 'Share',
                     role: 'share',
                     handler: () => {
@@ -164,8 +157,8 @@ export class ConsumerComponent{
                     role: 'go',
                     handler: () => {
                         this.launchNavigator.navigate('Cleveland, OH');
+                    }
                 }
-              }
             ],
             title: "You are going to " + card.restaurantName + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
@@ -179,6 +172,8 @@ export class ConsumerComponent{
 
     private resetCards(): void{
         this.filterCards(null);
+
+        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
     }
 
     private popCard(): DealModel{
@@ -198,14 +193,16 @@ export class ConsumerComponent{
     }
 
     private filterCards(type: DealType){
+        this.restaurantViewCards = [];
+
         if(type){
-            this.restaurantViewCards = this.restaurantCards.filter(function(card){
+            this.restaurantViewCards = Object.create(restaurantCards).filter(function(card){
                 return card.dealType === type;
             });
-            console.log(this.restaurantViewCards);
-            console.log(type);
         }
         else
-            this.restaurantViewCards = this.restaurantCards;
+            this.restaurantViewCards = Object.create(restaurantCards);
+
+        this.moveCardIndex = this.restaurantViewCards.length - 1;
     }
 }

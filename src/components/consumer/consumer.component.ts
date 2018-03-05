@@ -5,9 +5,18 @@ import {
     SwingStackComponent,
     SwingCardComponent} from 'angular2-swing';
 import { AlertController, PopoverController } from 'ionic-angular';
-import { DealModel, DealType } from '../restaurant-deal-maker/restaurant-deal-maker.component';
+import { DealModel, DealType, RestaurantModel } from '../restaurant-deal-maker/restaurant-deal-maker.component';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+
+const restaurantCards: DealModel[] = [
+    new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+];
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -19,15 +28,6 @@ export class ConsumerComponent{
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
     public transitionString: string = "";
-
-    public restaurantCards: DealModel[] = [
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-    ];
 
     public restaurantViewCards: DealModel[] = [];
 
@@ -146,13 +146,6 @@ export class ConsumerComponent{
         let likeAlert = this.alert.create({
             buttons:[
                 {
-                    text: 'Directions',
-                    role: 'directions',
-                    handler: () => {
-                    console.log('Open directions');
-                    }
-                },
-                {
                     text: 'Share',
                     role: 'share',
                     handler: () => {
@@ -163,13 +156,13 @@ export class ConsumerComponent{
                     text: 'Go',
                     role: 'go',
                     handler: () => {
-                        this.launchNavigator.navigate('Cleveland, OH');
+                        this.launchNavigator.navigate(card.restaurant.location);
+                    }
                 }
-              }
             ],
-            title: "You are going to " + card.restaurantName + "!",
+            title: "You are going to " + card.restaurant.name + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
-            message: "Bring this code to " + card.restaurantName + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Bring this code to " + card.restaurant.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
         likeAlert.present().then(() => { 
@@ -179,6 +172,8 @@ export class ConsumerComponent{
 
     private resetCards(): void{
         this.filterCards(null);
+
+        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
     }
 
     private popCard(): DealModel{
@@ -198,14 +193,16 @@ export class ConsumerComponent{
     }
 
     private filterCards(type: DealType){
+        this.restaurantViewCards = [];
+
         if(type){
-            this.restaurantViewCards = this.restaurantCards.filter(function(card){
+            this.restaurantViewCards = Object.create(restaurantCards).filter(function(card){
                 return card.dealType === type;
             });
-            console.log(this.restaurantViewCards);
-            console.log(type);
         }
         else
-            this.restaurantViewCards = this.restaurantCards;
+            this.restaurantViewCards = Object.create(restaurantCards);
+
+        this.moveCardIndex = this.restaurantViewCards.length - 1;
     }
 }

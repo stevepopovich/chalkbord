@@ -13,6 +13,14 @@ import { AlertController, PopoverController } from 'ionic-angular';
 import { DealModel, DealType } from '../restaurant-deal-maker/restaurant-deal-maker.component';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+var restaurantCards = [
+    new DealModel("Name1", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel("Name2", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel("Name3", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new DealModel("Name4", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+    new DealModel("Name5", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+    new DealModel("Name6", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+];
 var ConsumerComponent = (function () {
     function ConsumerComponent(alert, popoverCtrl, launchNavigator) {
         var _this = this;
@@ -20,14 +28,6 @@ var ConsumerComponent = (function () {
         this.popoverCtrl = popoverCtrl;
         this.launchNavigator = launchNavigator;
         this.transitionString = "";
-        this.restaurantCards = [
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        ];
         this.restaurantViewCards = [];
         this.destoryingCard = false;
         this.moveCardIndex = -1;
@@ -114,13 +114,6 @@ var ConsumerComponent = (function () {
         var likeAlert = this.alert.create({
             buttons: [
                 {
-                    text: 'Directions',
-                    role: 'directions',
-                    handler: function () {
-                        console.log('Open directions');
-                    }
-                },
-                {
                     text: 'Share',
                     role: 'share',
                     handler: function () {
@@ -145,6 +138,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.resetCards = function () {
         this.filterCards(null);
+        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
     };
     ConsumerComponent.prototype.popCard = function () {
         var poppedCard = this.restaurantViewCards.pop();
@@ -159,15 +153,15 @@ var ConsumerComponent = (function () {
         return String(Math.floor(1000 + Math.random() * 9000));
     };
     ConsumerComponent.prototype.filterCards = function (type) {
+        this.restaurantViewCards = [];
         if (type) {
-            this.restaurantViewCards = this.restaurantCards.filter(function (card) {
+            this.restaurantViewCards = Object.create(restaurantCards).filter(function (card) {
                 return card.dealType === type;
             });
-            console.log(this.restaurantViewCards);
-            console.log(type);
         }
         else
-            this.restaurantViewCards = this.restaurantCards;
+            this.restaurantViewCards = Object.create(restaurantCards);
+        this.moveCardIndex = this.restaurantViewCards.length - 1;
     };
     __decorate([
         ViewChild('myswing1'),
