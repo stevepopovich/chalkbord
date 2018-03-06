@@ -6,6 +6,7 @@ webpackJsonp([0],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RestaurantDealMakerComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DealModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RestaurantModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DealType; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(35);
@@ -35,12 +36,12 @@ var RestaurantDealMakerComponent = (function () {
         eight.setHours(20);
         eight.setMinutes(0);
         this.deals = [
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg")
+            new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
         ];
     }
     RestaurantDealMakerComponent.prototype.editDeal = function (deal) {
@@ -58,8 +59,8 @@ var RestaurantDealMakerComponent = (function () {
 }());
 
 var DealModel = (function () {
-    function DealModel(restaurantName, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
-        this.restaurantName = restaurantName;
+    function DealModel(restaurant, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
+        this.restaurant = restaurant;
         this.dealDescription = dealDescription;
         this.dealStart = dealStart;
         this.dealEnd = dealEnd;
@@ -68,6 +69,15 @@ var DealModel = (function () {
         this.imageSource = imageSource;
     }
     return DealModel;
+}());
+
+var RestaurantModel = (function () {
+    function RestaurantModel(name, location, imageSource) {
+        this.name = name;
+        this.location = location;
+        this.imageSource = imageSource;
+    }
+    return RestaurantModel;
 }());
 
 var DealType;
@@ -137,7 +147,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var DealEditorComponent = (function () {
     function DealEditorComponent(viewCtrl) {
         this.viewCtrl = viewCtrl;
-        this.deal = new __WEBPACK_IMPORTED_MODULE_1__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_1__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/burger.jpg");
+        this.deal = new __WEBPACK_IMPORTED_MODULE_1__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_1__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_1__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg");
     }
     DealEditorComponent.prototype.close = function () {
         this.viewCtrl.dismiss();
@@ -178,6 +188,7 @@ var FilterDealComponent = (function () {
         this.viewCtrl = viewCtrl;
     }
     FilterDealComponent.prototype.closePopover = function (model) {
+        console.log(model);
         this.viewCtrl.dismiss(model);
     };
     FilterDealComponent = __decorate([
@@ -285,7 +296,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_8__components_consumer_consumer_component__["a" /* ConsumerComponent */],
                 __WEBPACK_IMPORTED_MODULE_12__components_restaurant_deal_maker_restaurant_deal_maker_component__["c" /* RestaurantDealMakerComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__components_deal_editor_deal_editor_component__["a" /* DealEditorComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__components_filter_deals_filter_deal_component__["a" /* FilterDealComponent */]
+                __WEBPACK_IMPORTED_MODULE_14__components_filter_deals_filter_deal_component__["a" /* FilterDealComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -361,7 +372,7 @@ var LocaleApp = (function () {
         }
     };
     LocaleApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon name="sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">locale</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */]])
     ], LocaleApp);
@@ -400,12 +411,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var restaurantCards = [
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name1", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name2", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name3", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name4", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name5", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/foodandliquor/wingsrest.jpg"),
-    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */]("Name6", "Deal description", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Bonefish Grill", "5712 Frantz rd, Dublin, OH", ""), " $14 Fresh Caught Salmon Filet", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Bridge Street Pizza", "16 East Bridge st, Dublin, OH", ""), "Half Off Large Pizza", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Bridge Street Pizza food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Cafe Istanbul", "6125 Riverside dr, Dublin OH, Dublin, OH", ""), "$9 Lamb Chops", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Cafe Istanbul food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Cap City Bar", "6644 Riverside dr, Dublin, OH", ""), "$8 Proseco", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Cap City Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Dub Pub Bar", "5736 Frantz rd, Dublin, OH", ""), "$5 Irish Car Bomb", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Dub Pub bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Dublin Village Tavern", "27 S High st, Dublin, OH", ""), "$4 Stella Pints", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/DVT Barr.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Dublin Village Tavern", "27 S High st, Dublin, OH", ""), "$7 Soft Preztel Sticks", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/DVT Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("El Vaquero", "3580 W Dublin-granville rd, Columbus, OH", ""), "25% Off All Tacos", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/El Vaquero Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Hyde Park", "6360 Frantz rd, Dublin, OH", ""), "$29 6oz Filet Mignon", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Hyde Park Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Liv Miami", "4441 Collins ave, Miami Beach, FL", ""), "$1000 VIP Table", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Liv Miami.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Local Cantina", "4537 Bridge Park ave, Dublin, OH", ""), "$2 Off House Margaritas", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Local Cantina Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Local Cantina", "4537 Bridge Park ave, Dublin, OH", ""), "Half Off Street Taco Appitizer", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Local Cantina Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Mean Jeans", "2942 Hayden Run plaza, Columbus, OH", ""), "$1 Off Domestic Beers", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Mean Jeans bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Mezzo", "12 West Bridge st, Dublin, OH", ""), "Split a Bottle of Wine Half Off", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Mezzo Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Oscars", "84 N High st, Dublin, OH", ""), "$4 Fried Chicken Lunch Sandwich", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Oscars of Dublin food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Pins Mechanical", "6558 Riverside dr, Dublin, OH", ""), "2 For 1 Patron Silver", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Pins Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Pint Room", "4415 W Dublin-Granville rd, Dublin, OH", ""), "$4 IPA Drafts", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Pint Room Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Poke Bros", "1065 Gemini Pl, Columbus, OH", ""), "$6 Poke Bowl", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Poke Bros.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("RAM Restaurant and Brewery", "6632 Longshore st, Dublin, OH", ""), "$5 Fish and Chips", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/RAM Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Rancho Allegra", "5637 Woerner Temple rd, Dublin, OH", ""), "$7 Shareable Loaded Nachos", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/Rancho Allegra Food.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Steak 954", "401 N Ft Lauderdale Beach Bvld, Fort Lauderdale, FL", ""), "$30 10ox NY Strip", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Food, "assets/images/Local Prototype Pictures/steak.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Sway Nightclub", "1824, 111 SW 2nd ave, Fort Lauderdale, Fl", ""), "Free Cover with this app", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Sway Nightclub.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Vine and Tap", "55 S High st, Dublin, OH", ""), "$12 House Wine for Two", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Vine _ Tap Bar.jpg"),
+    new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["a" /* DealModel */](new __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["d" /* RestaurantModel */]("Yogis", "5857 Karric Square dr, Dublin, OH", ""), "$4 Well Mixed Drinks", new Date(), new Date(), 150, __WEBPACK_IMPORTED_MODULE_3__restaurant_deal_maker_restaurant_deal_maker_component__["b" /* DealType */].Drinks, "assets/images/Local Prototype Pictures/Yogis Bar.jpg"),
 ];
 var ConsumerComponent = (function () {
     function ConsumerComponent(alert, popoverCtrl, launchNavigator) {
@@ -414,9 +443,11 @@ var ConsumerComponent = (function () {
         this.popoverCtrl = popoverCtrl;
         this.launchNavigator = launchNavigator;
         this.transitionString = "";
-        this.restaurantViewCards = [];
+        this.numberOfCards = 3;
+        this.restaurantViewCards = new Array(this.numberOfCards);
+        this.filteredCards = [];
         this.destoryingCard = false;
-        this.moveCardIndex = -1;
+        this.moveCardIndex = 0;
         this.likingCard = false;
         this.animatingCard = false;
         this.stackConfig = {
@@ -455,7 +486,6 @@ var ConsumerComponent = (function () {
             this.likingCard = true;
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)";
-            this.moveCardIndex--;
             this.delay(300).then(function () {
                 _this.handleCard(true);
                 _this.animatingCard = false;
@@ -471,7 +501,6 @@ var ConsumerComponent = (function () {
             this.transitionString = "all 0.75s";
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)";
-            this.moveCardIndex--;
             this.delay(300).then(function () {
                 _this.handleCard(false);
                 _this.animatingCard = false;
@@ -479,7 +508,7 @@ var ConsumerComponent = (function () {
             });
         }
     };
-    ConsumerComponent.prototype.filterDealTypes = function (event) {
+    ConsumerComponent.prototype.openDealTypePopover = function (event) {
         var _this = this;
         var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_4__filter_deals_filter_deal_component__["a" /* FilterDealComponent */]);
         filterPopover.onDidDismiss(function (data) {
@@ -510,44 +539,64 @@ var ConsumerComponent = (function () {
                     text: 'Go',
                     role: 'go',
                     handler: function () {
-                        _this.launchNavigator.navigate('Cleveland, OH');
+                        _this.launchNavigator.navigate(card.restaurant.location);
                     }
                 }
             ],
-            title: "You are going to " + card.restaurantName + "!",
+            title: "You are going to " + card.restaurant.name + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
-            message: "Bring this code to " + card.restaurantName + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Bring this code to " + card.restaurant.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
         likeAlert.present().then(function () {
             _this.likingCard = false;
         });
     };
-    ConsumerComponent.prototype.resetCards = function () {
-        this.filterCards(null);
-        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
-    };
+    // private resetCards(): void {
+    //     this.filterCards(null);
+    // }
     ConsumerComponent.prototype.popCard = function () {
-        var poppedCard = this.restaurantViewCards.pop();
-        if (this.restaurantViewCards.length < 1)
-            this.resetCards();
+        var poppedCard = this.restaurantViewCards.shift();
+        console.log(poppedCard);
+        this.addCardToStack();
         return poppedCard;
+    };
+    ConsumerComponent.prototype.filterCards = function (type) {
+        var _this = this;
+        this.restaurantViewCards = [];
+        this.filteredCards = [];
+        if (type || type == 0) {
+            this.filteredCards = Object.create(restaurantCards).filter(function (card) {
+                return card.dealType === type;
+            });
+        }
+        else
+            this.filteredCards = Object.create(restaurantCards);
+        this.setUpViewCards();
+        this.delay(600).then(function () {
+            _this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
+        });
+    };
+    ConsumerComponent.prototype.addCardToStack = function () {
+        if (this.viewCardIndex < this.filteredCards.length) {
+            var nextCard = this.filteredCards[this.viewCardIndex];
+            this.restaurantViewCards.push(nextCard);
+            this.viewCardIndex++;
+            for (var i = 0; i < this.swingCards.toArray.length; i++) {
+                this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
+            }
+        }
+    };
+    ConsumerComponent.prototype.setUpViewCards = function () {
+        this.viewCardIndex = this.numberOfCards;
+        for (var i = 0; i < this.numberOfCards; i++) {
+            this.restaurantViewCards.push(this.filteredCards[i]);
+        }
     };
     ConsumerComponent.prototype.delay = function (ms) {
         return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
     ConsumerComponent.prototype.randomNumber = function () {
         return String(Math.floor(1000 + Math.random() * 9000));
-    };
-    ConsumerComponent.prototype.filterCards = function (type) {
-        this.restaurantViewCards = [];
-        if (type) {
-            this.restaurantViewCards = Object.create(restaurantCards).filter(function (card) {
-                return card.dealType === type;
-            });
-        }
-        else
-            this.restaurantViewCards = Object.create(restaurantCards);
-        this.moveCardIndex = this.restaurantViewCards.length - 1;
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('myswing1'),
@@ -558,7 +607,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<button (click)="filterDealTypes($event)" class="button-top" ion-button icon-only>\n    <ion-icon name="funnel"></ion-icon>\n</button>\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurantName}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon name="close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" name="heart"></ion-icon>\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),

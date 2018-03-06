@@ -78,10 +78,18 @@
   vertical-align: middle;
   position: relative;
   color: black;
+  min-height: 56px;
 }
 
 .button-left{
   position: absolute;
+  font-size: 1.4em;
   left: 0;
+  top: 0;
   z-index: 10;
+  height: 2.4em;
+}
+
+.navbar-md {
+  min-height: 56px;
 }

@@ -14,6 +14,7 @@ var FilterDealComponent = (function () {
         this.viewCtrl = viewCtrl;
     }
     FilterDealComponent.prototype.closePopover = function (model) {
+        console.log(model);
         this.viewCtrl.dismiss(model);
     };
     FilterDealComponent = __decorate([

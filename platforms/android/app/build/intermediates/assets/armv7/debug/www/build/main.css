@@ -39902,12 +39902,20 @@ ion-navbar.toolbar {
   vertical-align: middle;
   position: relative;
   color: black;
+  min-height: 56px;
 }
 
 .button-left {
   position: absolute;
+  font-size: 1.4em;
   left: 0;
+  top: 0;
   z-index: 10;
+  height: 2.4em;
+}
+
+.navbar-md {
+  min-height: 56px;
 }
 
 .bottom-row {
@@ -39943,7 +39951,7 @@ ion-navbar.toolbar {
 }
 
 #card-stack {
-  margin-top: 8px;
+  height: 72%;
 }
 
 #card-stack ion-card {
@@ -39951,6 +39959,8 @@ ion-navbar.toolbar {
   position: absolute;
   text-align: center;
   height: 72%;
+  background-color: floralwhite;
+  margin-top: 8px;
 }
 
 .non-draggable-card-image {
@@ -39960,7 +39970,10 @@ ion-navbar.toolbar {
   -webkit-user-select: none;
   -ms-user-select: none;
   text-align: center;
-  height: 100%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .non-draggable-image {
@@ -40001,9 +40014,10 @@ ion-navbar.toolbar {
   background-color: black;
   position: absolute;
   right: 0;
-  top: 8px;
+  top: 11px;
   z-index: 10;
-  font-size: 1.2em;
+  font-size: 1.5em;
+  height: inherit !important;
 }
 
 .card-text {

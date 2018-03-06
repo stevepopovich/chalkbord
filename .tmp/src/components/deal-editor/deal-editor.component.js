@@ -8,12 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { DealModel, DealType } from "../restaurant-deal-maker/restaurant-deal-maker.component";
+import { DealModel, DealType, RestaurantModel } from "../restaurant-deal-maker/restaurant-deal-maker.component";
 import { ViewController } from "ionic-angular";
 var DealEditorComponent = (function () {
     function DealEditorComponent(viewCtrl) {
         this.viewCtrl = viewCtrl;
-        this.deal = new DealModel("", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/burger.jpg");
+        this.deal = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg");
     }
     DealEditorComponent.prototype.close = function () {
         this.viewCtrl.dismiss();

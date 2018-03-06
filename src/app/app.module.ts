@@ -33,7 +33,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ConsumerComponent,
     RestaurantDealMakerComponent,
     DealEditorComponent,
-    FilterDealComponent
+    FilterDealComponent,
   ],
   imports: [
     BrowserModule,

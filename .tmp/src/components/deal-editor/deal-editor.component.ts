@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { DealModel, DealType } from "../restaurant-deal-maker/restaurant-deal-maker.component";
+import { DealModel, DealType, RestaurantModel } from "../restaurant-deal-maker/restaurant-deal-maker.component";
 import { ViewController } from "ionic-angular";
 
 @Component({
@@ -7,7 +7,7 @@ import { ViewController } from "ionic-angular";
     selector: 'deal-editor',
 })
 export class DealEditorComponent{
-    public deal: DealModel = new DealModel("", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/burger.jpg");
+    public deal: DealModel = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg");
 
     public constructor(public viewCtrl: ViewController){
     }

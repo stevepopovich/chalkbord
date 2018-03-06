@@ -52,7 +52,7 @@ var AppModule = (function () {
                 ConsumerComponent,
                 RestaurantDealMakerComponent,
                 DealEditorComponent,
-                FilterDealComponent
+                FilterDealComponent,
             ],
             imports: [
                 BrowserModule,

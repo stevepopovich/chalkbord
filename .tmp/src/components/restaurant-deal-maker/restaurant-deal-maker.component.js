@@ -23,12 +23,12 @@ var RestaurantDealMakerComponent = (function () {
         eight.setHours(20);
         eight.setMinutes(0);
         this.deals = [
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
-            new DealModel("Name", "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg")
+            new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+            new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
+            new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food, "assets/images/foodandliquor/wingsrest.jpg"),
+            new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
         ];
     }
     RestaurantDealMakerComponent.prototype.editDeal = function (deal) {
@@ -46,8 +46,8 @@ var RestaurantDealMakerComponent = (function () {
 }());
 export { RestaurantDealMakerComponent };
 var DealModel = (function () {
-    function DealModel(restaurantName, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
-        this.restaurantName = restaurantName;
+    function DealModel(restaurant, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
+        this.restaurant = restaurant;
         this.dealDescription = dealDescription;
         this.dealStart = dealStart;
         this.dealEnd = dealEnd;
@@ -58,6 +58,15 @@ var DealModel = (function () {
     return DealModel;
 }());
 export { DealModel };
+var RestaurantModel = (function () {
+    function RestaurantModel(name, location, imageSource) {
+        this.name = name;
+        this.location = location;
+        this.imageSource = imageSource;
+    }
+    return RestaurantModel;
+}());
+export { RestaurantModel };
 export var DealType;
 (function (DealType) {
     DealType[DealType["Drinks"] = 0] = "Drinks";

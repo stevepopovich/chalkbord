@@ -12,6 +12,7 @@ export class FilterDealComponent{
     }
 
     public closePopover(model: string) {
+        console.log(model);
         this.viewCtrl.dismiss(model);
       }
 }

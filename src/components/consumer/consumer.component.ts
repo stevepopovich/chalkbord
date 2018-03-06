@@ -10,12 +10,30 @@ import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 const restaurantCards: DealModel[] = [
-    new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-    new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-    new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-    new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-    new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-    new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
+    new DealModel(new RestaurantModel("Bonefish Grill", "5712 Frantz rd, Dublin, OH", ""), " $14 Fresh Caught Salmon Filet", new Date(), new Date(), 150, DealType.Food, "assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg"),
+    new DealModel(new RestaurantModel("Bridge Street Pizza", "16 East Bridge st, Dublin, OH", ""), "Half Off Large Pizza", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Bridge Street Pizza food.jpg"),
+    new DealModel(new RestaurantModel("Cafe Istanbul", "6125 Riverside dr, Dublin OH, Dublin, OH", ""), "$9 Lamb Chops", new Date(), new Date(), 150, DealType.Food, "assets/images/Local Prototype Pictures/Cafe Istanbul food.jpg"),
+    new DealModel(new RestaurantModel("Cap City Bar", "6644 Riverside dr, Dublin, OH", ""), "$8 Proseco", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Cap City Bar.jpg"),
+    new DealModel(new RestaurantModel("Dub Pub Bar", "5736 Frantz rd, Dublin, OH", ""), "$5 Irish Car Bomb", new Date(), new Date(), 150, DealType.Drinks, "assets/images/Local Prototype Pictures/Dub Pub bar.jpg"),
+    new DealModel(new RestaurantModel("Dublin Village Tavern", "27 S High st, Dublin, OH", ""), "$4 Stella Pints", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/DVT Barr.jpg"),
+    new DealModel(new RestaurantModel("Dublin Village Tavern", "27 S High st, Dublin, OH", ""), "$7 Soft Preztel Sticks", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/DVT Food.jpg"),
+    new DealModel(new RestaurantModel("El Vaquero", "3580 W Dublin-granville rd, Columbus, OH", ""), "25% Off All Tacos", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/El Vaquero Food.jpg"),
+    new DealModel(new RestaurantModel("Hyde Park", "6360 Frantz rd, Dublin, OH", ""), "$29 6oz Filet Mignon", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Hyde Park Food.jpg"),
+    new DealModel(new RestaurantModel("Liv Miami", "4441 Collins ave, Miami Beach, FL", ""), "$1000 VIP Table", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Liv Miami.jpg"),
+    new DealModel(new RestaurantModel("Local Cantina", "4537 Bridge Park ave, Dublin, OH", ""), "$2 Off House Margaritas", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Local Cantina Bar.jpg"),
+    new DealModel(new RestaurantModel("Local Cantina", "4537 Bridge Park ave, Dublin, OH", ""), "Half Off Street Taco Appitizer", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Local Cantina Food.jpg"),
+    new DealModel(new RestaurantModel("Mean Jeans", "2942 Hayden Run plaza, Columbus, OH", ""), "$1 Off Domestic Beers", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Mean Jeans bar.jpg"),
+    new DealModel(new RestaurantModel("Mezzo", "12 West Bridge st, Dublin, OH", ""), "Split a Bottle of Wine Half Off", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Mezzo Bar.jpg"),
+    new DealModel(new RestaurantModel("Oscars", "84 N High st, Dublin, OH", ""), "$4 Fried Chicken Lunch Sandwich", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Oscars of Dublin food.jpg"),
+    new DealModel(new RestaurantModel("Pins Mechanical", "6558 Riverside dr, Dublin, OH", ""), "2 For 1 Patron Silver", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Pins Bar.jpg"),
+    new DealModel(new RestaurantModel("Pint Room", "4415 W Dublin-Granville rd, Dublin, OH", ""), "$4 IPA Drafts", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Pint Room Bar.jpg"),
+    new DealModel(new RestaurantModel("Poke Bros", "1065 Gemini Pl, Columbus, OH", ""), "$6 Poke Bowl", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Poke Bros.jpg"),
+    new DealModel(new RestaurantModel("RAM Restaurant and Brewery", "6632 Longshore st, Dublin, OH", ""), "$5 Fish and Chips", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/RAM Food.jpg"),
+    new DealModel(new RestaurantModel("Rancho Allegra", "5637 Woerner Temple rd, Dublin, OH", ""), "$7 Shareable Loaded Nachos", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/Rancho Allegra Food.jpg"),
+    new DealModel(new RestaurantModel("Steak 954", "401 N Ft Lauderdale Beach Bvld, Fort Lauderdale, FL", ""), "$30 10ox NY Strip", new Date(), new Date(), 150, DealType.Food,"assets/images/Local Prototype Pictures/steak.jpg"),
+    new DealModel(new RestaurantModel("Sway Nightclub", "1824, 111 SW 2nd ave, Fort Lauderdale, Fl", ""), "Free Cover with this app", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Sway Nightclub.jpg"),
+    new DealModel(new RestaurantModel("Vine and Tap", "55 S High st, Dublin, OH", ""), "$12 House Wine for Two", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Vine _ Tap Bar.jpg"),
+    new DealModel(new RestaurantModel("Yogis", "5857 Karric Square dr, Dublin, OH", ""), "$4 Well Mixed Drinks", new Date(), new Date(), 150, DealType.Drinks,"assets/images/Local Prototype Pictures/Yogis Bar.jpg"),
 ];
 
 @Component({
@@ -29,13 +47,17 @@ export class ConsumerComponent{
 
     public transitionString: string = "";
 
-    public restaurantViewCards: DealModel[] = [];
+    public numberOfCards = 3;
+
+    public restaurantViewCards: DealModel[] = new Array<DealModel>(this.numberOfCards);
+    public filteredCards: DealModel[] = [];
 
     public stackConfig: StackConfig;
 
     public destoryingCard: boolean = false;
   
-    private moveCardIndex = -1;
+    private moveCardIndex: number = 0;
+    private viewCardIndex: number;
 
     private likingCard: boolean = false;
 
@@ -87,8 +109,6 @@ export class ConsumerComponent{
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
             
-            this.moveCardIndex--;
-
             this.delay(300).then(() => {
                 this.handleCard(true);
 
@@ -110,8 +130,6 @@ export class ConsumerComponent{
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
             
-            this.moveCardIndex--;
-
             this.delay(300).then(() => {
                 this.handleCard(false);
 
@@ -123,7 +141,7 @@ export class ConsumerComponent{
     }
 
 
-    public filterDealTypes(event){
+    public openDealTypePopover(event){
         var filterPopover = this.popoverCtrl.create(FilterDealComponent);
 
         filterPopover.onDidDismiss((data: string) => {
@@ -170,19 +188,58 @@ export class ConsumerComponent{
         });
     }
 
-    private resetCards(): void{
-        this.filterCards(null);
-
-        this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
-    }
+    // private resetCards(): void {
+    //     this.filterCards(null);
+    // }
 
     private popCard(): DealModel{
-        var poppedCard = this.restaurantViewCards.pop();
-        if(this.restaurantViewCards.length < 1)
-            this.resetCards();
+        var poppedCard = this.restaurantViewCards.shift();
+        console.log(poppedCard);
+        this.addCardToStack();
         
         return poppedCard;
     }
+
+    private filterCards(type: DealType){
+        this.restaurantViewCards = [];
+        this.filteredCards = [];
+        if(type || type == 0){
+            this.filteredCards = Object.create(restaurantCards).filter(function(card){
+                return card.dealType === type;
+            });
+        }
+        else
+            this.filteredCards = Object.create(restaurantCards);
+
+        this.setUpViewCards();  
+
+        this.delay(600).then(() => {//this sucks
+            this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
+        });
+    }
+
+    private addCardToStack(){
+        if(this.viewCardIndex < this.filteredCards.length){
+            var nextCard = this.filteredCards[this.viewCardIndex];
+
+            this.restaurantViewCards.push(nextCard);
+
+            this.viewCardIndex++;
+
+            for(var i = 0; i < this.swingCards.toArray.length; i++){
+                this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
+            }
+        }
+    }
+
+    private setUpViewCards(){
+        this.viewCardIndex = this.numberOfCards;
+
+        for(var i: number = 0; i < this.numberOfCards; i++){
+            this.restaurantViewCards.push(this.filteredCards[i]);
+        }
+    }
+
 
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -190,19 +247,5 @@ export class ConsumerComponent{
 
     private randomNumber(): string{
         return String(Math.floor(1000 + Math.random() * 9000));
-    }
-
-    private filterCards(type: DealType){
-        this.restaurantViewCards = [];
-
-        if(type){
-            this.restaurantViewCards = Object.create(restaurantCards).filter(function(card){
-                return card.dealType === type;
-            });
-        }
-        else
-            this.restaurantViewCards = Object.create(restaurantCards);
-
-        this.moveCardIndex = this.restaurantViewCards.length - 1;
     }
 }
