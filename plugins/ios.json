@@ -7,9 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-crosswalk-webview": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "locale.alpha"
     },

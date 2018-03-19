@@ -86,11 +86,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		+2lgaoIaxwHtYMp42UVFQy5L3vs=
+		0gUZQjU0i5EsofoDEpw91Okx46Q=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		JPV8kz9t/edCF/AF8txB0RMJmAU=
+		j75hXEAfM6I/9aYqO2R1Ijbb2oc=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		9OeIApahfvel66CIPsyiv3SaSv4=
+		SBWFqB5KQsB7ILp/VY6GpmzXb70=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		XdiKVp5rRehgE25J/hZ4Ur8ZI6w=
+		P2tD/TjVu6h4DY2vgRMdHgm7XnU=
 		</data>
 		<key>LaunchImage-568h@2x.png</key>
 		<data>
@@ -174,7 +174,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		aKrFTeAWhacjv2BstIdsiViGnHE=
+		6VJdqN2PaXhAsFyomLK85WQUQo0=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -186,11 +186,11 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		aLusWyZWOm0TZ0/UcsOkwoL3JYU=
+		1JkAFPo2JVwwk01R13eq15SdMPM=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		mgvrG7mV6ih8P3WuYqsNmizWrCQ=
+		AF/OKbuwzqSSJ7RD88WA9IhqrDc=
 		</data>
 		<key>www/assets/fonts/ionicons.eot</key>
 		<data>
@@ -288,6 +288,110 @@
 		<data>
 		mVn8X55jqWJGRnt+TQeFdxp1qk4=
 		</data>
+		<key>www/assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg</key>
+		<data>
+		DK0+54Krp38ulbPn3BY3FXN6wSc=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Bridge Street Pizza food.jpg</key>
+		<data>
+		2yVDYLWREvxbHcCXdiMgrDzSdP8=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Cafe Istanbul food.jpg</key>
+		<data>
+		vOVZXqOYRWrm+pndOTro5cj5V9w=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Cap City Bar.jpg</key>
+		<data>
+		CK7UHQGjb7pV8iibIJRUOTmF+kY=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/DVT Bar.jpg</key>
+		<data>
+		DixEPPAnzQDxDN/FFdzGjWJ29Fc=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/DVT Barr.jpg</key>
+		<data>
+		OLaPtMQhynm3HPlLdOM3lAMqG40=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/DVT Food.jpg</key>
+		<data>
+		/XCjPmJ1SioblMoUB4h4odimLbk=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Dub Pub bar.jpg</key>
+		<data>
+		i3TXGGWY9F0hDzgHCo1SypQagaE=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/El Vaquero Food.jpg</key>
+		<data>
+		MzrszyFVD+76bI9vVjYgxG5p2vc=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Hyde Park Food.jpg</key>
+		<data>
+		aeawY5i8fcVZQVn5PUdSdE9lV8s=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Liv Miami.jpg</key>
+		<data>
+		spBlBMDREl5yWT9zWT1oWzfoWm4=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Local Cantina Bar.jpg</key>
+		<data>
+		PglYMNPiEH1OAjidUxu2uexNvnc=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Local Cantina Food.jpg</key>
+		<data>
+		l1i9E5JhbF2w9jceIjZKPRJNN/o=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Mean Jeans bar.jpg</key>
+		<data>
+		mQg60N/AZBcZ3Y91MbVMwfEbhAI=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Mezzo Bar.jpg</key>
+		<data>
+		jAjXdKQW0T3OUkLmSwIP4keyfus=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Oscars of Dublin food.jpg</key>
+		<data>
+		k1ccg8+7ZVvjJu80j7LY/+4dyas=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Pins Bar.jpg</key>
+		<data>
+		9diIM0WUv+aK1OFZiZOmLwjOItw=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Pint Room Bar.jpg</key>
+		<data>
+		cIj0ZXVMs40gQLe5weIfRvRDmVE=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Poke Bros.jpg</key>
+		<data>
+		ckeUSDhA236CY2GcA2yuB7Nb+A4=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/RAM Food.jpg</key>
+		<data>
+		TBQyrdV8FAdGf6zWN2PXmFpumoU=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Rancho Allegra Food.jpg</key>
+		<data>
+		0kxHnx0mEFqzG2ZjIuFx0wmabLw=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Sway Nightclub.jpg</key>
+		<data>
+		6GnUMpELeTThcdggvBJaU+mJPSE=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/The Goat.jpg</key>
+		<data>
+		XQ1zGex/ujzLBL5ZhCvEw9ZJbN4=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Vine _ Tap Bar.jpg</key>
+		<data>
+		HvltZUuqGantMhx94UrkmE/Pqlg=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/Yogis Bar.jpg</key>
+		<data>
+		GVOj89ffHyZoAj7jAJCoE/4aF5g=
+		</data>
+		<key>www/assets/images/Local Prototype Pictures/steak.jpg</key>
+		<data>
+		u7LIHSMt7+RAY6I00dYRw1fluew=
+		</data>
 		<key>www/assets/images/burger.jpg</key>
 		<data>
 		wa3FpTtUpUDSkR7w3UymMiW318M=
@@ -336,6 +440,18 @@
 		<data>
 		5/MinOmrHuvdnxbNqixEUbD559U=
 		</data>
+		<key>www/assets/images/wakeworthy/constructive.jpg</key>
+		<data>
+		CXLJjC07+dssYUBowD4wcS4Ci24=
+		</data>
+		<key>www/assets/images/wakeworthy/funny.jpg</key>
+		<data>
+		F0kJwQUpBMZiXHM5AipWTWRvXJg=
+		</data>
+		<key>www/assets/images/wakeworthy/positive.jpg</key>
+		<data>
+		ATDvR9w69su00RFZbyiKqSpfu4g=
+		</data>
 		<key>www/assets/images/yes.png</key>
 		<data>
 		4O1G5zCxEuTNXuul4dQJn+PdNXg=
@@ -346,7 +462,7 @@
 		</data>
 		<key>www/build/main.css</key>
 		<data>
-		5ml9LrIA2Q0YdVYBX69FQIz4Zro=
+		CMiczexq1ev+bfVy16i7xouXEeM=
 		</data>
 		<key>www/build/main.css.map</key>
 		<data>
@@ -354,11 +470,11 @@
 		</data>
 		<key>www/build/main.js</key>
 		<data>
-		/XWrHYSuS5Lbo1/aAOqlqO0jjGc=
+		K6s0rOADDsxaeLDph5OAfjszMKc=
 		</data>
 		<key>www/build/main.js.map</key>
 		<data>
-		+Qs9TckSi8L9/CeD6lV6y+4cbks=
+		jSwjVC3ok/bSPMMRXcE2kmb/AlI=
 		</data>
 		<key>www/build/polyfills.js</key>
 		<data>
@@ -370,11 +486,11 @@
 		</data>
 		<key>www/build/vendor.js</key>
 		<data>
-		t0i7QADt3rxtsbhLWT1MI08NpO8=
+		jzfgq+ZBRC+GKogbHlSGSN1kNsY=
 		</data>
 		<key>www/build/vendor.js.map</key>
 		<data>
-		EPwno/yhaJPkBjzKCe5xPSBCHK0=
+		upIb7Ch6vwRzR76XZTcKU/GtuDY=
 		</data>
 		<key>www/cordova-js-src/exec.js</key>
 		<data>
@@ -398,7 +514,7 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		hAEQXOUeLopYrkNePF1YUfjmmTk=
+		w9Dl/bmHa6/oxvAxRWu8+uxcbOI=
 		</data>
 		<key>www/index.html</key>
 		<data>
@@ -407,6 +523,10 @@
 		<key>www/manifest.json</key>
 		<data>
 		M7lIs0dSswtXjE6OFSZ3Ak0WDzg=
+		</data>
+		<key>www/plugins/cordova-plugin-actionsheet/www/ActionSheet.js</key>
+		<data>
+		TDN8HnHdecq3VuF3lJs8ALj8z3o=
 		</data>
 		<key>www/plugins/cordova-plugin-device/www/device.js</key>
 		<data>
@@ -435,6 +555,18 @@
 		<key>www/plugins/cordova-plugin-statusbar/www/statusbar.js</key>
 		<data>
 		hDT++3ZaOTp3t16AAFAibxtovj0=
+		</data>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js</key>
+		<data>
+		8jnXzrKiixPkiTCKogib+SJG8rU=
+		</data>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/ios/launchnavigator.js</key>
+		<data>
+		1kmJbXK+/VzJl6BErQxLW5VlzfI=
+		</data>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/localforage.v1.5.0.min.js</key>
+		<data>
+		qshQO/vtYPMxD62l3ZLcpHFz4Uk=
 		</data>
 		<key>www/service-worker.js</key>
 		<data>
@@ -671,22 +803,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+2lgaoIaxwHtYMp42UVFQy5L3vs=
+			0gUZQjU0i5EsofoDEpw91Okx46Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			MtRDzxi7epebPleOSvrWnRDUDHemub2WDBfSVR3DsTc=
+			mMblJvQgfeu5MX4ugPKvX6GSWrSgBAiDoBlqmclyXus=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JPV8kz9t/edCF/AF8txB0RMJmAU=
+			j75hXEAfM6I/9aYqO2R1Ijbb2oc=
 			</data>
 			<key>hash2</key>
 			<data>
-			piMJYygmXF0ToqyjZ+gKbbbTyg0yXlo6+cSjOVJ/rcs=
+			mtxtdi/yVPngWu99vzTdXTQ/aEx6RA6ecvRuwko83Lw=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -704,11 +836,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9OeIApahfvel66CIPsyiv3SaSv4=
+			SBWFqB5KQsB7ILp/VY6GpmzXb70=
 			</data>
 			<key>hash2</key>
 			<data>
-			L3Qls52QS4hIyMYdnp9lH9qTjY2PDEhGt/r7jhsUJ/0=
+			nPlPm2ehK2f3WuLTr8u6oi6gC3SwuXo0T6lk13OQwSI=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -902,11 +1034,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aKrFTeAWhacjv2BstIdsiViGnHE=
+			6VJdqN2PaXhAsFyomLK85WQUQo0=
 			</data>
 			<key>hash2</key>
 			<data>
-			6DKTOuJakHNe17SeNtECE1JnATLISsVt0Pl3JLj7WdM=
+			FaJe6ZantRJsfe8W67kb9N3M2MQwObWFm4+DqUmVDf8=
 			</data>
 		</dict>
 		<key>archived-expanded-entitlements.xcent</key>
@@ -924,22 +1056,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aLusWyZWOm0TZ0/UcsOkwoL3JYU=
+			1JkAFPo2JVwwk01R13eq15SdMPM=
 			</data>
 			<key>hash2</key>
 			<data>
-			rNtd3cmJgevSTjVqbELm+h+reyLlORmhusAWczTrJtY=
+			9p88O3ckmqvxi2XNeBZPiaCvr8LIzNjnVBhJK5h1s5c=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mgvrG7mV6ih8P3WuYqsNmizWrCQ=
+			AF/OKbuwzqSSJ7RD88WA9IhqrDc=
 			</data>
 			<key>hash2</key>
 			<data>
-			mahugW2cvvuqRmWHUm8qVJfLR/JeuYxpdmfguO9+DoA=
+			ZJ34GrLHLilcPsC7gC2/C9SX336A044VlbGRUKXdjI4=
 			</data>
 		</dict>
 		<key>www/assets/fonts/ionicons.eot</key>
@@ -1206,6 +1338,292 @@
 			UBvbGTbplF5f4KDXxnAW+kAiyeMyV70VfK5eF+6UPHI=
 			</data>
 		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DK0+54Krp38ulbPn3BY3FXN6wSc=
+			</data>
+			<key>hash2</key>
+			<data>
+			Pti32WwhKBI57z1vujlDLirVWIIiWfl0ok1cWKxd6SA=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Bridge Street Pizza food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2yVDYLWREvxbHcCXdiMgrDzSdP8=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ydp7B5/h+UU1bZwaCsY78MG8QffGXq5AezDkMxdMCo4=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Cafe Istanbul food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vOVZXqOYRWrm+pndOTro5cj5V9w=
+			</data>
+			<key>hash2</key>
+			<data>
+			H7SXtW6WUc1GQ107g769DBMC0o0ZdiIO0M0PTfgjTb0=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Cap City Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CK7UHQGjb7pV8iibIJRUOTmF+kY=
+			</data>
+			<key>hash2</key>
+			<data>
+			ir90PDkjwQcYYmuFwryjcUqgVX6Lj3PsvV7Y8eiI/Mk=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/DVT Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DixEPPAnzQDxDN/FFdzGjWJ29Fc=
+			</data>
+			<key>hash2</key>
+			<data>
+			ev2QMdHFAbtZhmOQ6JlZHi7jX2IflkuMW6z39pU78+E=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/DVT Barr.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			OLaPtMQhynm3HPlLdOM3lAMqG40=
+			</data>
+			<key>hash2</key>
+			<data>
+			IM8QfU9zOL4ixXFidgaanTwCdRJ1PoPIPd40d8ZdyBY=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/DVT Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/XCjPmJ1SioblMoUB4h4odimLbk=
+			</data>
+			<key>hash2</key>
+			<data>
+			Bmem+9Kd8dUxl4h4tGgJLUtShBDMPJgPhnZ8Ugf1eHI=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Dub Pub bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			i3TXGGWY9F0hDzgHCo1SypQagaE=
+			</data>
+			<key>hash2</key>
+			<data>
+			CkqpGefQDVNq4SeTame63TkPcblTAqqpdYQX2jD2Txs=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/El Vaquero Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MzrszyFVD+76bI9vVjYgxG5p2vc=
+			</data>
+			<key>hash2</key>
+			<data>
+			fDNDgGN6iDLGColNKIfyXOdlzsVRZPj0bbJmZETGxh8=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Hyde Park Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aeawY5i8fcVZQVn5PUdSdE9lV8s=
+			</data>
+			<key>hash2</key>
+			<data>
+			yoXi4gk8rczLPZjzUmZz3Jas+9p6e8l4YQChVahCwLs=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Liv Miami.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			spBlBMDREl5yWT9zWT1oWzfoWm4=
+			</data>
+			<key>hash2</key>
+			<data>
+			/xBQD8afDXQlg3h+GmTXLUaNbAUewOdRG14OueQPRME=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Local Cantina Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PglYMNPiEH1OAjidUxu2uexNvnc=
+			</data>
+			<key>hash2</key>
+			<data>
+			6zD+m/XLakJ0vWuZlPqumnS7DKJytxok69FmyTuW7aE=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Local Cantina Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			l1i9E5JhbF2w9jceIjZKPRJNN/o=
+			</data>
+			<key>hash2</key>
+			<data>
+			hw9EmI8iIGc4ShLThpjGfBLS93ryGs1wmu6Z525iRmg=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Mean Jeans bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			mQg60N/AZBcZ3Y91MbVMwfEbhAI=
+			</data>
+			<key>hash2</key>
+			<data>
+			acZ5OP+5xZvgn9c0qmn6IN3JxZ5Cw+JL70d+LsCNY4Y=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Mezzo Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jAjXdKQW0T3OUkLmSwIP4keyfus=
+			</data>
+			<key>hash2</key>
+			<data>
+			zfJnvexRFhtI1JoL8jj6GJnxhJ2dNr1fIGbsTYGLb/Q=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Oscars of Dublin food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			k1ccg8+7ZVvjJu80j7LY/+4dyas=
+			</data>
+			<key>hash2</key>
+			<data>
+			gekstyM5NQX6HlM6u8iItGMf1XEtpsZPAUcEUO7gkcs=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Pins Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9diIM0WUv+aK1OFZiZOmLwjOItw=
+			</data>
+			<key>hash2</key>
+			<data>
+			aEL0WBrXJ4bgPanbEPkoRi4JeJ6CNhb4y4ouZ0PHKC8=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Pint Room Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			cIj0ZXVMs40gQLe5weIfRvRDmVE=
+			</data>
+			<key>hash2</key>
+			<data>
+			86hMU15A65EhenDcSOyqeO6mf5lwLvlv+pCqFXCzMfY=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Poke Bros.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ckeUSDhA236CY2GcA2yuB7Nb+A4=
+			</data>
+			<key>hash2</key>
+			<data>
+			+gmIsV+wP36YtN50sqjap52ccJ+8ctrLH9rEbEhW7Ng=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/RAM Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TBQyrdV8FAdGf6zWN2PXmFpumoU=
+			</data>
+			<key>hash2</key>
+			<data>
+			quZ6XL2lsxyBHFoLeMo14oTQBxLq2uA3bCC3xvhuQg4=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Rancho Allegra Food.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0kxHnx0mEFqzG2ZjIuFx0wmabLw=
+			</data>
+			<key>hash2</key>
+			<data>
+			83g2FYtCyBQjGZ9SoFUN43p8Ze/g2AjxyEv6gyx+IYM=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Sway Nightclub.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6GnUMpELeTThcdggvBJaU+mJPSE=
+			</data>
+			<key>hash2</key>
+			<data>
+			3L4vFCZgbqOyt1nLOb+wOkydUlOgkEpwjzbNxaDJEN4=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/The Goat.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XQ1zGex/ujzLBL5ZhCvEw9ZJbN4=
+			</data>
+			<key>hash2</key>
+			<data>
+			Aj7E7rEtkMW+k3M1lDyDsHX9ZGt8SYmALvbG2fYx/bs=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Vine _ Tap Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HvltZUuqGantMhx94UrkmE/Pqlg=
+			</data>
+			<key>hash2</key>
+			<data>
+			PNcBxwF8ilMcmGJ9bDd2GSZ6U49MSBQIwRPF+2cQ28E=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/Yogis Bar.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GVOj89ffHyZoAj7jAJCoE/4aF5g=
+			</data>
+			<key>hash2</key>
+			<data>
+			J4CB0CvPW7UlZyVN9l7iD9kmIGUzXjt+9sqNgtmHeKM=
+			</data>
+		</dict>
+		<key>www/assets/images/Local Prototype Pictures/steak.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			u7LIHSMt7+RAY6I00dYRw1fluew=
+			</data>
+			<key>hash2</key>
+			<data>
+			q5sd8y3vkgJwSFOPWdLVWkyNIuo5Kd0LJz7rCr8uKAY=
+			</data>
+		</dict>
 		<key>www/assets/images/burger.jpg</key>
 		<dict>
 			<key>hash</key>
@@ -1338,6 +1756,39 @@
 			dNRy/o5NxWVWtK8n0sDrZm46SPUK5Flydj8YCgWOWiE=
 			</data>
 		</dict>
+		<key>www/assets/images/wakeworthy/constructive.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CXLJjC07+dssYUBowD4wcS4Ci24=
+			</data>
+			<key>hash2</key>
+			<data>
+			U25BJHDNC/pUrArlsR2+6+6+8w2/BDwRF35g2MJR/no=
+			</data>
+		</dict>
+		<key>www/assets/images/wakeworthy/funny.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			F0kJwQUpBMZiXHM5AipWTWRvXJg=
+			</data>
+			<key>hash2</key>
+			<data>
+			ApA6X3ttSMdo7KkgHxu0kfw3AbyUI55VBHImaxIIT6s=
+			</data>
+		</dict>
+		<key>www/assets/images/wakeworthy/positive.jpg</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ATDvR9w69su00RFZbyiKqSpfu4g=
+			</data>
+			<key>hash2</key>
+			<data>
+			gvexV42kZww18PNfQLaVNzlhuDr2+kXtqw7LSKEJeZI=
+			</data>
+		</dict>
 		<key>www/assets/images/yes.png</key>
 		<dict>
 			<key>hash</key>
@@ -1364,11 +1815,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5ml9LrIA2Q0YdVYBX69FQIz4Zro=
+			CMiczexq1ev+bfVy16i7xouXEeM=
 			</data>
 			<key>hash2</key>
 			<data>
-			W+kLdcpKAeg7SqRhNj1l2rZrvwohqaEaoJaydYyDukA=
+			CP1arISnelVRFquhjvGc+pKmjGOFUCS8C92a8d+VZxA=
 			</data>
 		</dict>
 		<key>www/build/main.css.map</key>
@@ -1386,22 +1837,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/XWrHYSuS5Lbo1/aAOqlqO0jjGc=
+			K6s0rOADDsxaeLDph5OAfjszMKc=
 			</data>
 			<key>hash2</key>
 			<data>
-			6seza+R74Ij1S2YvuL+qaWiJ7DdldXn2OI5o00GYZr4=
+			cgZiDC49W1K4HxznOZ7yphWTUmZJUXFq6l2ngP+9ESk=
 			</data>
 		</dict>
 		<key>www/build/main.js.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+Qs9TckSi8L9/CeD6lV6y+4cbks=
+			jSwjVC3ok/bSPMMRXcE2kmb/AlI=
 			</data>
 			<key>hash2</key>
 			<data>
-			NXmHH9aTRaKCpOXKHN0wC72JiSf39WKoXVjCwxjHLqI=
+			t9B1rmDnCpePYr97h9x4VKJVyNwxgYcGsDHdfKvGy+U=
 			</data>
 		</dict>
 		<key>www/build/polyfills.js</key>
@@ -1430,22 +1881,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			t0i7QADt3rxtsbhLWT1MI08NpO8=
+			jzfgq+ZBRC+GKogbHlSGSN1kNsY=
 			</data>
 			<key>hash2</key>
 			<data>
-			z4lanA09jYj4rTyzLwNTwovtIAvq71GhwUBjoYA6Ays=
+			8pQ/SZ7XkRVxNLm1jSA5P2wt0LC64Tl+2K0KGnEO0Tk=
 			</data>
 		</dict>
 		<key>www/build/vendor.js.map</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			EPwno/yhaJPkBjzKCe5xPSBCHK0=
+			upIb7Ch6vwRzR76XZTcKU/GtuDY=
 			</data>
 			<key>hash2</key>
 			<data>
-			16GiFfcG8bwM69dBxOZ+ZIBTEzmFVkMIsZDomq3Fd7k=
+			2BIPy9uCm0iYMMUAyQXuA0XrPBfB2bvtf0DOpGuapbM=
 			</data>
 		</dict>
 		<key>www/cordova-js-src/exec.js</key>
@@ -1507,11 +1958,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hAEQXOUeLopYrkNePF1YUfjmmTk=
+			w9Dl/bmHa6/oxvAxRWu8+uxcbOI=
 			</data>
 			<key>hash2</key>
 			<data>
-			kbCJaMJu+LJer79zN+g3a8mAvzU9bT1wGcZoztKuFv8=
+			EXraoeuQl7oIhhn+4x00J3IP/PVVKuszh2BU7P+xGds=
 			</data>
 		</dict>
 		<key>www/index.html</key>
@@ -1534,6 +1985,17 @@
 			<key>hash2</key>
 			<data>
 			Qh4ZmadEpBnwv4avVovFpiXjFc/8A6f0TmMUnufQT88=
+			</data>
+		</dict>
+		<key>www/plugins/cordova-plugin-actionsheet/www/ActionSheet.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TDN8HnHdecq3VuF3lJs8ALj8z3o=
+			</data>
+			<key>hash2</key>
+			<data>
+			QmJ2PP6yJsWQMWtNcxxTUFnemiAGSUi4LG8kQqsK3oU=
 			</data>
 		</dict>
 		<key>www/plugins/cordova-plugin-device/www/device.js</key>
@@ -1611,6 +2073,39 @@
 			<key>hash2</key>
 			<data>
 			JVFddhH/G0jM/7U0DOdpW1CvUNswIGcQB9WylyRtCBM=
+			</data>
+		</dict>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8jnXzrKiixPkiTCKogib+SJG8rU=
+			</data>
+			<key>hash2</key>
+			<data>
+			pe6TcuT7GnKis6JNP/+MQTxl5PHNU5uCpwDocZNiXkI=
+			</data>
+		</dict>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/ios/launchnavigator.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1kmJbXK+/VzJl6BErQxLW5VlzfI=
+			</data>
+			<key>hash2</key>
+			<data>
+			w7azHbqKZ1qCRDQLqHKt+5vHrO+ncrJ2+pIyF8Rbq7w=
+			</data>
+		</dict>
+		<key>www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/localforage.v1.5.0.min.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qshQO/vtYPMxD62l3ZLcpHFz4Uk=
+			</data>
+			<key>hash2</key>
+			<data>
+			W5DRvuHrBWo5vX68nsRjRERkdOyj0fSe0uUjmC1mOR8=
 			</data>
 		</dict>
 		<key>www/service-worker.js</key>

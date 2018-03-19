@@ -43,6 +43,12 @@
     <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
     </feature>
+    <feature name="ActionSheet">
+        <param name="ios-package" value="ActionSheet" />
+    </feature>
+    <feature name="LaunchNavigator">
+        <param name="ios-package" value="LaunchNavigator" />
+    </feature>
     <name>Locale</name>
     <description>An app to let you get food deals</description>
     <author email="stevepopovich8@gmail.com">Steven Popovich</author>
@@ -57,6 +63,7 @@
     <allow-navigation href="http://*/*" />
     <allow-navigation href="tel:*" />
     <allow-navigation href="mailto:*" />
+    <allow-navigation href="http://192.168.1.94:8100" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="DisallowOverscroll" value="false" />

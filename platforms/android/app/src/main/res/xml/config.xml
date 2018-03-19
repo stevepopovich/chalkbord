@@ -46,12 +46,6 @@
     <allow-navigation href="mailto:*" />
     <allow-navigation href="http://192.168.1.94:8100" />
     <preference name="loglevel" value="DEBUG" />
-    <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine" />
-    <preference name="xwalkVersion" value="22+" />
-    <preference name="xwalkLiteVersion" value="xwalk_core_library_canary:17+" />
-    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
-    <preference name="xwalkMode" value="embedded" />
-    <preference name="xwalkMultipleApk" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="StatusBarStyle" value="default" />

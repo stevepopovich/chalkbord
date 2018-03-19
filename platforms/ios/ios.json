@@ -82,9 +82,6 @@
     }
   },
   "installed_plugins": {
-    "cordova-plugin-crosswalk-webview": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "locale.alpha"
     },
@@ -210,7 +207,6 @@
     }
   ],
   "plugin_metadata": {
-    "cordova-plugin-crosswalk-webview": "2.4.0",
     "cordova-plugin-device": "1.1.7",
     "cordova-plugin-inappbrowser": "1.7.2",
     "cordova-plugin-ionic-keyboard": "2.0.5",

@@ -1,4 +1,0 @@
-#Tue Mar 06 13:27:38 EST 2018
-base.0=/Users/Contence/locale/platforms/android/app/build/intermediates/transforms/dexMerger/armv7/debug/0
-path.0=classes.dex
-renamed.0=classes.dex

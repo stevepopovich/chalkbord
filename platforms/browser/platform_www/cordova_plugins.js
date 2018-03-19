@@ -93,7 +93,6 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-crosswalk-webview": "2.4.0",
     "cordova-plugin-device": "1.1.7",
     "cordova-plugin-dialogs": "2.0.1",
     "cordova-plugin-inappbrowser": "1.7.2",
