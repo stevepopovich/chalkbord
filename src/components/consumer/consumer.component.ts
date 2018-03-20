@@ -3,7 +3,8 @@ import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import {
     StackConfig,
     SwingStackComponent,
-    SwingCardComponent} from 'angular2-swing';
+    SwingCardComponent,
+    Direction} from 'angular2-swing';
 import { AlertController, PopoverController } from 'ionic-angular';
 import { DealModel, DealType, RestaurantModel } from '../restaurant-deal-maker/restaurant-deal-maker.component';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
@@ -65,6 +66,7 @@ export class ConsumerComponent{
 
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator){
         this.stackConfig = {
+            allowedDirections: [Direction.LEFT, Direction.RIGHT],
             throwOutConfidence: (offsetX, offsetY, element) => {
                 console.log(offsetY);   
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
@@ -73,7 +75,7 @@ export class ConsumerComponent{
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: () => {
-                return 700;
+                return 1600;
             }
         };
 
@@ -84,24 +86,15 @@ export class ConsumerComponent{
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
-    public voteUp(like: boolean): void {
-        if(like){
-            if(!this.likingCard){
-                this.likingCard = true;
-
-                this.handleCard(like);
-            }
-        }
-        else
-            this.handleCard(like);
-    }
-
-    public clickLike(): void {
+    public clickLike(throwout: boolean): void {
         if(this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard){
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-            this.transitionString = "all 0.75s";
+            if(throwout)
+                this.transitionString = "all 0.25s";
+            else
+                this.transitionString = "all 0.75s";
 
             this.likingCard = true;
 
@@ -119,12 +112,15 @@ export class ConsumerComponent{
         }
     }
 
-    public clickNo(): void {
+    public clickNo(throwout: boolean): void {
         if(this.restaurantViewCards.length > 0 && !this.animatingCard){
             if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
                 this.moveCardIndex = this.swingCards.toArray().length - 1;
 
-            this.transitionString = "all 0.75s";
+            if(throwout)
+                this.transitionString = "all 0.25s";
+            else
+                this.transitionString = "all 0.75s";
 
             this.animatingCard = true;
 
