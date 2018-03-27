@@ -13,6 +13,9 @@ import { AlertController, PopoverController } from 'ionic-angular';
 import { DealModel, DealType, RestaurantModel } from '../restaurant-deal-maker/restaurant-deal-maker.component';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+// import { AngularFireDatabase } from 'angularfire2/database';
+// import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireStorage } from 'angularfire2/storage';
 var restaurantCards = [
     new DealModel(new RestaurantModel("Bonefish Grill", "5712 Frantz rd, Dublin, OH", ""), " $14 Fresh Caught Salmon Filet", new Date(), new Date(), 150, DealType.Food, "assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg"),
     new DealModel(new RestaurantModel("Bridge Street Pizza", "16 East Bridge st, Dublin, OH", ""), "Half Off Large Pizza", new Date(), new Date(), 150, DealType.Food, "assets/images/Local Prototype Pictures/Bridge Street Pizza food.jpg"),
@@ -53,10 +56,11 @@ var ConsumerComponent = (function () {
         this.moveCardIndex = 0;
         this.likingCard = false;
         this.animatingCard = false;
+        //private database: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage){
         this.stackConfig = {
             allowedDirections: [Direction.LEFT, Direction.RIGHT],
             throwOutConfidence: function (offsetX, offsetY, element) {
-                console.log(offsetY);
+                offsetY;
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth / 6), 1);
             },
             transform: function (element, x, y, r) {
@@ -67,6 +71,13 @@ var ConsumerComponent = (function () {
             }
         };
         this.filterCards(null);
+        // this.auth.auth.signInWithEmailAndPassword("stevepopovich8@gmail.com", "Thisism1").then(() => {
+        //     var img = new Image();
+        //     img.src = "assets/images/Local Prototype Pictures/El Vaquero Food.jpg";
+        //     var file = new File([""], "assets/images/Local Prototype Pictures/El Vaquero Food.jpg");
+        //     console.log(file);
+        //     this.storage.upload("/pictures", file);
+        // });
     }
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
@@ -83,7 +94,7 @@ var ConsumerComponent = (function () {
             this.likingCard = true;
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)";
-            this.delay(300).then(function () {
+            this.delay(75).then(function () {
                 _this.handleCard(true);
                 _this.animatingCard = false;
                 _this.transitionString = "";
@@ -101,7 +112,7 @@ var ConsumerComponent = (function () {
                 this.transitionString = "all 0.75s";
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)";
-            this.delay(300).then(function () {
+            this.delay(75).then(function () {
                 _this.handleCard(false);
                 _this.animatingCard = false;
                 _this.transitionString = "";
@@ -151,12 +162,8 @@ var ConsumerComponent = (function () {
             _this.likingCard = false;
         });
     };
-    // private resetCards(): void {
-    //     this.filterCards(null);
-    // }
     ConsumerComponent.prototype.popCard = function () {
         var poppedCard = this.restaurantViewCards.shift();
-        console.log(poppedCard);
         this.addCardToStack();
         return poppedCard;
     };
@@ -181,9 +188,9 @@ var ConsumerComponent = (function () {
             var nextCard = this.filteredCards[this.viewCardIndex];
             this.restaurantViewCards.push(nextCard);
             this.viewCardIndex++;
-            for (var i = 0; i < this.swingCards.toArray.length; i++) {
-                this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
-            }
+            // for(var i = 0; i < this.swingCards.toArray.length; i++){
+            //     this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
+            // }
         }
     };
     ConsumerComponent.prototype.setUpViewCards = function () {
@@ -209,7 +216,7 @@ var ConsumerComponent = (function () {
     ConsumerComponent = __decorate([
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="clickNo(true)" (throwoutright)="clickLike(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageSource}}" />\n    \n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo(false)" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike(false)" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>\n\n\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
-            styleUrls: ['/consumer.component.scss']
+            styleUrls: ['./consumer.component.scss']
         }),
         __metadata("design:paramtypes", [AlertController, PopoverController, LaunchNavigator])
     ], ConsumerComponent);

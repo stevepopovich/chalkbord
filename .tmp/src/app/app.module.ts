@@ -21,6 +21,11 @@ import { DealEditorComponent } from '../components/deal-editor/deal-editor.compo
 import { FilterDealComponent } from '../components/filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
       'swipe': {velocity: 1.3, threshold: 20} // override default settings
@@ -40,6 +45,17 @@ export class MyHammerConfig extends HammerGestureConfig  {
     HttpModule,
     SwingModule,
     AngularDraggableModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyCbyIgW7iO9OrPoK9Ozr6EsOGrdN8v9HKo",
+      authDomain: "locale-4112a.firebaseapp.com",
+      databaseURL: "https://locale-4112a.firebaseio.com",
+      projectId: "locale-4112a",
+      storageBucket: "locale-4112a.appspot.com",
+      messagingSenderId: "9042973249"
+    }),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
     IonicModule.forRoot(LocaleApp, {}, {
       links: [
       ]

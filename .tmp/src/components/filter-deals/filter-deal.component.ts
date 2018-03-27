@@ -4,7 +4,7 @@ import { ViewController } from "ionic-angular";
 @Component({
     templateUrl: './filter-deal.component.html',
     selector: 'filter-deal',
-    styleUrls: ['/filter-deal.component.scss']
+    styleUrls: ['./filter-deal.component.scss']
 })
 export class FilterDealComponent{
     constructor(public viewCtrl: ViewController){

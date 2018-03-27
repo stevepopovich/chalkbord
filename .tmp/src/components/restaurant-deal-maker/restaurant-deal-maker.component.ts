@@ -5,7 +5,7 @@ import { DealEditorComponent } from "../deal-editor/deal-editor.component";
 @Component({
     templateUrl: './restaurant-deal-maker.component.html',
     selector: 'restaurant-deal-maker',
-    styleUrls: ['/restaurant-deal-maker.component.scss']
+    styleUrls: ['./restaurant-deal-maker.compnent.scss']
 })
 export class RestaurantDealMakerComponent{
     private newDatePlusTwo = new Date();

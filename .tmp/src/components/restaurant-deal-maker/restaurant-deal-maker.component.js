@@ -38,7 +38,7 @@ var RestaurantDealMakerComponent = (function () {
     RestaurantDealMakerComponent = __decorate([
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<h4 style="margin-left: 1em">Restaurant name</h4>\n\n<ion-content class="content-override">\n    <ion-card *ngFor="let deal of deals" (click)="editDeal(deal)">\n        <ion-card-header>\n            {{deal.dealDescription}}\n        </ion-card-header>\n        \n        <ion-card-content>\n            <img src="{{deal.imageSource}}">\n            <h2>Deal Time: {{deal.dealStart | date:\'MM/dd hh:mm aa\'}}-{{deal.dealEnd | date: \'hh:mm aa\'}}</h2>\n        </ion-card-content>\n    </ion-card>\n</ion-content>\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
             selector: 'restaurant-deal-maker',
-            styleUrls: ['/restaurant-deal-maker.component.scss']
+            styleUrls: ['./restaurant-deal-maker.compnent.scss']
         }),
         __metadata("design:paramtypes", [ModalController])
     ], RestaurantDealMakerComponent);

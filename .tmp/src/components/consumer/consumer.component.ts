@@ -9,6 +9,9 @@ import { AlertController, PopoverController } from 'ionic-angular';
 import { DealModel, DealType, RestaurantModel } from '../restaurant-deal-maker/restaurant-deal-maker.component';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+// import { AngularFireDatabase } from 'angularfire2/database';
+// import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireStorage } from 'angularfire2/storage';
 
 const restaurantCards: DealModel[] = [
     new DealModel(new RestaurantModel("Bonefish Grill", "5712 Frantz rd, Dublin, OH", ""), " $14 Fresh Caught Salmon Filet", new Date(), new Date(), 150, DealType.Food, "assets/images/Local Prototype Pictures/Bonefish Grill Food.jpg"),
@@ -40,7 +43,7 @@ const restaurantCards: DealModel[] = [
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
-    styleUrls: ['/consumer.component.scss']
+    styleUrls: ['./consumer.component.scss']
 })
 export class ConsumerComponent{
     @ViewChild('myswing1') swingStack: SwingStackComponent;
@@ -65,10 +68,11 @@ export class ConsumerComponent{
     private animatingCard: boolean = false;
 
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator){
+         //private database: AngularFireDatabase, private auth: AngularFireAuth, private storage: AngularFireStorage){
         this.stackConfig = {
             allowedDirections: [Direction.LEFT, Direction.RIGHT],
             throwOutConfidence: (offsetX, offsetY, element) => {
-                console.log(offsetY);   
+                offsetY;
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
             },
             transform: (element, x, y, r) => {
@@ -80,6 +84,16 @@ export class ConsumerComponent{
         };
 
         this.filterCards(null);
+
+        // this.auth.auth.signInWithEmailAndPassword("stevepopovich8@gmail.com", "Thisism1").then(() => {
+        //     var img = new Image();
+        //     img.src = "assets/images/Local Prototype Pictures/El Vaquero Food.jpg";
+
+        //     var file = new File([""], "assets/images/Local Prototype Pictures/El Vaquero Food.jpg");
+
+        //     console.log(file);
+        //     this.storage.upload("/pictures", file);
+        // });
     }
 
     public onItemMove(element, x, y, r): void {
@@ -102,7 +116,7 @@ export class ConsumerComponent{
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
             
-            this.delay(300).then(() => {
+            this.delay(75).then(() => {
                 this.handleCard(true);
 
                 this.animatingCard = false;
@@ -126,7 +140,7 @@ export class ConsumerComponent{
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
             
-            this.delay(300).then(() => {
+            this.delay(75).then(() => {
                 this.handleCard(false);
 
                 this.animatingCard = false;
@@ -135,7 +149,6 @@ export class ConsumerComponent{
             });
         }
     }
-
 
     public openDealTypePopover(event){
         var filterPopover = this.popoverCtrl.create(FilterDealComponent);
@@ -184,13 +197,8 @@ export class ConsumerComponent{
         });
     }
 
-    // private resetCards(): void {
-    //     this.filterCards(null);
-    // }
-
     private popCard(): DealModel{
         var poppedCard = this.restaurantViewCards.shift();
-        console.log(poppedCard);
         this.addCardToStack();
         
         return poppedCard;
@@ -222,9 +230,9 @@ export class ConsumerComponent{
 
             this.viewCardIndex++;
 
-            for(var i = 0; i < this.swingCards.toArray.length; i++){
-                this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
-            }
+            // for(var i = 0; i < this.swingCards.toArray.length; i++){
+            //     this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
+            // }
         }
     }
 
