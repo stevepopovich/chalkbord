@@ -66,7 +66,7 @@ export class ConsumerComponent{
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                console.log(offsetY);   
+                offsetY; 
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
             },
             transform: (element, x, y, r) => {
