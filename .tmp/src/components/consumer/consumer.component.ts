@@ -66,7 +66,7 @@ export class ConsumerComponent{
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator){
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                console.log(offsetY);   
+                offsetY;   
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
             },
             transform: (element, x, y, r) => {
@@ -85,21 +85,48 @@ export class ConsumerComponent{
     }
 
     public voteUp(like: boolean): void {
+        this.transitionString = "all 0.25s";
+
         if(like){
             if(!this.likingCard){
                 this.likingCard = true;
 
+                //this.animatingCard = true;
+
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
+
                 this.handleCard(like);
+
+                this.delay(300).then(() => {
+                    
+    
+                    //this.animatingCard = false;
+    
+                    //this.transitionString = "";
+                });
             }
         }
-        else
+        else{
+            //this.animatingCard = true;
+
             this.handleCard(like);
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)`;
+
+            this.delay(300).then(() => {
+                    
+    
+                //this.animatingCard = false;
+
+                //this.transitionString = "";
+            });
+        }
+            
     }
 
     public clickLike(): void {
         if(this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard){
-            if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
-                this.moveCardIndex = this.swingCards.toArray().length - 1;
+            // if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+            //     this.moveCardIndex = this.swingCards.toArray().length - 1;
 
             this.transitionString = "all 0.75s";
 
@@ -121,8 +148,8 @@ export class ConsumerComponent{
 
     public clickNo(): void {
         if(this.restaurantViewCards.length > 0 && !this.animatingCard){
-            if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
-                this.moveCardIndex = this.swingCards.toArray().length - 1;
+            // if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+            //     this.moveCardIndex = this.swingCards.toArray().length - 1;
 
             this.transitionString = "all 0.75s";
 
@@ -188,13 +215,8 @@ export class ConsumerComponent{
         });
     }
 
-    // private resetCards(): void {
-    //     this.filterCards(null);
-    // }
-
     private popCard(): DealModel{
         var poppedCard = this.restaurantViewCards.shift();
-        console.log(poppedCard);
         this.addCardToStack();
         
         return poppedCard;
@@ -239,7 +261,6 @@ export class ConsumerComponent{
             this.restaurantViewCards.push(this.filteredCards[i]);
         }
     }
-
 
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));

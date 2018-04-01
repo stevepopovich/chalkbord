@@ -45,6 +45,7 @@
     <allow-navigation href="tel:*" />
     <allow-navigation href="mailto:*" />
     <allow-navigation href="http://192.168.1.94:8100" />
+    <allow-navigation href="http://10.10.10.113:8100" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />

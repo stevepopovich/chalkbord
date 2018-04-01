@@ -45,5 +45,6 @@
     </plugin>
     <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="^7.0.0" />
+    <engine name="android" spec="7.0.0" />
+    <allow-navigation href="http://10.10.10.113:8100" />
 </widget>

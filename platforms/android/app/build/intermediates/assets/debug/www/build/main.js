@@ -372,7 +372,7 @@ var LocaleApp = (function () {
         }
     };
     LocaleApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">dealway</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */]])
     ], LocaleApp);
@@ -452,7 +452,7 @@ var ConsumerComponent = (function () {
         this.animatingCard = false;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
-                console.log(offsetY);
+                offsetY;
                 return Math.min(Math.abs(offsetX) / (element.offsetWidth / 6), 1);
             },
             transform: function (element, x, y, r) {
@@ -468,20 +468,34 @@ var ConsumerComponent = (function () {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
     ConsumerComponent.prototype.voteUp = function (like) {
+        this.transitionString = "all 0.25s";
         if (like) {
             if (!this.likingCard) {
                 this.likingCard = true;
+                //this.animatingCard = true;
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)";
                 this.handleCard(like);
+                this.delay(300).then(function () {
+                    //this.animatingCard = false;
+                    //this.transitionString = "";
+                });
             }
         }
-        else
+        else {
+            //this.animatingCard = true;
             this.handleCard(like);
+            this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)";
+            this.delay(300).then(function () {
+                //this.animatingCard = false;
+                //this.transitionString = "";
+            });
+        }
     };
     ConsumerComponent.prototype.clickLike = function () {
         var _this = this;
         if (this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard) {
-            if (this.moveCardIndex == undefined || this.moveCardIndex < 0)
-                this.moveCardIndex = this.swingCards.toArray().length - 1;
+            // if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+            //     this.moveCardIndex = this.swingCards.toArray().length - 1;
             this.transitionString = "all 0.75s";
             this.likingCard = true;
             this.animatingCard = true;
@@ -496,8 +510,8 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.clickNo = function () {
         var _this = this;
         if (this.restaurantViewCards.length > 0 && !this.animatingCard) {
-            if (this.moveCardIndex == undefined || this.moveCardIndex < 0)
-                this.moveCardIndex = this.swingCards.toArray().length - 1;
+            // if(this.moveCardIndex == undefined || this.moveCardIndex < 0)
+            //     this.moveCardIndex = this.swingCards.toArray().length - 1;
             this.transitionString = "all 0.75s";
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)";
@@ -551,12 +565,8 @@ var ConsumerComponent = (function () {
             _this.likingCard = false;
         });
     };
-    // private resetCards(): void {
-    //     this.filterCards(null);
-    // }
     ConsumerComponent.prototype.popCard = function () {
         var poppedCard = this.restaurantViewCards.shift();
-        console.log(poppedCard);
         this.addCardToStack();
         return poppedCard;
     };
