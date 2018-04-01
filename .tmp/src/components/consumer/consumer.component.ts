@@ -73,7 +73,7 @@ export class ConsumerComponent{
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: () => {
-                return 700;
+                return 1600;
             }
         };
 
@@ -91,34 +91,15 @@ export class ConsumerComponent{
             if(!this.likingCard){
                 this.likingCard = true;
 
-                //this.animatingCard = true;
-
                 this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
 
                 this.handleCard(like);
-
-                this.delay(300).then(() => {
-                    
-    
-                    //this.animatingCard = false;
-    
-                    //this.transitionString = "";
-                });
             }
         }
         else{
-            //this.animatingCard = true;
-
             this.handleCard(like);
+            
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)`;
-
-            this.delay(300).then(() => {
-                    
-    
-                //this.animatingCard = false;
-
-                //this.transitionString = "";
-            });
         }
             
     }
