@@ -493,7 +493,6 @@ var ConsumerComponent = (function () {
             this.delay(300).then(function () {
                 _this.handleCard(true);
                 _this.animatingCard = false;
-                _this.transitionString = "";
             });
         }
     };
@@ -508,7 +507,6 @@ var ConsumerComponent = (function () {
             this.delay(300).then(function () {
                 _this.handleCard(false);
                 _this.animatingCard = false;
-                _this.transitionString = "";
             });
         }
     };
@@ -527,6 +525,7 @@ var ConsumerComponent = (function () {
             this.popLikeAlert(this.popCard());
         else
             this.popCard();
+        this.transitionString = "";
     };
     ConsumerComponent.prototype.popLikeAlert = function (card) {
         var _this = this;

@@ -121,8 +121,6 @@ export class ConsumerComponent{
                 this.handleCard(true);
 
                 this.animatingCard = false;
-
-                this.transitionString = "";
             });
         }
     }
@@ -142,8 +140,6 @@ export class ConsumerComponent{
                 this.handleCard(false);
 
                 this.animatingCard = false;
-
-                this.transitionString = "";
             });
         }
     }
@@ -166,6 +162,8 @@ export class ConsumerComponent{
             this.popLikeAlert(this.popCard());
         else
             this.popCard();
+
+        this.transitionString = "";
     }
 
     private popLikeAlert(card: DealModel): void{
