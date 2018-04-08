@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ModalController } from "ionic-angular";
 import { DealEditorComponent } from "../deal-editor/deal-editor.component";
+import { DealModel, RestaurantModel, DealType } from "../../types/deals.type";
 
 @Component({
     templateUrl: './restaurant-deal-maker.component.html',
@@ -39,41 +40,5 @@ export class RestaurantDealMakerComponent{
     }
 }
 
-export class DealModel{
-    public restaurant: RestaurantModel;
-    public dealDescription: string;
-    public dealStart: Date;
-    public dealEnd: Date;
-    public numberOfDeals: Number;
-    public dealType: DealType;
-    public imageSource: string;
 
-    public constructor(restaurant: RestaurantModel, dealDescription: string, dealStart: Date, dealEnd: Date, numberOfDeals: Number, dealType: DealType,imageSource: string){
-        this.restaurant = restaurant;
-        this.dealDescription = dealDescription;
-        this.dealStart = dealStart;
-        this.dealEnd = dealEnd;
-        this.numberOfDeals = numberOfDeals;
-        this.dealType = dealType;
-        this.imageSource = imageSource;
-    }
-}
-
-export class RestaurantModel {
-    public name: string;
-    public location: string;
-    public imageSource: string;
-
-    public constructor(name: string, location: string, imageSource: string){
-        this.name = name;
-        this.location = location;
-        this.imageSource = imageSource;
-    }
-}
-
-export enum DealType{
-    Drinks,
-    Food,
-    Both
-}
 

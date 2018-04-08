@@ -8,22 +8,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { AuthorizationService } from './authorization.service';
+import { AngularFirestore } from 'angularfire2/firestore';
 var CardDataService = (function () {
-    function CardDataService(database, storage, auth) {
+    function CardDataService(database, storage) {
         this.database = database;
         this.storage = storage;
-        this.auth = auth;
-        this.database;
         this.storage;
-        this.auth.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(function () {
-        });
     }
+    CardDataService.prototype.setUpCardStream = function () {
+        this.cardDoc = this.database.collection("cards");
+        this.cards = this.cardDoc.valueChanges();
+    };
+    CardDataService.prototype.getCards = function () {
+        if (!this.cards)
+            this.setUpCardStream();
+        return this.cards;
+    };
+    CardDataService.prototype.setCards = function (data) {
+        var _this = this;
+        if (!this.cardDoc)
+            this.setUpCardStream();
+        var cards = data.map(function (card) { return Object.assign({}, card.getAsPlainObject()); });
+        cards.forEach(function (card) {
+            _this.cardDoc.doc(card.id).set(Object.assign({}, card));
+        });
+    };
     CardDataService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [AngularFireDatabase, AngularFireStorage, AuthorizationService])
+        __metadata("design:paramtypes", [AngularFirestore, AngularFireStorage])
     ], CardDataService);
     return CardDataService;
 }());

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from "@angular/core";
 import { ModalController } from "ionic-angular";
 import { DealEditorComponent } from "../deal-editor/deal-editor.component";
+import { DealModel, RestaurantModel, DealType } from "../../types/deals.type";
 var RestaurantDealMakerComponent = (function () {
     function RestaurantDealMakerComponent(modalCtrl) {
         this.modalCtrl = modalCtrl;
@@ -45,32 +46,4 @@ var RestaurantDealMakerComponent = (function () {
     return RestaurantDealMakerComponent;
 }());
 export { RestaurantDealMakerComponent };
-var DealModel = (function () {
-    function DealModel(restaurant, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
-        this.restaurant = restaurant;
-        this.dealDescription = dealDescription;
-        this.dealStart = dealStart;
-        this.dealEnd = dealEnd;
-        this.numberOfDeals = numberOfDeals;
-        this.dealType = dealType;
-        this.imageSource = imageSource;
-    }
-    return DealModel;
-}());
-export { DealModel };
-var RestaurantModel = (function () {
-    function RestaurantModel(name, location, imageSource) {
-        this.name = name;
-        this.location = location;
-        this.imageSource = imageSource;
-    }
-    return RestaurantModel;
-}());
-export { RestaurantModel };
-export var DealType;
-(function (DealType) {
-    DealType[DealType["Drinks"] = 0] = "Drinks";
-    DealType[DealType["Food"] = 1] = "Food";
-    DealType[DealType["Both"] = 2] = "Both";
-})(DealType || (DealType = {}));
 //# sourceMappingURL=restaurant-deal-maker.component.js.map

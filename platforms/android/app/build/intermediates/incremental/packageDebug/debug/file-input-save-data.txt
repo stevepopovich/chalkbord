@@ -1,8 +1,8 @@
 #Internal package file, do not edit.
-#Sun Apr 01 00:14:00 EDT 2018
+#Sat Apr 07 20:32:16 EDT 2018
 122.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/build/main.js.map
 60.set=ASSET
-129.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/images/wakeworthy/constructive.jpg
+129.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/noto-sans-regular.ttf
 52.set=ANDROID_RESOURCE
 53.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 44.set=ASSET
@@ -58,7 +58,7 @@
 99.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 121.file=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-land-mdpi-v4/screen.png
 50.set=ANDROID_RESOURCE
-128.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-bold.woff
+128.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/images/wakeworthy/constructive.jpg
 42.set=ASSET
 52.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 34.set=ANDROID_RESOURCE
@@ -117,7 +117,7 @@
 98.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 120.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/android/launchnavigator.js
 40.set=ANDROID_RESOURCE
-127.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/images/Local Prototype Pictures/Yogis Bar.jpg
+127.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-bold.woff
 32.set=ASSET
 51.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
 24.set=ASSET
@@ -247,7 +247,6 @@
 16.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
 95.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/images/Local Prototype Pictures/Vine _ Tap Bar.jpg
 1.set=ASSET
-130.set=ASSET
 102.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
 122.set=ASSET
 109.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
@@ -256,7 +255,7 @@
 55.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/localforage.v1.5.0.min.js
 106.set=ASSET
 65.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
-count=131
+count=130
 116.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
 15.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/images/Local Prototype Pictures/Rancho Allegra Food.jpg
 25.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
@@ -350,7 +349,6 @@ count=131
 54.set=ANDROID_RESOURCE
 46.set=ASSET
 38.set=ASSET
-130.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/noto-sans-regular.ttf
 2.file=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xxhdpi-v4/ic_action_next_item.png
 14.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 46.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-regular.ttf
@@ -387,7 +385,6 @@ count=131
 29.file=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/mipmap-mdpi-v4/icon.png
 101.set=ASSET
 76.file=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-hdpi-v4/ic_action_previous_item.png
-130.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug
 36.file=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug/www/build/main.css.map
 2.base=/Users/Contence/locale/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 46.base=/Users/Contence/locale/platforms/android/app/build/intermediates/assets/debug

@@ -1,19 +1,38 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { AuthorizationService } from './authorization.service';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { DealModel } from '../types/deals.type';
 
 @Injectable()
-
 export class CardDataService {
+    public cardDoc: AngularFirestoreCollection<DealModel>;
+    public cards: Observable<DealModel[]>;
 
-    constructor(private database: AngularFireDatabase, private storage: AngularFireStorage, private auth: AuthorizationService) {
-        this.database;
+    constructor(private database: AngularFirestore, private storage: AngularFireStorage) {
         this.storage;
-        this.auth.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(() => {
-
-        });
     }
 
+    public setUpCardStream(): void {
+        this.cardDoc = this.database.collection<DealModel>("cards");
+        this.cards = this.cardDoc.valueChanges();
+    } 
+
+    public getCards(): Observable<DealModel[]> {
+        if(!this.cards)
+            this.setUpCardStream();
+        
+        return this.cards;
+    }
+
+    public setCards(data: DealModel[]): void {
+        if(!this.cardDoc)
+            this.setUpCardStream();
+
+        const cards = data.map((card)=> {return Object.assign({}, card.getAsPlainObject())});
+        cards.forEach((card) => {
+            this.cardDoc.doc(card.id).set(Object.assign({}, card));
+        })
+    }
 }

@@ -13,5 +13,4 @@ export class AuthorizationService {
     public authorizeUserAccess(username: string, password: string): Promise<any> {
         return this.auth.auth.signInWithEmailAndPassword(username, password);
     }
-
 }

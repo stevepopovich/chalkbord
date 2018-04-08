@@ -8,8 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { DealModel, DealType, RestaurantModel } from "../restaurant-deal-maker/restaurant-deal-maker.component";
 import { ViewController } from "ionic-angular";
+import { DealModel, RestaurantModel, DealType } from "../../types/deals.type";
 var DealEditorComponent = (function () {
     function DealEditorComponent(viewCtrl) {
         this.viewCtrl = viewCtrl;

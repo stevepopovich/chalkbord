@@ -30,6 +30,14 @@ import { RestaurantDealMakerComponent } from '../components/restaurant-deal-make
 import { DealEditorComponent } from '../components/deal-editor/deal-editor.component';
 import { FilterDealComponent } from '../components/filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { CardDataService } from '../services/card-data.service';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AuthorizationService } from '../services/authorization.service';
+import { ImageService } from '../services/image-service.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -62,7 +70,19 @@ var AppModule = (function () {
                 IonicModule.forRoot(LocaleApp, {}, {
                     links: []
                 }),
-                IonicStorageModule.forRoot()
+                IonicStorageModule.forRoot(),
+                AngularFireDatabaseModule,
+                AngularFireModule.initializeApp({
+                    apiKey: "AIzaSyCbyIgW7iO9OrPoK9Ozr6EsOGrdN8v9HKo",
+                    authDomain: "locale-4112a.firebaseapp.com",
+                    databaseURL: "https://locale-4112a.firebaseio.com",
+                    projectId: "locale-4112a",
+                    storageBucket: "locale-4112a.appspot.com",
+                    messagingSenderId: "9042973249"
+                }),
+                AngularFireAuthModule,
+                AngularFireStorageModule,
+                AngularFirestoreModule
             ],
             bootstrap: [IonicApp],
             entryComponents: [
@@ -80,7 +100,10 @@ var AppModule = (function () {
                 },
                 Dialogs,
                 StatusBar,
-                LaunchNavigator
+                LaunchNavigator,
+                CardDataService,
+                AuthorizationService,
+                ImageService
             ]
         })
     ], AppModule);
