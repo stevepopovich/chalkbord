@@ -40037,6 +40037,23 @@ ion-navbar.toolbar {
   /* IE6-9 */
 }
 
+.loading-div {
+  float: left;
+  height: 100%;
+  width: 100%;
+  z-index: -9999 !important;
+  position: fixed;
+}
+
+ion-spinner {
+  position: relative;
+  display: inline-block;
+  height: 90px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 14em;
+}
+
 .content-override {
   height: 85%;
 }

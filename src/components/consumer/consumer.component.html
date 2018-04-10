@@ -1,7 +1,13 @@
 <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>
     <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>
 </button>
-<div swing-stack #myswing1 *ngIf="restaurantViewCards && restaurantViewCards.length > 0" [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">
+
+<div class="loading-div">
+    <ion-spinner class="loading-spinner"></ion-spinner>
+    <h2 ion-text style="text-align: center">Getting your local deals!</h2>
+</div>
+
+<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">
     <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{'transition': transitionString}">
         <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />
 
