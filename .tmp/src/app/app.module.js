@@ -38,6 +38,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthorizationService } from '../services/authorization.service';
 import { ImageService } from '../services/image-service.service';
+import { Camera } from '@ionic-native/camera';
+import { UploadService } from '../services/uploader.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -103,7 +105,9 @@ var AppModule = (function () {
                 LaunchNavigator,
                 CardDataService,
                 AuthorizationService,
-                ImageService
+                ImageService,
+                Camera,
+                UploadService
             ]
         })
     ], AppModule);

@@ -29,6 +29,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthorizationService } from '../services/authorization.service';
 import { ImageService } from '../services/image-service.service';
+import { Camera } from '@ionic-native/camera';
+import { UploadService } from '../services/uploader.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -86,7 +88,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     LaunchNavigator,
     CardDataService,
     AuthorizationService,
-    ImageService
+    ImageService,
+    Camera,
+    UploadService
   ]
 })
 export class AppModule { }

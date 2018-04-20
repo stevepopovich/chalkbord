@@ -47,13 +47,13 @@ export class ConsumerComponent{
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth/6), 1);
+                return Math.min(Math.abs(offsetX) / (element.offsetWidth/2.5), 1);
             },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: () => {
-                return 4800;
+                return 200;
             }
         };
 

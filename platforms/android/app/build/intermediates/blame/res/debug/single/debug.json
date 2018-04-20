@@ -108,6 +108,10 @@
         "source": "/Users/Contence/locale/platforms/android/app/src/main/res/drawable-land-xxhdpi/screen.png"
     },
     {
+        "merged": "/Users/Contence/locale/platforms/android/app/build/intermediates/res/merged/debug/xml_provider_paths.xml.flat",
+        "source": "/Users/Contence/locale/platforms/android/app/src/main/res/xml/provider_paths.xml"
+    },
+    {
         "merged": "/Users/Contence/locale/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
         "source": "/Users/Contence/locale/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
     },

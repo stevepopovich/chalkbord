@@ -8,13 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFirestore } from 'angularfire2/firestore';
 var CardDataService = (function () {
-    function CardDataService(database, storage) {
+    function CardDataService(database) {
         this.database = database;
-        this.storage = storage;
-        this.storage;
     }
     CardDataService.prototype.setUpCardStream = function () {
         this.cardDoc = this.database.collection("cards");
@@ -34,9 +31,14 @@ var CardDataService = (function () {
             _this.cardDoc.doc(card.id).set(Object.assign({}, card));
         });
     };
+    CardDataService.prototype.addCard = function (data) {
+        if (!this.cardDoc)
+            this.setUpCardStream();
+        this.cardDoc.doc(data.id).set(Object.assign({}, data.getAsPlainObject()));
+    };
     CardDataService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [AngularFirestore, AngularFireStorage])
+        __metadata("design:paramtypes", [AngularFirestore])
     ], CardDataService);
     return CardDataService;
 }());

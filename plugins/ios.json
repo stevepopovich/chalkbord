@@ -7,7 +7,13 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
     "cordova-plugin-device": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "locale.alpha"
     },
     "cordova-plugin-inappbrowser": {
@@ -26,9 +32,6 @@
       "PACKAGE_NAME": "locale.alpha"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "locale.alpha"
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {

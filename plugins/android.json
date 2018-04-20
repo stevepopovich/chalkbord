@@ -33,6 +33,9 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

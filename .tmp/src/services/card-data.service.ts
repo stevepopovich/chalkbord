@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireStorage } from 'angularfire2/storage';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { DealModel } from '../types/deals.type';
@@ -10,8 +9,7 @@ export class CardDataService {
     public cardDoc: AngularFirestoreCollection<DealModel>;
     public cards: Observable<DealModel[]>;
 
-    constructor(private database: AngularFirestore, private storage: AngularFireStorage) {
-        this.storage;
+    constructor(private database: AngularFirestore) {
     }
 
     public setUpCardStream(): void {
@@ -34,5 +32,12 @@ export class CardDataService {
         cards.forEach((card) => {
             this.cardDoc.doc(card.id).set(Object.assign({}, card));
         })
+    }
+
+    public addCard(data: DealModel): void {
+        if(!this.cardDoc)
+            this.setUpCardStream();
+
+        this.cardDoc.doc(data.id).set(Object.assign({}, data.getAsPlainObject()));
     }
 }
