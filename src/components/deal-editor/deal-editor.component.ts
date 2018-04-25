@@ -21,7 +21,7 @@ export class DealEditorComponent{
 
     public constructor(public viewCtrl: ViewController, private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService){
         this.dealEditorFormGroup = formBuilder.group({
-            dealDescription: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(5), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
+            dealDescription: ['', Validators.compose([Validators.maxLength(9999), Validators.minLength(0), Validators.required])],
             dealNumber: ['', Validators.compose([Validators.maxLength(1000), Validators.pattern('[0-9 ]*')])],
             limitedDealNumber: [''],
             dealStart: ['', Validators.required],

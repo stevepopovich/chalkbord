@@ -7,6 +7,9 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "locale.alpha"
     },
@@ -32,9 +35,6 @@
       "PACKAGE_NAME": "locale.alpha"
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "cordova-plugin-camera": {
       "PACKAGE_NAME": "locale.alpha"
     }
   },

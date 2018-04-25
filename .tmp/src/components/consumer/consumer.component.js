@@ -47,7 +47,10 @@ var ConsumerComponent = (function () {
         // this.authService.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(() => {
         //     this.cardService.setCards(restaurantCards);
         // });
-        this.authService.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(function () {
+    }
+    ConsumerComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.authService.signIn("stevepopovich8@gmail.com", "Thisism1", false).then(function () {
             _this.cardService.getCards().subscribe(function (cardModels) {
                 if (!_this.cards) {
                     _this.cards = cardModels;
@@ -58,7 +61,7 @@ var ConsumerComponent = (function () {
                 }
             });
         });
-    }
+    };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
@@ -166,7 +169,9 @@ var ConsumerComponent = (function () {
             this.filteredCards = this.cards;
         this.setUpViewCards();
         this.delay(600).then(function () {
-            _this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
+            var topCard = _this.swingCards.toArray()[0];
+            if (topCard)
+                topCard.getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
         });
     };
     ConsumerComponent.prototype.addCardToStack = function () {

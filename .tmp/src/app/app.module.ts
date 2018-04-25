@@ -31,6 +31,7 @@ import { AuthorizationService } from '../services/authorization.service';
 import { ImageService } from '../services/image-service.service';
 import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
+import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -45,6 +46,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     RestaurantDealMakerComponent,
     DealEditorComponent,
     FilterDealComponent,
+    UserSignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     LocaleApp,
     RestaurantDealMakerComponent,
     DealEditorComponent,
-    FilterDealComponent
+    FilterDealComponent,
+    UserSignUpComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -90,7 +93,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AuthorizationService,
     ImageService,
     Camera,
-    UploadService
+    UploadService,
   ]
 })
 export class AppModule { }

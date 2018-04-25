@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
+import { AuthorizationService } from '../services/authorization.service';
 
 @Component({
   templateUrl: 'app.template.html'
@@ -7,11 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 export class LocaleApp {
   public dealMaker: boolean = false;
-  public consumer: boolean = true;
+  public consumer: boolean = false;
+  public signUp: boolean = false;
 
-  constructor(private statusBar: StatusBar) {
+  constructor(private statusBar: StatusBar, private auth: AuthorizationService) {
     this.statusBar.overlaysWebView(false);
     this.statusBar.backgroundColorByName("black");
+
+    if(!this.auth.checkUserIsLoggedIn()){
+      this.signUp = true;
+    }
   }
 
   public changeView(){

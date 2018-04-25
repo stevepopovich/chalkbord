@@ -18,8 +18,7 @@ export class CardDataService {
     } 
 
     public getCards(): Observable<DealModel[]> {
-        if(!this.cards)
-            this.setUpCardStream();
+        this.setUpCardStream();//always hard refresh to force update eveything subscribed
         
         return this.cards;
     }

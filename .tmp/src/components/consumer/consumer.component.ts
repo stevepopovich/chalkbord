@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 
 import {
     StackConfig,
@@ -17,7 +17,7 @@ import { DealModel, DealType } from '../../types/deals.type';
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent{
+export class ConsumerComponent implements AfterViewInit{
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -43,7 +43,7 @@ export class ConsumerComponent{
 
     public cards: DealModel[];
 
-    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, private imageService: ImageService){
+    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, private imageService: ImageService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   
@@ -60,8 +60,10 @@ export class ConsumerComponent{
         // this.authService.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(() => {
         //     this.cardService.setCards(restaurantCards);
         // });
-
-        this.authService.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(() => {
+    }
+    
+    public ngAfterViewInit(): void {
+        this.authService.signIn("stevepopovich8@gmail.com", "Thisism1", false).then(() => {
             this.cardService.getCards().subscribe((cardModels) => {
                 if(!this.cards){
                     this.cards = cardModels as DealModel[];
@@ -207,7 +209,10 @@ export class ConsumerComponent{
         this.setUpViewCards();  
 
         this.delay(600).then(() => {//this sucks
-            this.swingCards.toArray()[0].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
+            const topCard = this.swingCards.toArray()[0];
+
+            if(topCard)
+                topCard.getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
         });
     }
 

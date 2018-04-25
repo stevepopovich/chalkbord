@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="locale.alpha" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="3" id="locale.alpha" version="0.0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>GrabSome</name>
     <description>An app to let you get food deals</description>
     <author email="stevepopovich8@gmail.com">Steven Popovich</author>
@@ -44,6 +44,6 @@
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.1.3" />
     <plugin name="cordova-plugin-camera" spec="~4.0.2" />
     <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="7.1.0" />
-    <engine name="ios" spec="^4.5.4" />
+    <engine name="ios" spec="~4.5.4" />
+    <engine name="android" spec="~7.0.0" />
 </widget>

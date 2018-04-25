@@ -18,8 +18,7 @@ var CardDataService = (function () {
         this.cards = this.cardDoc.valueChanges();
     };
     CardDataService.prototype.getCards = function () {
-        if (!this.cards)
-            this.setUpCardStream();
+        this.setUpCardStream(); //always hard refresh to force update eveything subscribed
         return this.cards;
     };
     CardDataService.prototype.setCards = function (data) {

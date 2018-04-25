@@ -40,6 +40,7 @@ import { AuthorizationService } from '../services/authorization.service';
 import { ImageService } from '../services/image-service.service';
 import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
+import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -63,6 +64,7 @@ var AppModule = (function () {
                 RestaurantDealMakerComponent,
                 DealEditorComponent,
                 FilterDealComponent,
+                UserSignUpComponent
             ],
             imports: [
                 BrowserModule,
@@ -91,7 +93,8 @@ var AppModule = (function () {
                 LocaleApp,
                 RestaurantDealMakerComponent,
                 DealEditorComponent,
-                FilterDealComponent
+                FilterDealComponent,
+                UserSignUpComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -107,7 +110,7 @@ var AppModule = (function () {
                 AuthorizationService,
                 ImageService,
                 Camera,
-                UploadService
+                UploadService,
             ]
         })
     ], AppModule);

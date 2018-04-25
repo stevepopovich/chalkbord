@@ -9,13 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
+import { AuthorizationService } from '../services/authorization.service';
 var LocaleApp = (function () {
-    function LocaleApp(statusBar) {
+    function LocaleApp(statusBar, auth) {
         this.statusBar = statusBar;
+        this.auth = auth;
         this.dealMaker = false;
-        this.consumer = true;
+        this.consumer = false;
+        this.signUp = false;
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByName("black");
+        if (!this.auth.checkUserIsLoggedIn()) {
+            this.signUp = true;
+        }
     }
     LocaleApp.prototype.changeView = function () {
         if (this.dealMaker) {
@@ -28,9 +34,9 @@ var LocaleApp = (function () {
         }
     };
     LocaleApp = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>\n<user-signup *ngIf="signUp"></user-signup>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
-        __metadata("design:paramtypes", [StatusBar])
+        __metadata("design:paramtypes", [StatusBar, AuthorizationService])
     ], LocaleApp);
     return LocaleApp;
 }());
