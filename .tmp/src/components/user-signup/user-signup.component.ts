@@ -18,6 +18,7 @@ export class UserSignUpComponent{
     public isRest: boolean = false;
 
     public attemptingSignup: boolean = false;
+    public attemptingLogin: boolean = false;
 
     public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, private viewControl: ViewControllerService, public toastCtrl: ToastController){
         this.userFormGroup = this.formBuilder.group({
@@ -32,6 +33,8 @@ export class UserSignUpComponent{
         if(!this.signingUp){
             this.signingUp = true;
         }else if(this.userFormGroup.valid){
+            this.showToast("Signing you up...welcome!");
+
             const email: string = this.userFormGroup.get("email").value;
             const password: string = this.userFormGroup.get("password").value;
             const confrimPassword: string = this.userFormGroup.get("password").value;
@@ -48,13 +51,13 @@ export class UserSignUpComponent{
                     if(!methods || methods.length < 1){//if user not in db
                         this.attemptingSignup = true;
                         this.auth.signUpUser(email, password).then(() => {
-                            this.auth.signIn(email, password, true).then(() => {
+                            this.auth.signIn(email, password).then(() => {
                                 const newUser = new GSUser(this.auth.auth.auth.currentUser.uid, userType);
             
                                 this.auth.currentUser = newUser;
             
                                 this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
-    
+
                                 this.setAppropiateView();
             
                             }).catch((reason) => {//couldn't sign in 
@@ -102,12 +105,22 @@ export class UserSignUpComponent{
     
     public login(): void{
         if(this.userFormGroup.valid){
+            this.attemptingLogin = true;
+
+            this.showToast("Logging you in...welcome back!");
+
             const email = this.userFormGroup.get("email").value;
 
             this.auth.checkUserSignInMethods(email).then((methods) => {
                 if(methods.length > 0){//if user not in db
-                    this.auth.signIn(email, this.userFormGroup.get("password").value, false).then(() => {
+                    this.auth.signIn(email, this.userFormGroup.get("password").value,).then(() => {
+                        this.auth.getCurrentUserData();
+
                         this.setAppropiateView();
+                    }).catch((reason) => {
+                        this.showToast("Double check your password");
+
+                        console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else{
@@ -115,21 +128,42 @@ export class UserSignUpComponent{
 
                     console.error("User does not exist!");
                 }
+            }).catch((reason) => {
+                this.showToast("Sign in didn't work because: " + reason);
+
+                console.error("User does not exist!");
             });
+        }
+        else{
+            var display: string = "";
+
+            if(this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+
+            if(this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long. ";
+
+            this.showToast(display);
+
+            console.error("Fields are invalid");
         }
     }
 
     public setAppropiateView(): void{
-        if(this.auth.checkUserType() == UserType.Restaurant)
-            this.viewControl.setDealMakerView();
-        else
-            this.viewControl.setConsumerView();
+        if(this.auth.checkUserType()){
+            this.auth.checkUserType().subscribe((users: GSUser[]) => {
+                if(users[0].userType == UserType.Restaurant)
+                    this.viewControl.setDealMakerView();
+                else
+                    this.viewControl.setConsumerView();
+            })
+        }
     }
 
     public showToast(message: string){
         let toast = this.toastCtrl.create({
             message: message,
-            duration: 5000,
+            duration: 6000,
             position: "bottom"
         });
 

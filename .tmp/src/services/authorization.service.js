@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 var AuthorizationService = (function () {
     function AuthorizationService(auth, database) {
         this.auth = auth;
@@ -17,7 +18,17 @@ var AuthorizationService = (function () {
         this.userCollection = this.database.collection("users");
     }
     AuthorizationService.prototype.checkUserType = function () {
-        return this.currentUser.userType;
+        var _this = this;
+        if (this.currentUser) {
+            return Observable.create(function (observer) {
+                observer.next([_this.currentUser]);
+                observer.complete();
+            });
+        }
+        else if (this.auth.auth.currentUser)
+            return this.getCurrentUserData();
+        else
+            return null;
     };
     AuthorizationService.prototype.checkUserIsLoggedIn = function () {
         if (this.currentUser && this.auth.auth.currentUser)
@@ -29,14 +40,12 @@ var AuthorizationService = (function () {
         this.currentUser = null;
         this.auth.auth.signOut();
     };
-    AuthorizationService.prototype.signIn = function (email, password, newSignIn) {
-        var _this = this;
-        if (!newSignIn) {
-            this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges().subscribe(function (users) {
-                _this.currentUser = users[0];
-            });
-        }
+    AuthorizationService.prototype.signIn = function (email, password) {
         return this.auth.auth.signInWithEmailAndPassword(email, password);
+    };
+    AuthorizationService.prototype.getCurrentUserData = function () {
+        var _this = this;
+        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges();
     };
     AuthorizationService.prototype.signUpUser = function (email, password) {
         return this.auth.auth.createUserWithEmailAndPassword(email, password);

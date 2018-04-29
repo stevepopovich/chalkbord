@@ -22,6 +22,7 @@ var UserSignUpComponent = (function () {
         this.signingUp = false;
         this.isRest = false;
         this.attemptingSignup = false;
+        this.attemptingLogin = false;
         this.userFormGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
@@ -35,6 +36,7 @@ var UserSignUpComponent = (function () {
             this.signingUp = true;
         }
         else if (this.userFormGroup.valid) {
+            this.showToast("Signing you up...welcome!");
             var email_1 = this.userFormGroup.get("email").value;
             var password_1 = this.userFormGroup.get("password").value;
             var confrimPassword = this.userFormGroup.get("password").value;
@@ -48,7 +50,7 @@ var UserSignUpComponent = (function () {
                     if (!methods || methods.length < 1) {
                         _this.attemptingSignup = true;
                         _this.auth.signUpUser(email_1, password_1).then(function () {
-                            _this.auth.signIn(email_1, password_1, true).then(function () {
+                            _this.auth.signIn(email_1, password_1).then(function () {
                                 var newUser = new GSUser(_this.auth.auth.auth.currentUser.uid, userType);
                                 _this.auth.currentUser = newUser;
                                 _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
@@ -89,36 +91,59 @@ var UserSignUpComponent = (function () {
     UserSignUpComponent.prototype.login = function () {
         var _this = this;
         if (this.userFormGroup.valid) {
+            this.attemptingLogin = true;
+            this.showToast("Logging you in...welcome back!");
             var email_2 = this.userFormGroup.get("email").value;
             this.auth.checkUserSignInMethods(email_2).then(function (methods) {
                 if (methods.length > 0) {
-                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value, false).then(function () {
+                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value).then(function () {
+                        _this.auth.getCurrentUserData();
                         _this.setAppropiateView();
+                    }).catch(function (reason) {
+                        _this.showToast("Double check your password");
+                        console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else {
                     _this.showToast("Sorry, we dont have that username signed up. Please sign up.");
                     console.error("User does not exist!");
                 }
+            }).catch(function (reason) {
+                _this.showToast("Sign in didn't work because: " + reason);
+                console.error("User does not exist!");
             });
+        }
+        else {
+            var display = "";
+            if (this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+            if (this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long. ";
+            this.showToast(display);
+            console.error("Fields are invalid");
         }
     };
     UserSignUpComponent.prototype.setAppropiateView = function () {
-        if (this.auth.checkUserType() == UserType.Restaurant)
-            this.viewControl.setDealMakerView();
-        else
-            this.viewControl.setConsumerView();
+        var _this = this;
+        if (this.auth.checkUserType()) {
+            this.auth.checkUserType().subscribe(function (users) {
+                if (users[0].userType == UserType.Restaurant)
+                    _this.viewControl.setDealMakerView();
+                else
+                    _this.viewControl.setConsumerView();
+            });
+        }
     };
     UserSignUpComponent.prototype.showToast = function (message) {
         var toast = this.toastCtrl.create({
             message: message,
-            duration: 5000,
+            duration: 6000,
             position: "bottom"
         });
         toast.present();
     };
     UserSignUpComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        <div *ngIf="!attemptingSignup">Sign Up</div>\n        <ion-spinner *ngIf="attemptingSignup"></ion-spinner>\n    </button>\n</div>\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        Sign Up\n    </button>\n</div>\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
             selector: 'user-signup',
             styleUrls: ['/user-signup.component.scss']
         }),

@@ -9,6 +9,8 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +23,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthorizationService = (function () {
     function AuthorizationService(auth, database) {
         this.auth = auth;
@@ -28,7 +31,17 @@ var AuthorizationService = (function () {
         this.userCollection = this.database.collection("users");
     }
     AuthorizationService.prototype.checkUserType = function () {
-        return this.currentUser.userType;
+        var _this = this;
+        if (this.currentUser) {
+            return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].create(function (observer) {
+                observer.next([_this.currentUser]);
+                observer.complete();
+            });
+        }
+        else if (this.auth.auth.currentUser)
+            return this.getCurrentUserData();
+        else
+            return null;
     };
     AuthorizationService.prototype.checkUserIsLoggedIn = function () {
         if (this.currentUser && this.auth.auth.currentUser)
@@ -40,14 +53,12 @@ var AuthorizationService = (function () {
         this.currentUser = null;
         this.auth.auth.signOut();
     };
-    AuthorizationService.prototype.signIn = function (email, password, newSignIn) {
-        var _this = this;
-        if (!newSignIn) {
-            this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges().subscribe(function (users) {
-                _this.currentUser = users[0];
-            });
-        }
+    AuthorizationService.prototype.signIn = function (email, password) {
         return this.auth.auth.signInWithEmailAndPassword(email, password);
+    };
+    AuthorizationService.prototype.getCurrentUserData = function () {
+        var _this = this;
+        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges();
     };
     AuthorizationService.prototype.signUpUser = function (email, password) {
         return this.auth.auth.createUserWithEmailAndPassword(email, password);
@@ -1106,7 +1117,7 @@ var UserSignUpComponent = (function () {
                     if (!methods || methods.length < 1) {
                         _this.attemptingSignup = true;
                         _this.auth.signUpUser(email_1, password_1).then(function () {
-                            _this.auth.signIn(email_1, password_1, true).then(function () {
+                            _this.auth.signIn(email_1, password_1).then(function () {
                                 var newUser = new __WEBPACK_IMPORTED_MODULE_4__types_user_type__["a" /* GSUser */](_this.auth.auth.auth.currentUser.uid, userType);
                                 _this.auth.currentUser = newUser;
                                 _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
@@ -1152,7 +1163,8 @@ var UserSignUpComponent = (function () {
             var email_2 = this.userFormGroup.get("email").value;
             this.auth.checkUserSignInMethods(email_2).then(function (methods) {
                 if (methods.length > 0) {
-                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value, false).then(function () {
+                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value).then(function () {
+                        _this.auth.getCurrentUserData();
                         _this.setAppropiateView();
                     }).catch(function (reason) {
                         _this.showToast("Double check your password");
@@ -1168,12 +1180,26 @@ var UserSignUpComponent = (function () {
                 console.error("User does not exist!");
             });
         }
+        else {
+            var display = "";
+            if (this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+            if (this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long. ";
+            this.showToast(display);
+            console.error("Fields are invalid");
+        }
     };
     UserSignUpComponent.prototype.setAppropiateView = function () {
-        if (this.auth.checkUserType() == __WEBPACK_IMPORTED_MODULE_4__types_user_type__["b" /* UserType */].Restaurant)
-            this.viewControl.setDealMakerView();
-        else
-            this.viewControl.setConsumerView();
+        var _this = this;
+        if (this.auth.checkUserType()) {
+            this.auth.checkUserType().subscribe(function (users) {
+                if (users[0].userType == __WEBPACK_IMPORTED_MODULE_4__types_user_type__["b" /* UserType */].Restaurant)
+                    _this.viewControl.setDealMakerView();
+                else
+                    _this.viewControl.setConsumerView();
+            });
+        }
     };
     UserSignUpComponent.prototype.showToast = function (message) {
         var toast = this.toastCtrl.create({
@@ -1188,10 +1214,9 @@ var UserSignUpComponent = (function () {
             selector: 'user-signup',
             styleUrls: ['/user-signup.component.scss']
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* ToastController */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */], __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* ToastController */]])
     ], UserSignUpComponent);
     return UserSignUpComponent;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=user-signup.component.js.map

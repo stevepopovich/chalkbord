@@ -51,13 +51,13 @@ export class UserSignUpComponent{
                     if(!methods || methods.length < 1){//if user not in db
                         this.attemptingSignup = true;
                         this.auth.signUpUser(email, password).then(() => {
-                            this.auth.signIn(email, password, true).then(() => {
+                            this.auth.signIn(email, password).then(() => {
                                 const newUser = new GSUser(this.auth.auth.auth.currentUser.uid, userType);
             
                                 this.auth.currentUser = newUser;
             
                                 this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
-    
+
                                 this.setAppropiateView();
             
                             }).catch((reason) => {//couldn't sign in 
@@ -113,7 +113,9 @@ export class UserSignUpComponent{
 
             this.auth.checkUserSignInMethods(email).then((methods) => {
                 if(methods.length > 0){//if user not in db
-                    this.auth.signIn(email, this.userFormGroup.get("password").value, false).then(() => {
+                    this.auth.signIn(email, this.userFormGroup.get("password").value,).then(() => {
+                        this.auth.getCurrentUserData();
+
                         this.setAppropiateView();
                     }).catch((reason) => {
                         this.showToast("Double check your password");
@@ -132,13 +134,30 @@ export class UserSignUpComponent{
                 console.error("User does not exist!");
             });
         }
+        else{
+            var display: string = "";
+
+            if(this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+
+            if(this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long. ";
+
+            this.showToast(display);
+
+            console.error("Fields are invalid");
+        }
     }
 
     public setAppropiateView(): void{
-        if(this.auth.checkUserType() == UserType.Restaurant)
-            this.viewControl.setDealMakerView();
-        else
-            this.viewControl.setConsumerView();
+        if(this.auth.checkUserType()){
+            this.auth.checkUserType().subscribe((users: GSUser[]) => {
+                if(users[0].userType == UserType.Restaurant)
+                    this.viewControl.setDealMakerView();
+                else
+                    this.viewControl.setConsumerView();
+            })
+        }
     }
 
     public showToast(message: string){

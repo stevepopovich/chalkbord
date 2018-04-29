@@ -9,6 +9,8 @@ webpackJsonp([0],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,6 +23,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthorizationService = (function () {
     function AuthorizationService(auth, database) {
         this.auth = auth;
@@ -28,7 +31,17 @@ var AuthorizationService = (function () {
         this.userCollection = this.database.collection("users");
     }
     AuthorizationService.prototype.checkUserType = function () {
-        return this.currentUser.userType;
+        var _this = this;
+        if (this.currentUser) {
+            return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].create(function (observer) {
+                observer.next([_this.currentUser]);
+                observer.complete();
+            });
+        }
+        else if (this.auth.auth.currentUser)
+            return this.getCurrentUserData();
+        else
+            return null;
     };
     AuthorizationService.prototype.checkUserIsLoggedIn = function () {
         if (this.currentUser && this.auth.auth.currentUser)
@@ -40,14 +53,12 @@ var AuthorizationService = (function () {
         this.currentUser = null;
         this.auth.auth.signOut();
     };
-    AuthorizationService.prototype.signIn = function (email, password, newSignIn) {
-        var _this = this;
-        if (!newSignIn) {
-            this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges().subscribe(function (users) {
-                _this.currentUser = users[0];
-            });
-        }
+    AuthorizationService.prototype.signIn = function (email, password) {
         return this.auth.auth.signInWithEmailAndPassword(email, password);
+    };
+    AuthorizationService.prototype.getCurrentUserData = function () {
+        var _this = this;
+        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges();
     };
     AuthorizationService.prototype.signUpUser = function (email, password) {
         return this.auth.auth.createUserWithEmailAndPassword(email, password);
@@ -1078,6 +1089,7 @@ var UserSignUpComponent = (function () {
         this.signingUp = false;
         this.isRest = false;
         this.attemptingSignup = false;
+        this.attemptingLogin = false;
         this.userFormGroup = this.formBuilder.group({
             email: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].email, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required])],
             password: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].minLength(8), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].maxLength(64), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].pattern('[a-zA-Z0-9]*')])],
@@ -1091,6 +1103,7 @@ var UserSignUpComponent = (function () {
             this.signingUp = true;
         }
         else if (this.userFormGroup.valid) {
+            this.showToast("Signing you up...welcome!");
             var email_1 = this.userFormGroup.get("email").value;
             var password_1 = this.userFormGroup.get("password").value;
             var confrimPassword = this.userFormGroup.get("password").value;
@@ -1104,7 +1117,7 @@ var UserSignUpComponent = (function () {
                     if (!methods || methods.length < 1) {
                         _this.attemptingSignup = true;
                         _this.auth.signUpUser(email_1, password_1).then(function () {
-                            _this.auth.signIn(email_1, password_1, true).then(function () {
+                            _this.auth.signIn(email_1, password_1).then(function () {
                                 var newUser = new __WEBPACK_IMPORTED_MODULE_4__types_user_type__["a" /* GSUser */](_this.auth.auth.auth.currentUser.uid, userType);
                                 _this.auth.currentUser = newUser;
                                 _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
@@ -1145,36 +1158,59 @@ var UserSignUpComponent = (function () {
     UserSignUpComponent.prototype.login = function () {
         var _this = this;
         if (this.userFormGroup.valid) {
+            this.attemptingLogin = true;
+            this.showToast("Logging you in...welcome back!");
             var email_2 = this.userFormGroup.get("email").value;
             this.auth.checkUserSignInMethods(email_2).then(function (methods) {
                 if (methods.length > 0) {
-                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value, false).then(function () {
+                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value).then(function () {
+                        _this.auth.getCurrentUserData();
                         _this.setAppropiateView();
+                    }).catch(function (reason) {
+                        _this.showToast("Double check your password");
+                        console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else {
                     _this.showToast("Sorry, we dont have that username signed up. Please sign up.");
                     console.error("User does not exist!");
                 }
+            }).catch(function (reason) {
+                _this.showToast("Sign in didn't work because: " + reason);
+                console.error("User does not exist!");
             });
+        }
+        else {
+            var display = "";
+            if (this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+            if (this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long. ";
+            this.showToast(display);
+            console.error("Fields are invalid");
         }
     };
     UserSignUpComponent.prototype.setAppropiateView = function () {
-        if (this.auth.checkUserType() == __WEBPACK_IMPORTED_MODULE_4__types_user_type__["b" /* UserType */].Restaurant)
-            this.viewControl.setDealMakerView();
-        else
-            this.viewControl.setConsumerView();
+        var _this = this;
+        if (this.auth.checkUserType()) {
+            this.auth.checkUserType().subscribe(function (users) {
+                if (users[0].userType == __WEBPACK_IMPORTED_MODULE_4__types_user_type__["b" /* UserType */].Restaurant)
+                    _this.viewControl.setDealMakerView();
+                else
+                    _this.viewControl.setConsumerView();
+            });
+        }
     };
     UserSignUpComponent.prototype.showToast = function (message) {
         var toast = this.toastCtrl.create({
             message: message,
-            duration: 5000,
+            duration: 6000,
             position: "bottom"
         });
         toast.present();
     };
     UserSignUpComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        <div *ngIf="!attemptingSignup">Sign Up</div>\n        <ion-spinner *ngIf="attemptingSignup"></ion-spinner>\n    </button>\n</div>\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        Sign Up\n    </button>\n</div>\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
             selector: 'user-signup',
             styleUrls: ['/user-signup.component.scss']
         }),
