@@ -41,6 +41,7 @@ import { ImageService } from '../services/image-service.service';
 import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
 import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
+import { ViewControllerService } from '../services/view-controller.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -111,6 +112,7 @@ var AppModule = (function () {
                 ImageService,
                 Camera,
                 UploadService,
+                ViewControllerService
             ]
         })
     ], AppModule);

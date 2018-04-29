@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-import { AuthorizationService, UserType } from "../../services/authorization.service";
-import { CardDataService } from "../../services/card-data.service";
+import { AuthorizationService } from "../../services/authorization.service";
+import { ViewControllerService } from "../../services/view-controller.service";
+import { GSUser, UserType } from '../../types/user.type';
+import { ToastController } from "ionic-angular";
 
 @Component({
     templateUrl: './user-signup.component.html',
@@ -13,10 +15,15 @@ export class UserSignUpComponent{
 
     public signingUp: boolean = false;
 
-    public constructor(public formBuilder: FormBuilder, public auth: AuthorizationService, public cardService: CardDataService){
-        this.userFormGroup = formBuilder.group({
+    public isRest: boolean = false;
+
+    public attemptingSignup: boolean = false;
+
+    public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, private viewControl: ViewControllerService, public toastCtrl: ToastController){
+        this.userFormGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             isRestuarant: [''],
         });
     }
@@ -25,19 +32,107 @@ export class UserSignUpComponent{
         if(!this.signingUp){
             this.signingUp = true;
         }else if(this.userFormGroup.valid){
-            if(this.userFormGroup.get("isRestuarant").value)
-                this.auth.signUpUser(this.userFormGroup.get("email").value, this.userFormGroup.get("password").value, UserType.Restaurant);
-            else
-                this.auth.signUpUser(this.userFormGroup.get("email").value, this.userFormGroup.get("password").value, UserType.Consumer);
+            const email: string = this.userFormGroup.get("email").value;
+            const password: string = this.userFormGroup.get("password").value;
+            const confrimPassword: string = this.userFormGroup.get("password").value;
 
-                //navigate to profile
+            if(password == confrimPassword)
+            {
+                var userType: UserType;
+                if(this.userFormGroup.get("isRestuarant").value)
+                    userType = UserType.Restaurant;
+                else
+                    userType = UserType.Consumer;
+    
+                this.auth.checkUserSignInMethods(email).then((methods) => {
+                    if(!methods || methods.length < 1){//if user not in db
+                        this.attemptingSignup = true;
+                        this.auth.signUpUser(email, password).then(() => {
+                            this.auth.signIn(email, password, true).then(() => {
+                                const newUser = new GSUser(this.auth.auth.auth.currentUser.uid, userType);
+            
+                                this.auth.currentUser = newUser;
+            
+                                this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
+    
+                                this.setAppropiateView();
+            
+                            }).catch((reason) => {//couldn't sign in 
+                                this.showToast("Sorry, that didn't work beacuase " + reason);
+
+                                console.error("Sign up failed because: " + reason);
+                            });
+                        }).catch((reason) => {//couldn't sign up
+                            this.showToast("Sorry, that didn't work beacause " + reason);
+
+                            console.error("Sign up failed because: " + reason);
+                        });
+                    }
+                    else{
+                        this.showToast("Sorry, that email is already signed up.");
+
+                        console.error("User account already exists");//user account already exists
+                    }
+                }).catch((reason) => {//couldn't check sign in methods
+                    this.showToast("Sorry, that didn't work, please contact support.");
+
+                    console.error("Sign up failed because: " + reason);
+                });
+            }
+            else{
+                this.showToast("Please make sure your passwords match.");
+
+                console.error("Passwords do not match");
+            }
         }
         else{
-            //tell them shits invalid
+            var display: string = "";
+
+            if(this.userFormGroup.get("email").invalid)
+                display += "Please be sure your email is formatted correctly. ";
+
+            if(this.userFormGroup.get("password").invalid)
+                display += "Please be sure your password is at least eight characters long and both passwords match. ";
+
+            this.showToast(display);
+
+            console.error("Fields are invalid");
         }
     }
     
     public login(): void{
-        this.auth.signIn(this.userFormGroup.get("email").value, this.userFormGroup.get("password").value, false);
+        if(this.userFormGroup.valid){
+            const email = this.userFormGroup.get("email").value;
+
+            this.auth.checkUserSignInMethods(email).then((methods) => {
+                if(methods.length > 0){//if user not in db
+                    this.auth.signIn(email, this.userFormGroup.get("password").value, false).then(() => {
+                        this.setAppropiateView();
+                    });
+                }
+                else{
+                    this.showToast("Sorry, we dont have that username signed up. Please sign up.");
+
+                    console.error("User does not exist!");
+                }
+            });
+        }
+    }
+
+    public setAppropiateView(): void{
+        if(this.auth.checkUserType() == UserType.Restaurant)
+            this.viewControl.setDealMakerView();
+        else
+            this.viewControl.setConsumerView();
+    }
+
+    public showToast(message: string){
+        let toast = this.toastCtrl.create({
+            message: message,
+            duration: 5000,
+            position: "bottom"
+        });
+
+        toast.present();
     }
 }

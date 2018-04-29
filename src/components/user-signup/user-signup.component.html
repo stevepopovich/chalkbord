@@ -9,8 +9,13 @@
             <ion-label floating>Password</ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
+
+        <ion-item [hidden]="!signingUp">
+            <ion-label floating>Confirm Password</ion-label>
+            <ion-input type="password" formControlName="confirmPassword"></ion-input>
+        </ion-item>
     
-        <ion-item *ngIf="signingUp">
+        <ion-item [hidden]="!signingUp">
             <ion-label>Restaurant User</ion-label>
             <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>
         </ion-item>
@@ -23,7 +28,8 @@
     </button>
 
     <button ion-button (click)="signUp()">
-        Sign Up
+        <div *ngIf="!attemptingSignup">Sign Up</div>
+        <ion-spinner *ngIf="attemptingSignup"></ion-spinner>
     </button>
 </div>
     

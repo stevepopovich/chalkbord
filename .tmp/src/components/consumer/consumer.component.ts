@@ -63,18 +63,20 @@ export class ConsumerComponent implements AfterViewInit{
     }
     
     public ngAfterViewInit(): void {
-        this.authService.signIn("stevepopovich8@gmail.com", "Thisism1", false).then(() => {
+        if(this.authService.checkUserIsLoggedIn){
             this.cardService.getCards().subscribe((cardModels) => {
                 if(!this.cards){
                     this.cards = cardModels as DealModel[];
-
+    
                     this.filterCards(this.currentFilter);
                 }
                 else{
                     this.findAndUpdateCards(cardModels as DealModel[]);
                 }
             });
-        });
+        }
+        else
+            console.error("User not logged in when he should be!");
     }
 
     public onItemMove(element, x, y, r): void {

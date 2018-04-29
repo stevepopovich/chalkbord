@@ -50,8 +50,8 @@ var ConsumerComponent = (function () {
     }
     ConsumerComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.authService.signIn("stevepopovich8@gmail.com", "Thisism1", false).then(function () {
-            _this.cardService.getCards().subscribe(function (cardModels) {
+        if (this.authService.checkUserIsLoggedIn) {
+            this.cardService.getCards().subscribe(function (cardModels) {
                 if (!_this.cards) {
                     _this.cards = cardModels;
                     _this.filterCards(_this.currentFilter);
@@ -60,7 +60,9 @@ var ConsumerComponent = (function () {
                     _this.findAndUpdateCards(cardModels);
                 }
             });
-        });
+        }
+        else
+            console.error("User not logged in when he should be!");
     };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";

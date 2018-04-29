@@ -10,33 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AuthorizationService } from '../services/authorization.service';
+import { ViewControllerService } from '../services/view-controller.service';
 var LocaleApp = (function () {
-    function LocaleApp(statusBar, auth) {
+    function LocaleApp(statusBar, auth, viewControl) {
         this.statusBar = statusBar;
         this.auth = auth;
-        this.dealMaker = false;
-        this.consumer = false;
-        this.signUp = false;
+        this.viewControl = viewControl;
         this.statusBar.overlaysWebView(false);
         this.statusBar.backgroundColorByName("black");
         if (!this.auth.checkUserIsLoggedIn()) {
-            this.signUp = true;
+            this.viewControl.signUp = true;
         }
     }
     LocaleApp.prototype.changeView = function () {
-        if (this.dealMaker) {
-            this.consumer = true;
-            this.dealMaker = false;
+        if (this.viewControl.dealMaker) {
+            this.viewControl.consumer = true;
+            this.viewControl.dealMaker = false;
+            this.viewControl.signUp = false;
         }
-        else if (this.consumer) {
-            this.dealMaker = true;
-            this.consumer = false;
+        else if (this.viewControl.consumer) {
+            this.viewControl.dealMaker = true;
+            this.viewControl.consumer = false;
+            this.viewControl.signUp = false;
         }
     };
     LocaleApp = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<consumer *ngIf="consumer"></consumer>\n<restaurant-deal-maker *ngIf="dealMaker"></restaurant-deal-maker>\n<user-signup *ngIf="signUp"></user-signup>'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n            <button (click)="changeView()" class="button-left" ion-button icon-only>\n                <ion-icon ios="md-sync" md="md-sync"></ion-icon>\n            </button>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>\n    <user-signup *ngIf="viewControl.signUp"></user-signup>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
-        __metadata("design:paramtypes", [StatusBar, AuthorizationService])
+        __metadata("design:paramtypes", [StatusBar, AuthorizationService, ViewControllerService])
     ], LocaleApp);
     return LocaleApp;
 }());
