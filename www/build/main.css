@@ -40074,10 +40074,3 @@ ion-spinner {
   margin: 0 auto;
   width: 50%;
 }
-
-ion-spinner {
-  width: 10px;
-  height: 10px;
-  stroke: #444;
-  fill: #222;
-}
