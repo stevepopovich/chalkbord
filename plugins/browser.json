@@ -36,6 +36,12 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-uniquedeviceid": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {}

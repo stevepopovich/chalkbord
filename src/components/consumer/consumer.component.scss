@@ -125,6 +125,16 @@ $button-top-offest: 79%;
     height: inherit !important;
 }
 
+.button-top-left{
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 11px;
+    z-index: 10;
+    font-size: 1.5em;
+    height: inherit !important;
+}
+
 .card-text{
     text-align: left;
     color: white !important;

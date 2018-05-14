@@ -6,5 +6,6 @@
     "AudioToolbox.framework": 1,
     "WebKit.framework": 1,
     "MapKit.framework": 1,
-    "SystemConfiguration.framework": 1
+    "SystemConfiguration.framework": 1,
+    "Security.framework": 1
 }

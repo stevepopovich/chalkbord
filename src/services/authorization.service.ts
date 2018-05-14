@@ -6,12 +6,11 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthorizationService {
-
     public userCollection: AngularFirestoreCollection<GSUser>;
 
     public currentUser: GSUser;
 
-    constructor(public auth: AngularFireAuth, private database: AngularFirestore) { 
+    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore) { 
         this.userCollection = this.database.collection<GSUser>("users");
     }
 
@@ -22,14 +21,14 @@ export class AuthorizationService {
                 observer.complete();
             });
         }
-        else if(this.auth.auth.currentUser)
+        else if(this.fireAuth.auth.currentUser)
             return this.getCurrentUserData();
         else
             return null;
     }
 
     public checkUserIsLoggedIn(): boolean{
-        if(this.currentUser && this.auth.auth.currentUser)
+        if(this.currentUser && this.fireAuth.auth.currentUser)
             return true;
         else
             return false;
@@ -38,23 +37,24 @@ export class AuthorizationService {
     public userSignOut() {
         this.currentUser = null;
 
-        this.auth.auth.signOut();
+        //this.fireAuth.auth.signOut();//AAHHH this needs to be here but the current verison of Firestore causes this to break.
+                                        //this won't affect functionality but should be here for security
     }
 
     public signIn(email: string, password: string): Promise<any> {
-        return this.auth.auth.signInWithEmailAndPassword(email, password);
+        return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
     }
 
     public getCurrentUserData(): Observable<GSUser[]> {
-        return this.database.collection<GSUser>("users", ref => ref.where("uid", '==', this.auth.auth.currentUser.uid)).valueChanges();
+        return this.database.collection<GSUser>("users", ref => ref.where("uid", '==', this.fireAuth.auth.currentUser.uid)).valueChanges();
     }
 
     public signUpUser(email: string, password: string):  Promise<any>{
-        return this.auth.auth.createUserWithEmailAndPassword(email, password);
+        return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
     }
 
     public checkUserSignInMethods(email: string): Promise<any> {
-        return this.auth.auth.fetchSignInMethodsForEmail(email);
+        return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
     }
 }
 

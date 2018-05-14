@@ -1,12 +1,3 @@
-<ion-header class="nav-round">
-    <ion-navbar class="navbar-md">
-            <button (click)="changeView()" class="button-left" ion-button icon-only>
-                <ion-icon ios="md-sync" md="md-sync"></ion-icon>
-            </button>
-            <ion-title class="title-big">GrabSome</ion-title>
-    </ion-navbar>
-</ion-header>
-
 <div *ngIf="viewControl">
     <consumer *ngIf="viewControl.consumer"></consumer>
     <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>

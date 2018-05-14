@@ -33,6 +33,8 @@ import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
 import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
 import { ViewControllerService } from '../services/view-controller.service';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { DeviceService } from '../services/device.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -54,6 +56,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     HttpModule,
     SwingModule,
     AngularDraggableModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(LocaleApp, {}, {
       links: [
       ]
@@ -95,7 +98,10 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ImageService,
     Camera,
     UploadService,
-    ViewControllerService
+    ViewControllerService,
+    UniqueDeviceID,
+    DeviceService,
+    Storage
   ]
 })
 export class AppModule { }

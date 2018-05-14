@@ -118,6 +118,22 @@ module.exports = [
         "id": "cordova-plugin-camera.CameraProxy",
         "pluginId": "cordova-plugin-camera",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-uniquedeviceid/www/uniqueid.js",
+        "id": "cordova-plugin-uniquedeviceid.UniqueDeviceID",
+        "pluginId": "cordova-plugin-uniquedeviceid",
+        "merges": [
+            "window.plugins.uniqueDeviceID"
+        ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -132,7 +148,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.4.1",
     "cordova-plugin-whitelist": "1.3.3",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
-    "cordova-plugin-camera": "4.0.2"
+    "cordova-plugin-camera": "4.0.2",
+    "cordova-plugin-uniquedeviceid": "1.3.2",
+    "cordova-sqlite-storage": "2.3.1"
 }
 // BOTTOM OF METADATA
 });

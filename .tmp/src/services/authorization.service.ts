@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthorizationService {
-
     public userCollection: AngularFirestoreCollection<GSUser>;
 
     public currentUser: GSUser;

@@ -7,50 +7,64 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Validators, FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
 import { ToastController } from "ionic-angular";
+import { DeviceService } from "../../services/device.service";
 var UserSignUpComponent = (function () {
-    function UserSignUpComponent(formBuilder, auth, viewControl, toastCtrl) {
+    function UserSignUpComponent(formBuilder, auth, viewControl, toastCtrl, deviceService) {
+        var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
         this.viewControl = viewControl;
         this.toastCtrl = toastCtrl;
-        this.signingUp = false;
+        this.deviceService = deviceService;
+        this.signingUp = true;
         this.isRest = false;
         this.attemptingSignup = false;
         this.attemptingLogin = false;
-        this.userFormGroup = this.formBuilder.group({
+        this.remembered = false;
+        this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            isRestuarant: [''],
+            rememberMe: ['']
+        });
+        this.userLogInGroup = this.formBuilder.group({
+            email: ['', Validators.compose([Validators.email, Validators.required])],
+            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            rememberMe: ['']
+        });
+        this.deviceService.getRememberMeSetting().then(function (rememberMe) {
+            if (rememberMe) {
+                _this.deviceService.getUserEmailPasswordFromLocalStorage().then(function (emailPasswordTup) {
+                    if (emailPasswordTup) {
+                        _this.userSignUpGroup.get("email").setValue(emailPasswordTup.email);
+                        _this.userSignUpGroup.get("password").setValue(emailPasswordTup.password);
+                        _this.login();
+                    }
+                });
+            }
         });
     }
     UserSignUpComponent.prototype.signUp = function () {
         var _this = this;
-        if (!this.signingUp) {
-            this.signingUp = true;
-        }
-        else if (this.userFormGroup.valid) {
+        if (this.userSignUpGroup.valid) {
             this.showToast("Signing you up...welcome!");
-            var email_1 = this.userFormGroup.get("email").value;
-            var password_1 = this.userFormGroup.get("password").value;
-            var confrimPassword = this.userFormGroup.get("password").value;
+            var email_1 = this.userSignUpGroup.get("email").value;
+            var password_1 = this.userSignUpGroup.get("password").value;
+            var confrimPassword = this.userSignUpGroup.get("confirmPassword").value;
             if (password_1 == confrimPassword) {
-                var userType;
-                if (this.userFormGroup.get("isRestuarant").value)
-                    userType = UserType.Restaurant;
-                else
-                    userType = UserType.Consumer;
+                var userType = UserType.Consumer;
                 this.auth.checkUserSignInMethods(email_1).then(function (methods) {
                     if (!methods || methods.length < 1) {
                         _this.attemptingSignup = true;
                         _this.auth.signUpUser(email_1, password_1).then(function () {
                             _this.auth.signIn(email_1, password_1).then(function () {
+                                _this.deviceService.putUserEmailPasswordToLocalStorage(email_1, password_1);
                                 var newUser = new GSUser(_this.auth.auth.auth.currentUser.uid, userType);
                                 _this.auth.currentUser = newUser;
                                 _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
@@ -80,9 +94,9 @@ var UserSignUpComponent = (function () {
         }
         else {
             var display = "";
-            if (this.userFormGroup.get("email").invalid)
+            if (this.userSignUpGroup.get("email").invalid)
                 display += "Please be sure your email is formatted correctly. ";
-            if (this.userFormGroup.get("password").invalid)
+            if (this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long and both passwords match. ";
             this.showToast(display);
             console.error("Fields are invalid");
@@ -90,13 +104,13 @@ var UserSignUpComponent = (function () {
     };
     UserSignUpComponent.prototype.login = function () {
         var _this = this;
-        if (this.userFormGroup.valid) {
-            this.attemptingLogin = true;
+        if (this.userSignUpGroup.valid) {
+            this.deviceService.putRememberMeSetting(this.userLogInGroup.get("rememberMe").value);
             this.showToast("Logging you in...welcome back!");
-            var email_2 = this.userFormGroup.get("email").value;
+            var email_2 = this.userSignUpGroup.get("email").value;
             this.auth.checkUserSignInMethods(email_2).then(function (methods) {
                 if (methods.length > 0) {
-                    _this.auth.signIn(email_2, _this.userFormGroup.get("password").value).then(function () {
+                    _this.auth.signIn(email_2, _this.userSignUpGroup.get("password").value).then(function () {
                         _this.auth.getCurrentUserData();
                         _this.setAppropiateView();
                     }).catch(function (reason) {
@@ -115,9 +129,9 @@ var UserSignUpComponent = (function () {
         }
         else {
             var display = "";
-            if (this.userFormGroup.get("email").invalid)
+            if (this.userSignUpGroup.get("email").invalid)
                 display += "Please be sure your email is formatted correctly. ";
-            if (this.userFormGroup.get("password").invalid)
+            if (this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
             this.showToast(display);
             console.error("Fields are invalid");
@@ -142,12 +156,45 @@ var UserSignUpComponent = (function () {
         });
         toast.present();
     };
+    UserSignUpComponent.prototype.goToUserSignUpScreen = function () {
+        this.welcomeScreen.nativeElement.style['left'] = "-100%";
+        this.userSignUpScreen.nativeElement.style['left'] = "0%";
+        this.goBackButton.nativeElement.style['bottom'] = "2%";
+    };
+    UserSignUpComponent.prototype.goToLoginScreen = function () {
+        this.welcomeScreen.nativeElement.style['left'] = "-100%";
+        this.logInScreen.nativeElement.style['left'] = "0%";
+        this.goBackButton.nativeElement.style['bottom'] = "2%";
+    };
+    UserSignUpComponent.prototype.goBackAScreen = function () {
+        console.log("going back");
+        this.welcomeScreen.nativeElement.style['left'] = "0%";
+        this.logInScreen.nativeElement.style['left'] = "100%";
+        this.userSignUpScreen.nativeElement.style['left'] = "100%";
+        this.goBackButton.nativeElement.style['bottom'] = "-10%";
+    };
+    __decorate([
+        ViewChild('welcomeScreen'),
+        __metadata("design:type", ElementRef)
+    ], UserSignUpComponent.prototype, "welcomeScreen", void 0);
+    __decorate([
+        ViewChild('logInScreen'),
+        __metadata("design:type", ElementRef)
+    ], UserSignUpComponent.prototype, "logInScreen", void 0);
+    __decorate([
+        ViewChild('userSignUpFields'),
+        __metadata("design:type", ElementRef)
+    ], UserSignUpComponent.prototype, "userSignUpScreen", void 0);
+    __decorate([
+        ViewChild('goBackButton'),
+        __metadata("design:type", Object)
+    ], UserSignUpComponent.prototype, "goBackButton", void 0);
     UserSignUpComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        Sign Up\n    </button>\n</div>\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<!-- <ion-list>\n    <form [formGroup]="userFormGroup">\n        <ion-item>\n            <ion-label floating>Email</ion-label>\n            <ion-input type="email"  formControlName="email"></ion-input>\n        </ion-item>\n\n        <ion-item>\n            <ion-label floating>Password</ion-label>\n            <ion-input type="password" formControlName="password"></ion-input>\n        </ion-item>\n\n        <ion-item [hidden]="!signingUp">\n            <ion-label floating>Confirm Password</ion-label>\n            <ion-input type="password" formControlName="confirmPassword"></ion-input>\n        </ion-item>\n    \n        <ion-item [hidden]="!signingUp">\n            <ion-label>Restaurant User</ion-label>\n            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>\n        </ion-item>\n    </form>\n</ion-list>\n\n<div class="button-group">\n    <button ion-button (click)="login()">\n        Login\n    </button>\n\n    <button ion-button (click)="signUp()">\n        Sign Up\n    </button>\n</div> -->\n\n<div #welcomeScreen class="gs-font animate-form" style="left: 0%">\n    <div class="center-text">grabsome</div>\n    <div class="button-area">\n        <button class="welcome-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">\n            login\n        </button>\n    </div>\n</div>\n\n<div #logInScreen class="animate-form offset-form">\n    <ion-list class="centered-form ">\n        <form [formGroup]="userLogInGroup">\n            <ion-item>\n                <ion-label floating>Email</ion-label>\n                <ion-input type="email"  formControlName="email"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label>Remember Me</ion-label>\n                <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n            </ion-item>\n        </form>\n    </ion-list>\n    <button class="welcome-button" ion-button outline (click)="login()">\n        login\n    </button>\n</div>\n\n<div #userSignUpFields class="animate-form offset-form">\n    <ion-list class="centered-form">\n        <form [formGroup]="userSignUpGroup">\n            <ion-item>\n                <ion-label floating>Email</ion-label>\n                <ion-input type="email"  formControlName="email"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Confirm Password</ion-label>\n                <ion-input type="password" formControlName="confirmPassword"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label>Remember Me</ion-label>\n                <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n            </ion-item>\n        </form>\n    </ion-list>\n    <button ion-button class="welcome-button" outline (click)="signUp()">\n        Sign Up\n    </button>\n</div>\n\n<div #goBackButton class="go-back-button">\n    <button ion-fab click="goBackAScreen()">\n        <ion-icon name="arrow-back"></ion-icon>\n    </button>\n</div>\n\n\n<!-- <div #restaurantSignUpFields>\n    <ion-list>\n        <form [formGroup]="userFormGroup">\n            <ion-item>\n                <ion-label floating>Email</ion-label>\n                <ion-input type="email"  formControlName="email"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Confirm Password</ion-label>\n                <ion-input type="password" formControlName="confirmPassword"></ion-input>\n            </ion-item>\n        </form>\n    </ion-list>\n\n</div> -->\n\n<!-- <div #userTypeChoice class="animate-form offset-form">\n    <div class="user-type-button-area">\n        <button class="welcome-button" ion-button (click)="signUpConsumer()">\n           consumer\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="signUpRestaurant()">\n            business\n        </button>\n    </div>\n</div> -->\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
             selector: 'user-signup',
             styleUrls: ['/user-signup.component.scss']
         }),
-        __metadata("design:paramtypes", [FormBuilder, AuthorizationService, ViewControllerService, ToastController])
+        __metadata("design:paramtypes", [FormBuilder, AuthorizationService, ViewControllerService, ToastController, DeviceService])
     ], UserSignUpComponent);
     return UserSignUpComponent;
 }());

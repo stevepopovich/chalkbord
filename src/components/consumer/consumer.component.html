@@ -1,5 +1,15 @@
+<ion-header class="nav-round">
+    <ion-navbar class="navbar-md">
+        <ion-title class="title-big">GrabSome</ion-title>
+    </ion-navbar>
+</ion-header>
+
 <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>
     <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>
+</button>
+
+<button (click)="logout()" class="button-top-left" ion-button icon-only>
+    <ion-icon name="arrow-back"></ion-icon>
 </button>
 
 <div class="loading-div">

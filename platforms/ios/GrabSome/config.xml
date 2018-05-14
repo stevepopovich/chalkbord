@@ -52,6 +52,13 @@
     <feature name="LaunchNavigator">
         <param name="ios-package" value="LaunchNavigator" />
     </feature>
+    <feature name="UniqueDeviceID">
+        <param name="ios-package" value="CDVUniqueDeviceID" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SQLitePlugin">
+        <param name="ios-package" value="SQLitePlugin" />
+    </feature>
     <name>GrabSome</name>
     <description>An app to let you get food deals</description>
     <author email="stevepopovich8@gmail.com">Steven Popovich</author>
@@ -68,6 +75,7 @@
     <allow-navigation href="mailto:*" />
     <allow-navigation href="http://192.168.1.94:8100" />
     <allow-navigation href="http://10.10.10.113:8100" />
+    <allow-navigation href="http://10.10.10.107:8100" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="DisallowOverscroll" value="false" />

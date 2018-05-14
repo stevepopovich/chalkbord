@@ -42,6 +42,8 @@ import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
 import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
 import { ViewControllerService } from '../services/view-controller.service';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { DeviceService } from '../services/device.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -72,6 +74,7 @@ var AppModule = (function () {
                 HttpModule,
                 SwingModule,
                 AngularDraggableModule,
+                IonicStorageModule.forRoot(),
                 IonicModule.forRoot(LocaleApp, {}, {
                     links: []
                 }),
@@ -112,7 +115,10 @@ var AppModule = (function () {
                 ImageService,
                 Camera,
                 UploadService,
-                ViewControllerService
+                ViewControllerService,
+                UniqueDeviceID,
+                DeviceService,
+                Storage
             ]
         })
     ], AppModule);

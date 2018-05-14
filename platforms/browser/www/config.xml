@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="locale.alpha" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="3" id="locale.alpha" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>GrabSome</name>
     <description>An app to let you get food deals</description>
     <author email="stevepopovich8@gmail.com">Steven Popovich</author>
@@ -16,6 +16,7 @@
     <allow-navigation href="mailto:*" />
     <allow-navigation href="http://192.168.1.94:8100" />
     <allow-navigation href="http://10.10.10.113:8100" />
+    <allow-navigation href="http://10.10.10.107:8100" />
     <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="StatusBarStyle" value="default" />

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 
 import {
     StackConfig,
@@ -11,13 +11,16 @@ import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
 import { DealModel, DealType } from '../../types/deals.type';
+import { DeviceService } from '../../services/device.service';
+import { ViewControllerService } from '../../services/view-controller.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent implements AfterViewInit{
+export class ConsumerComponent implements AfterViewInit, OnDestroy{
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -43,7 +46,9 @@ export class ConsumerComponent implements AfterViewInit{
 
     public cards: DealModel[];
 
-    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, private imageService: ImageService) {
+    public cardSubscription: Subscription;
+
+    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, private imageService: ImageService, public deviceService: DeviceService, public viewContoller: ViewControllerService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   
@@ -56,15 +61,11 @@ export class ConsumerComponent implements AfterViewInit{
                 return 200;
             }
         };
-
-        // this.authService.authorizeUserAccess("stevepopovich8@gmail.com", "Thisism1").then(() => {
-        //     this.cardService.setCards(restaurantCards);
-        // });
     }
     
     public ngAfterViewInit(): void {
         if(this.authService.checkUserIsLoggedIn){
-            this.cardService.getCards().subscribe((cardModels) => {
+            this.cardSubscription = this.cardService.getCards().subscribe((cardModels) => {
                 if(!this.cards){
                     this.cards = cardModels as DealModel[];
     
@@ -77,6 +78,10 @@ export class ConsumerComponent implements AfterViewInit{
         }
         else
             console.error("User not logged in when he should be!");
+    }
+
+    public ngOnDestroy(): void {
+        this.cardSubscription.unsubscribe();
     }
 
     public onItemMove(element, x, y, r): void {
@@ -137,7 +142,6 @@ export class ConsumerComponent implements AfterViewInit{
             });
         }
     }
-
 
     public openDealTypePopover(event){
         var filterPopover = this.popoverCtrl.create(FilterDealComponent);
@@ -259,6 +263,7 @@ export class ConsumerComponent implements AfterViewInit{
         });
     }
 
+    //used simply to async wait for something
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -282,5 +287,11 @@ export class ConsumerComponent implements AfterViewInit{
 
             this.imageService.setDealImageURL(objectToUpdate);
         }
+    }
+
+    public logout(){
+        this.deviceService.putRememberMeSetting(false);
+
+        this.viewContoller.setSignUpView();
     }
 }
