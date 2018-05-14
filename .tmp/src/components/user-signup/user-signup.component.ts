@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from "@angular/core";
+import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ViewControllerService } from "../../services/view-controller.service";
@@ -11,7 +11,7 @@ import { DeviceService, EmailPasswordTuple } from "../../services/device.service
     selector: 'user-signup',
     styleUrls: ['/user-signup.component.scss']
 })
-export class UserSignUpComponent{
+export class UserSignUpComponent implements AfterViewInit{
     @ViewChild('welcomeScreen') welcomeScreen: ElementRef;
     @ViewChild('logInScreen') logInScreen: ElementRef;
     @ViewChild('userSignUpFields') userSignUpScreen: ElementRef;
@@ -47,19 +47,25 @@ export class UserSignUpComponent{
             if(rememberMe){
                 this.deviceService.getUserEmailPasswordFromLocalStorage().then((emailPasswordTup: EmailPasswordTuple) => {
                     if(emailPasswordTup){
-                        this.userSignUpGroup.get("email").setValue(emailPasswordTup.email);
-                        this.userSignUpGroup.get("password").setValue(emailPasswordTup.password);
+                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
+                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
         
                         this.login();
                     }
                 });
             }
-        })
+        });
+    }
+
+    ngAfterViewInit(): void {
+        if(this.auth.checkUserIsLoggedIn()){//user is logged in, possibly from switching screens
+            this.auth.userSignOut();
+        }
     }
 
     public signUp(): void{
         if(this.userSignUpGroup.valid){
-            this.showToast("Signing you up...welcome!");
+            this.showReadableToast("Signing you up...welcome!");
 
             const email: string = this.userSignUpGroup.get("email").value;
             const password: string = this.userSignUpGroup.get("password").value;
@@ -74,9 +80,9 @@ export class UserSignUpComponent{
                         this.attemptingSignup = true;
                         this.auth.signUpUser(email, password).then(() => {
                             this.auth.signIn(email, password).then(() => {
-                                this.deviceService.putUserEmailPasswordToLocalStorage(email, password);
+                                this.handleRememberMe(this.userSignUpGroup);
 
-                                const newUser = new GSUser(this.auth.auth.auth.currentUser.uid, userType);
+                                const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, userType);
             
                                 this.auth.currentUser = newUser;
             
@@ -85,29 +91,29 @@ export class UserSignUpComponent{
                                 this.setAppropiateView();
             
                             }).catch((reason) => {//couldn't sign in 
-                                this.showToast("Sorry, that didn't work beacuase " + reason);
+                                this.showReadableToast("Sorry, that didn't work beacuase " + reason);
 
                                 console.error("Sign up failed because: " + reason);
                             });
                         }).catch((reason) => {//couldn't sign up
-                            this.showToast("Sorry, that didn't work beacause " + reason);
+                            this.showReadableToast("Sorry, that didn't work beacause " + reason);
 
                             console.error("Sign up failed because: " + reason);
                         });
                     }
                     else{
-                        this.showToast("Sorry, that email is already signed up.");
+                        this.showReadableToast("Sorry, that email is already signed up.");
 
                         console.error("User account already exists");//user account already exists
                     }
                 }).catch((reason) => {//couldn't check sign in methods
-                    this.showToast("Sorry, that didn't work, please contact support.");
+                    this.showReadableToast("Sorry, that didn't work, please contact support.");
 
                     console.error("Sign up failed because: " + reason);
                 });
             }
             else{
-                this.showToast("Please make sure your passwords match.");
+                this.showReadableToast("Please make sure your passwords match.");
 
                 console.error("Passwords do not match");
             }
@@ -121,39 +127,43 @@ export class UserSignUpComponent{
             if(this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long and both passwords match. ";
 
-            this.showToast(display);
+            this.showReadableToast(display);
 
             console.error("Fields are invalid");
         }
     }
     
+    public loginHandler(): void{
+        this.handleRememberMe(this.userLogInGroup);
+
+        this.login();
+    }
+
     public login(): void{
-        if(this.userSignUpGroup.valid){
-            this.deviceService.putRememberMeSetting(this.userLogInGroup.get("rememberMe").value as boolean);
+        if(this.userLogInGroup.valid){
+            this.showReadableToast("Logging you in...welcome back!");
 
-            this.showToast("Logging you in...welcome back!");
-
-            const email = this.userSignUpGroup.get("email").value;
+            const email = this.userLogInGroup.get("email").value;
 
             this.auth.checkUserSignInMethods(email).then((methods) => {
                 if(methods.length > 0){//if user not in db
-                    this.auth.signIn(email, this.userSignUpGroup.get("password").value,).then(() => {
+                    this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
                         this.auth.getCurrentUserData();
 
                         this.setAppropiateView();
                     }).catch((reason) => {
-                        this.showToast("Double check your password");
+                        this.showReadableToast("Double check your password");
 
                         console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else{
-                    this.showToast("Sorry, we dont have that username signed up. Please sign up.");
+                    this.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
 
                     console.error("User does not exist!");
                 }
             }).catch((reason) => {
-                this.showToast("Sign in didn't work because: " + reason);
+                this.showReadableToast("Sign in didn't work because: " + reason);
 
                 console.error("User does not exist!");
             });
@@ -167,7 +177,7 @@ export class UserSignUpComponent{
             if(this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
 
-            this.showToast(display);
+            this.showReadableToast(display);
 
             console.error("Fields are invalid");
         }
@@ -184,16 +194,36 @@ export class UserSignUpComponent{
         }
     }
 
-    public showToast(message: string){
+    public showReadableToast(message: string){
+        const wordCount = message.split(" ").length;
+
+        const wordsPerMinute = 210;//resonable words per minute someone can read on a computer
+
+        const wordTime = ((wordCount/wordsPerMinute) *
+                            (60*1000)) +//convert to milliseconds
+                            1500;//delay to see the notification toast;
+
         let toast = this.toastCtrl.create({
             message: message,
-            duration: 6000,
+            duration: wordTime,
             position: "bottom"
         });
 
         toast.present();
     }
 
+    public handleRememberMe(formGroup: FormGroup){
+        const rememberMe: boolean = formGroup.get("rememberMe").value;
+
+        this.deviceService.putRememberMeSetting(rememberMe);
+
+        if(rememberMe)
+            this.deviceService.putUserEmailPasswordToLocalStorage(formGroup.get("email").value, formGroup.get("password").value);
+    }
+
+    /**
+     * Ugly css animations
+     */
     public goToUserSignUpScreen(): void {
         this.welcomeScreen.nativeElement.style['left'] = "-100%";
         this.userSignUpScreen.nativeElement.style['left'] = "0%";
@@ -207,7 +237,6 @@ export class UserSignUpComponent{
     }
 
     public goBackAScreen(): void {
-        console.log("going back");
         this.welcomeScreen.nativeElement.style['left'] = "0%";
         this.logInScreen.nativeElement.style['left'] = "100%";
         this.userSignUpScreen.nativeElement.style['left'] = "100%";

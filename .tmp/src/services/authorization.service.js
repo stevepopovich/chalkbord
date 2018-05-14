@@ -12,8 +12,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 var AuthorizationService = (function () {
-    function AuthorizationService(auth, database) {
-        this.auth = auth;
+    function AuthorizationService(fireAuth, database) {
+        this.fireAuth = fireAuth;
         this.database = database;
         this.userCollection = this.database.collection("users");
     }
@@ -25,33 +25,34 @@ var AuthorizationService = (function () {
                 observer.complete();
             });
         }
-        else if (this.auth.auth.currentUser)
+        else if (this.fireAuth.auth.currentUser)
             return this.getCurrentUserData();
         else
             return null;
     };
     AuthorizationService.prototype.checkUserIsLoggedIn = function () {
-        if (this.currentUser && this.auth.auth.currentUser)
+        if (this.currentUser && this.fireAuth.auth.currentUser)
             return true;
         else
             return false;
     };
     AuthorizationService.prototype.userSignOut = function () {
         this.currentUser = null;
-        this.auth.auth.signOut();
+        //this.fireAuth.auth.signOut();//AAHHH this needs to be here but the current verison of Firestore causes this to break.
+        //this won't affect functionality but should be here for security
     };
     AuthorizationService.prototype.signIn = function (email, password) {
-        return this.auth.auth.signInWithEmailAndPassword(email, password);
+        return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
     };
     AuthorizationService.prototype.getCurrentUserData = function () {
         var _this = this;
-        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.auth.auth.currentUser.uid); }).valueChanges();
+        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.fireAuth.auth.currentUser.uid); }).valueChanges();
     };
     AuthorizationService.prototype.signUpUser = function (email, password) {
-        return this.auth.auth.createUserWithEmailAndPassword(email, password);
+        return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
     };
     AuthorizationService.prototype.checkUserSignInMethods = function (email) {
-        return this.auth.auth.fetchSignInMethodsForEmail(email);
+        return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
     };
     AuthorizationService = __decorate([
         Injectable(),

@@ -40020,6 +40020,16 @@ ion-navbar.toolbar {
   height: inherit !important;
 }
 
+.button-top-left {
+  background-color: black;
+  position: absolute;
+  left: 0;
+  top: 11px;
+  z-index: 10;
+  font-size: 1.5em;
+  height: inherit !important;
+}
+
 .card-text {
   text-align: left;
   color: white !important;
@@ -40101,12 +40111,34 @@ ion-spinner {
 }
 
 .button-area {
-  position: absolute;
   width: 100%;
-  bottom: 10%;
+  margin-top: 100%;
 }
 
 .user-type-button-area {
   font-family: Baumans;
   margin-top: 50%;
+}
+
+.centered-form {
+  margin-right: 1em;
+}
+
+.animate-form {
+  -webkit-transition: .5s;
+  transition: .5s;
+  position: absolute;
+  width: 100%;
+}
+
+.offset-form {
+  left: 100%;
+}
+
+.go-back-button {
+  -webkit-transition: .5s;
+  transition: .5s;
+  position: absolute;
+  bottom: -10%;
+  right: 1em;
 }
