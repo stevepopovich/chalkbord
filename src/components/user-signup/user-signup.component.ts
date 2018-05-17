@@ -221,6 +221,27 @@ export class UserSignUpComponent implements AfterViewInit{
             this.deviceService.putUserEmailPasswordToLocalStorage(formGroup.get("email").value, formGroup.get("password").value);
     }
 
+    public resetPassword(): void {
+        const emailControl = this.userLogInGroup.get("email");
+
+        if(emailControl.valid){
+            this.auth.checkUserSignInMethods(emailControl.value).then((methods) => {
+                if(methods.length > 0){
+                    this.auth.fireAuth.auth.sendPasswordResetEmail(emailControl.value).then(() => {
+                        this.showReadableToast("Cool, a reset link was sent to your email.");
+                    }).catch((reason) => {
+                        this.showReadableToast("Sorry, couldn't send you a reset link because: " + reason)
+                    });
+                }
+                else
+                    this.showReadableToast("We don't have that email signed up. Please sign up!");
+            })
+        }
+        else{
+            this.showReadableToast("Please check your email is valid");
+        }
+    }
+
     /**
      * Ugly css animations
      */

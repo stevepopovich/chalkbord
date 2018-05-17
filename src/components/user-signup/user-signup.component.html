@@ -1,37 +1,3 @@
-<!-- <ion-list>
-    <form [formGroup]="userFormGroup">
-        <ion-item>
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email"  formControlName="email"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label floating>Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-
-        <ion-item [hidden]="!signingUp">
-            <ion-label floating>Confirm Password</ion-label>
-            <ion-input type="password" formControlName="confirmPassword"></ion-input>
-        </ion-item>
-    
-        <ion-item [hidden]="!signingUp">
-            <ion-label>Restaurant User</ion-label>
-            <ion-checkbox formControlName="isRestuarant" [(ngModel)]="isRest" checked="false"></ion-checkbox>
-        </ion-item>
-    </form>
-</ion-list>
-
-<div class="button-group">
-    <button ion-button (click)="login()">
-        Login
-    </button>
-
-    <button ion-button (click)="signUp()">
-        Sign Up
-    </button>
-</div> -->
-
 <div class="background-photo">
 
 </div>
@@ -75,6 +41,10 @@
     
     <button class="welcome-button" ion-button outline (click)="loginHandler()">
         login
+    </button>
+
+    <button class="welcome-button" ion-button outline (click)="resetPassword()">
+        reset password
     </button>
 </div>
 
