@@ -4,7 +4,7 @@ import {
     StackConfig,
     SwingStackComponent,
     SwingCardComponent} from 'angular2-swing';
-import { AlertController, PopoverController } from 'ionic-angular';
+import { AlertController, PopoverController, ModalController } from 'ionic-angular';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
@@ -14,6 +14,7 @@ import { DealModel, DealType } from '../../types/deals.type';
 import { DeviceService } from '../../services/device.service';
 import { ViewControllerService } from '../../services/view-controller.service';
 import { Subscription } from 'rxjs/Subscription';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -48,7 +49,11 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public cardSubscription: Subscription;
 
-    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, private imageService: ImageService, public deviceService: DeviceService, public viewContoller: ViewControllerService) {
+    constructor (private alert: AlertController, private popoverCtrl: PopoverController, 
+        private launchNavigator: LaunchNavigator, private cardService: CardDataService, 
+        private authService: AuthorizationService, private imageService: ImageService, 
+        public deviceService: DeviceService, public viewContoller: ViewControllerService, 
+        public modalCtrl: ModalController) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   
@@ -293,9 +298,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         }
     }
 
-    public logout(){
-        this.deviceService.putRememberMeSetting(false);
-
-        this.viewContoller.setSignUpView();
+    public openProfile(){
+        this.modalCtrl.create(UserProfileComponent).present(); 
     }
 }

@@ -54,6 +54,11 @@
             <ion-list class="centered-form">
                 <form [formGroup]="userSignUpGroup">
                     <ion-item>
+                        <ion-label floating>First Name</ion-label>
+                        <ion-input formControlName="name"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
                         <ion-label floating>Email</ion-label>
                         <ion-input type="email"  formControlName="email"></ion-input>
                     </ion-item>

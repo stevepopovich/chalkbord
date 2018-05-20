@@ -1,0 +1,31 @@
+.nav-round{
+    font-family: Baumans;
+    text-align: center;
+    vertical-align: middle; 
+    position: relative;
+    color: black;
+}
+
+.close-modal-button {
+    z-index: 999;
+    margin-top: -3.5em;
+    font-size: 1.5em;
+    height: 4%;
+}
+
+.signout-button {
+    float: right;
+    margin-top: -43px;
+    z-index: 999;
+    font-size: 20px;
+    height: 4%;
+}
+
+.reset-button{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    font-size: 2.1em;
+    z-index: 999;
+}

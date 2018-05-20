@@ -40024,10 +40024,10 @@ ion-navbar.toolbar {
   background-color: black;
   position: absolute;
   left: 0;
-  top: 11px;
+  top: 8px;
   z-index: 10;
   font-size: 1.5em;
-  height: inherit !important;
+  height: 4.3%;
 }
 
 .card-text {
@@ -40077,6 +40077,21 @@ ion-spinner {
 .create-button {
   margin: 0 auto;
   display: block;
+}
+
+.nav-round {
+  font-family: Baumans;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  color: black;
+}
+
+.close-modal-button {
+  z-index: 999;
+  margin-top: -3.5em;
+  font-size: 1.5em;
+  height: 4%;
 }
 
 .button-group {

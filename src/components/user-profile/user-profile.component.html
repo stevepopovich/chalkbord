@@ -1,0 +1,33 @@
+<ion-header class="nav-round">
+    <ion-navbar class="navbar-md">
+        <ion-title class="title-big">grabsome</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<button (click)="closeProfile()" class="close-modal-button" ion-button icon-only>
+    <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>
+</button>
+
+<button (click)="logout()" class="signout-button" ion-button icon-only>
+    <ion-icon ios="md-log-out" md="md-log-out"></ion-icon>
+</button>
+
+<ion-content>
+    <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>
+    </ion-item>
+    
+    <button (click)="toggleEdit()" class="reset-button" ion-button>
+        {{editButtonText}}
+    </button>
+    
+    <button (click)="resetPassword()" class="reset-button" outline ion-button>
+        reset password
+    </button>
+</ion-content>

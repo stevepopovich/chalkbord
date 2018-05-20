@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { SwingStackComponent } from 'angular2-swing';
-import { AlertController, PopoverController } from 'ionic-angular';
+import { AlertController, PopoverController, ModalController } from 'ionic-angular';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
@@ -18,8 +18,9 @@ import { ImageService } from '../../services/image-service.service';
 import { DealType } from '../../types/deals.type';
 import { DeviceService } from '../../services/device.service';
 import { ViewControllerService } from '../../services/view-controller.service';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 var ConsumerComponent = (function () {
-    function ConsumerComponent(alert, popoverCtrl, launchNavigator, cardService, authService, imageService, deviceService, viewContoller) {
+    function ConsumerComponent(alert, popoverCtrl, launchNavigator, cardService, authService, imageService, deviceService, viewContoller, modalCtrl) {
         var _this = this;
         this.alert = alert;
         this.popoverCtrl = popoverCtrl;
@@ -29,6 +30,7 @@ var ConsumerComponent = (function () {
         this.imageService = imageService;
         this.deviceService = deviceService;
         this.viewContoller = viewContoller;
+        this.modalCtrl = modalCtrl;
         this.transitionString = "";
         this.numberOfCards = 3;
         this.destoryingCard = false;
@@ -235,9 +237,8 @@ var ConsumerComponent = (function () {
             this.imageService.setDealImageURL(objectToUpdate);
         }
     };
-    ConsumerComponent.prototype.logout = function () {
-        this.deviceService.putRememberMeSetting(false);
-        this.viewContoller.setSignUpView();
+    ConsumerComponent.prototype.openProfile = function () {
+        this.modalCtrl.create(UserProfileComponent).present();
     };
     __decorate([
         ViewChild('myswing1'),
@@ -248,11 +249,15 @@ var ConsumerComponent = (function () {
         __metadata("design:type", QueryList)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="logout()" class="button-top-left" ion-button icon-only>\n    <ion-icon name="arrow-back"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [AlertController, PopoverController, LaunchNavigator, CardDataService, AuthorizationService, ImageService, DeviceService, ViewControllerService])
+        __metadata("design:paramtypes", [AlertController, PopoverController,
+            LaunchNavigator, CardDataService,
+            AuthorizationService, ImageService,
+            DeviceService, ViewControllerService,
+            ModalController])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());
