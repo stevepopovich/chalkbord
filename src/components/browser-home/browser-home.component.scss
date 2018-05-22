@@ -1,0 +1,39 @@
+.browser-home-photo{
+    background-image: url("../assets/images/rest-room.jpg");
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.25;
+    background-size: 100% 100%;
+}
+
+.flute-photo{
+    background-image: url("../assets/images/flutes.png");
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    background-size: 100%;
+}
+
+.center-home-text{
+    text-align: center;
+    position: absolute;
+    font-size: 4em;
+    width: 100%;
+    top: 18%;
+    font-family: Baumans;
+}
+
+.home-nav-bar{
+    height: 40px;
+    width: 100%;
+    background: black;
+    position: absolute;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    z-index: 999; 
+}
+
+.home-nav-button{
+    float: right;
+    height: 30px;
+}

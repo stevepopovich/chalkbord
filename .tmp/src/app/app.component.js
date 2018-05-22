@@ -11,33 +11,29 @@ import { Component } from '@angular/core';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AuthorizationService } from '../services/authorization.service';
 import { ViewControllerService } from '../services/view-controller.service';
+import { Platform } from 'ionic-angular';
 var LocaleApp = (function () {
-    function LocaleApp(statusBar, auth, viewControl) {
+    function LocaleApp(statusBar, auth, viewControl, platform) {
         this.statusBar = statusBar;
         this.auth = auth;
         this.viewControl = viewControl;
-        this.statusBar.overlaysWebView(false);
-        this.statusBar.backgroundColorByName("black");
-        if (!this.auth.checkUserIsLoggedIn()) {
-            this.viewControl.signUp = true;
+        this.platform = platform;
+        if (this.platform.is("core")) {
+            this.viewControl.setRestaurantLanding();
+        }
+        else {
+            this.statusBar.overlaysWebView(false);
+            this.statusBar.backgroundColorByName("black");
+            if (!this.auth.checkUserIsLoggedIn()) {
+                this.viewControl.signUp = true;
+            }
         }
     }
-    LocaleApp.prototype.changeView = function () {
-        if (this.viewControl.dealMaker) {
-            this.viewControl.consumer = true;
-            this.viewControl.dealMaker = false;
-            this.viewControl.signUp = false;
-        }
-        else if (this.viewControl.consumer) {
-            this.viewControl.dealMaker = true;
-            this.viewControl.consumer = false;
-            this.viewControl.signUp = false;
-        }
-    };
     LocaleApp = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>\n    <user-signup *ngIf="viewControl.signUp"></user-signup>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>\n    <user-signup *ngIf="viewControl.signUp"></user-signup>\n    <browser-home *ngIf="viewControl.browserHome"></browser-home>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
-        __metadata("design:paramtypes", [StatusBar, AuthorizationService, ViewControllerService])
+        __metadata("design:paramtypes", [StatusBar, AuthorizationService,
+            ViewControllerService, Platform])
     ], LocaleApp);
     return LocaleApp;
 }());

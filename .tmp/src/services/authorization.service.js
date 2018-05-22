@@ -11,10 +11,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { ToastService } from './toast.service';
 var AuthorizationService = (function () {
-    function AuthorizationService(fireAuth, database) {
+    function AuthorizationService(fireAuth, database, toastService) {
         this.fireAuth = fireAuth;
         this.database = database;
+        this.toastService = toastService;
         this.userCollection = this.database.collection("users");
     }
     AuthorizationService.prototype.checkUserType = function () {
@@ -54,9 +56,21 @@ var AuthorizationService = (function () {
     AuthorizationService.prototype.checkUserSignInMethods = function (email) {
         return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
     };
+    AuthorizationService.prototype.updateCurrentUser = function (user) {
+        console.log(user);
+        if (this.checkUserIsLoggedIn() && this.userCollection) {
+            if (user.getAsPlainObject)
+                return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
+            else
+                return this.userCollection.doc(user.uid).set(user);
+        }
+        else
+            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
+        return null;
+    };
     AuthorizationService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [AngularFireAuth, AngularFirestore])
+        __metadata("design:paramtypes", [AngularFireAuth, AngularFirestore, ToastService])
     ], AuthorizationService);
     return AuthorizationService;
 }());

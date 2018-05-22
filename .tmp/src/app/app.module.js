@@ -45,6 +45,8 @@ import { ViewControllerService } from '../services/view-controller.service';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { DeviceService } from '../services/device.service';
 import { UserProfileComponent } from '../components/user-profile/user-profile.component';
+import { ToastService } from '../services/toast.service';
+import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -69,7 +71,8 @@ var AppModule = (function () {
                 DealEditorComponent,
                 FilterDealComponent,
                 UserSignUpComponent,
-                UserProfileComponent
+                UserProfileComponent,
+                BrowserHomeComponent
             ],
             imports: [
                 BrowserModule,
@@ -101,7 +104,8 @@ var AppModule = (function () {
                 DealEditorComponent,
                 FilterDealComponent,
                 UserSignUpComponent,
-                UserProfileComponent
+                UserProfileComponent,
+                BrowserHomeComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -121,6 +125,7 @@ var AppModule = (function () {
                 ViewControllerService,
                 UniqueDeviceID,
                 DeviceService,
+                ToastService
             ]
         })
     ], AppModule);

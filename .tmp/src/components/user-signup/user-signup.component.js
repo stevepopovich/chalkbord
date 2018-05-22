@@ -12,16 +12,16 @@ import { Validators, FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
-import { ToastController } from "ionic-angular";
 import { DeviceService } from "../../services/device.service";
+import { ToastService } from "../../services/toast.service";
 var UserSignUpComponent = (function () {
-    function UserSignUpComponent(formBuilder, auth, viewControl, toastCtrl, deviceService) {
+    function UserSignUpComponent(formBuilder, auth, viewControl, deviceService, toastService) {
         var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
         this.viewControl = viewControl;
-        this.toastCtrl = toastCtrl;
         this.deviceService = deviceService;
+        this.toastService = toastService;
         this.signingUp = true;
         this.isRest = false;
         this.attemptingSignup = false;
@@ -31,6 +31,7 @@ var UserSignUpComponent = (function () {
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            name: [''],
             rememberMe: ['']
         });
         this.userLogInGroup = this.formBuilder.group({
@@ -58,10 +59,11 @@ var UserSignUpComponent = (function () {
     UserSignUpComponent.prototype.signUp = function () {
         var _this = this;
         if (this.userSignUpGroup.valid) {
-            this.showReadableToast("Signing you up...welcome!");
+            this.toastService.showReadableToast("Signing you up...welcome!");
             var email_1 = this.userSignUpGroup.get("email").value;
             var password_1 = this.userSignUpGroup.get("password").value;
             var confrimPassword = this.userSignUpGroup.get("confirmPassword").value;
+            var firstName_1 = this.userSignUpGroup.get("name").value;
             if (password_1 == confrimPassword) {
                 var userType = UserType.Consumer;
                 this.auth.checkUserSignInMethods(email_1).then(function (methods) {
@@ -70,30 +72,30 @@ var UserSignUpComponent = (function () {
                         _this.auth.signUpUser(email_1, password_1).then(function () {
                             _this.auth.signIn(email_1, password_1).then(function () {
                                 _this.handleRememberMe(_this.userSignUpGroup);
-                                var newUser = new GSUser(_this.auth.fireAuth.auth.currentUser.uid, userType);
+                                var newUser = new GSUser(_this.auth.fireAuth.auth.currentUser.uid, userType, firstName_1);
                                 _this.auth.currentUser = newUser;
                                 _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                                 _this.setAppropiateView();
                             }).catch(function (reason) {
-                                _this.showReadableToast("Sorry, that didn't work beacuase " + reason);
+                                _this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
                                 console.error("Sign up failed because: " + reason);
                             });
                         }).catch(function (reason) {
-                            _this.showReadableToast("Sorry, that didn't work beacause " + reason);
+                            _this.toastService.showReadableToast("Sorry, that didn't work beacause " + reason);
                             console.error("Sign up failed because: " + reason);
                         });
                     }
                     else {
-                        _this.showReadableToast("Sorry, that email is already signed up.");
+                        _this.toastService.showReadableToast("Sorry, that email is already signed up.");
                         console.error("User account already exists"); //user account already exists
                     }
                 }).catch(function (reason) {
-                    _this.showReadableToast("Sorry, that didn't work, please contact support.");
+                    _this.toastService.showReadableToast("Sorry, that didn't work, please contact support.");
                     console.error("Sign up failed because: " + reason);
                 });
             }
             else {
-                this.showReadableToast("Please make sure your passwords match.");
+                this.toastService.showReadableToast("Please make sure your passwords match.");
                 console.error("Passwords do not match");
             }
         }
@@ -103,7 +105,7 @@ var UserSignUpComponent = (function () {
                 display += "Please be sure your email is formatted correctly. ";
             if (this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long and both passwords match. ";
-            this.showReadableToast(display);
+            this.toastService.showReadableToast(display);
             console.error("Fields are invalid");
         }
     };
@@ -114,24 +116,26 @@ var UserSignUpComponent = (function () {
     UserSignUpComponent.prototype.login = function () {
         var _this = this;
         if (this.userLogInGroup.valid) {
-            this.showReadableToast("Logging you in...welcome back!");
+            this.toastService.showReadableToast("Logging you in...welcome back!");
             var email_2 = this.userLogInGroup.get("email").value;
             this.auth.checkUserSignInMethods(email_2).then(function (methods) {
                 if (methods.length > 0) {
                     _this.auth.signIn(email_2, _this.userLogInGroup.get("password").value).then(function () {
-                        _this.auth.getCurrentUserData();
-                        _this.setAppropiateView();
+                        _this.auth.getCurrentUserData().subscribe(function (users) {
+                            _this.auth.currentUser = users[0]; //there SHOULD be only one
+                            _this.setAppropiateView();
+                        });
                     }).catch(function (reason) {
-                        _this.showReadableToast("Double check your password");
+                        _this.toastService.showReadableToast("Double check your password");
                         console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else {
-                    _this.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
+                    _this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
                     console.error("User does not exist!");
                 }
             }).catch(function (reason) {
-                _this.showReadableToast("Sign in didn't work because: " + reason);
+                _this.toastService.showReadableToast("Sign in didn't work because: " + reason);
                 console.error("User does not exist!");
             });
         }
@@ -141,7 +145,7 @@ var UserSignUpComponent = (function () {
                 display += "Please be sure your email is formatted correctly. ";
             if (this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
-            this.showReadableToast(display);
+            this.toastService.showReadableToast(display);
             console.error("Fields are invalid");
         }
     };
@@ -156,19 +160,6 @@ var UserSignUpComponent = (function () {
             });
         }
     };
-    UserSignUpComponent.prototype.showReadableToast = function (message) {
-        var wordCount = message.split(" ").length;
-        var wordsPerMinute = 210; //resonable words per minute someone can read on a computer
-        var wordTime = ((wordCount / wordsPerMinute) *
-            (60 * 1000)) +
-            1500; //delay to see the notification toast;
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: wordTime,
-            position: "bottom"
-        });
-        toast.present();
-    };
     UserSignUpComponent.prototype.handleRememberMe = function (formGroup) {
         var rememberMe = formGroup.get("rememberMe").value;
         this.deviceService.putRememberMeSetting(rememberMe);
@@ -182,17 +173,17 @@ var UserSignUpComponent = (function () {
             this.auth.checkUserSignInMethods(emailControl.value).then(function (methods) {
                 if (methods.length > 0) {
                     _this.auth.fireAuth.auth.sendPasswordResetEmail(emailControl.value).then(function () {
-                        _this.showReadableToast("Cool, a reset link was sent to your email.");
+                        _this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
                     }).catch(function (reason) {
-                        _this.showReadableToast("Sorry, couldn't send you a reset link because: " + reason);
+                        _this.toastService.showReadableToast("Sorry, couldn't send you a reset link because: " + reason);
                     });
                 }
                 else
-                    _this.showReadableToast("We don't have that email signed up. Please sign up!");
+                    _this.toastService.showReadableToast("We don't have that email signed up. Please sign up!");
             });
         }
         else {
-            this.showReadableToast("Please check your email is valid");
+            this.toastService.showReadableToast("Please check your email is valid");
         }
     };
     /**
@@ -231,11 +222,13 @@ var UserSignUpComponent = (function () {
         __metadata("design:type", Object)
     ], UserSignUpComponent.prototype, "goBackButton", void 0);
     UserSignUpComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<div class="background-photo">\n\n</div>\n\n<div #welcomeScreen class="gs-font animate-form" style="left: 0%">\n    <div class="center-text">grabsome</div>\n    <div class="button-area">\n        <button class="welcome-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">\n            login\n        </button>\n    </div>\n</div>\n\n<div #logInScreen class="animate-form offset-form">\n    <ion-card>              \n        <ion-card-content>\n            <ion-list class="centered-form ">\n                    <form [formGroup]="userLogInGroup">\n                        <ion-item>\n                            <ion-label floating>Email</ion-label>\n                            <ion-input type="email"  formControlName="email"></ion-input>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label floating>Password</ion-label>\n                            <ion-input type="password" formControlName="password"></ion-input>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label>Remember Me</ion-label>\n                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                        </ion-item>\n                    </form>\n                </ion-list>\n        </ion-card-content>\n    </ion-card>\n    \n    <button class="welcome-button" ion-button outline (click)="loginHandler()">\n        login\n    </button>\n\n    <button class="welcome-button" ion-button outline (click)="resetPassword()">\n        reset password\n    </button>\n</div>\n\n<div #userSignUpFields class="animate-form offset-form">\n    <ion-card>              \n        <ion-card-content>\n            <ion-list class="centered-form">\n                <form [formGroup]="userSignUpGroup">\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email"  formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Confirm Password</ion-label>\n                        <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n    <button ion-button class="welcome-button" outline (click)="signUp()">\n        sign up\n    </button>\n</div>\n\n<div #goBackButton class="go-back-button">\n    <button ion-fab (click)="goBackAScreen()">\n        <ion-icon name="arrow-back"></ion-icon>\n    </button>\n</div>\n\n<!-- <div #restaurantSignUpFields>\n    <ion-list>\n        <form [formGroup]="userFormGroup">\n            <ion-item>\n                <ion-label floating>Email</ion-label>\n                <ion-input type="email"  formControlName="email"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Confirm Password</ion-label>\n                <ion-input type="password" formControlName="confirmPassword"></ion-input>\n            </ion-item>\n        </form>\n    </ion-list>\n\n</div> -->\n\n<!-- <div #userTypeChoice class="animate-form offset-form">\n    <div class="user-type-button-area">\n        <button class="welcome-button" ion-button (click)="signUpConsumer()">\n           consumer\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="signUpRestaurant()">\n            business\n        </button>\n    </div>\n</div> -->\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/'<div class="background-photo">\n\n</div>\n\n<div #welcomeScreen class="gs-font animate-form" style="left: 0%">\n    <div class="center-text">grabsome</div>\n    <div class="button-area">\n        <button class="welcome-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">\n            login\n        </button>\n    </div>\n</div>\n\n<div #logInScreen class="animate-form offset-form">\n    <ion-card>              \n        <ion-card-content>\n            <ion-list class="centered-form ">\n                    <form [formGroup]="userLogInGroup">\n                        <ion-item>\n                            <ion-label floating>Email</ion-label>\n                            <ion-input type="email"  formControlName="email"></ion-input>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label floating>Password</ion-label>\n                            <ion-input type="password" formControlName="password"></ion-input>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label>Remember Me</ion-label>\n                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                        </ion-item>\n                    </form>\n                </ion-list>\n        </ion-card-content>\n    </ion-card>\n    \n    <button class="welcome-button" ion-button outline (click)="loginHandler()">\n        login\n    </button>\n\n    <button class="welcome-button" ion-button outline (click)="resetPassword()">\n        reset password\n    </button>\n</div>\n\n<div #userSignUpFields class="animate-form offset-form">\n    <ion-card>              \n        <ion-card-content>\n            <ion-list class="centered-form">\n                <form [formGroup]="userSignUpGroup">\n                    <ion-item>\n                        <ion-label floating>First Name</ion-label>\n                        <ion-input formControlName="name"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email"  formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Confirm Password</ion-label>\n                        <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n    <button ion-button class="welcome-button" outline (click)="signUp()">\n        sign up\n    </button>\n</div>\n\n<div #goBackButton class="go-back-button">\n    <button ion-fab (click)="goBackAScreen()">\n        <ion-icon name="arrow-back"></ion-icon>\n    </button>\n</div>\n\n<!-- <div #restaurantSignUpFields>\n    <ion-list>\n        <form [formGroup]="userFormGroup">\n            <ion-item>\n                <ion-label floating>Email</ion-label>\n                <ion-input type="email"  formControlName="email"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Password</ion-label>\n                <ion-input type="password" formControlName="password"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Confirm Password</ion-label>\n                <ion-input type="password" formControlName="confirmPassword"></ion-input>\n            </ion-item>\n        </form>\n    </ion-list>\n\n</div> -->\n\n<!-- <div #userTypeChoice class="animate-form offset-form">\n    <div class="user-type-button-area">\n        <button class="welcome-button" ion-button (click)="signUpConsumer()">\n           consumer\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="signUpRestaurant()">\n            business\n        </button>\n    </div>\n</div> -->\n    '/*ion-inline-end:"/Users/Contence/locale/src/components/user-signup/user-signup.component.html"*/,
             selector: 'user-signup',
             styleUrls: ['/user-signup.component.scss']
         }),
-        __metadata("design:paramtypes", [FormBuilder, AuthorizationService, ViewControllerService, ToastController, DeviceService])
+        __metadata("design:paramtypes", [FormBuilder, AuthorizationService,
+            ViewControllerService, DeviceService,
+            ToastService])
     ], UserSignUpComponent);
     return UserSignUpComponent;
 }());

@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
+import { ToastService } from './toast.service';
 
 @Injectable()
 export class AuthorizationService {
@@ -10,7 +11,7 @@ export class AuthorizationService {
 
     public currentUser: GSUser;
 
-    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore) { 
+    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, private toastService: ToastService) { 
         this.userCollection = this.database.collection<GSUser>("users");
     }
 
@@ -55,6 +56,21 @@ export class AuthorizationService {
 
     public checkUserSignInMethods(email: string): Promise<any> {
         return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
+    }
+
+    public updateCurrentUser(user: GSUser): Promise<any>{
+        console.log(user);
+        if(this.checkUserIsLoggedIn() && this.userCollection){
+            if(user.getAsPlainObject)
+                return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
+            else
+                return this.userCollection.doc(user.uid).set(user);
+        }
+            
+        else
+            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
+
+        return null;
     }
 }
 

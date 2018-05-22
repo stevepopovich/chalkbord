@@ -3,8 +3,8 @@ import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
-import { ToastController } from "ionic-angular";
 import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
+import { ToastService } from "../../services/toast.service";
 
 @Component({
     templateUrl: './user-signup.component.html',
@@ -29,11 +29,14 @@ export class UserSignUpComponent implements AfterViewInit{
 
     public remembered = false;
 
-    public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, private viewControl: ViewControllerService, public toastCtrl: ToastController, private deviceService: DeviceService){
+    public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, 
+        private viewControl: ViewControllerService, private deviceService: DeviceService, 
+        public toastService: ToastService){
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            name: [''],
             rememberMe: ['']
         });
 
@@ -65,11 +68,12 @@ export class UserSignUpComponent implements AfterViewInit{
 
     public signUp(): void{
         if(this.userSignUpGroup.valid){
-            this.showReadableToast("Signing you up...welcome!");
+            this.toastService.showReadableToast("Signing you up...welcome!");
 
             const email: string = this.userSignUpGroup.get("email").value;
             const password: string = this.userSignUpGroup.get("password").value;
             const confrimPassword: string = this.userSignUpGroup.get("confirmPassword").value;
+            const firstName: string = this.userSignUpGroup.get("name").value;
 
             if(password == confrimPassword)
             {
@@ -82,7 +86,7 @@ export class UserSignUpComponent implements AfterViewInit{
                             this.auth.signIn(email, password).then(() => {
                                 this.handleRememberMe(this.userSignUpGroup);
 
-                                const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, userType);
+                                const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, userType, firstName);
             
                                 this.auth.currentUser = newUser;
             
@@ -91,29 +95,29 @@ export class UserSignUpComponent implements AfterViewInit{
                                 this.setAppropiateView();
             
                             }).catch((reason) => {//couldn't sign in 
-                                this.showReadableToast("Sorry, that didn't work beacuase " + reason);
+                                this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
 
                                 console.error("Sign up failed because: " + reason);
                             });
                         }).catch((reason) => {//couldn't sign up
-                            this.showReadableToast("Sorry, that didn't work beacause " + reason);
+                            this.toastService.showReadableToast("Sorry, that didn't work beacause " + reason);
 
                             console.error("Sign up failed because: " + reason);
                         });
                     }
                     else{
-                        this.showReadableToast("Sorry, that email is already signed up.");
+                        this.toastService.showReadableToast("Sorry, that email is already signed up.");
 
                         console.error("User account already exists");//user account already exists
                     }
                 }).catch((reason) => {//couldn't check sign in methods
-                    this.showReadableToast("Sorry, that didn't work, please contact support.");
+                    this.toastService.showReadableToast("Sorry, that didn't work, please contact support.");
 
                     console.error("Sign up failed because: " + reason);
                 });
             }
             else{
-                this.showReadableToast("Please make sure your passwords match.");
+                this.toastService.showReadableToast("Please make sure your passwords match.");
 
                 console.error("Passwords do not match");
             }
@@ -127,7 +131,7 @@ export class UserSignUpComponent implements AfterViewInit{
             if(this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long and both passwords match. ";
 
-            this.showReadableToast(display);
+            this.toastService.showReadableToast(display);
 
             console.error("Fields are invalid");
         }
@@ -141,29 +145,31 @@ export class UserSignUpComponent implements AfterViewInit{
 
     public login(): void{
         if(this.userLogInGroup.valid){
-            this.showReadableToast("Logging you in...welcome back!");
+            this.toastService.showReadableToast("Logging you in...welcome back!");
 
             const email = this.userLogInGroup.get("email").value;
 
             this.auth.checkUserSignInMethods(email).then((methods) => {
                 if(methods.length > 0){//if user not in db
                     this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
-                        this.auth.getCurrentUserData();
+                        this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
+                            this.auth.currentUser = users[0];//there SHOULD be only one
 
-                        this.setAppropiateView();
+                            this.setAppropiateView();
+                        });
                     }).catch((reason) => {
-                        this.showReadableToast("Double check your password");
+                        this.toastService.showReadableToast("Double check your password");
 
                         console.error("Sign in didn't work because: " + reason);
                     });
                 }
                 else{
-                    this.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
+                    this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
 
                     console.error("User does not exist!");
                 }
             }).catch((reason) => {
-                this.showReadableToast("Sign in didn't work because: " + reason);
+                this.toastService.showReadableToast("Sign in didn't work because: " + reason);
 
                 console.error("User does not exist!");
             });
@@ -177,7 +183,7 @@ export class UserSignUpComponent implements AfterViewInit{
             if(this.userSignUpGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
 
-            this.showReadableToast(display);
+            this.toastService.showReadableToast(display);
 
             console.error("Fields are invalid");
         }
@@ -192,24 +198,6 @@ export class UserSignUpComponent implements AfterViewInit{
                     this.viewControl.setConsumerView();
             })
         }
-    }
-
-    public showReadableToast(message: string){
-        const wordCount = message.split(" ").length;
-
-        const wordsPerMinute = 210;//resonable words per minute someone can read on a computer
-
-        const wordTime = ((wordCount/wordsPerMinute) *
-                            (60*1000)) +//convert to milliseconds
-                            1500;//delay to see the notification toast;
-
-        let toast = this.toastCtrl.create({
-            message: message,
-            duration: wordTime,
-            position: "bottom"
-        });
-
-        toast.present();
     }
 
     public handleRememberMe(formGroup: FormGroup){
@@ -228,17 +216,17 @@ export class UserSignUpComponent implements AfterViewInit{
             this.auth.checkUserSignInMethods(emailControl.value).then((methods) => {
                 if(methods.length > 0){
                     this.auth.fireAuth.auth.sendPasswordResetEmail(emailControl.value).then(() => {
-                        this.showReadableToast("Cool, a reset link was sent to your email.");
+                        this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
                     }).catch((reason) => {
-                        this.showReadableToast("Sorry, couldn't send you a reset link because: " + reason)
+                        this.toastService.showReadableToast("Sorry, couldn't send you a reset link because: " + reason)
                     });
                 }
                 else
-                    this.showReadableToast("We don't have that email signed up. Please sign up!");
+                    this.toastService.showReadableToast("We don't have that email signed up. Please sign up!");
             })
         }
         else{
-            this.showReadableToast("Please check your email is valid");
+            this.toastService.showReadableToast("Please check your email is valid");
         }
     }
 

@@ -36,6 +36,8 @@ import { ViewControllerService } from '../services/view-controller.service';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { DeviceService } from '../services/device.service';
 import { UserProfileComponent } from '../components/user-profile/user-profile.component';
+import { ToastService } from '../services/toast.service';
+import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -51,7 +53,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     DealEditorComponent,
     FilterDealComponent,
     UserSignUpComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    BrowserHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     DealEditorComponent,
     FilterDealComponent,
     UserSignUpComponent,
-    UserProfileComponent 
+    UserProfileComponent,
+    BrowserHomeComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -104,6 +108,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ViewControllerService,
     UniqueDeviceID,
     DeviceService,
+    ToastService
   ]
 })
 export class AppModule { }

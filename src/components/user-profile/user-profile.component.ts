@@ -88,6 +88,7 @@ export class UserProfileComponent{
         const toast = this.toastService.showReadableAndAnswerableOkayToast("Are you sure you want to reset your password?");
 
         toast.onDidDismiss((data, dismissType) => {
+            data;
             if(dismissType == "close"){
                 var currentEmail = this.authService.fireAuth.auth.currentUser.email;
 

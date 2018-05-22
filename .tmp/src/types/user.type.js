@@ -1,7 +1,8 @@
 var GSUser = (function () {
-    function GSUser(uid, userType) {
+    function GSUser(uid, userType, firstName) {
         this.uid = uid;
         this.userType = userType;
+        this.firstName = firstName;
     }
     GSUser.prototype.getAsPlainObject = function () {
         this.restaurant = Object.assign({}, this.restaurant);

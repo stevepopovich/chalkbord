@@ -13,21 +13,31 @@ var ViewControllerService = (function () {
         this.dealMaker = false;
         this.consumer = false;
         this.signUp = false;
+        this.browserHome = false;
     }
     ViewControllerService.prototype.setConsumerView = function () {
         this.dealMaker = false;
         this.consumer = true;
         this.signUp = false;
+        this.browserHome = false;
     };
     ViewControllerService.prototype.setDealMakerView = function () {
         this.dealMaker = true;
         this.consumer = false;
         this.signUp = false;
+        this.browserHome = false;
     };
     ViewControllerService.prototype.setSignUpView = function () {
         this.dealMaker = false;
         this.consumer = false;
         this.signUp = true;
+        this.browserHome = false;
+    };
+    ViewControllerService.prototype.setRestaurantLanding = function () {
+        this.dealMaker = false;
+        this.consumer = false;
+        this.signUp = false;
+        this.browserHome = true;
     };
     ViewControllerService = __decorate([
         Injectable(),
