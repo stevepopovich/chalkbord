@@ -2,28 +2,28 @@ import { Injectable } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { DealModel } from '../types/deals.type';
+import { Deal } from '../types/deals.type';
 
 @Injectable()
 export class CardDataService {
-    public cardDoc: AngularFirestoreCollection<DealModel>;
-    public cards: Observable<DealModel[]>;
+    public cardDoc: AngularFirestoreCollection<Deal>;
+    public cards: Observable<Deal[]>;
 
     constructor(private database: AngularFirestore) {
     }
 
     public setUpCardStream(): void {
-        this.cardDoc = this.database.collection<DealModel>("cards");
+        this.cardDoc = this.database.collection<Deal>("cards");
         this.cards = this.cardDoc.valueChanges();
     } 
 
-    public getCards(): Observable<DealModel[]> {
+    public getCards(): Observable<Deal[]> {
         this.setUpCardStream();//always hard refresh to force update eveything subscribed
         
         return this.cards;
     }
 
-    public setCards(data: DealModel[]): void {
+    public setCards(data: Deal[]): void {
         if(!this.cardDoc)
             this.setUpCardStream();
 
@@ -33,7 +33,7 @@ export class CardDataService {
         })
     }
 
-    public addCard(data: DealModel): void {
+    public addCard(data: Deal): void {
         if(!this.cardDoc)
             this.setUpCardStream();
 

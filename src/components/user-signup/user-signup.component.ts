@@ -6,6 +6,9 @@ import { GSUser, UserType } from '../../types/user.type';
 import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 
+const userEmailPasswordComboKey = "userEmailCombo";
+const rememberMeUserKey = "rememberMeUser";
+
 @Component({
     templateUrl: './user-signup.component.html',
     selector: 'user-signup',
@@ -46,9 +49,9 @@ export class UserSignUpComponent implements AfterViewInit{
             rememberMe: ['']
         });
 
-        this.deviceService.getRememberMeSetting().then((rememberMe: boolean) => {
+        this.deviceService.getSetting(rememberMeUserKey).then((rememberMe: boolean) => {
             if(rememberMe){
-                this.deviceService.getUserEmailPasswordFromLocalStorage().then((emailPasswordTup: EmailPasswordTuple) => {
+                this.deviceService.getUserEmailPasswordFromLocalStorage(userEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
                     if(emailPasswordTup){
                         this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
@@ -60,7 +63,7 @@ export class UserSignUpComponent implements AfterViewInit{
         });
     }
 
-    ngAfterViewInit(): void {
+    ngAfterViewInit(): void {//bit of a hack, bit it is for security 
         if(this.auth.checkUserIsLoggedIn()){//user is logged in, possibly from switching screens
             this.auth.userSignOut();
         }
@@ -177,10 +180,10 @@ export class UserSignUpComponent implements AfterViewInit{
         else{
             var display: string = "";
 
-            if(this.userSignUpGroup.get("email").invalid)
+            if(this.userLogInGroup.get("email").invalid)
                 display += "Please be sure your email is formatted correctly. ";
 
-            if(this.userSignUpGroup.get("password").invalid)
+            if(this.userLogInGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
 
             this.toastService.showReadableToast(display);
@@ -203,10 +206,10 @@ export class UserSignUpComponent implements AfterViewInit{
     public handleRememberMe(formGroup: FormGroup){
         const rememberMe: boolean = formGroup.get("rememberMe").value;
 
-        this.deviceService.putRememberMeSetting(rememberMe);
+        this.deviceService.putSetting(rememberMeUserKey, rememberMe);
 
         if(rememberMe)
-            this.deviceService.putUserEmailPasswordToLocalStorage(formGroup.get("email").value, formGroup.get("password").value);
+            this.deviceService.putUserEmailPasswordToLocalStorage(userEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
     }
 
     public resetPassword(): void {

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ViewController } from "ionic-angular";
-import { DealModel, RestaurantModel } from "../../types/deals.type";
+import { Deal, Restaurant } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
@@ -43,29 +43,29 @@ export class DealEditorComponent{
         this.dealEditorFormGroup.updateValueAndValidity();
 
         if(this.dealEditorFormGroup.valid && this.imageData){
-            let deal: DealModel;
+            let deal: Deal;
 
-            if(!this.limitDealNumber){
-                deal = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), 
-                this.dealEditorFormGroup.get("dealDescription").value, 
-                new Date(this.dealEditorFormGroup.get("dealStart").value), 
-                new Date(this.dealEditorFormGroup.get("dealEnd").value),
-                -1,
-                this.dealEditorFormGroup.get("dealType").value, 
-                null);
+            // if(!this.limitDealNumber){
+            //     deal = new Deal(new Restaurant("Name1", "Columbus, OH", ""), 
+            //     this.dealEditorFormGroup.get("dealDescription").value, 
+            //     new Date(this.dealEditorFormGroup.get("dealStart").value), 
+            //     new Date(this.dealEditorFormGroup.get("dealEnd").value),
+            //     -1,
+            //     this.dealEditorFormGroup.get("dealType").value, 
+            //     null);
 
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }else{
-                deal = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), 
-                this.dealEditorFormGroup.get("dealDescription").value, 
-                new Date(this.dealEditorFormGroup.get("dealStart").value),
-                new Date(this.dealEditorFormGroup.get("dealEnd").value),
-                this.dealEditorFormGroup.get("dealNumber").value,
-                this.dealEditorFormGroup.get("dealType").value, 
-                null);
+            //     deal.imageSource = "/locale-deal-photos/" + deal.id;
+            // }else{
+            //     deal = new Deal(new Restaurant("Name1", "Columbus, OH", ""), 
+            //     this.dealEditorFormGroup.get("dealDescription").value, 
+            //     new Date(this.dealEditorFormGroup.get("dealStart").value),
+            //     new Date(this.dealEditorFormGroup.get("dealEnd").value),
+            //     this.dealEditorFormGroup.get("dealNumber").value,
+            //     this.dealEditorFormGroup.get("dealType").value, 
+            //     null);
                 
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }
+            //     deal.imageSource = "/locale-deal-photos/" + deal.id;
+            // }
 
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
 

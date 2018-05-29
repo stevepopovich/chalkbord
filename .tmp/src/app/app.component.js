@@ -19,18 +19,18 @@ var LocaleApp = (function () {
         this.viewControl = viewControl;
         this.platform = platform;
         if (this.platform.is("core")) {
-            this.viewControl.setRestaurantLanding();
+            this.viewControl.setBrowserHome();
         }
         else {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByName("black");
             if (!this.auth.checkUserIsLoggedIn()) {
-                this.viewControl.signUp = true;
+                this.viewControl.setSignUpView();
             }
         }
     }
     LocaleApp = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>\n    <user-signup *ngIf="viewControl.signUp"></user-signup>\n    <browser-home *ngIf="viewControl.browserHome"></browser-home>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>\n    <user-signup *ngIf="viewControl.signUp"></user-signup>\n    <browser-home *ngIf="viewControl.browserHome"></browser-home>\n    <restaurant-landing *ngIf="viewControl.restaurantLanding"></restaurant-landing>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [StatusBar, AuthorizationService,
             ViewControllerService, Platform])

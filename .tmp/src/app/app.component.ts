@@ -14,13 +14,13 @@ export class LocaleApp {
     private viewControl: ViewControllerService, public platform: Platform) {
 
     if(this.platform.is("core")){
-      this.viewControl.setRestaurantLanding();
+      this.viewControl.setBrowserHome();
     }else{
       this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByName("black");
   
       if(!this.auth.checkUserIsLoggedIn()){
-        this.viewControl.signUp = true;
+        this.viewControl.setSignUpView();
       }
     }
   }

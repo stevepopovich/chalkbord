@@ -13,6 +13,6 @@ export class BrowserHomeComponent{
     }
 
     public showRestaurantPortal(){
-        
+        this.viewController.setRestaurantPortal();
     }
 }

@@ -14,30 +14,42 @@ var ViewControllerService = (function () {
         this.consumer = false;
         this.signUp = false;
         this.browserHome = false;
+        this.restaurantLanding = false;
     }
     ViewControllerService.prototype.setConsumerView = function () {
         this.dealMaker = false;
         this.consumer = true;
         this.signUp = false;
         this.browserHome = false;
+        this.restaurantLanding = false;
     };
     ViewControllerService.prototype.setDealMakerView = function () {
         this.dealMaker = true;
         this.consumer = false;
         this.signUp = false;
         this.browserHome = false;
+        this.restaurantLanding = false;
     };
     ViewControllerService.prototype.setSignUpView = function () {
         this.dealMaker = false;
         this.consumer = false;
         this.signUp = true;
         this.browserHome = false;
+        this.restaurantLanding = false;
     };
-    ViewControllerService.prototype.setRestaurantLanding = function () {
+    ViewControllerService.prototype.setBrowserHome = function () {
         this.dealMaker = false;
         this.consumer = false;
         this.signUp = false;
         this.browserHome = true;
+        this.restaurantLanding = false;
+    };
+    ViewControllerService.prototype.setRestaurantPortal = function () {
+        this.dealMaker = false;
+        this.consumer = false;
+        this.signUp = false;
+        this.browserHome = false;
+        this.restaurantLanding = true;
     };
     ViewControllerService = __decorate([
         Injectable(),

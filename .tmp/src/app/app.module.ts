@@ -38,6 +38,7 @@ import { DeviceService } from '../services/device.service';
 import { UserProfileComponent } from '../components/user-profile/user-profile.component';
 import { ToastService } from '../services/toast.service';
 import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
+import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -54,7 +55,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FilterDealComponent,
     UserSignUpComponent,
     UserProfileComponent,
-    BrowserHomeComponent
+    BrowserHomeComponent,
+    RestaurantLandingComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FilterDealComponent,
     UserSignUpComponent,
     UserProfileComponent,
-    BrowserHomeComponent
+    BrowserHomeComponent,
+    RestaurantLandingComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

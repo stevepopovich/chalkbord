@@ -1,0 +1,94 @@
+<div class="rest-landing-home-photo">
+
+</div>
+
+<div id="map" name="map">
+
+</div>
+
+<ion-content class="main-area">
+    <div class="rest-center-text">grabsome</div>
+    <div class="small-rest-center-text">Restaurants</div>
+
+    <ion-card class="log-in-card">
+        <ion-list>
+            <form [formGroup]="userLogInGroup">
+                <ion-item class="padding-right">
+                    <ion-label stacked>Email</ion-label>
+                    <ion-input placeholder="Business email" type="email"  formControlName="email"></ion-input>
+                </ion-item>
+    
+                <ion-item class="padding-right">
+                    <ion-label stacked>Password</ion-label>
+                    <ion-input placeholder="********" type="password" formControlName="password"></ion-input>
+                </ion-item>
+    
+                <ion-item class="padding-bottom-checkbox">
+                    <ion-label>Remember Me</ion-label>
+                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                </ion-item>
+            </form>
+        </ion-list>
+    </ion-card>
+
+    <div class="rest-button-area">
+        <button class="rest-landing-button" ion-button outline (click)="loginHandler()">
+            login
+        </button>
+        <div class="or-text">or</div>
+        <button class="rest-landing-button" ion-button (click)="goToUserSignUpScreen()">
+            sign up
+        </button>
+    </div>
+
+    <ion-card #signUpCard class="sign-up-card">
+            <ion-list>
+                <form [formGroup]="restSignUpGroup">
+                    <ion-item class="padding-right">
+                        <ion-label floating>Email</ion-label>
+                        <ion-input type="email"  formControlName="email"></ion-input>
+                    </ion-item>
+        
+                    <ion-item class="padding-right">
+                        <ion-label floating>Password</ion-label>
+                        <ion-input type="password" formControlName="password"></ion-input>
+                    </ion-item>
+    
+                    <ion-item class="padding-right">
+                        <ion-label floating>Confirm Password</ion-label>
+                        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+                    </ion-item>
+    
+                    <ion-item class="padding-right">
+                        <ion-label floating>Restaurant Name</ion-label>
+                        <ion-input formControlName="name"></ion-input>
+                    </ion-item>
+    
+                    <ion-item class="padding-right">
+                        <ion-label floating>Address </ion-label>
+                        <ion-input formControlName="address"></ion-input>
+                    </ion-item>
+                    <ion-item class="padding-right">
+                        <ion-label floating>City</ion-label>
+                        <ion-input formControlName="city"></ion-input>
+                    </ion-item>
+                    <ion-item class="padding-right">
+                        <ion-label floating>State</ion-label>
+                        <ion-input formControlName="state"></ion-input>
+                    </ion-item>
+                    <ion-item class="padding-right">
+                        <ion-label floating>Zipcode</ion-label>
+                        <ion-input formControlName="zipcode"></ion-input>
+                    </ion-item>
+    
+                    <ion-item class="padding-bottom-checkbox">
+                        <ion-label>Remember Me</ion-label>
+                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                    </ion-item>
+                </form>
+            </ion-list>
+        <button class="rest-landing-button" ion-button (click)="signUp()">
+            sign up
+        </button>
+    </ion-card>
+</ion-content>

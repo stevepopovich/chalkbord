@@ -6,6 +6,8 @@ import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser } from "../../types/user.type";
 
+const rememberMeUserKey = "rememberMeUser";//dont change this unless you want to change the other one is user-signup
+
 @Component({
     templateUrl: './user-profile.component.html',
     selector: 'user-profile',
@@ -29,6 +31,8 @@ export class UserProfileComponent{
         this.userEmail = this.authService.fireAuth.auth.currentUser.email; 
         this.firstName = this.authService.currentUser.firstName;
     }
+
+    public goTouserSignUpScreen(){}
 
     public toggleEdit(){
         if(this.emailDisabled){
@@ -69,7 +73,7 @@ export class UserProfileComponent{
         toast.onDidDismiss((data, dismissType) => {
             data;
             if(dismissType == "close"){
-                this.deviceService.putRememberMeSetting(false);
+                this.deviceService.putSetting(rememberMeUserKey, false);
 
                 this.viewController.setSignUpView();
         

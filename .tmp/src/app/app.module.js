@@ -47,6 +47,7 @@ import { DeviceService } from '../services/device.service';
 import { UserProfileComponent } from '../components/user-profile/user-profile.component';
 import { ToastService } from '../services/toast.service';
 import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
+import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -72,7 +73,8 @@ var AppModule = (function () {
                 FilterDealComponent,
                 UserSignUpComponent,
                 UserProfileComponent,
-                BrowserHomeComponent
+                BrowserHomeComponent,
+                RestaurantLandingComponent
             ],
             imports: [
                 BrowserModule,
@@ -105,7 +107,8 @@ var AppModule = (function () {
                 FilterDealComponent,
                 UserSignUpComponent,
                 UserProfileComponent,
-                BrowserHomeComponent
+                BrowserHomeComponent,
+                RestaurantLandingComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },

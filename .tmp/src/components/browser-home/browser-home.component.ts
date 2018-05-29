@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ViewControllerService } from "../../services/view-controller.service";
 
 @Component({
     templateUrl: './browser-home.component.html',
@@ -7,4 +8,11 @@ import { Component } from "@angular/core";
 })
 export class BrowserHomeComponent{
 
+    constructor(public viewController: ViewControllerService){
+
+    }
+
+    public showRestaurantPortal(){
+        this.viewController.setRestaurantPortal();
+    }
 }
