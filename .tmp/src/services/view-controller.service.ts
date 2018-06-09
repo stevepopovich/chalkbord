@@ -7,6 +7,7 @@ export class ViewControllerService {
     public signUp: Boolean = false;
     public browserHome: Boolean = false;
     public restaurantLanding: Boolean = false;
+    public restaurantHome: Boolean = false;
 
     constructor() {
     }
@@ -17,6 +18,7 @@ export class ViewControllerService {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     }
 
     public setDealMakerView(){
@@ -25,6 +27,7 @@ export class ViewControllerService {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     }
 
     public setSignUpView(){
@@ -33,6 +36,7 @@ export class ViewControllerService {
         this.signUp = true;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     }
 
     public setBrowserHome(){
@@ -41,6 +45,7 @@ export class ViewControllerService {
         this.signUp = false;
         this.browserHome = true;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     }
 
     public setRestaurantPortal(){
@@ -49,5 +54,15 @@ export class ViewControllerService {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = true;
+        this.restaurantHome = false;
+    }
+
+    public setRestaurantHome(){
+        this.dealMaker = false;
+        this.consumer = false;
+        this.signUp = false;
+        this.browserHome = false;
+        this.restaurantLanding = false;
+        this.restaurantHome = true;
     }
 }

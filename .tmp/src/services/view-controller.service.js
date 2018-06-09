@@ -15,6 +15,7 @@ var ViewControllerService = (function () {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     }
     ViewControllerService.prototype.setConsumerView = function () {
         this.dealMaker = false;
@@ -22,6 +23,7 @@ var ViewControllerService = (function () {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     };
     ViewControllerService.prototype.setDealMakerView = function () {
         this.dealMaker = true;
@@ -29,6 +31,7 @@ var ViewControllerService = (function () {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     };
     ViewControllerService.prototype.setSignUpView = function () {
         this.dealMaker = false;
@@ -36,6 +39,7 @@ var ViewControllerService = (function () {
         this.signUp = true;
         this.browserHome = false;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     };
     ViewControllerService.prototype.setBrowserHome = function () {
         this.dealMaker = false;
@@ -43,6 +47,7 @@ var ViewControllerService = (function () {
         this.signUp = false;
         this.browserHome = true;
         this.restaurantLanding = false;
+        this.restaurantHome = false;
     };
     ViewControllerService.prototype.setRestaurantPortal = function () {
         this.dealMaker = false;
@@ -50,6 +55,15 @@ var ViewControllerService = (function () {
         this.signUp = false;
         this.browserHome = false;
         this.restaurantLanding = true;
+        this.restaurantHome = false;
+    };
+    ViewControllerService.prototype.setRestaurantHome = function () {
+        this.dealMaker = false;
+        this.consumer = false;
+        this.signUp = false;
+        this.browserHome = false;
+        this.restaurantLanding = false;
+        this.restaurantHome = true;
     };
     ViewControllerService = __decorate([
         Injectable(),

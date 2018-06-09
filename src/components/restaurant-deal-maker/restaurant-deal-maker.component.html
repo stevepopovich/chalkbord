@@ -1,21 +1,12 @@
-<h4 style="margin-left: 1em">Restaurant name</h4>
-
-<ion-content class="content-override">
-    <button class="create-button" (click)="createDeal()" ion-button>
-        Create
-    </button>
-
-    <!-- <ion-card *ngFor="let deal of deals" (click)="editDeal(deal)">
-        <ion-card-header>
+<ion-content class="scroll-offset">
+    <ion-list *ngIf="hasCards()">
+        <ion-item *ngFor="let deal of authService.currentUser.cards">
             {{deal.dealDescription}}
-        </ion-card-header>
-        
-        <ion-card-content>
-            <img src="{{deal.imageSource}}">
-            <h2>Deal Time: {{deal.dealStart | date:'MM/dd hh:mm aa'}}-{{deal.dealEnd | date: 'hh:mm aa'}}</h2>
-        </ion-card-content>
-    </ion-card> -->
-
+        </ion-item>
+    </ion-list>
+    <div *ngIf="!hasCards()">
+        Add some cards and see them here!
+    </div>
 </ion-content>
 
 

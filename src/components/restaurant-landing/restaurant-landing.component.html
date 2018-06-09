@@ -25,7 +25,7 @@
     
                 <ion-item class="padding-bottom-checkbox">
                     <ion-label>Remember Me</ion-label>
-                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeLogIn" checked="false"></ion-checkbox>
                 </ion-item>
             </form>
         </ion-list>
@@ -79,11 +79,6 @@
                     <ion-item class="padding-right">
                         <ion-label floating>Zipcode</ion-label>
                         <ion-input formControlName="zipcode"></ion-input>
-                    </ion-item>
-    
-                    <ion-item class="padding-bottom-checkbox">
-                        <ion-label>Remember Me</ion-label>
-                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
                     </ion-item>
                 </form>
             </ion-list>

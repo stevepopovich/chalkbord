@@ -8,14 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { ViewController } from "ionic-angular";
-import { DealModel, RestaurantModel } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
 var DealEditorComponent = (function () {
-    function DealEditorComponent(viewCtrl, cardService, formBuilder, uploader) {
-        this.viewCtrl = viewCtrl;
+    function DealEditorComponent(cardService, formBuilder, uploader) {
         this.cardService = cardService;
         this.formBuilder = formBuilder;
         this.uploader = uploader;
@@ -30,9 +27,6 @@ var DealEditorComponent = (function () {
         });
         this.cardService;
     }
-    DealEditorComponent.prototype.close = function () {
-        this.viewCtrl.dismiss();
-    };
     DealEditorComponent.prototype.uploadImage = function (event) {
         this.imageData = event.srcElement.files[0];
     };
@@ -40,25 +34,35 @@ var DealEditorComponent = (function () {
         this.dealEditorFormGroup.updateValueAndValidity();
         if (this.dealEditorFormGroup.valid && this.imageData) {
             var deal = void 0;
-            if (!this.limitDealNumber) {
-                deal = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), this.dealEditorFormGroup.get("dealDescription").value, new Date(this.dealEditorFormGroup.get("dealStart").value), new Date(this.dealEditorFormGroup.get("dealEnd").value), -1, this.dealEditorFormGroup.get("dealType").value, null);
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }
-            else {
-                deal = new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), this.dealEditorFormGroup.get("dealDescription").value, new Date(this.dealEditorFormGroup.get("dealStart").value), new Date(this.dealEditorFormGroup.get("dealEnd").value), this.dealEditorFormGroup.get("dealNumber").value, this.dealEditorFormGroup.get("dealType").value, null);
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }
+            // if(!this.limitDealNumber){
+            //     deal = new Deal(new Restaurant("Name1", "Columbus, OH", ""), 
+            //     this.dealEditorFormGroup.get("dealDescription").value, 
+            //     new Date(this.dealEditorFormGroup.get("dealStart").value), 
+            //     new Date(this.dealEditorFormGroup.get("dealEnd").value),
+            //     -1,
+            //     this.dealEditorFormGroup.get("dealType").value, 
+            //     null);
+            //     deal.imageSource = "/locale-deal-photos/" + deal.id;
+            // }else{
+            //     deal = new Deal(new Restaurant("Name1", "Columbus, OH", ""), 
+            //     this.dealEditorFormGroup.get("dealDescription").value, 
+            //     new Date(this.dealEditorFormGroup.get("dealStart").value),
+            //     new Date(this.dealEditorFormGroup.get("dealEnd").value),
+            //     this.dealEditorFormGroup.get("dealNumber").value,
+            //     this.dealEditorFormGroup.get("dealType").value, 
+            //     null);
+            //     deal.imageSource = "/locale-deal-photos/" + deal.id;
+            // }
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
             this.cardService.addCard(deal);
-            this.viewCtrl.dismiss();
         }
     };
     DealEditorComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n            <ion-title class="title-big">GrabSome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-item>\n                <ion-label floating>Deal Description</ion-label>\n                <ion-input formControlName="dealDescription"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Start time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealStart"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label floating>End time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealEnd"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label>Limited deal number</ion-label>\n                <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n            </ion-item>\n        \n            <ion-item *ngIf="limitDealNumber">\n                <ion-label floating>Deal Number</ion-label>\n                <ion-input type="number" formControlName="dealNumber"></ion-input>\n            </ion-item>\n\n            <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                Deal Type\n                <ion-item>\n                    <ion-label>Drinks</ion-label>\n                    <ion-radio value="0"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Food</ion-label>\n                    <ion-radio value="1"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Both</ion-label>\n                    <ion-radio value="2"></ion-radio>\n                </ion-item>\n            </ion-list>\n        \n            <ion-item>\n                <input type="file" (change)="uploadImage($event)" accept="image/*"/>\n            </ion-item>\n\n        </form>\n    </ion-list>\n    <div class="button-group">\n        <button ion-button (click)="close()">\n            Close\n        </button>\n\n        <button ion-button (click)="save()">\n            Save\n        </button>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">grabsome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-item>\n                <ion-label floating>Deal Description</ion-label>\n                <ion-input formControlName="dealDescription"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Start time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealStart"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label floating>End time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealEnd"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label>Limited deal number</ion-label>\n                <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n            </ion-item>\n        \n            <ion-item *ngIf="limitDealNumber">\n                <ion-label floating>Deal Number</ion-label>\n                <ion-input type="number" formControlName="dealNumber"></ion-input>\n            </ion-item>\n\n            <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                Deal Type\n                <ion-item>\n                    <ion-label>Drinks</ion-label>\n                    <ion-radio value="0"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Food</ion-label>\n                    <ion-radio value="1"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Both</ion-label>\n                    <ion-radio value="2"></ion-radio>\n                </ion-item>\n            </ion-list>\n        \n            <ion-item>\n                <input type="file" (change)="uploadImage($event)" accept="image/*"/>\n            </ion-item>\n\n        </form>\n    </ion-list>\n    <div class="button-group">\n        <button ion-button (click)="close()">\n            Close\n        </button>\n\n        <button ion-button (click)="save()">\n            Save\n        </button>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
             selector: 'deal-editor',
             styleUrls: ['/deal-editor.component.scss']
         }),
-        __metadata("design:paramtypes", [ViewController, CardDataService, FormBuilder, UploadService])
+        __metadata("design:paramtypes", [CardDataService, FormBuilder, UploadService])
     ], DealEditorComponent);
     return DealEditorComponent;
 }());

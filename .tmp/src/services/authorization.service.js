@@ -18,8 +18,9 @@ var AuthorizationService = (function () {
         this.database = database;
         this.toastService = toastService;
         this.userCollection = this.database.collection("users");
+        this.restaurantCollection = this.database.collection("restaurants");
     }
-    AuthorizationService.prototype.checkUserType = function () {
+    AuthorizationService.prototype.checkCurrentUserType = function () {
         var _this = this;
         if (this.currentUser) {
             return Observable.create(function (observer) {
@@ -46,23 +47,36 @@ var AuthorizationService = (function () {
     AuthorizationService.prototype.signIn = function (email, password) {
         return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
     };
-    AuthorizationService.prototype.getCurrentUserData = function () {
-        var _this = this;
-        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.fireAuth.auth.currentUser.uid); }).valueChanges();
-    };
     AuthorizationService.prototype.signUpUser = function (email, password) {
         return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
     };
     AuthorizationService.prototype.checkUserSignInMethods = function (email) {
         return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
     };
+    AuthorizationService.prototype.getCurrentUserData = function () {
+        var _this = this;
+        return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.fireAuth.auth.currentUser.uid); }).valueChanges();
+    };
     AuthorizationService.prototype.updateCurrentUser = function (user) {
-        console.log(user);
         if (this.checkUserIsLoggedIn() && this.userCollection) {
             if (user.getAsPlainObject)
                 return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
             else
                 return this.userCollection.doc(user.uid).set(user);
+        }
+        else
+            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
+        return null;
+    };
+    AuthorizationService.prototype.getCurrentRestaurantData = function (restId) {
+        return this.database.collection("restaurants", function (ref) { return ref.where("id", '==', restId); }).valueChanges(); //TODO
+    };
+    AuthorizationService.prototype.updateCurrentRestaurantUser = function (user) {
+        if (this.checkUserIsLoggedIn() && this.restaurantCollection) {
+            if (user.getAsPlainObject)
+                return this.restaurantCollection.doc(user.uid).set(user.getAsPlainObject());
+            else
+                return this.restaurantCollection.doc(user.uid).set(user);
         }
         else
             this.toastService.showReadableToast("User not updated! You are either not logged in or offline");

@@ -48,6 +48,9 @@ import { UserProfileComponent } from '../components/user-profile/user-profile.co
 import { ToastService } from '../services/toast.service';
 import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
 import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
+import { DealEditorService } from '../services/deal-editing.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -74,7 +77,8 @@ var AppModule = (function () {
                 UserSignUpComponent,
                 UserProfileComponent,
                 BrowserHomeComponent,
-                RestaurantLandingComponent
+                RestaurantLandingComponent,
+                RestaurantProfileComponent
             ],
             imports: [
                 BrowserModule,
@@ -97,7 +101,8 @@ var AppModule = (function () {
                 }),
                 AngularFireAuthModule,
                 AngularFireStorageModule,
-                AngularFirestoreModule
+                AngularFirestoreModule,
+                HttpClientModule,
             ],
             bootstrap: [IonicApp],
             entryComponents: [
@@ -108,7 +113,8 @@ var AppModule = (function () {
                 UserSignUpComponent,
                 UserProfileComponent,
                 BrowserHomeComponent,
-                RestaurantLandingComponent
+                RestaurantLandingComponent,
+                RestaurantProfileComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -128,7 +134,8 @@ var AppModule = (function () {
                 ViewControllerService,
                 UniqueDeviceID,
                 DeviceService,
-                ToastService
+                ToastService,
+                DealEditorService
             ]
         })
     ], AppModule);

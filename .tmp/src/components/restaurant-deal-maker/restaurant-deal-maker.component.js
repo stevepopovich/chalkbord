@@ -8,42 +8,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from "@angular/core";
-import { ModalController } from "ionic-angular";
-import { DealEditorComponent } from "../deal-editor/deal-editor.component";
-//import { DealModel, RestaurantModel, DealType } from "../../types/deals.type";
+import { AuthorizationService } from "../../services/authorization.service";
 var RestaurantDealMakerComponent = (function () {
-    // private newDatePlusTwo = new Date();
-    // public deals: DealModel[] = [];
-    function RestaurantDealMakerComponent(modalCtrl) {
-        // this.newDatePlusTwo.setHours(new Date().getHours() + 2);
-        this.modalCtrl = modalCtrl;
-        // var sixThirty = new Date();
-        // sixThirty.setHours(18);
-        // sixThirty.setMinutes(30);
-        // var eight = new Date();
-        // eight.setHours(20);
-        // eight.setMinutes(0);
-        // this.deals = [
-        //     new DealModel(new RestaurantModel("Name1", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        //     new DealModel(new RestaurantModel("Name2", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        //     new DealModel(new RestaurantModel("Name3", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        //     new DealModel(new RestaurantModel("Name4", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Both, "assets/images/foodandliquor/uhhhwtfisthis.jpg"),
-        //     new DealModel(new RestaurantModel("Name5", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Food,"assets/images/foodandliquor/wingsrest.jpg"),
-        //     new DealModel(new RestaurantModel("Name6", "Columbus, OH", ""), "Deal description", new Date(), new Date(), 150, DealType.Drinks, "assets/images/foodandliquor/mixeddrink.jpg"),
-        // ];
+    function RestaurantDealMakerComponent(authService) {
+        this.authService = authService;
     }
-    RestaurantDealMakerComponent.prototype.editDeal = function () {
-        this.modalCtrl.create(DealEditorComponent).present();
-    };
-    RestaurantDealMakerComponent.prototype.createDeal = function () {
-        this.modalCtrl.create(DealEditorComponent).present();
+    RestaurantDealMakerComponent.prototype.hasCards = function () {
+        return this.authService.currentUser
+            && this.authService.currentUser.cards
+            && this.authService.currentUser.cards.length > 0;
     };
     RestaurantDealMakerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<h4 style="margin-left: 1em">Restaurant name</h4>\n\n<ion-content class="content-override">\n    <button class="create-button" (click)="createDeal()" ion-button>\n        Create\n    </button>\n\n    <!-- <ion-card *ngFor="let deal of deals" (click)="editDeal(deal)">\n        <ion-card-header>\n            {{deal.dealDescription}}\n        </ion-card-header>\n        \n        <ion-card-content>\n            <img src="{{deal.imageSource}}">\n            <h2>Deal Time: {{deal.dealStart | date:\'MM/dd hh:mm aa\'}}-{{deal.dealEnd | date: \'hh:mm aa\'}}</h2>\n        </ion-card-content>\n    </ion-card> -->\n\n</ion-content>\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<ion-content class="outer-content">\n    <ion-list *ngIf="hasCards()">\n        <ion-item *ngFor="let deal of authService.currentUser.cards">\n            {{deal.dealDescription}}\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()">\n        Add some cards and see them here!\n    </div>\n</ion-content>\n\n\n\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
             selector: 'restaurant-deal-maker',
             styleUrls: ['/restaurant-deal-maker.component.scss']
         }),
-        __metadata("design:paramtypes", [ModalController])
+        __metadata("design:paramtypes", [AuthorizationService])
     ], RestaurantDealMakerComponent);
     return RestaurantDealMakerComponent;
 }());

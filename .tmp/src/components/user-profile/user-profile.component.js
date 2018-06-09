@@ -13,6 +13,7 @@ import { ViewControllerService } from "../../services/view-controller.service";
 import { ModalController, ViewController, Button } from "ionic-angular";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
+var rememberMeUserKey = "rememberMeUser"; //dont change this unless you want to change the other one is user-signup
 var UserProfileComponent = (function () {
     function UserProfileComponent(deviceService, viewController, modalCtrl, viewCtrl, authService, toastService) {
         this.deviceService = deviceService;
@@ -26,6 +27,7 @@ var UserProfileComponent = (function () {
         this.userEmail = this.authService.fireAuth.auth.currentUser.email;
         this.firstName = this.authService.currentUser.firstName;
     }
+    UserProfileComponent.prototype.goTouserSignUpScreen = function () { };
     UserProfileComponent.prototype.toggleEdit = function () {
         var _this = this;
         if (this.emailDisabled) {
@@ -59,7 +61,7 @@ var UserProfileComponent = (function () {
         toast.onDidDismiss(function (data, dismissType) {
             data;
             if (dismissType == "close") {
-                _this.deviceService.putRememberMeSetting(false);
+                _this.deviceService.putSetting(rememberMeUserKey, false);
                 _this.viewController.setSignUpView();
                 _this.viewCtrl.dismiss();
             }

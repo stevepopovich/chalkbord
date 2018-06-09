@@ -156,6 +156,8 @@ export class UserSignUpComponent implements AfterViewInit{
                 if(methods.length > 0){//if user not in db
                     this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
                         this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
+                            this.handleRememberMe(this.userLogInGroup);
+
                             this.auth.currentUser = users[0];//there SHOULD be only one
 
                             this.setAppropiateView();
@@ -192,9 +194,9 @@ export class UserSignUpComponent implements AfterViewInit{
         }
     }
 
-    public setAppropiateView(): void{
-        if(this.auth.checkUserType()){
-            this.auth.checkUserType().subscribe((users: GSUser[]) => {
+    public setAppropiateView(): void {
+        if(this.auth.checkCurrentUserType()){
+            this.auth.checkCurrentUserType().subscribe((users: GSUser[]) => {
                 if(users[0].userType == UserType.Restaurant)
                     this.viewControl.setDealMakerView();
                 else

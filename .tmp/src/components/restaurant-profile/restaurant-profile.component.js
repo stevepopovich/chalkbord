@@ -5,11 +5,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from "@angular/core";
+import { DealEditorComponent } from "../deal-editor/deal-editor.component";
 var RestaurantProfileComponent = (function () {
     function RestaurantProfileComponent() {
+        this.root = DealEditorComponent;
     }
     RestaurantProfileComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-profile/restaurant-profile.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-profile/restaurant-profile.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-profile/restaurant-profile.component.html"*/'<!-- <ion-grid>\n    <ion-row>\n        <ion-col col-md-4>\n            <restaurant-deal-maker></restaurant-deal-maker>\n        </ion-col>\n        <ion-col col-12 col-md-8>\n            <deal-editor></deal-editor>\n        </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n<ion-split-pane>\n    <!--  our side menu  -->\n    <ion-menu [content]="content">\n        <ion-header>\n            <ion-toolbar>\n                <ion-title>Menu</ion-title>\n            </ion-toolbar>\n        </ion-header>\n        <restaurant-deal-maker></restaurant-deal-maker>\n    </ion-menu>\n\n    <!-- the main content -->\n    <ion-nav [root]="root" main #content></ion-nav>\n</ion-split-pane>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-profile/restaurant-profile.component.html"*/,
             selector: 'restaurant-profile',
             styleUrls: ['/restaurant-profile.component.scss']
         })

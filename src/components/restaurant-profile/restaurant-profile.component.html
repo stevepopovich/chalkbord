@@ -1,0 +1,25 @@
+<!-- <ion-grid>
+    <ion-row>
+        <ion-col col-md-4>
+            <restaurant-deal-maker></restaurant-deal-maker>
+        </ion-col>
+        <ion-col col-12 col-md-8>
+            <deal-editor></deal-editor>
+        </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+<ion-split-pane>
+    <!--  our side menu  -->
+    <ion-menu [content]="content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <restaurant-deal-maker></restaurant-deal-maker>
+    </ion-menu>
+
+    <!-- the main content -->
+    <ion-nav [root]="root" main #content></ion-nav>
+</ion-split-pane>

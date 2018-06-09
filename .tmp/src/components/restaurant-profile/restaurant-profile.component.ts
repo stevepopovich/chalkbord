@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { DealEditorComponent } from "../deal-editor/deal-editor.component";
 
 @Component({
     templateUrl: './restaurant-profile.component.html',
@@ -7,5 +8,5 @@ import { Component } from "@angular/core";
 })
 
 export class RestaurantProfileComponent{
-
+    public root: any = DealEditorComponent;
 }

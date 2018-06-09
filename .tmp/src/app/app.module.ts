@@ -39,6 +39,9 @@ import { UserProfileComponent } from '../components/user-profile/user-profile.co
 import { ToastService } from '../services/toast.service';
 import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
 import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
+import { DealEditorService } from '../services/deal-editing.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -56,7 +59,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UserSignUpComponent,
     UserProfileComponent,
     BrowserHomeComponent,
-    RestaurantLandingComponent
+    RestaurantLandingComponent,
+    RestaurantProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     }),
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,     
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,7 +96,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UserSignUpComponent,
     UserProfileComponent,
     BrowserHomeComponent,
-    RestaurantLandingComponent
+    RestaurantLandingComponent,
+    RestaurantProfileComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -111,7 +117,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ViewControllerService,
     UniqueDeviceID,
     DeviceService,
-    ToastService
+    ToastService,
+    DealEditorService
   ]
 })
 export class AppModule { }

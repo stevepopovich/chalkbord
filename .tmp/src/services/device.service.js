@@ -11,8 +11,6 @@ import { UniqueDeviceID } from "@ionic-native/unique-device-id";
 import { Injectable } from "@angular/core";
 import { Storage } from '@ionic/storage';
 import { Platform } from "ionic-angular";
-var userLoginKey = "userEmail";
-var rememberMeKey = "rememberMe";
 var DeviceService = (function () {
     function DeviceService(uniqueDeviceID, storage, platform) {
         var _this = this;
@@ -25,17 +23,17 @@ var DeviceService = (function () {
             });
         }
     }
-    DeviceService.prototype.putUserEmailPasswordToLocalStorage = function (email, password) {
-        this.storage.set(userLoginKey, new EmailPasswordTuple(email, password));
+    DeviceService.prototype.putUserEmailPasswordToLocalStorage = function (key, email, password) {
+        this.storage.set(key, new EmailPasswordTuple(email, password));
     };
-    DeviceService.prototype.getUserEmailPasswordFromLocalStorage = function () {
-        return this.storage.get(userLoginKey);
+    DeviceService.prototype.getUserEmailPasswordFromLocalStorage = function (key) {
+        return this.storage.get(key);
     };
-    DeviceService.prototype.putRememberMeSetting = function (rememberMe) {
-        return this.storage.set(rememberMeKey, rememberMe);
+    DeviceService.prototype.putSetting = function (key, rememberMe) {
+        return this.storage.set(key, rememberMe);
     };
-    DeviceService.prototype.getRememberMeSetting = function () {
-        return this.storage.get(rememberMeKey);
+    DeviceService.prototype.getSetting = function (key) {
+        return this.storage.get(key);
     };
     DeviceService = __decorate([
         Injectable(),

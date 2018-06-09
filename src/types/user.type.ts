@@ -1,9 +1,12 @@
-import { Restaurant, Deal } from "./deals.type";
+import { Deal } from "./deals.type";
+import { Restaurant } from "./restaurant.type";
+import { Guid } from "./utils.type";
 
 export class GSUser{
     public uid: string;//from firebase auth
     public firstName: string;
     public userType: UserType;
+    public cardIds?: Guid[];
     public restaurant?: Restaurant;
     public cards?: Deal[];
 

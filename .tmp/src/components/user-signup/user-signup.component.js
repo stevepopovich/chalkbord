@@ -14,6 +14,8 @@ import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
 import { DeviceService } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
+var userEmailPasswordComboKey = "userEmailCombo";
+var rememberMeUserKey = "rememberMeUser";
 var UserSignUpComponent = (function () {
     function UserSignUpComponent(formBuilder, auth, viewControl, deviceService, toastService) {
         var _this = this;
@@ -39,9 +41,9 @@ var UserSignUpComponent = (function () {
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             rememberMe: ['']
         });
-        this.deviceService.getRememberMeSetting().then(function (rememberMe) {
+        this.deviceService.getSetting(rememberMeUserKey).then(function (rememberMe) {
             if (rememberMe) {
-                _this.deviceService.getUserEmailPasswordFromLocalStorage().then(function (emailPasswordTup) {
+                _this.deviceService.getUserEmailPasswordFromLocalStorage(userEmailPasswordComboKey).then(function (emailPasswordTup) {
                     if (emailPasswordTup) {
                         _this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         _this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
@@ -122,6 +124,7 @@ var UserSignUpComponent = (function () {
                 if (methods.length > 0) {
                     _this.auth.signIn(email_2, _this.userLogInGroup.get("password").value).then(function () {
                         _this.auth.getCurrentUserData().subscribe(function (users) {
+                            _this.handleRememberMe(_this.userLogInGroup);
                             _this.auth.currentUser = users[0]; //there SHOULD be only one
                             _this.setAppropiateView();
                         });
@@ -141,9 +144,9 @@ var UserSignUpComponent = (function () {
         }
         else {
             var display = "";
-            if (this.userSignUpGroup.get("email").invalid)
+            if (this.userLogInGroup.get("email").invalid)
                 display += "Please be sure your email is formatted correctly. ";
-            if (this.userSignUpGroup.get("password").invalid)
+            if (this.userLogInGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
             this.toastService.showReadableToast(display);
             console.error("Fields are invalid");
@@ -151,8 +154,8 @@ var UserSignUpComponent = (function () {
     };
     UserSignUpComponent.prototype.setAppropiateView = function () {
         var _this = this;
-        if (this.auth.checkUserType()) {
-            this.auth.checkUserType().subscribe(function (users) {
+        if (this.auth.checkCurrentUserType()) {
+            this.auth.checkCurrentUserType().subscribe(function (users) {
                 if (users[0].userType == UserType.Restaurant)
                     _this.viewControl.setDealMakerView();
                 else
@@ -162,9 +165,9 @@ var UserSignUpComponent = (function () {
     };
     UserSignUpComponent.prototype.handleRememberMe = function (formGroup) {
         var rememberMe = formGroup.get("rememberMe").value;
-        this.deviceService.putRememberMeSetting(rememberMe);
+        this.deviceService.putSetting(rememberMeUserKey, rememberMe);
         if (rememberMe)
-            this.deviceService.putUserEmailPasswordToLocalStorage(formGroup.get("email").value, formGroup.get("password").value);
+            this.deviceService.putUserEmailPasswordToLocalStorage(userEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
     };
     UserSignUpComponent.prototype.resetPassword = function () {
         var _this = this;

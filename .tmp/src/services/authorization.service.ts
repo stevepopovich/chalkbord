@@ -3,19 +3,22 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
+import { Restaurant } from '../types/restaurant.type';
 import { ToastService } from './toast.service';
 
 @Injectable()
 export class AuthorizationService {
     public userCollection: AngularFirestoreCollection<GSUser>;
+    public restaurantCollection: AngularFirestoreCollection<Restaurant>;
 
     public currentUser: GSUser;
 
     constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, private toastService: ToastService) { 
         this.userCollection = this.database.collection<GSUser>("users");
+        this.restaurantCollection = this.database.collection<Restaurant>("restaurants");
     }
 
-    public checkUserType(): Observable<GSUser[]>{
+    public checkCurrentUserType(): Observable<GSUser[]>{
         if(this.currentUser){
             return Observable.create(observer => {
                 observer.next([this.currentUser]);
@@ -46,10 +49,6 @@ export class AuthorizationService {
         return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
     }
 
-    public getCurrentUserData(): Observable<GSUser[]> {
-        return this.database.collection<GSUser>("users", ref => ref.where("uid", '==', this.fireAuth.auth.currentUser.uid)).valueChanges();
-    }
-
     public signUpUser(email: string, password: string):  Promise<any>{
         return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
     }
@@ -58,16 +57,33 @@ export class AuthorizationService {
         return this.fireAuth.auth.fetchSignInMethodsForEmail(email);
     }
 
+    public getCurrentUserData(): Observable<GSUser[]> {
+        return this.database.collection<GSUser>("users", ref => ref.where("uid", '==', this.fireAuth.auth.currentUser.uid)).valueChanges();
+    }
+
     public updateCurrentUser(user: GSUser): Promise<any>{
-        console.log(user);
         if(this.checkUserIsLoggedIn() && this.userCollection){
             if(user.getAsPlainObject)
                 return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
             else
                 return this.userCollection.doc(user.uid).set(user);
-        }
-            
-        else
+        } else
+            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
+
+        return null;
+    }
+
+    public getCurrentRestaurantData(restId: string): Observable<Restaurant[]> {
+        return this.database.collection<Restaurant>("restaurants", ref => ref.where("id", '==', restId)).valueChanges();//TODO
+    }
+
+    public updateCurrentRestaurantUser(user: GSUser): Promise<any>{
+        if(this.checkUserIsLoggedIn() && this.restaurantCollection){
+            if(user.getAsPlainObject)
+                return this.restaurantCollection.doc(user.uid).set(user.getAsPlainObject());
+            else
+                return this.restaurantCollection.doc(user.uid).set(user);
+        } else
             this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
 
         return null;

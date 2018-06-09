@@ -10,7 +10,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
-import { DealModel, DealType } from '../../types/deals.type';
+import { Deal, DealType } from '../../types/deals.type';
 import { DeviceService } from '../../services/device.service';
 import { ViewControllerService } from '../../services/view-controller.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -29,8 +29,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public numberOfCards = 3;
 
-    public restaurantViewCards: DealModel[];// = new Array<DealModel>(this.numberOfCards);
-    public filteredCards: DealModel[];
+    public restaurantViewCards: Deal[];// = new Array<DealModel>(this.numberOfCards);
+    public filteredCards: Deal[];
 
     public stackConfig: StackConfig;
 
@@ -45,7 +45,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public currentFilter: DealType = null;
 
-    public cards: DealModel[];
+    public cards: Deal[];
 
     public cardSubscription: Subscription;
 
@@ -72,12 +72,12 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         if(this.authService.checkUserIsLoggedIn){
             this.cardSubscription = this.cardService.getCards().subscribe((cardModels) => {
                 if(!this.cards){
-                    this.cards = cardModels as DealModel[];
+                    this.cards = cardModels as Deal[];
     
                     this.filterCards(this.currentFilter);
                 }
                 else{
-                    this.findAndUpdateCards(cardModels as DealModel[]);
+                    this.findAndUpdateCards(cardModels as Deal[]);
                 }
             });
         }
@@ -171,7 +171,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         this.transitionString = "";
     }
 
-    private popLikeAlert(card: DealModel): void{
+    private popLikeAlert(card: Deal): void{
         let likeAlert = this.alert.create({
             buttons:[
                 {
@@ -203,7 +203,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         });
     }
 
-    private popCard(): DealModel{
+    private popCard(): Deal{
         var poppedCard = this.restaurantViewCards.shift();
         this.addCardToStack();
         
@@ -211,8 +211,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     private filterCards(type: DealType){
-        this.restaurantViewCards = new Array<DealModel>();
-        this.filteredCards = new Array<DealModel>();
+        this.restaurantViewCards = new Array<Deal>();
+        this.filteredCards = new Array<Deal>();
         if(type || type == 0){
             this.filteredCards = this.cards.filter((card) => {
                 return card.dealType == type;
@@ -257,7 +257,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         }
     }
 
-    private findAndUpdateCards(dealModels: DealModel[]){
+    private findAndUpdateCards(dealModels: Deal[]){
         dealModels.forEach((dealModel) => {
             var foundCard = this.filteredCards[this.filteredCards.findIndex(c => c.id == dealModel.id)];
 
@@ -282,7 +282,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     //looks at differences in properties between objects
-    private updateDealModel(objectToUpdate: DealModel, updatedObject: DealModel): void{
+    private updateDealModel(objectToUpdate: Deal, updatedObject: Deal): void{
         objectToUpdate.dealDescription = updatedObject.dealDescription;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealStart = updatedObject.dealStart;

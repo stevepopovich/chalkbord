@@ -2,11 +2,11 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ViewControllerService } from "../../services/view-controller.service";
-import { DeviceService } from "../../services/device.service";
+import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
-import { Restaurant } from "../../types/deals.type";
 import { AlertController } from "ionic-angular";
+import { Restaurant } from "../../types/restaurant.type";
 
 const restEmailPasswordComboKey = "restEmailCombo";
 const rememberMeRestKey = "rememberMeRest";
@@ -20,8 +20,8 @@ export class RestaurantLandingComponent implements AfterViewInit {
     public userLogInGroup: FormGroup;
     public restSignUpGroup: FormGroup;
 
-    public rememberMeLogIn: boolean;
-    public rememberMeSignUp: boolean;
+    public rememberMeLogIn: boolean = false;
+    public rememberMeSignUp: boolean = false;;
 
     public map: google.maps.Map;
 
@@ -46,6 +46,19 @@ export class RestaurantLandingComponent implements AfterViewInit {
             zipcode: ['', Validators.compose([Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]*')])],
             name: ['', Validators.compose([Validators.required])],
             rememberMe: ['']
+        });
+
+        this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
+            if(rememberMe){
+                this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
+                    if(emailPasswordTup){
+                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
+                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
+        
+                        this.login();
+                    }
+                });
+            }
         });
     }
 
@@ -83,8 +96,8 @@ export class RestaurantLandingComponent implements AfterViewInit {
                     this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
                         this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
                             this.auth.currentUser = users[0];//there SHOULD be only one
-
-                            this.viewControl.setRestaurantHome();
+                            
+                            this.setAppropiateView();
                         });
                     }).catch((reason) => {
                         this.toastService.showReadableToast("Double check your password");
@@ -147,7 +160,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
     
             display = "One or more of your fields are messed up!";
     
-            // if(this.restSignUpGroup.get("email").invalid)
+            // if(this.restSignUpGroup.get("email").invalid)//TODO
             //     display += "Please be sure your email is formatted correctly. ";
     
             // if(this.restSignUpGroup.get("password").invalid)
@@ -219,7 +232,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
                             this.handleRememberMe(this.restSignUpGroup);
 
                             const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, UserType.Restaurant, restaurantName);
-                    
+                            
                             const newRestaurantModel = new Restaurant(this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "");//TODO
                     
                             this.auth.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
@@ -230,7 +243,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
                     
                             this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                     
-                            this.viewControl.setRestaurantHome();
+                            this.setAppropiateView();
                         }).catch((reason) => {//couldn't sign in 
                             this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
 
@@ -258,7 +271,12 @@ export class RestaurantLandingComponent implements AfterViewInit {
 
             console.error("Passwords do not match");
         }
+    }
 
-
+    private setAppropiateView(){
+        if(this.auth.currentUser.userType == UserType.Restaurant)
+            this.viewControl.setRestaurantHome();
+        else
+            this.viewControl.setConsumerView();
     }
 }

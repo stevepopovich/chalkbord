@@ -40111,13 +40111,8 @@ ion-spinner {
   width: 50%;
 }
 
-.content-override {
-  height: 85%;
-}
-
-.create-button {
-  margin: 0 auto;
-  display: block;
+.scroll-offset {
+  margin-top: 1em;
 }
 
 .rest-landing-home-photo {

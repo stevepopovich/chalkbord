@@ -3,9 +3,6 @@ import { Injectable } from "@angular/core";
 import { Storage } from '@ionic/storage';
 import { Platform } from "ionic-angular";
 
-const userLoginKey: string = "userEmail";
-const rememberMeKey: string = "rememberMe";
-
 @Injectable()
 export class DeviceService {
     public deviceId: string;
@@ -18,20 +15,20 @@ export class DeviceService {
         }
     }
 
-    public putUserEmailPasswordToLocalStorage(email: string, password: string): void {
-        this.storage.set(userLoginKey, new EmailPasswordTuple(email, password));
+    public putUserEmailPasswordToLocalStorage(key: string ,email: string, password: string): void {
+        this.storage.set(key, new EmailPasswordTuple(email, password));
     }
 
-    public getUserEmailPasswordFromLocalStorage(): Promise<EmailPasswordTuple> {
-        return this.storage.get(userLoginKey);
+    public getUserEmailPasswordFromLocalStorage(key: string): Promise<EmailPasswordTuple> {
+        return this.storage.get(key);
     }
 
-    public putRememberMeSetting(rememberMe: boolean){
-        return this.storage.set(rememberMeKey, rememberMe);
+    public putSetting(key: string, rememberMe: boolean){
+        return this.storage.set(key, rememberMe);
     }
 
-    public getRememberMeSetting(): Promise<boolean> {
-        return this.storage.get(rememberMeKey);
+    public getSetting(key: string): Promise<boolean> {
+        return this.storage.get(key);
     }
 }
 

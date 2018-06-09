@@ -41,6 +41,7 @@ import { BrowserHomeComponent } from '../components/browser-home/browser-home.co
 import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
+import { DealEditorService } from '../services/deal-editing.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -116,7 +117,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ViewControllerService,
     UniqueDeviceID,
     DeviceService,
-    ToastService
+    ToastService,
+    DealEditorService
   ]
 })
 export class AppModule { }
