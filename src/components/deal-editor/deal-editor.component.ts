@@ -4,6 +4,7 @@ import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
 import { AuthorizationService } from "../../services/authorization.service";
+import { GSLocation } from "../../types/location.type";
 
 @Component({
     templateUrl: './deal-editor.component.html',
@@ -49,7 +50,7 @@ export class DealEditorComponent{
                 new Date(this.dealEditorFormGroup.get("dealEnd").value),
                 -1,//no deal limit
                 this.dealEditorFormGroup.get("dealType").value, 
-                null);
+                this.authService.currentUser.restaurant.location);
 
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }else{
@@ -59,7 +60,7 @@ export class DealEditorComponent{
                 new Date(this.dealEditorFormGroup.get("dealEnd").value),
                 this.dealEditorFormGroup.get("dealNumber").value,
                 this.dealEditorFormGroup.get("dealType").value, 
-                null);
+                this.authService.currentUser.restaurant.location);
                 
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }
@@ -67,6 +68,8 @@ export class DealEditorComponent{
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
 
             this.cardService.addCard(deal);
+
+            this.authService.addCardIdToCurrentUser(deal.id);
         }
     }
 }

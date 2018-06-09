@@ -7,6 +7,7 @@ import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
+import { GSLocation } from "../../types/location.type";
 
 const restEmailPasswordComboKey = "restEmailCombo";
 const rememberMeRestKey = "rememberMeRest";
@@ -48,18 +49,18 @@ export class RestaurantLandingComponent implements AfterViewInit {
             rememberMe: ['']
         });
 
-        this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
-            if(rememberMe){
-                this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
-                    if(emailPasswordTup){
-                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
-                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
+        // this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
+        //     if(rememberMe){
+        //         this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
+        //             if(emailPasswordTup){
+        //                 this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
+        //                 this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
         
-                        this.login();
-                    }
-                });
-            }
-        });
+        //                 this.login();
+        //             }
+        //         });
+        //     }
+        // });
     }
 
     public ngAfterViewInit(): void {
@@ -233,14 +234,14 @@ export class RestaurantLandingComponent implements AfterViewInit {
 
                             const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, UserType.Restaurant, restaurantName);
                             
-                            const newRestaurantModel = new Restaurant(this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "");//TODO
+                            const newRestaurantModel = new Restaurant(this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
                     
-                            this.auth.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
-                    
-                            //newUser.restaurantRef = this.auth.restaurantCollection.doc<Restaurant>(this.auth.fireAuth.auth.currentUser.uid);
+                            newUser.restaurant = newRestaurantModel;
                     
                             this.auth.currentUser = newUser;
                     
+                            this.auth.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
+
                             this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                     
                             this.setAppropiateView();

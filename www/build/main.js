@@ -175,14 +175,14 @@ var ImageService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_type__ = __webpack_require__(669);
 
 var Deal = (function () {
-    function Deal(restaurantUid, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, imageSource) {
+    function Deal(restaurantUid, dealDescription, dealStart, dealEnd, numberOfDeals, dealType, location) {
         this.restaurantUid = restaurantUid;
         this.dealDescription = dealDescription;
         this.dealStart = dealStart;
         this.dealEnd = dealEnd;
         this.numberOfDeals = numberOfDeals;
         this.dealType = dealType;
-        this.imageSource = imageSource;
+        this.location = location;
         this.id = __WEBPACK_IMPORTED_MODULE_0__utils_type__["a" /* Guid */].newGuid();
     }
     Deal.prototype.getAsPlainObject = function () {
@@ -385,19 +385,20 @@ var DealEditorComponent = (function () {
             var deal = void 0;
             if (!this.limitDealNumber) {
                 deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, new Date(this.dealEditorFormGroup.get("dealStart").value), new Date(this.dealEditorFormGroup.get("dealEnd").value), -1, //no deal limit
-                this.dealEditorFormGroup.get("dealType").value, null);
+                this.dealEditorFormGroup.get("dealType").value, this.authService.currentUser.restaurant.location);
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }
             else {
-                deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, new Date(this.dealEditorFormGroup.get("dealStart").value), new Date(this.dealEditorFormGroup.get("dealEnd").value), this.dealEditorFormGroup.get("dealNumber").value, this.dealEditorFormGroup.get("dealType").value, null);
+                deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, new Date(this.dealEditorFormGroup.get("dealStart").value), new Date(this.dealEditorFormGroup.get("dealEnd").value), this.dealEditorFormGroup.get("dealNumber").value, this.dealEditorFormGroup.get("dealType").value, this.authService.currentUser.restaurant.location);
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
             this.cardService.addCard(deal);
+            this.authService.addCardIdToCurrentUser(deal.id);
         }
     };
     DealEditorComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">grabsome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-item>\n                <ion-label floating>Deal Description</ion-label>\n                <ion-input formControlName="dealDescription"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Start time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealStart"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label floating>End time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealEnd"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label>Limited deal number</ion-label>\n                <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n            </ion-item>\n        \n            <ion-item *ngIf="limitDealNumber">\n                <ion-label floating>Deal Number</ion-label>\n                <ion-input type="number" formControlName="dealNumber"></ion-input>\n            </ion-item>\n\n            <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                Deal Type\n                <ion-item>\n                    <ion-label>Drinks</ion-label>\n                    <ion-radio value="0"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Food</ion-label>\n                    <ion-radio value="1"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Both</ion-label>\n                    <ion-radio value="2"></ion-radio>\n                </ion-item>\n            </ion-list>\n        \n            <ion-item>\n                <input type="file" (change)="uploadImage($event)" accept="image/*"/>\n            </ion-item>\n\n        </form>\n    </ion-list>\n    <div class="button-group">\n        <button ion-button (click)="close()">\n            Close\n        </button>\n\n        <button ion-button (click)="save()">\n            Save\n        </button>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">grabsome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-item>\n                <ion-label floating>Deal Description</ion-label>\n                <ion-input formControlName="dealDescription"></ion-input>\n            </ion-item>\n\n            <ion-item>\n                <ion-label floating>Start time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealStart"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label floating>End time</ion-label>\n                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealEnd"></ion-datetime>\n            </ion-item>\n        \n            <ion-item>\n                <ion-label>Limited deal number</ion-label>\n                <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n            </ion-item>\n        \n            <ion-item *ngIf="limitDealNumber">\n                <ion-label floating>Deal Number</ion-label>\n                <ion-input type="number" formControlName="dealNumber"></ion-input>\n            </ion-item>\n\n            <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                Deal Type\n                <ion-item>\n                    <ion-label>Drinks</ion-label>\n                    <ion-radio value="0"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Food</ion-label>\n                    <ion-radio value="1"></ion-radio>\n                </ion-item>\n                <ion-item>\n                    <ion-label>Both</ion-label>\n                    <ion-radio value="2"></ion-radio>\n                </ion-item>\n            </ion-list>\n        \n            <ion-item>\n                <input type="file" (change)="uploadImage($event)" accept="image/*"/>\n            </ion-item>\n\n        </form>\n    </ion-list>\n    <div class="button-group">\n        <button ion-button (click)="close()">\n            Close\n        </button>\n\n        <button ion-button (click)="add()">\n            Save\n        </button>\n    </div>\n</ion-content>\n'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
             selector: 'deal-editor',
             styleUrls: ['/deal-editor.component.scss']
         }),
@@ -1610,6 +1611,7 @@ var BrowserHomeComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__types_user_type__ = __webpack_require__(425);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__types_restaurant_type__ = __webpack_require__(723);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__types_location_type__ = __webpack_require__(728);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1628,11 +1630,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var restEmailPasswordComboKey = "restEmailCombo";
 var rememberMeRestKey = "rememberMeRest";
 var RestaurantLandingComponent = (function () {
     function RestaurantLandingComponent(formBuilder, auth, viewControl, deviceService, toastService, alert) {
-        var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
         this.viewControl = viewControl;
@@ -1657,17 +1659,17 @@ var RestaurantLandingComponent = (function () {
             name: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* Validators */].required])],
             rememberMe: ['']
         });
-        this.deviceService.getSetting(rememberMeRestKey).then(function (rememberMe) {
-            if (rememberMe) {
-                _this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then(function (emailPasswordTup) {
-                    if (emailPasswordTup) {
-                        _this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
-                        _this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
-                        _this.login();
-                    }
-                });
-            }
-        });
+        // this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
+        //     if(rememberMe){
+        //         this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
+        //             if(emailPasswordTup){
+        //                 this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
+        //                 this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
+        //                 this.login();
+        //             }
+        //         });
+        //     }
+        // });
     }
     ;
     RestaurantLandingComponent.prototype.ngAfterViewInit = function () {
@@ -1812,10 +1814,10 @@ var RestaurantLandingComponent = (function () {
                         _this.auth.signIn(email, password).then(function () {
                             _this.handleRememberMe(_this.restSignUpGroup);
                             var newUser = new __WEBPACK_IMPORTED_MODULE_6__types_user_type__["a" /* GSUser */](_this.auth.fireAuth.auth.currentUser.uid, __WEBPACK_IMPORTED_MODULE_6__types_user_type__["b" /* UserType */].Restaurant, restaurantName);
-                            var newRestaurantModel = new __WEBPACK_IMPORTED_MODULE_8__types_restaurant_type__["a" /* Restaurant */](_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, ""); //TODO
-                            _this.auth.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
-                            //newUser.restaurantRef = this.auth.restaurantCollection.doc<Restaurant>(this.auth.fireAuth.auth.currentUser.uid);
+                            var newRestaurantModel = new __WEBPACK_IMPORTED_MODULE_8__types_restaurant_type__["a" /* Restaurant */](_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new __WEBPACK_IMPORTED_MODULE_9__types_location_type__["a" /* GSLocation */](place.geometry.location));
+                            newUser.restaurant = newRestaurantModel;
                             _this.auth.currentUser = newUser;
+                            _this.auth.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
                             _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                             _this.setAppropiateView();
                         }).catch(function (reason) {
@@ -1849,18 +1851,17 @@ var RestaurantLandingComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('signUpCard'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _a || Object)
     ], RestaurantLandingComponent.prototype, "signUpCard", void 0);
     RestaurantLandingComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-landing/restaurant-landing.component.html"*/'<div class="rest-landing-home-photo">\n\n</div>\n\n<div id="map" name="map">\n\n</div>\n\n<ion-content class="main-area">\n    <div class="rest-center-text">grabsome</div>\n    <div class="small-rest-center-text">Restaurants</div>\n\n    <ion-card class="log-in-card">\n        <ion-list>\n            <form [formGroup]="userLogInGroup">\n                <ion-item class="padding-right">\n                    <ion-label stacked>Email</ion-label>\n                    <ion-input placeholder="Business email" type="email"  formControlName="email"></ion-input>\n                </ion-item>\n    \n                <ion-item class="padding-right">\n                    <ion-label stacked>Password</ion-label>\n                    <ion-input placeholder="********" type="password" formControlName="password"></ion-input>\n                </ion-item>\n    \n                <ion-item class="padding-bottom-checkbox">\n                    <ion-label>Remember Me</ion-label>\n                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeLogIn" checked="false"></ion-checkbox>\n                </ion-item>\n            </form>\n        </ion-list>\n    </ion-card>\n\n    <div class="rest-button-area">\n        <button class="rest-landing-button" ion-button outline (click)="loginHandler()">\n            login\n        </button>\n        <div class="or-text">or</div>\n        <button class="rest-landing-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n    </div>\n\n    <ion-card #signUpCard class="sign-up-card">\n            <ion-list>\n                <form [formGroup]="restSignUpGroup">\n                    <ion-item class="padding-right">\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email"  formControlName="email"></ion-input>\n                    </ion-item>\n        \n                    <ion-item class="padding-right">\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n    \n                    <ion-item class="padding-right">\n                        <ion-label floating>Confirm Password</ion-label>\n                        <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                    </ion-item>\n    \n                    <ion-item class="padding-right">\n                        <ion-label floating>Restaurant Name</ion-label>\n                        <ion-input formControlName="name"></ion-input>\n                    </ion-item>\n    \n                    <ion-item class="padding-right">\n                        <ion-label floating>Address </ion-label>\n                        <ion-input formControlName="address"></ion-input>\n                    </ion-item>\n                    <ion-item class="padding-right">\n                        <ion-label floating>City</ion-label>\n                        <ion-input formControlName="city"></ion-input>\n                    </ion-item>\n                    <ion-item class="padding-right">\n                        <ion-label floating>State</ion-label>\n                        <ion-input formControlName="state"></ion-input>\n                    </ion-item>\n                    <ion-item class="padding-right">\n                        <ion-label floating>Zipcode</ion-label>\n                        <ion-input formControlName="zipcode"></ion-input>\n                    </ion-item>\n                </form>\n            </ion-list>\n        <button class="rest-landing-button" ion-button (click)="signUp()">\n            sign up\n        </button>\n    </ion-card>\n</ion-content>\n'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-landing/restaurant-landing.component.html"*/,
             selector: 'restaurant-landing',
             styleUrls: ['/restaurant-landing.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */],
-            __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */], __WEBPACK_IMPORTED_MODULE_4__services_device_service__["a" /* DeviceService */],
-            __WEBPACK_IMPORTED_MODULE_5__services_toast_service__["a" /* ToastService */], __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_authorization_service__["a" /* AuthorizationService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_view_controller_service__["a" /* ViewControllerService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__services_device_service__["a" /* DeviceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_device_service__["a" /* DeviceService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__services_toast_service__["a" /* ToastService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_toast_service__["a" /* ToastService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["a" /* AlertController */]) === "function" && _g || Object])
     ], RestaurantLandingComponent);
     return RestaurantLandingComponent;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=restaurant-landing.component.js.map
@@ -1873,13 +1874,15 @@ var RestaurantLandingComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Restaurant; });
 var Restaurant = (function () {
-    function Restaurant(uid, name, location, imageSource) {
+    function Restaurant(uid, name, address, imageSource, location) {
         this.uid = uid;
         this.name = name;
-        this.location = location;
+        this.address = address;
         this.imageSource = imageSource;
+        this.location = location;
     }
     Restaurant.prototype.getAsPlainObject = function () {
+        this.location = Object.assign({}, this.location);
         return Object.assign({}, this);
     };
     return Restaurant;
@@ -1944,6 +1947,26 @@ var DealEditorService = (function () {
 }());
 
 //# sourceMappingURL=deal-editing.service.js.map
+
+/***/ }),
+
+/***/ 728:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GSLocation; });
+var GSLocation = (function () {
+    function GSLocation(googleLocation) {
+        this.lat = googleLocation.lat();
+        this.lng = googleLocation.lng();
+    }
+    GSLocation.prototype.getAsPlainObject = function () {
+        return Object.assign({}, this);
+    };
+    return GSLocation;
+}());
+
+//# sourceMappingURL=location.type.js.map
 
 /***/ }),
 

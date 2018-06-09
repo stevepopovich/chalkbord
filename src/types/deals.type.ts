@@ -1,13 +1,17 @@
 import { Guid } from "./utils.type";
 import { Restaurant } from "./restaurant.type"; 
+import { GSLocation } from "./location.type";
 
 export class Deal { 
     public id: string;
+    public imageSource: string;
 
     public imageURL: string;
     public restaurant: Restaurant;
 
-    public constructor(public restaurantUid: string, public dealDescription: string, public dealStart: Date, public dealEnd: Date, public numberOfDeals: Number, public dealType: DealType, public imageSource: string){
+    public constructor(public restaurantUid: string, public dealDescription: string, public dealStart: Date, 
+        public dealEnd: Date, public numberOfDeals: Number, public dealType: DealType, 
+        public location: GSLocation){
         this.id = Guid.newGuid();
     }
 
