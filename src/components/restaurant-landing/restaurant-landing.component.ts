@@ -49,18 +49,18 @@ export class RestaurantLandingComponent implements AfterViewInit {
             rememberMe: ['']
         });
 
-        // this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
-        //     if(rememberMe){
-        //         this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
-        //             if(emailPasswordTup){
-        //                 this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
-        //                 this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
+        this.deviceService.getSetting(rememberMeRestKey).then((rememberMe: boolean) => {
+            if(rememberMe){
+                this.deviceService.getUserEmailPasswordFromLocalStorage(restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
+                    if(emailPasswordTup){
+                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
+                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
         
-        //                 this.login();
-        //             }
-        //         });
-        //     }
-        // });
+                        this.login();
+                    }
+                });
+            }
+        });
     }
 
     public ngAfterViewInit(): void {

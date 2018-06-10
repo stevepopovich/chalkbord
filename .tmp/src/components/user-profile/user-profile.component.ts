@@ -54,7 +54,7 @@ export class UserProfileComponent{
 
                 currUser.firstName = this.firstName;
 
-                this.authService.updateCurrentUser(currUser).then(() => {
+                this.authService.updateUserInDatabase(currUser).then(() => {
                     this.toastService.showReadableToast("Cool, user name is updated");
                 }).catch((reason) => {
                     this.toastService.showReadableToast("User not updated: " + reason);

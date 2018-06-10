@@ -45,7 +45,7 @@ var UserProfileComponent = (function () {
             if (this.authService.currentUser.firstName != this.firstName) {
                 var currUser = Object.assign({}, this.authService.currentUser);
                 currUser.firstName = this.firstName;
-                this.authService.updateCurrentUser(currUser).then(function () {
+                this.authService.updateUserInDatabase(currUser).then(function () {
                     _this.toastService.showReadableToast("Cool, user name is updated");
                 }).catch(function (reason) {
                     _this.toastService.showReadableToast("User not updated: " + reason);

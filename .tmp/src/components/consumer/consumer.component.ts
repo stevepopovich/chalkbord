@@ -185,7 +185,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                     text: 'Go',
                     role: 'go',
                     handler: () => {
-                        this.launchNavigator.navigate(card.restaurant.location);
+                        this.launchNavigator.navigate(card.restaurant.address);
                     }
                 },
                 {

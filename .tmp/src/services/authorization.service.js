@@ -12,11 +12,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from './toast.service';
+import { CardDataService } from './card-data.service';
+import { Deal } from '../types/deals.type';
 var AuthorizationService = (function () {
-    function AuthorizationService(fireAuth, database, toastService) {
+    function AuthorizationService(fireAuth, database, toastService, cardService) {
         this.fireAuth = fireAuth;
         this.database = database;
         this.toastService = toastService;
+        this.cardService = cardService;
         this.userCollection = this.database.collection("users");
         this.restaurantCollection = this.database.collection("restaurants");
     }
@@ -57,8 +60,20 @@ var AuthorizationService = (function () {
         var _this = this;
         return this.database.collection("users", function (ref) { return ref.where("uid", '==', _this.fireAuth.auth.currentUser.uid); }).valueChanges();
     };
-    AuthorizationService.prototype.updateCurrentUser = function (user) {
+    /**
+     * Only use this when passing a user you don't care about
+     * Data in the user will be changed for worse!
+     *
+     * We don't wanna save all the cards, they are saved in a seperate collection,
+     * but I want to still have users "have cards"
+     *
+     * Restaurant users have cards that they created, and consumer users have cards that have
+     * "consumed" or intend to use
+     * @param user
+     */
+    AuthorizationService.prototype.updateUserInDatabase = function (user) {
         if (this.checkUserIsLoggedIn() && this.userCollection) {
+            user.cards = null;
             if (user.getAsPlainObject)
                 return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
             else
@@ -71,20 +86,30 @@ var AuthorizationService = (function () {
     AuthorizationService.prototype.getCurrentRestaurantData = function (restId) {
         return this.database.collection("restaurants", function (ref) { return ref.where("id", '==', restId); }).valueChanges(); //TODO
     };
-    AuthorizationService.prototype.updateCurrentRestaurantUser = function (user) {
-        if (this.checkUserIsLoggedIn() && this.restaurantCollection) {
-            if (user.getAsPlainObject)
-                return this.restaurantCollection.doc(user.uid).set(user.getAsPlainObject());
-            else
-                return this.restaurantCollection.doc(user.uid).set(user);
+    AuthorizationService.prototype.addCardIdToCurrentUser = function (cardId) {
+        if (this.currentUser.cardIds == null)
+            this.currentUser.cardIds = [];
+        this.currentUser.cardIds.push(cardId);
+        this.updateUserInDatabase(Object.assign({}, this.currentUser));
+    };
+    AuthorizationService.prototype.generateCardsFromIds = function () {
+        var _this = this;
+        if (!this.currentUser.cards) {
+            this.currentUser.cards = [];
+            this.cardService.getCardsById(this.currentUser.cardIds).subscribe(function (obDeal) {
+                obDeal.subscribe(function (deals) {
+                    for (var _i = 0, deals_1 = deals; _i < deals_1.length; _i++) {
+                        var deal = deals_1[_i];
+                        _this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+                    }
+                });
+            });
         }
-        else
-            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
-        return null;
     };
     AuthorizationService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [AngularFireAuth, AngularFirestore, ToastService])
+        __metadata("design:paramtypes", [AngularFireAuth, AngularFirestore,
+            ToastService, CardDataService])
     ], AuthorizationService);
     return AuthorizationService;
 }());

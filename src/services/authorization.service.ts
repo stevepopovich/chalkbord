@@ -5,6 +5,8 @@ import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
 import { Restaurant } from '../types/restaurant.type';
 import { ToastService } from './toast.service';
+import { CardDataService } from './card-data.service';
+import { Deal } from '../types/deals.type';
 
 @Injectable()
 export class AuthorizationService {
@@ -13,7 +15,8 @@ export class AuthorizationService {
 
     public currentUser: GSUser;
 
-    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, private toastService: ToastService) { 
+    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, 
+        private toastService: ToastService, private cardService: CardDataService) { 
         this.userCollection = this.database.collection<GSUser>("users");
         this.restaurantCollection = this.database.collection<Restaurant>("restaurants");
     }
@@ -97,6 +100,20 @@ export class AuthorizationService {
         this.currentUser.cardIds.push(cardId);
 
         this.updateUserInDatabase(Object.assign({}, this.currentUser));
+    }
+
+    public generateCardsFromIds(): void {
+        if(!this.currentUser.cards){
+            this.currentUser.cards = [];
+
+            this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
+                obDeal.subscribe((deals: Deal[]) => {
+                    for(let deal of deals){
+                        this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+                    }
+                });
+            });
+        }
     }
 }
 

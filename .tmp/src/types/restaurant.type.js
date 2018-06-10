@@ -1,11 +1,13 @@
 var Restaurant = (function () {
-    function Restaurant(uid, name, location, imageSource) {
+    function Restaurant(uid, name, address, imageSource, location) {
         this.uid = uid;
         this.name = name;
-        this.location = location;
+        this.address = address;
         this.imageSource = imageSource;
+        this.location = location;
     }
     Restaurant.prototype.getAsPlainObject = function () {
+        this.location = Object.assign({}, this.location);
         return Object.assign({}, this);
     };
     return Restaurant;

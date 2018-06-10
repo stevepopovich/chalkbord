@@ -5,6 +5,8 @@ import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
 import { Restaurant } from '../types/restaurant.type';
 import { ToastService } from './toast.service';
+import { CardDataService } from './card-data.service';
+import { Deal } from '../types/deals.type';
 
 @Injectable()
 export class AuthorizationService {
@@ -13,7 +15,8 @@ export class AuthorizationService {
 
     public currentUser: GSUser;
 
-    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, private toastService: ToastService) { 
+    constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, 
+        private toastService: ToastService, private cardService: CardDataService) { 
         this.userCollection = this.database.collection<GSUser>("users");
         this.restaurantCollection = this.database.collection<Restaurant>("restaurants");
     }
@@ -61,8 +64,21 @@ export class AuthorizationService {
         return this.database.collection<GSUser>("users", ref => ref.where("uid", '==', this.fireAuth.auth.currentUser.uid)).valueChanges();
     }
 
-    public updateCurrentUser(user: GSUser): Promise<any>{
+    /**
+     * Only use this when passing a user you don't care about
+     * Data in the user will be changed for worse!
+     * 
+     * We don't wanna save all the cards, they are saved in a seperate collection,
+     * but I want to still have users "have cards"
+     * 
+     * Restaurant users have cards that they created, and consumer users have cards that have
+     * "consumed" or intend to use
+     * @param user 
+     */
+    public updateUserInDatabase(user: GSUser): Promise<any>{
         if(this.checkUserIsLoggedIn() && this.userCollection){
+            user.cards = null;
+
             if(user.getAsPlainObject)
                 return this.userCollection.doc(user.uid).set(user.getAsPlainObject());
             else
@@ -77,16 +93,27 @@ export class AuthorizationService {
         return this.database.collection<Restaurant>("restaurants", ref => ref.where("id", '==', restId)).valueChanges();//TODO
     }
 
-    public updateCurrentRestaurantUser(user: GSUser): Promise<any>{
-        if(this.checkUserIsLoggedIn() && this.restaurantCollection){
-            if(user.getAsPlainObject)
-                return this.restaurantCollection.doc(user.uid).set(user.getAsPlainObject());
-            else
-                return this.restaurantCollection.doc(user.uid).set(user);
-        } else
-            this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
+    public addCardIdToCurrentUser(cardId: string) {
+        if(this.currentUser.cardIds == null)
+            this.currentUser.cardIds = [];
 
-        return null;
+        this.currentUser.cardIds.push(cardId);
+
+        this.updateUserInDatabase(Object.assign({}, this.currentUser));
+    }
+
+    public generateCardsFromIds(): void {
+        if(!this.currentUser.cards){
+            this.currentUser.cards = [];
+
+            this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
+                obDeal.subscribe((deals: Deal[]) => {
+                    for(let deal of deals){
+                        this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+                    }
+                });
+            });
+        }
     }
 }
 

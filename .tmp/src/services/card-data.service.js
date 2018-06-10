@@ -9,31 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { merge } from 'rxjs';
 var CardDataService = (function () {
     function CardDataService(database) {
         this.database = database;
-    }
-    CardDataService.prototype.setUpCardStream = function () {
         this.cardDoc = this.database.collection("cards");
-        this.cards = this.cardDoc.valueChanges();
-    };
+    }
     CardDataService.prototype.getCards = function () {
-        this.setUpCardStream(); //always hard refresh to force update eveything subscribed
         return this.cards;
     };
     CardDataService.prototype.setCards = function (data) {
         var _this = this;
-        if (!this.cardDoc)
-            this.setUpCardStream();
         var cards = data.map(function (card) { return Object.assign({}, card.getAsPlainObject()); });
         cards.forEach(function (card) {
             _this.cardDoc.doc(card.id).set(Object.assign({}, card));
         });
     };
     CardDataService.prototype.addCard = function (data) {
-        if (!this.cardDoc)
-            this.setUpCardStream();
         this.cardDoc.doc(data.id).set(Object.assign({}, data.getAsPlainObject()));
+    };
+    CardDataService.prototype.getCardsById = function (ids) {
+        var observables = [];
+        var _loop_1 = function (id) {
+            observables.push(this_1.database.collection("cards", function (ref) { return ref.where("id", "==", id); }).valueChanges());
+        };
+        var this_1 = this;
+        for (var _i = 0, ids_1 = ids; _i < ids_1.length; _i++) {
+            var id = ids_1[_i];
+            _loop_1(id);
+        }
+        var allCardsObservableMerged = merge(observables);
+        return allCardsObservableMerged;
     };
     CardDataService = __decorate([
         Injectable(),

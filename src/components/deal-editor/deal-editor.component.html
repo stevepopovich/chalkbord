@@ -16,13 +16,18 @@
             </ion-item>
 
             <ion-item>
+                <ion-label floating>Deal date</ion-label>
+                <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
                 <ion-label floating>Start time</ion-label>
-                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealStart"></ion-datetime>
+                <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>
             </ion-item>
         
             <ion-item>
                 <ion-label floating>End time</ion-label>
-                <ion-datetime displayFormat="MMMM DD, YYYY h:mm a" formControlName="dealEnd"></ion-datetime>
+                <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>
             </ion-item>
         
             <ion-item>
@@ -32,7 +37,7 @@
         
             <ion-item *ngIf="limitDealNumber">
                 <ion-label floating>Deal Number</ion-label>
-                <ion-input type="number" formControlName="dealNumber"></ion-input>
+                <ion-input type="number" formControlName="numberOfDeals"></ion-input>
             </ion-item>
 
             <ion-list style="padding: 1em;" radio-group formControlName="dealType">
@@ -52,18 +57,21 @@
             </ion-list>
         
             <ion-item>
-                <input type="file" (change)="uploadImage($event)" accept="image/*"/>
+                <input type="file" (change)="setImageData($event)" accept="image/*"/>
             </ion-item>
-
         </form>
     </ion-list>
     <div class="button-group">
-        <button ion-button (click)="close()">
-            Close
+        <button *ngIf="!editingDeal" ion-button (click)="add()">
+            Add
         </button>
 
-        <button ion-button (click)="add()">
+        <button *ngIf="editingDeal" ion-button (click)="save()">
             Save
+        </button>
+
+        <button ion-button (click)="cancel()">
+            Cancel
         </button>
     </div>
 </ion-content>

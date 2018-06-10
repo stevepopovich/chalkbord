@@ -40111,8 +40111,16 @@ ion-spinner {
   width: 50%;
 }
 
-.scroll-offset {
-  margin-top: 1em;
+.push-list-under-menu-bar {
+  margin-top: 4em;
+}
+
+.selectable-item:hover {
+  background-color: gainsboro;
+}
+
+.selected-item {
+  background-color: silver;
 }
 
 .rest-landing-home-photo {

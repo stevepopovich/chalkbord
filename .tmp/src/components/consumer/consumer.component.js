@@ -147,7 +147,7 @@ var ConsumerComponent = (function () {
                     text: 'Go',
                     role: 'go',
                     handler: function () {
-                        _this.launchNavigator.navigate(card.restaurant.location);
+                        _this.launchNavigator.navigate(card.restaurant.address);
                     }
                 },
                 {

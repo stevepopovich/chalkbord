@@ -16,6 +16,7 @@ import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
+import { GSLocation } from "../../types/location.type";
 var restEmailPasswordComboKey = "restEmailCombo";
 var rememberMeRestKey = "rememberMeRest";
 var RestaurantLandingComponent = (function () {
@@ -200,10 +201,10 @@ var RestaurantLandingComponent = (function () {
                         _this.auth.signIn(email, password).then(function () {
                             _this.handleRememberMe(_this.restSignUpGroup);
                             var newUser = new GSUser(_this.auth.fireAuth.auth.currentUser.uid, UserType.Restaurant, restaurantName);
-                            var newRestaurantModel = new Restaurant(_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, ""); //TODO
-                            _this.auth.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
-                            //newUser.restaurantRef = this.auth.restaurantCollection.doc<Restaurant>(this.auth.fireAuth.auth.currentUser.uid);
+                            var newRestaurantModel = new Restaurant(_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
+                            newUser.restaurant = newRestaurantModel;
                             _this.auth.currentUser = newUser;
+                            _this.auth.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
                             _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                             _this.setAppropiateView();
                         }).catch(function (reason) {

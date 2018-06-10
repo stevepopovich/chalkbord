@@ -5,9 +5,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Injectable } from "@angular/core";
+import { Subject } from 'rxjs';
 var DealEditorService = (function () {
     function DealEditorService() {
+        this.currentDealSubject = new Subject();
     }
+    DealEditorService.prototype.setCurrentDeal = function (deal) {
+        this.currentDealBeingEdited = deal;
+        this.currentDealSubject.next(deal);
+    };
     DealEditorService = __decorate([
         Injectable()
     ], DealEditorService);
