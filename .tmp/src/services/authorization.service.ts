@@ -99,7 +99,9 @@ export class AuthorizationService {
 
         this.currentUser.cardIds.push(cardId);
 
-        this.updateUserInDatabase(Object.assign({}, this.currentUser));
+        this.updateUserInDatabase(Object.assign({}, this.currentUser)).then(() => {
+            this.generateCardsFromIds();
+        });
     }
 
     public generateCardsFromIds(): void {

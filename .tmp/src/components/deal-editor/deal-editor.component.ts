@@ -53,8 +53,8 @@ export class DealEditorComponent{
         if(this.dealEditorFormGroup.valid && this.imageData){
             const startDate = this.dealEditorFormGroup.get("dealDay").value;
 
-            const startDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealStart"), startDate);
-            const endDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealEnd"), startDate);
+            const startDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealStart").value, startDate);
+            const endDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealEnd").value, startDate);
 
             let deal: Deal;
 
@@ -73,7 +73,7 @@ export class DealEditorComponent{
                 this.dealEditorFormGroup.get("dealDescription").value, 
                 startDatetime,
                 endDatetime,
-                this.dealEditorFormGroup.get("dealNumber").value,
+                this.dealEditorFormGroup.get("numberOfDeals").value,
                 this.dealEditorFormGroup.get("dealType").value, 
                 this.authService.currentUser.restaurant.location);
                 
@@ -107,16 +107,11 @@ export class DealEditorComponent{
             this.clearFields();
     }
 
-    private getCombinedTime(time: any, date: any) : Date {
-        console.log(time);
-        console.log(date);
-
+    private getCombinedTime(time: any, date: any) : Date {//still needs to be tested
         const combinedTime = new Date(date);
-        const timeDateObj = new Date(time);
+        const timeDateObj = new Date('1970-01-01T' + time + 'Z');//use abitrary stuff date here to make parsing happen
 
         combinedTime.setTime(timeDateObj.getTime());
-
-        console.log(combinedTime);
 
         return combinedTime;
     }

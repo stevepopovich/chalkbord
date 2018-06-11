@@ -596,8 +596,8 @@ var DealEditorComponent = (function () {
         this.dealEditorFormGroup.updateValueAndValidity();
         if (this.dealEditorFormGroup.valid && this.imageData) {
             var startDate = this.dealEditorFormGroup.get("dealDay").value;
-            var startDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealStart"), startDate);
-            var endDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealEnd"), startDate);
+            var startDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealStart").value, startDate);
+            var endDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealEnd").value, startDate);
             var deal = void 0;
             if (!this.limitDealNumber) {
                 deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, -1, //no deal limit
@@ -605,7 +605,7 @@ var DealEditorComponent = (function () {
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }
             else {
-                deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("dealNumber").value, this.dealEditorFormGroup.get("dealType").value, this.authService.currentUser.restaurant.location);
+                deal = new __WEBPACK_IMPORTED_MODULE_1__types_deals_type__["a" /* Deal */](this.authService.currentUser.restaurant.uid, this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("numberOfDeals").value, this.dealEditorFormGroup.get("dealType").value, this.authService.currentUser.restaurant.location);
                 deal.imageSource = "/locale-deal-photos/" + deal.id;
             }
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
@@ -631,12 +631,9 @@ var DealEditorComponent = (function () {
             this.clearFields();
     };
     DealEditorComponent.prototype.getCombinedTime = function (time, date) {
-        console.log(time);
-        console.log(date);
         var combinedTime = new Date(date);
-        var timeDateObj = new Date(time);
+        var timeDateObj = new Date('1970-01-01T' + time + 'Z'); //use abitrary stuff date here to make parsing happen
         combinedTime.setTime(timeDateObj.getTime());
-        console.log(combinedTime);
         return combinedTime;
     };
     DealEditorComponent.prototype.cancel = function () {
@@ -1109,10 +1106,13 @@ var AuthorizationService = (function () {
         return this.database.collection("restaurants", function (ref) { return ref.where("id", '==', restId); }).valueChanges(); //TODO
     };
     AuthorizationService.prototype.addCardIdToCurrentUser = function (cardId) {
+        var _this = this;
         if (this.currentUser.cardIds == null)
             this.currentUser.cardIds = [];
         this.currentUser.cardIds.push(cardId);
-        this.updateUserInDatabase(Object.assign({}, this.currentUser));
+        this.updateUserInDatabase(Object.assign({}, this.currentUser)).then(function () {
+            _this.generateCardsFromIds();
+        });
     };
     AuthorizationService.prototype.generateCardsFromIds = function () {
         var _this = this;

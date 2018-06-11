@@ -87,10 +87,13 @@ var AuthorizationService = (function () {
         return this.database.collection("restaurants", function (ref) { return ref.where("id", '==', restId); }).valueChanges(); //TODO
     };
     AuthorizationService.prototype.addCardIdToCurrentUser = function (cardId) {
+        var _this = this;
         if (this.currentUser.cardIds == null)
             this.currentUser.cardIds = [];
         this.currentUser.cardIds.push(cardId);
-        this.updateUserInDatabase(Object.assign({}, this.currentUser));
+        this.updateUserInDatabase(Object.assign({}, this.currentUser)).then(function () {
+            _this.generateCardsFromIds();
+        });
     };
     AuthorizationService.prototype.generateCardsFromIds = function () {
         var _this = this;
