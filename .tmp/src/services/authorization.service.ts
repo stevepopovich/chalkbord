@@ -111,7 +111,7 @@ export class AuthorizationService {
             this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
                 obDeal.subscribe((deals: Deal[]) => {
                     for(let deal of deals){
-                        this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+                        this.currentUser.cards.push(new Deal(null, null, null, null, null, deal));
                     }
                 });
             });

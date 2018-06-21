@@ -105,17 +105,45 @@ export class AuthorizationService {
     }
 
     public generateCardsFromIds(): void {
-        if(!this.currentUser.cards){
-            this.currentUser.cards = [];
-
-            this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
-                obDeal.subscribe((deals: Deal[]) => {
-                    for(let deal of deals){
-                        this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+        this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
+            obDeal.subscribe((deals: Deal[]) => {
+                for(let deal of deals){
+                    if(!this.currentUser.cards){
+                        this.currentUser.cards = [];
+                        this.currentUser.cards.push(new Deal(null, null, null, null, null, deal));
                     }
-                });
+                    else
+                        this.findAndUpdateCards(deals, this.currentUser.cards);
+                }
             });
-        }
+        });
+    }
+
+    private updateDealModel(objectToUpdate: Deal, updatedObject: Deal): void{
+        objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealStart = updatedObject.dealStart;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealType = updatedObject.dealType;
+        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.restaurant = updatedObject.restaurant;
+    }
+
+    public findAndUpdateCards(newDealModels: Deal[], oldDealModels: Deal[]){
+        newDealModels.forEach((dealModel) => {
+            var foundCard = oldDealModels[oldDealModels.findIndex(c => c.id == dealModel.id)];
+
+            if(foundCard){
+                this.updateDealModel(foundCard, dealModel);
+
+                var foundViewCard = oldDealModels[oldDealModels.findIndex(c => c.id == dealModel.id)]; 
+                
+                if(foundViewCard)
+                    this.updateDealModel(foundViewCard, dealModel);
+            }
+            else
+                oldDealModels.push(dealModel);
+        });
     }
 }
 

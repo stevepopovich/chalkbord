@@ -103,7 +103,7 @@ var AuthorizationService = (function () {
                 obDeal.subscribe(function (deals) {
                     for (var _i = 0, deals_1 = deals; _i < deals_1.length; _i++) {
                         var deal = deals_1[_i];
-                        _this.currentUser.cards.push(new Deal(null, null, null, null, null, null, null, deal));
+                        _this.currentUser.cards.push(new Deal(null, null, null, null, null, deal));
                     }
                 });
             });

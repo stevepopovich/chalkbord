@@ -15,6 +15,7 @@ export class RestaurantDealMakerComponent{
         this.authService.generateCardsFromIds();
 
         this.dealEditorService.currentDealSubject.subscribe((deal: Deal) => {
+            console.log(deal);
             this.currentCard = deal;
         });
     }

@@ -8,7 +8,7 @@ export class ImageService {
     }
 
     public setDealImageURL(dealModel: Deal): void{
-        this.storage.ref(dealModel.imageSource).getDownloadURL().subscribe(URL => {
+        this.storage.ref(dealModel.id).getDownloadURL().subscribe(URL => {
             dealModel.imageURL = URL;
         });
     }

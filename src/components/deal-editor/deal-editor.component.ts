@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
 import { AuthorizationService } from "../../services/authorization.service";
 import { DealEditorService } from "../../services/deal-editing.service";
+import { NO_COMPLETE_CHILD_SOURCE } from "@firebase/database/dist/esm/src/core/view/CompleteChildSource";
 
 @Component({
     templateUrl: './deal-editor.component.html',
@@ -44,47 +45,48 @@ export class DealEditorComponent{
     }
 
     public save(){
+        var deal: Deal = this.getDealFromFields();
 
+        const startDate = this.dealEditorFormGroup.get("dealDay").value;
+        const startTime = this.dealEditorFormGroup.get("dealStart").value;
+        const endTime = this.dealEditorFormGroup.get("dealEnd").value;
+
+        const startDatetime = this.getSaveCombinedTime(startTime, startDate);
+        const endDatetime = this.getSaveCombinedTime(endTime, startDate);
+
+        deal.dealStart = startDatetime;
+        deal.dealEnd = endDatetime;
+        deal.id = this.dealEditorService.currentDealBeingEdited.id;
+
+        this.cardService.updateCard(deal);
+    }
+
+    private getSaveCombinedTime(time: any, date: any): Date {
+        const combinedTime = new Date(date);
+        const timeDateObj = new Date(time);//use abitrary stuff date here to make parsing happen
+
+        //const timeOffsetInHours = timeDateObj.getTimezoneOffset() / 60;
+
+        combinedTime.setHours(timeDateObj.getHours());//add one bc combinedTime is one hour off?? GMT-400???
+        combinedTime.setMinutes(timeDateObj.getMinutes());//idk but this should be watched
+
+        return combinedTime;
     }
 
     public add(){
         this.dealEditorFormGroup.updateValueAndValidity();
 
         if(this.dealEditorFormGroup.valid && this.imageData){
-            const startDate = this.dealEditorFormGroup.get("dealDay").value;
-
-            const startDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealStart").value, startDate);
-            const endDatetime = this.getCombinedTime(this.dealEditorFormGroup.get("dealEnd").value, startDate);
-
-            let deal: Deal;
-
-            if(!this.limitDealNumber){
-                deal = new Deal(this.authService.currentUser.restaurant.uid, 
-                this.dealEditorFormGroup.get("dealDescription").value, 
-                startDatetime,
-                endDatetime,
-                -1,//no deal limit
-                this.dealEditorFormGroup.get("dealType").value, 
-                this.authService.currentUser.restaurant.location);
-
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }else{
-                deal = new Deal(this.authService.currentUser.restaurant.uid, 
-                this.dealEditorFormGroup.get("dealDescription").value, 
-                startDatetime,
-                endDatetime,
-                this.dealEditorFormGroup.get("numberOfDeals").value,
-                this.dealEditorFormGroup.get("dealType").value, 
-                this.authService.currentUser.restaurant.location);
-                
-                deal.imageSource = "/locale-deal-photos/" + deal.id;
-            }
+            const deal = this.getDealFromFields();
 
             this.uploader.uploadDealPhoto(this.imageData, deal.id);
 
             this.cardService.addCard(deal);
 
             this.authService.addCardIdToCurrentUser(deal.id);
+
+            this.setCurrentCardBeingEdited(deal);
+            this.dealEditorService.currentDealSubject.next(deal);
         }
     }
 
@@ -108,7 +110,7 @@ export class DealEditorComponent{
     }
 
     private getCombinedTime(time: any, date: any): Date {//still needs to be tested
-        const combinedTime = new Date(date);
+        const combinedTime = new Date(Date.parse(date));
         const timeDateObj = new Date('1970-01-01T' + time);//use abitrary stuff date here to make parsing happen
 
         const timeOffsetInHours = timeDateObj.getTimezoneOffset() / 60;
@@ -132,5 +134,37 @@ export class DealEditorComponent{
         Object.keys(this.dealEditorFormGroup.controls).forEach(key => {
             this.dealEditorFormGroup.get(key).setValue(null);
         });
+    }
+
+    private getDealFromFields(): Deal{
+        const startDate = this.dealEditorFormGroup.get("dealDay").value;
+
+        const startTime = this.dealEditorFormGroup.get("dealStart").value;
+        const endTime = this.dealEditorFormGroup.get("dealEnd").value;
+
+        const startDatetime = this.getCombinedTime(startTime, startDate);
+        const endDatetime = this.getCombinedTime(endTime, startDate);
+
+        let deal: Deal;
+
+        if(!this.limitDealNumber){
+            deal = new Deal(this.dealEditorFormGroup.get("dealDescription").value, 
+            startDatetime,
+            endDatetime,
+            -1,//no deal limit
+            this.dealEditorFormGroup.get("dealType").value); 
+
+            deal.restaurant = this.authService.currentUser.restaurant;
+        }else{
+            deal = new Deal(this.dealEditorFormGroup.get("dealDescription").value, 
+            startDatetime,
+            endDatetime,
+            this.dealEditorFormGroup.get("numberOfDeals").value,
+            this.dealEditorFormGroup.get("dealType").value);
+
+            deal.restaurant = this.authService.currentUser.restaurant;
+        }
+
+        return deal;
     }
 }

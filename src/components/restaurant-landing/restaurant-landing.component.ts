@@ -33,14 +33,14 @@ export class RestaurantLandingComponent implements AfterViewInit {
         public toastService: ToastService, public alert: AlertController) {
         this.userLogInGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
             rememberMe: ['']
         });
 
         this.restSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
+            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
+            confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
             address: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             state: ['', Validators.compose([Validators.required])],

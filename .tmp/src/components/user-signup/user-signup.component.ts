@@ -48,6 +48,12 @@ export class UserSignUpComponent implements AfterViewInit{
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             rememberMe: ['']
         });
+    }
+
+    ngAfterViewInit(): void {//bit of a hack, bit it is for security 
+        if(this.auth.checkUserIsLoggedIn()){//user is logged in, possibly from switching screens
+            this.auth.userSignOut();
+        }
 
         this.deviceService.getSetting(rememberMeUserKey).then((rememberMe: boolean) => {
             if(rememberMe){
@@ -61,12 +67,6 @@ export class UserSignUpComponent implements AfterViewInit{
                 });
             }
         });
-    }
-
-    ngAfterViewInit(): void {//bit of a hack, bit it is for security 
-        if(this.auth.checkUserIsLoggedIn()){//user is logged in, possibly from switching screens
-            this.auth.userSignOut();
-        }
     }
 
     public signUp(): void{
@@ -156,8 +156,6 @@ export class UserSignUpComponent implements AfterViewInit{
                 if(methods.length > 0){//if user not in db
                     this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
                         this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
-                            this.handleRememberMe(this.userLogInGroup);
-
                             this.auth.currentUser = users[0];//there SHOULD be only one
 
                             this.setAppropiateView();

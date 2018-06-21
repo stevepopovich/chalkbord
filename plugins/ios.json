@@ -43,6 +43,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

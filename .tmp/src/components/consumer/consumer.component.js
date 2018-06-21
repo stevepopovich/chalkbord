@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { GSLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { SwingStackComponent } from 'angular2-swing';
 import { AlertController, PopoverController, ModalController } from 'ionic-angular';
@@ -16,11 +17,11 @@ import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
 import { DealType } from '../../types/deals.type';
-import { DeviceService } from '../../services/device.service';
-import { ViewControllerService } from '../../services/view-controller.service';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { ToastService } from '../../services/toast.service';
+import { Geolocation } from '@ionic-native/geolocation';
 var ConsumerComponent = (function () {
-    function ConsumerComponent(alert, popoverCtrl, launchNavigator, cardService, authService, imageService, deviceService, viewContoller, modalCtrl) {
+    function ConsumerComponent(alert, popoverCtrl, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation, toastService) {
         var _this = this;
         this.alert = alert;
         this.popoverCtrl = popoverCtrl;
@@ -28,9 +29,9 @@ var ConsumerComponent = (function () {
         this.cardService = cardService;
         this.authService = authService;
         this.imageService = imageService;
-        this.deviceService = deviceService;
-        this.viewContoller = viewContoller;
         this.modalCtrl = modalCtrl;
+        this.geolocation = geolocation;
+        this.toastService = toastService;
         this.transitionString = "";
         this.numberOfCards = 3;
         this.destoryingCard = false;
@@ -38,6 +39,7 @@ var ConsumerComponent = (function () {
         this.likingCard = false;
         this.animatingCard = false;
         this.currentFilter = null;
+        this.currentLocation = new GSLocation();
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 offsetY;
@@ -54,14 +56,20 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         if (this.authService.checkUserIsLoggedIn) {
-            this.cardSubscription = this.cardService.getCards().subscribe(function (cardModels) {
-                if (!_this.cards) {
-                    _this.cards = cardModels;
-                    _this.filterCards(_this.currentFilter);
-                }
-                else {
-                    _this.findAndUpdateCards(cardModels);
-                }
+            this.geolocation.watchPosition().subscribe(function (resp) {
+                _this.currentLocation.lat = resp.coords.latitude;
+                _this.currentLocation.lng = resp.coords.longitude;
+                _this.cardSubscription = _this.cardService.getCardsByLatLng(_this.currentLocation, 50).subscribe(function (cardModels) {
+                    if (!_this.cards) {
+                        _this.cards = _this.cardService.filterNonDuplicateDeals(cardModels);
+                        _this.filterCards(_this.currentFilter);
+                    }
+                    else {
+                        _this.findAndUpdateCards(cardModels);
+                    }
+                });
+            }, function (error) {
+                _this.toastService.showReadableToast("We could not find you location, please contact support. " + error);
             });
         }
         else
@@ -232,10 +240,7 @@ var ConsumerComponent = (function () {
         objectToUpdate.dealType = updatedObject.dealType;
         objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
         objectToUpdate.restaurant = updatedObject.restaurant;
-        if (objectToUpdate.imageSource != updatedObject.imageSource) {
-            objectToUpdate.imageSource = updatedObject.imageSource;
-            this.imageService.setDealImageURL(objectToUpdate);
-        }
+        this.imageService.setDealImageURL(objectToUpdate);
     };
     ConsumerComponent.prototype.openProfile = function () {
         this.modalCtrl.create(UserProfileComponent).present();
@@ -256,8 +261,8 @@ var ConsumerComponent = (function () {
         __metadata("design:paramtypes", [AlertController, PopoverController,
             LaunchNavigator, CardDataService,
             AuthorizationService, ImageService,
-            DeviceService, ViewControllerService,
-            ModalController])
+            ModalController, Geolocation,
+            ToastService])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());

@@ -36,7 +36,6 @@ export class RestaurantDealMakerComponent{
 
             this.dealEditorService.setCurrentDeal(null);
         }
-            
     }
 
     public getBackground(deal) {

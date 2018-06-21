@@ -9,6 +9,7 @@ export class GSUser{
     public cardIds?: Guid[];
     public restaurant?: Restaurant;
     public cards?: Deal[];
+    public radius?: number; 
 
     public constructor(uid: string, userType: UserType, firstName: string){
         this.uid = uid;

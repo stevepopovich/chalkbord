@@ -150,7 +150,8 @@ module.exports.metadata =
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
     "cordova-plugin-camera": "4.0.2",
     "cordova-plugin-uniquedeviceid": "1.3.2",
-    "cordova-sqlite-storage": "2.3.1"
+    "cordova-sqlite-storage": "2.3.1",
+    "cordova-plugin-geolocation": "4.0.1"
 }
 // BOTTOM OF METADATA
 });

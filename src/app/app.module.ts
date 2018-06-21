@@ -42,6 +42,7 @@ import { RestaurantLandingComponent } from '../components/restaurant-landing/res
 import { HttpClientModule } from '@angular/common/http';
 import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
 import { DealEditorService } from '../services/deal-editing.service';
+import { Geolocation as IonLocation } from '@ionic-native/geolocation';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -118,7 +119,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UniqueDeviceID,
     DeviceService,
     ToastService,
-    DealEditorService
+    DealEditorService,
+    IonLocation
   ]
 })
 export class AppModule { }

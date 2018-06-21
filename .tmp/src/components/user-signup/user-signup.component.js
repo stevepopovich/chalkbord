@@ -18,7 +18,6 @@ var userEmailPasswordComboKey = "userEmailCombo";
 var rememberMeUserKey = "rememberMeUser";
 var UserSignUpComponent = (function () {
     function UserSignUpComponent(formBuilder, auth, viewControl, deviceService, toastService) {
-        var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
         this.viewControl = viewControl;
@@ -41,6 +40,12 @@ var UserSignUpComponent = (function () {
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             rememberMe: ['']
         });
+    }
+    UserSignUpComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        if (this.auth.checkUserIsLoggedIn()) {
+            this.auth.userSignOut();
+        }
         this.deviceService.getSetting(rememberMeUserKey).then(function (rememberMe) {
             if (rememberMe) {
                 _this.deviceService.getUserEmailPasswordFromLocalStorage(userEmailPasswordComboKey).then(function (emailPasswordTup) {
@@ -52,11 +57,6 @@ var UserSignUpComponent = (function () {
                 });
             }
         });
-    }
-    UserSignUpComponent.prototype.ngAfterViewInit = function () {
-        if (this.auth.checkUserIsLoggedIn()) {
-            this.auth.userSignOut();
-        }
     };
     UserSignUpComponent.prototype.signUp = function () {
         var _this = this;
@@ -124,7 +124,6 @@ var UserSignUpComponent = (function () {
                 if (methods.length > 0) {
                     _this.auth.signIn(email_2, _this.userLogInGroup.get("password").value).then(function () {
                         _this.auth.getCurrentUserData().subscribe(function (users) {
-                            _this.handleRememberMe(_this.userLogInGroup);
                             _this.auth.currentUser = users[0]; //there SHOULD be only one
                             _this.setAppropiateView();
                         });

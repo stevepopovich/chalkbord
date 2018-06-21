@@ -1,5 +1,5 @@
+import { GSLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
-
 import {
     StackConfig,
     SwingStackComponent,
@@ -11,10 +11,10 @@ import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
 import { Deal, DealType } from '../../types/deals.type';
-import { DeviceService } from '../../services/device.service';
-import { ViewControllerService } from '../../services/view-controller.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { ToastService } from '../../services/toast.service';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -49,11 +49,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public cardSubscription: Subscription;
 
+    public currentLocation: GSLocation = new GSLocation();
+
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, 
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, 
         private authService: AuthorizationService, private imageService: ImageService, 
-        public deviceService: DeviceService, public viewContoller: ViewControllerService, 
-        public modalCtrl: ModalController) {
+        private modalCtrl: ModalController, private geolocation: Geolocation,
+        private toastService: ToastService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   
@@ -70,15 +72,22 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     
     public ngAfterViewInit(): void {
         if(this.authService.checkUserIsLoggedIn){
-            this.cardSubscription = this.cardService.getCards().subscribe((cardModels) => {
-                if(!this.cards){
-                    this.cards = cardModels as Deal[];
-    
-                    this.filterCards(this.currentFilter);
-                }
-                else{
-                    this.findAndUpdateCards(cardModels as Deal[]);
-                }
+            this.geolocation.watchPosition().subscribe((resp) => {
+                this.currentLocation.lat = resp.coords.latitude;
+                this.currentLocation.lng = resp.coords.longitude;
+
+                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 50).subscribe((cardModels) => {
+                    if(!this.cards){
+                        this.cards = this.cardService.filterNonDuplicateDeals(cardModels as Deal[]);
+        
+                        this.filterCards(this.currentFilter);
+                    }
+                    else{
+                        this.findAndUpdateCards(cardModels as Deal[]);
+                    }
+                });
+            }, (error) => {
+                this.toastService.showReadableToast("We could not find you location, please contact support. " + error);
             });
         }
         else
@@ -291,11 +300,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
         objectToUpdate.restaurant = updatedObject.restaurant;
 
-        if(objectToUpdate.imageSource != updatedObject.imageSource){
-            objectToUpdate.imageSource = updatedObject.imageSource;
-
-            this.imageService.setDealImageURL(objectToUpdate);
-        }
+        this.imageService.setDealImageURL(objectToUpdate);
     }
 
     public openProfile(){

@@ -11,15 +11,15 @@ INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManif
 	android:name
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:12:127-181
 manifest
-ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
 MERGED from [com.android.support:support-v4:24.1.1] /Users/Contence/.gradle/caches/transforms-1/files-1.1/support-v4-24.1.1.aar/3ac52520541da61cd10a9d47635c9fea/AndroidManifest.xml:17:1-27:12
 MERGED from [:CordovaLib] /Users/Contence/locale/platforms/android/CordovaLib/build/intermediates/manifests/full/debug/AndroidManifest.xml:20:1-27:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-23:12
 	package
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:98-120
 		INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml
@@ -118,6 +118,18 @@ uses-permission#android.permission.READ_PHONE_STATE
 ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:19:5-75
 	android:name
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:19:22-72
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:20:5-81
+	android:name
+		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:20:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:21:5-79
+	android:name
+		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:21:22-76
+uses-feature#android.hardware.location.gps
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:22:5-66
+	android:name
+		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:22:19-63
 meta-data#android.support.FILE_PROVIDER_PATHS
 ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:13:13-116
 	android:resource

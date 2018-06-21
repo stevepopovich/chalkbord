@@ -14,7 +14,7 @@ var ImageService = (function () {
         this.storage = storage;
     }
     ImageService.prototype.setDealImageURL = function (dealModel) {
-        this.storage.ref(dealModel.imageSource).getDownloadURL().subscribe(function (URL) {
+        this.storage.ref(dealModel.id).getDownloadURL().subscribe(function (URL) {
             dealModel.imageURL = URL;
         });
     };

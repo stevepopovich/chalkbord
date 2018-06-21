@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { merge } from 'rxjs';
@@ -16,7 +17,7 @@ var CardDataService = (function () {
         this.cardDoc = this.database.collection("cards");
     }
     CardDataService.prototype.getCards = function () {
-        return this.cards;
+        return this.cardDoc.valueChanges();
     };
     CardDataService.prototype.setCards = function (data) {
         var _this = this;
@@ -40,6 +41,39 @@ var CardDataService = (function () {
         }
         var allCardsObservableMerged = merge(observables);
         return allCardsObservableMerged;
+    };
+    CardDataService.prototype.getCardsByLatLng = function (location, radiusInKM) {
+        var distanceInKMAverageBetweenLatitudes = 111.045;
+        var latitudeRadiusLength = radiusInKM / distanceInKMAverageBetweenLatitudes;
+        var radiusOfEarthInKM = 6371;
+        var bearingClockwiseFromNorthInRadians = 1.5708; //90 degrees
+        var distanceOverRadius = radiusInKM / radiusOfEarthInKM;
+        var newLat = Math.asin(Math.sin(location.lat) * Math.cos(distanceOverRadius) +
+            Math.cos(location.lat) * Math.sin(distanceOverRadius) * Math.cos(bearingClockwiseFromNorthInRadians));
+        var newLng = location.lng + Math.atan2(Math.sin(bearingClockwiseFromNorthInRadians) * Math.sin(distanceOverRadius) * Math.cos(location.lat), Math.cos(distanceOverRadius) - Math.sin(location.lat) * Math.sin(newLat));
+        var changeInLng = Math.abs(newLng - location.lng);
+        var latDeals = this.database.collection("cards", function (ref) { return ref.where("restaurant.location.lat", "<=", (location.lat + latitudeRadiusLength))
+            .where("restaurant.location.lat", ">=", (location.lat - latitudeRadiusLength)); }).valueChanges();
+        var lngDeals = this.database.collection("cards", function (ref) { return ref.where("restaurant.location.lng", "<=", (location.lng + changeInLng))
+            .where("restaurant.location.lng", ">=", (location.lng - changeInLng)); }).valueChanges();
+        return Observable.merge(latDeals, lngDeals);
+    };
+    CardDataService.prototype.filterNonDuplicateDeals = function (cards) {
+        var filteredDeals = [];
+        var _loop_2 = function (currentCard) {
+            if (cards.findIndex(function (card) { return card.id == currentCard.id; }) > -1 &&
+                filteredDeals.findIndex(function (card) { return card.id == currentCard.id; }) < 0)
+                filteredDeals.push(currentCard);
+        };
+        for (var _i = 0, cards_1 = cards; _i < cards_1.length; _i++) {
+            var currentCard = cards_1[_i];
+            _loop_2(currentCard);
+        }
+        return filteredDeals;
+    };
+    CardDataService.prototype.updateCard = function (card) {
+        delete (card.imageURL);
+        this.cardDoc.doc(card.id).set(card.getAsPlainObject());
     };
     CardDataService = __decorate([
         Injectable(),
