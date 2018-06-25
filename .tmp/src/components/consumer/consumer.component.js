@@ -65,7 +65,7 @@ var ConsumerComponent = (function () {
                         _this.filterCards(_this.currentFilter);
                     }
                     else {
-                        _this.findAndUpdateCards(cardModels);
+                        _this.authService.findAndUpdateCards(_this.restaurantViewCards, cardModels);
                     }
                 });
             }, function (error) {
@@ -212,35 +212,12 @@ var ConsumerComponent = (function () {
             this.restaurantViewCards.push(this.filteredCards[i]);
         }
     };
-    ConsumerComponent.prototype.findAndUpdateCards = function (dealModels) {
-        var _this = this;
-        dealModels.forEach(function (dealModel) {
-            var foundCard = _this.filteredCards[_this.filteredCards.findIndex(function (c) { return c.id == dealModel.id; })];
-            if (foundCard) {
-                _this.updateDealModel(foundCard, dealModel);
-                var foundViewCard = _this.restaurantViewCards[_this.restaurantViewCards.findIndex(function (c) { return c.id == dealModel.id; })];
-                if (foundViewCard)
-                    _this.updateDealModel(foundViewCard, dealModel);
-            }
-        });
-    };
     //used simply to async wait for something
     ConsumerComponent.prototype.delay = function (ms) {
         return new Promise(function (resolve) { return setTimeout(resolve, ms); });
     };
     ConsumerComponent.prototype.randomNumber = function () {
         return String(Math.floor(1000 + Math.random() * 9000));
-    };
-    //looks at differences in properties between objects
-    ConsumerComponent.prototype.updateDealModel = function (objectToUpdate, updatedObject) {
-        objectToUpdate.dealDescription = updatedObject.dealDescription;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealStart = updatedObject.dealStart;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealType = updatedObject.dealType;
-        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
-        objectToUpdate.restaurant = updatedObject.restaurant;
-        this.imageService.setDealImageURL(objectToUpdate);
     };
     ConsumerComponent.prototype.openProfile = function () {
         this.modalCtrl.create(UserProfileComponent).present();
@@ -254,7 +231,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", QueryList)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">grabsome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" class="card-height" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">grabsome</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack" [style.zIindex] = "-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restaurant.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),

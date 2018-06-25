@@ -1,4 +1,4 @@
-import { Deal } from "./deals.type";
+import { Card } from "./deals.type";
 import { Restaurant } from "./restaurant.type";
 import { Guid } from "./utils.type";
 
@@ -8,7 +8,7 @@ export class GSUser{
     public userType: UserType;
     public cardIds?: Guid[];
     public restaurant?: Restaurant;
-    public cards?: Deal[];
+    public cards?: Card[];
     public radius?: number; 
 
     public constructor(uid: string, userType: UserType, firstName: string){

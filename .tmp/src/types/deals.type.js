@@ -1,6 +1,8 @@
 import { Guid } from "./utils.type";
-var Deal = (function () {
-    function Deal(dealDescription, dealStart, dealEnd, numberOfDeals, dealType, obj) {
+import { Restaurant } from "./restaurant.type";
+import { GSLocation } from "./location.type";
+var Card = (function () {
+    function Card(dealDescription, dealStart, dealEnd, numberOfDeals, dealType, obj) {
         this.dealDescription = dealDescription;
         this.dealStart = dealStart;
         this.dealEnd = dealEnd;
@@ -8,6 +10,8 @@ var Deal = (function () {
         this.dealType = dealType;
         this.id = Guid.newGuid();
         if (obj) {
+            this.id = obj.id;
+            this.restaurant = obj.restaurant;
             this.dealDescription = obj.dealDescription;
             this.dealStart = new Date(obj.dealStart);
             this.dealEnd = new Date(obj.dealEnd);
@@ -15,13 +19,18 @@ var Deal = (function () {
             this.dealType = obj.dealType;
         }
     }
-    Deal.prototype.getAsPlainObject = function () {
+    Card.prototype.getAsPlainObject = function () {
         this.restaurant = Object.assign({}, this.restaurant);
         return Object.assign({}, this);
     };
-    return Deal;
+    Card.getBlankCard = function () {
+        var blankCard = new Card(null, new Date(), new Date(), -1, DealType.Drinks, null);
+        blankCard.restaurant = new Restaurant("", "", "", "", new GSLocation());
+        return blankCard;
+    };
+    return Card;
 }());
-export { Deal };
+export { Card };
 export var DealType;
 (function (DealType) {
     DealType[DealType["Drinks"] = 0] = "Drinks";

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -8,8 +8,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class UploadService {
     constructor(public storage: AngularFireStorage,
                 private camera: Camera) { }
-
-    // Our methods will go here...
 
     public captureImage(): Promise<any> {
         const options: CameraOptions = {
@@ -23,9 +21,10 @@ export class UploadService {
         return this.camera.getPicture(options);//returns image data base 64 as string
     }
     
-    public uploadDealPhoto(imageData: string, fileName: string): void {
-        console.log(imageData);
+    public uploadDealPhoto(imageData: string, fileName: string, updatePicture: boolean): AngularFireUploadTask {
+        if(updatePicture && this.storage.ref("/locale-deal-photos/"+ fileName))
+            this.storage.ref("/locale-deal-photos/"+ fileName).delete();
 
-        this.storage.upload("/locale-deal-photos/"+ fileName, imageData);
+        return this.storage.upload("/locale-deal-photos/"+ fileName, imageData);
     }
 }

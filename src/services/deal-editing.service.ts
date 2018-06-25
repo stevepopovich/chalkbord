@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Deal } from "../types/deals.type";
+import { Card } from "../types/deals.type";
 import { Subject } from 'rxjs';
 
 @Injectable()
 export class DealEditorService {
-    public currentDealBeingEdited: Deal;
+    public currentDealBeingEdited: Card;
 
-    public currentDealSubject: Subject<Deal> = new Subject<Deal>();
+    public currentDealSubject: Subject<Card> = new Subject<Card>();
 
-    public setCurrentDeal(deal: Deal){
+    public setCurrentDeal(deal: Card){
         this.currentDealBeingEdited = deal;
 
         this.currentDealSubject.next(deal);

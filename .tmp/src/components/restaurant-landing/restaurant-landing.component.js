@@ -17,10 +17,11 @@ import { GSUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
 import { GSLocation } from "../../types/location.type";
+import { RestaurantService } from "../../services/restaurant-service";
 var restEmailPasswordComboKey = "restEmailCombo";
 var rememberMeRestKey = "rememberMeRest";
 var RestaurantLandingComponent = (function () {
-    function RestaurantLandingComponent(formBuilder, auth, viewControl, deviceService, toastService, alert) {
+    function RestaurantLandingComponent(formBuilder, auth, viewControl, deviceService, toastService, alert, restaurantService) {
         var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
@@ -28,6 +29,7 @@ var RestaurantLandingComponent = (function () {
         this.deviceService = deviceService;
         this.toastService = toastService;
         this.alert = alert;
+        this.restaurantService = restaurantService;
         this.rememberMeLogIn = false;
         this.rememberMeSignUp = false;
         this.userLogInGroup = this.formBuilder.group({
@@ -204,7 +206,7 @@ var RestaurantLandingComponent = (function () {
                             var newRestaurantModel = new Restaurant(_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
                             newUser.restaurant = newRestaurantModel;
                             _this.auth.currentUser = newUser;
-                            _this.auth.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
+                            _this.restaurantService.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
                             _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                             _this.setAppropiateView();
                         }).catch(function (reason) {
@@ -247,7 +249,7 @@ var RestaurantLandingComponent = (function () {
         }),
         __metadata("design:paramtypes", [FormBuilder, AuthorizationService,
             ViewControllerService, DeviceService,
-            ToastService, AlertController])
+            ToastService, AlertController, RestaurantService])
     ], RestaurantLandingComponent);
     return RestaurantLandingComponent;
 }());

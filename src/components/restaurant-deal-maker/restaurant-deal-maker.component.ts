@@ -1,7 +1,7 @@
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
 import { AuthorizationService } from "../../services/authorization.service";
-import { Deal } from '../../types/deals.type';
+import { Card } from '../../types/deals.type';
 
 @Component({
     templateUrl: './restaurant-deal-maker.component.html',
@@ -9,13 +9,12 @@ import { Deal } from '../../types/deals.type';
     styleUrls: ['/restaurant-deal-maker.component.scss']
 })
 export class RestaurantDealMakerComponent{
-    public currentCard: Deal;
+    public currentCard: Card;
 
     public constructor(public authService: AuthorizationService, public dealEditorService: DealEditorService){
         this.authService.generateCardsFromIds();
 
-        this.dealEditorService.currentDealSubject.subscribe((deal: Deal) => {
-            console.log(deal);
+        this.dealEditorService.currentDealSubject.subscribe((deal: Card) => {
             this.currentCard = deal;
         });
     }
@@ -26,7 +25,7 @@ export class RestaurantDealMakerComponent{
         && this.authService.currentUser.cards.length > 0;
     }
 
-    public setCurrentCard(deal: Deal){
+    public setCurrentCard(deal: Card){
         if(this.currentCard != deal && deal != null){
             this.currentCard = deal;
         

@@ -1,7 +1,8 @@
 import { Guid } from "./utils.type";
 import { Restaurant } from "./restaurant.type"; 
+import { GSLocation } from "./location.type";
 
-export class Deal { 
+export class Card { 
     public id: string;
 
     public imageURL: string;
@@ -12,6 +13,8 @@ export class Deal {
         this.id = Guid.newGuid();
 
         if(obj){
+            this.id = obj.id;
+            this.restaurant = obj.restaurant;
             this.dealDescription = obj.dealDescription;
             this.dealStart = new Date(obj.dealStart);
             this.dealEnd = new Date(obj.dealEnd);
@@ -24,6 +27,12 @@ export class Deal {
         this.restaurant = Object.assign({}, this.restaurant);
         
         return Object.assign({}, this);
+    }
+
+    public static getBlankCard(): Card {
+        const blankCard = new Card(null, new Date(), new Date(), -1, DealType.Drinks, null)
+        blankCard.restaurant = new Restaurant("", "", "", "", new GSLocation());
+        return blankCard;
     }
 }
 

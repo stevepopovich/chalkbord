@@ -13,7 +13,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from './toast.service';
 import { CardDataService } from './card-data.service';
-import { Deal } from '../types/deals.type';
+import { Card } from '../types/deals.type';
 var AuthorizationService = (function () {
     function AuthorizationService(fireAuth, database, toastService, cardService) {
         this.fireAuth = fireAuth;
@@ -21,7 +21,6 @@ var AuthorizationService = (function () {
         this.toastService = toastService;
         this.cardService = cardService;
         this.userCollection = this.database.collection("users");
-        this.restaurantCollection = this.database.collection("restaurants");
     }
     AuthorizationService.prototype.checkCurrentUserType = function () {
         var _this = this;
@@ -83,9 +82,6 @@ var AuthorizationService = (function () {
             this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
         return null;
     };
-    AuthorizationService.prototype.getCurrentRestaurantData = function (restId) {
-        return this.database.collection("restaurants", function (ref) { return ref.where("id", '==', restId); }).valueChanges(); //TODO
-    };
     AuthorizationService.prototype.addCardIdToCurrentUser = function (cardId) {
         var _this = this;
         if (this.currentUser.cardIds == null)
@@ -97,17 +93,55 @@ var AuthorizationService = (function () {
     };
     AuthorizationService.prototype.generateCardsFromIds = function () {
         var _this = this;
-        if (!this.currentUser.cards) {
-            this.currentUser.cards = [];
-            this.cardService.getCardsById(this.currentUser.cardIds).subscribe(function (obDeal) {
-                obDeal.subscribe(function (deals) {
-                    for (var _i = 0, deals_1 = deals; _i < deals_1.length; _i++) {
-                        var deal = deals_1[_i];
-                        _this.currentUser.cards.push(new Deal(null, null, null, null, null, deal));
+        this.cardService.getCardsById(this.currentUser.cardIds).subscribe(function (obDeal) {
+            obDeal.subscribe(function (deals) {
+                for (var _i = 0, deals_1 = deals; _i < deals_1.length; _i++) {
+                    var deal = deals_1[_i];
+                    if (!_this.currentUser.cards) {
+                        _this.currentUser.cards = [];
+                        _this.currentUser.cards.push(new Card(null, null, null, null, null, deal));
                     }
-                });
+                    else
+                        _this.findAndUpdateCards(deals, _this.currentUser.cards);
+                }
             });
-        }
+        });
+    };
+    AuthorizationService.prototype.removeUserCardFromCurrentListById = function (id) {
+        var currentUserCardsIndex = this.currentUser.cards.findIndex(function (value, index, deals) {
+            value;
+            return deals[index].id == id;
+        });
+        var currentUserId = this.currentUser.cardIds.findIndex(function (value, index, deals) {
+            index;
+            deals;
+            return value == id;
+        });
+        this.currentUser.cards.splice(currentUserCardsIndex, 1);
+        this.currentUser.cardIds.splice(currentUserId, 1);
+    };
+    AuthorizationService.prototype.updateDealModel = function (objectToUpdate, updatedObject) {
+        objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealStart = updatedObject.dealStart;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealType = updatedObject.dealType;
+        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.restaurant = updatedObject.restaurant;
+    };
+    AuthorizationService.prototype.findAndUpdateCards = function (newDealModels, oldDealModels) {
+        var _this = this;
+        newDealModels.forEach(function (dealModel) {
+            var foundCard = oldDealModels[oldDealModels.findIndex(function (c) { return c.id == dealModel.id; })];
+            if (foundCard) {
+                _this.updateDealModel(foundCard, dealModel);
+                var foundViewCard = oldDealModels[oldDealModels.findIndex(function (c) { return c.id == dealModel.id; })];
+                if (foundViewCard)
+                    _this.updateDealModel(foundViewCard, dealModel);
+            }
+            else
+                oldDealModels.push(dealModel);
+        });
     };
     AuthorizationService = __decorate([
         Injectable(),

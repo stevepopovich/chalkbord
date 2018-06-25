@@ -1,47 +1,48 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Deal } from '../types/deals.type';
+import { Card } from '../types/deals.type';
 import { merge } from 'rxjs';
 import { Guid } from "../types/utils.type";
 import { GSLocation } from '../types/location.type';
 
 @Injectable()
 export class CardDataService {
-    public cardDoc: AngularFirestoreCollection<Deal>;
+
+    public cardDoc: AngularFirestoreCollection<Card>;
 
     constructor(private database: AngularFirestore) {
-        this.cardDoc = this.database.collection<Deal>("cards");
+        this.cardDoc = this.database.collection<Card>("cards");
     }
 
-    public getCards(): Observable<Deal[]> {
+    public getCards(): Observable<Card[]> {
         return this.cardDoc.valueChanges();
     }
 
-    public setCards(data: Deal[]): void {
+    public setCards(data: Card[]): void {
         const cards = data.map((card)=> {return Object.assign({}, card.getAsPlainObject())});
         cards.forEach((card) => {
             this.cardDoc.doc(card.id).set(Object.assign({}, card));
         })
     }
 
-    public addCard(data: Deal): void {
+    public addCard(data: Card): void {
         this.cardDoc.doc(data.id).set(Object.assign({}, data.getAsPlainObject()));
     }
 
-    public getCardsById(ids: Guid[]): Observable<Observable<Deal[]>> {
-        const observables: Observable<Deal[]>[] = [];
+    public getCardsById(ids: Guid[]): Observable<Observable<Card[]>> {
+        const observables: Observable<Card[]>[] = [];
 
         for (let id of ids) {
-            observables.push(this.database.collection<Deal>("cards", ref => ref.where("id", "==", id)).valueChanges());
+            observables.push(this.database.collection<Card>("cards", ref => ref.where("id", "==", id)).valueChanges());
         }
         
-        const allCardsObservableMerged: Observable<Observable<Deal[]>> = merge(observables);
+        const allCardsObservableMerged: Observable<Observable<Card[]>> = merge(observables);
 
         return allCardsObservableMerged;
     }
 
-    public getCardsByLatLng(location: GSLocation, radiusInKM: number): Observable<Deal[]> {
+    public getCardsByLatLng(location: GSLocation, radiusInKM: number): Observable<Card[]> {
         var distanceInKMAverageBetweenLatitudes = 111.045;
 
         var latitudeRadiusLength = radiusInKM / distanceInKMAverageBetweenLatitudes;
@@ -59,17 +60,17 @@ export class CardDataService {
 
         var changeInLng = Math.abs(newLng - location.lng);
 
-        var latDeals = this.database.collection<Deal>("cards", ref => ref.where("restaurant.location.lat", "<=",  (location.lat + latitudeRadiusLength))
+        var latDeals = this.database.collection<Card>("cards", ref => ref.where("restaurant.location.lat", "<=",  (location.lat + latitudeRadiusLength))
                                                         .where("restaurant.location.lat", ">=",  (location.lat - latitudeRadiusLength))).valueChanges();
 
-        var lngDeals = this.database.collection<Deal>("cards", ref => ref.where("restaurant.location.lng", "<=",  (location.lng + changeInLng))
+        var lngDeals = this.database.collection<Card>("cards", ref => ref.where("restaurant.location.lng", "<=",  (location.lng + changeInLng))
                                                         .where("restaurant.location.lng", ">=",  (location.lng - changeInLng))).valueChanges();
 
         return Observable.merge(latDeals, lngDeals);
     }
 
-    public filterNonDuplicateDeals(cards: Deal[]): Deal[] {
-        var filteredDeals: Deal[] = [];
+    public filterNonDuplicateDeals(cards: Card[]): Card[] {
+        var filteredDeals: Card[] = [];
 
         for(let currentCard of cards) {
             if(cards.findIndex(card => {return card.id == currentCard.id}) > -1 &&
@@ -80,9 +81,13 @@ export class CardDataService {
         return filteredDeals;
     }
 
-    public updateCard(card: Deal) {
+    public updateCard(card: Card) {
         delete(card.imageURL);
 
         this.cardDoc.doc(card.id).set(card.getAsPlainObject());
+    }
+
+    public deleteCardById(id: string): Promise<void> {
+        return this.cardDoc.doc(id).delete();
     }
 }

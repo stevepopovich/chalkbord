@@ -8,6 +8,7 @@ import { GSUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
 import { GSLocation } from "../../types/location.type";
+import { RestaurantService } from "../../services/restaurant-service";
 
 const restEmailPasswordComboKey = "restEmailCombo";
 const rememberMeRestKey = "rememberMeRest";
@@ -30,7 +31,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
 
     constructor(public formBuilder: FormBuilder, private auth: AuthorizationService, 
         private viewControl: ViewControllerService, private deviceService: DeviceService,
-        public toastService: ToastService, public alert: AlertController) {
+        public toastService: ToastService, public alert: AlertController, private restaurantService: RestaurantService) {
         this.userLogInGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
@@ -240,7 +241,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
                     
                             this.auth.currentUser = newUser;
                     
-                            this.auth.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
+                            this.restaurantService.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
 
                             this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                     

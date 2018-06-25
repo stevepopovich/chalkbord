@@ -10,7 +10,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
-import { Deal, DealType } from '../../types/deals.type';
+import { Card, DealType } from '../../types/deals.type';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
@@ -29,8 +29,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public numberOfCards = 3;
 
-    public restaurantViewCards: Deal[];// = new Array<DealModel>(this.numberOfCards);
-    public filteredCards: Deal[];
+    public restaurantViewCards: Card[];// = new Array<DealModel>(this.numberOfCards);
+    public filteredCards: Card[];
 
     public stackConfig: StackConfig;
 
@@ -45,7 +45,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public currentFilter: DealType = null;
 
-    public cards: Deal[];
+    public cards: Card[];
 
     public cardSubscription: Subscription;
 
@@ -78,12 +78,12 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
                 this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 50).subscribe((cardModels) => {
                     if(!this.cards){
-                        this.cards = this.cardService.filterNonDuplicateDeals(cardModels as Deal[]);
+                        this.cards = this.cardService.filterNonDuplicateDeals(cardModels as Card[]);
         
                         this.filterCards(this.currentFilter);
                     }
                     else{
-                        this.findAndUpdateCards(cardModels as Deal[]);
+                        this.authService.findAndUpdateCards(this.restaurantViewCards, cardModels as Card[]);
                     }
                 });
             }, (error) => {
@@ -180,7 +180,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         this.transitionString = "";
     }
 
-    private popLikeAlert(card: Deal): void{
+    private popLikeAlert(card: Card): void{
         let likeAlert = this.alert.create({
             buttons:[
                 {
@@ -212,7 +212,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         });
     }
 
-    private popCard(): Deal{
+    private popCard(): Card{
         var poppedCard = this.restaurantViewCards.shift();
         this.addCardToStack();
         
@@ -220,8 +220,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     private filterCards(type: DealType){
-        this.restaurantViewCards = new Array<Deal>();
-        this.filteredCards = new Array<Deal>();
+        this.restaurantViewCards = new Array<Card>();
+        this.filteredCards = new Array<Card>();
         if(type || type == 0){
             this.filteredCards = this.cards.filter((card) => {
                 return card.dealType == type;
@@ -266,21 +266,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         }
     }
 
-    private findAndUpdateCards(dealModels: Deal[]){
-        dealModels.forEach((dealModel) => {
-            var foundCard = this.filteredCards[this.filteredCards.findIndex(c => c.id == dealModel.id)];
-
-            if(foundCard){
-                this.updateDealModel(foundCard, dealModel);
-
-                var foundViewCard = this.restaurantViewCards[this.restaurantViewCards.findIndex(c => c.id == dealModel.id)]; 
-                
-                if(foundViewCard)
-                    this.updateDealModel(foundViewCard, dealModel);
-            }
-        });
-    }
-
     //used simply to async wait for something
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -288,19 +273,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     private randomNumber(): string{
         return String(Math.floor(1000 + Math.random() * 9000));
-    }
-
-    //looks at differences in properties between objects
-    private updateDealModel(objectToUpdate: Deal, updatedObject: Deal): void{
-        objectToUpdate.dealDescription = updatedObject.dealDescription;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealStart = updatedObject.dealStart;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealType = updatedObject.dealType;
-        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
-        objectToUpdate.restaurant = updatedObject.restaurant;
-
-        this.imageService.setDealImageURL(objectToUpdate);
     }
 
     public openProfile(){

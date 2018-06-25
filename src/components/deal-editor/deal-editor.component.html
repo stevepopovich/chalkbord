@@ -10,58 +10,77 @@
 <ion-content>
     <ion-list>
         <form [formGroup]="dealEditorFormGroup">
-            <ion-item>
-                <ion-label floating>Deal Description</ion-label>
-                <ion-input formControlName="dealDescription"></ion-input>
-            </ion-item>
+            <ion-grid style="padding: 0px;">
+                <ion-row>
+                    <!-- <ion-col *ngIf="getDeviceIsSmall()" style="height: 700px; padding: 0px;">
+                        <gs-card [(card)]="dealEditorService.currentDealBeingEdited"></gs-card>
+                    </ion-col> -->
+                    <ion-col col-12 col-sm-6 style="padding: 0px;">
+                        <ion-item>
+                            <ion-label floating>Deal Description</ion-label>
+                            <ion-input formControlName="dealDescription"></ion-input>
+                        </ion-item>
+            
+                        <ion-item>
+                            <ion-label floating>Deal date</ion-label>
+                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
+                        </ion-item>
+            
+                        <ion-item>
+                            <ion-label floating>Start time</ion-label>
+                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>
+                        </ion-item>
 
-            <ion-item>
-                <ion-label floating>Deal date</ion-label>
-                <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
-            </ion-item>
+                        <ion-item>
+                            <ion-label floating>End time</ion-label>
+                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>
+                        </ion-item>
 
-            <ion-item>
-                <ion-label floating>Start time</ion-label>
-                <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>
-            </ion-item>
+                        <ion-item>
+                            <ion-label>Limited deal number</ion-label>
+                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>
+                        </ion-item>
+                        
+                        <ion-item *ngIf="limitDealNumber">
+                            <ion-label floating>Deal Number</ion-label>
+                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>
+                        </ion-item>
+                
+                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">
+                            Deal Type
+                            <ion-item>
+                                <ion-label>Drinks</ion-label>
+                                <ion-radio value="0"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Food</ion-label>
+                                <ion-radio value="1"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Both</ion-label>
+                                <ion-radio value="2"></ion-radio>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                    <ion-col (click)="editPhotoData()" style="padding: 0px;">
+                        <gs-card [card]="dealEditorService.currentDealBeingEdited" [imageSrc]="imageDataForPreview"></gs-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         
-            <ion-item>
-                <ion-label floating>End time</ion-label>
-                <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>
-            </ion-item>
-        
-            <ion-item>
-                <ion-label>Limited deal number</ion-label>
-                <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>
-            </ion-item>
-        
-            <ion-item *ngIf="limitDealNumber">
-                <ion-label floating>Deal Number</ion-label>
-                <ion-input type="number" formControlName="numberOfDeals"></ion-input>
-            </ion-item>
-
-            <ion-list style="padding: 1em;" radio-group formControlName="dealType">
-                Deal Type
-                <ion-item>
-                    <ion-label>Drinks</ion-label>
-                    <ion-radio value="0"></ion-radio>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Food</ion-label>
-                    <ion-radio value="1"></ion-radio>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Both</ion-label>
-                    <ion-radio value="2"></ion-radio>
-                </ion-item>
-            </ion-list>
-        
-            <ion-item>
+            <!-- <ion-item>
                 <input type="file" (change)="setImageData($event)" accept="image/*"/>
-            </ion-item>
+            </ion-item> -->
         </form>
     </ion-list>
+
     <div class="button-group">
+        <button *ngIf="isDesktop()" ion-button (click)="uploadDesktopImage()">
+            Photo
+        </button>
+        <button *ngIf="!isDesktop()" ion-button (click)="editPhotoData()">
+            Photo
+        </button>
         <button *ngIf="!editingDeal" ion-button (click)="add()">
             Add
         </button>
@@ -69,9 +88,16 @@
         <button *ngIf="editingDeal" ion-button (click)="save()">
             Save
         </button>
+            
+        <button *ngIf="editingDeal" ion-button (click)="delete()">
+            Delete
+        </button>
 
         <button ion-button (click)="cancel()">
             Cancel
         </button>
     </div>
 </ion-content>
+
+<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden"/>
+

@@ -14,6 +14,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { RestaurantService } from './../services/restaurant-service';
+import { GSCardComponent } from './../components/card/card.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AngularDraggableModule } from 'angular2-draggable';
@@ -79,7 +81,8 @@ var AppModule = (function () {
                 UserProfileComponent,
                 BrowserHomeComponent,
                 RestaurantLandingComponent,
-                RestaurantProfileComponent
+                RestaurantProfileComponent,
+                GSCardComponent
             ],
             imports: [
                 BrowserModule,
@@ -115,7 +118,8 @@ var AppModule = (function () {
                 UserProfileComponent,
                 BrowserHomeComponent,
                 RestaurantLandingComponent,
-                RestaurantProfileComponent
+                RestaurantProfileComponent,
+                GSCardComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -137,7 +141,8 @@ var AppModule = (function () {
                 DeviceService,
                 ToastService,
                 DealEditorService,
-                IonLocation
+                IonLocation,
+                RestaurantService
             ]
         })
     ], AppModule);

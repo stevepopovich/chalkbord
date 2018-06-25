@@ -75,6 +75,9 @@ var CardDataService = (function () {
         delete (card.imageURL);
         this.cardDoc.doc(card.id).set(card.getAsPlainObject());
     };
+    CardDataService.prototype.deleteCardById = function (id) {
+        return this.cardDoc.doc(id).delete();
+    };
     CardDataService = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [AngularFirestore])

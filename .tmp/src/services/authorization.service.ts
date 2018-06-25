@@ -3,22 +3,19 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
-import { Restaurant } from '../types/restaurant.type';
 import { ToastService } from './toast.service';
 import { CardDataService } from './card-data.service';
-import { Deal } from '../types/deals.type';
+import { Card } from '../types/deals.type';
 
 @Injectable()
 export class AuthorizationService {
     public userCollection: AngularFirestoreCollection<GSUser>;
-    public restaurantCollection: AngularFirestoreCollection<Restaurant>;
 
     public currentUser: GSUser;
 
     constructor(public fireAuth: AngularFireAuth, private database: AngularFirestore, 
         private toastService: ToastService, private cardService: CardDataService) { 
         this.userCollection = this.database.collection<GSUser>("users");
-        this.restaurantCollection = this.database.collection<Restaurant>("restaurants");
     }
 
     public checkCurrentUserType(): Observable<GSUser[]>{
@@ -89,10 +86,6 @@ export class AuthorizationService {
         return null;
     }
 
-    public getCurrentRestaurantData(restId: string): Observable<Restaurant[]> {
-        return this.database.collection<Restaurant>("restaurants", ref => ref.where("id", '==', restId)).valueChanges();//TODO
-    }
-
     public addCardIdToCurrentUser(cardId: string) {
         if(this.currentUser.cardIds == null)
             this.currentUser.cardIds = [];
@@ -105,17 +98,59 @@ export class AuthorizationService {
     }
 
     public generateCardsFromIds(): void {
-        if(!this.currentUser.cards){
-            this.currentUser.cards = [];
-
-            this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Deal[]>) => {
-                obDeal.subscribe((deals: Deal[]) => {
-                    for(let deal of deals){
-                        this.currentUser.cards.push(new Deal(null, null, null, null, null, deal));
+        this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Card[]>) => {
+            obDeal.subscribe((deals: Card[]) => {
+                for(let deal of deals){
+                    if(!this.currentUser.cards){
+                        this.currentUser.cards = [];
+                        this.currentUser.cards.push(new Card(null, null, null, null, null, deal));
                     }
-                });
+                    else
+                        this.findAndUpdateCards(deals, this.currentUser.cards);
+                }
             });
-        }
+        });
+    }
+
+    public removeUserCardFromCurrentListById(id: string) {
+        const currentUserCardsIndex = this.currentUser.cards.findIndex((value, index, deals) => {
+            value;
+            return deals[index].id == id;
+        });
+        const currentUserId = this.currentUser.cardIds.findIndex((value, index, deals) => {
+            index;deals;
+            return value == id;
+        });
+
+        this.currentUser.cards.splice(currentUserCardsIndex, 1);
+        this.currentUser.cardIds.splice(currentUserId, 1);
+    }
+
+    private updateDealModel(objectToUpdate: Card, updatedObject: Card): void{
+        objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealStart = updatedObject.dealStart;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealType = updatedObject.dealType;
+        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.restaurant = updatedObject.restaurant;
+    }
+
+    public findAndUpdateCards(newDealModels: Card[], oldDealModels: Card[]){
+        newDealModels.forEach((dealModel) => {
+            var foundCard = oldDealModels[oldDealModels.findIndex(c => c.id == dealModel.id)];
+
+            if(foundCard){
+                this.updateDealModel(foundCard, dealModel);
+
+                var foundViewCard = oldDealModels[oldDealModels.findIndex(c => c.id == dealModel.id)]; 
+                
+                if(foundViewCard)
+                    this.updateDealModel(foundViewCard, dealModel);
+            }
+            else
+                oldDealModels.push(dealModel);
+        });
     }
 }
 

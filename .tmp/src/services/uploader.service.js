@@ -15,7 +15,6 @@ var UploadService = (function () {
         this.storage = storage;
         this.camera = camera;
     }
-    // Our methods will go here...
     UploadService.prototype.captureImage = function () {
         var options = {
             quality: 100,
@@ -26,9 +25,10 @@ var UploadService = (function () {
         };
         return this.camera.getPicture(options); //returns image data base 64 as string
     };
-    UploadService.prototype.uploadDealPhoto = function (imageData, fileName) {
-        console.log(imageData);
-        this.storage.upload("/locale-deal-photos/" + fileName, imageData);
+    UploadService.prototype.uploadDealPhoto = function (imageData, fileName, updatePicture) {
+        if (updatePicture && this.storage.ref("/locale-deal-photos/" + fileName))
+            this.storage.ref("/locale-deal-photos/" + fileName).delete();
+        return this.storage.upload("/locale-deal-photos/" + fileName, imageData);
     };
     UploadService = __decorate([
         Injectable(),

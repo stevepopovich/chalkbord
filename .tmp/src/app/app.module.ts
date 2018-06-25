@@ -1,3 +1,5 @@
+import { RestaurantService } from './../services/restaurant-service';
+import { GSCardComponent } from './../components/card/card.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AngularDraggableModule } from 'angular2-draggable';
@@ -50,7 +52,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   }
 }
 
-@NgModule({
+@NgModule({ 
   declarations: [
     LocaleApp,
     ConsumerComponent,
@@ -61,7 +63,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UserProfileComponent,
     BrowserHomeComponent,
     RestaurantLandingComponent,
-    RestaurantProfileComponent
+    RestaurantProfileComponent,
+    GSCardComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UserProfileComponent,
     BrowserHomeComponent,
     RestaurantLandingComponent,
-    RestaurantProfileComponent
+    RestaurantProfileComponent,
+    GSCardComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -120,7 +124,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     DeviceService,
     ToastService,
     DealEditorService,
-    IonLocation
+    IonLocation,
+    RestaurantService
   ]
 })
 export class AppModule { }
