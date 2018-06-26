@@ -13,26 +13,49 @@ import { ImageService } from '../../services/image-service.service';
 var GSCardComponent = (function () {
     function GSCardComponent(imageService) {
         this.imageService = imageService;
-        this.card = Card.getBlankCard();
+        this._card = Card.getBlankCard();
     }
-    GSCardComponent.prototype.ngOnChanges = function () {
-        if (this.card) {
-            if (this.imageSrc != this.card.imageURL)
-                this.card.imageURL = this.imageSrc;
-            else
+    Object.defineProperty(GSCardComponent.prototype, "card", {
+        get: function () {
+            return this._card;
+        },
+        set: function (card) {
+            if (card) {
+                this._card = card;
                 this.imageService.setDealImageURL(this.card);
-        }
-    };
+            }
+            else
+                this._card = Card.getBlankCard();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(GSCardComponent.prototype, "imageSrc", {
+        get: function () {
+            return this._imageSrc;
+        },
+        set: function (imageSrc) {
+            this._imageSrc = imageSrc;
+            if (!this._card)
+                this._card = Card.getBlankCard();
+            this._card.imageURL = imageSrc;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     __decorate([
         Input(),
-        __metadata("design:type", Card)
-    ], GSCardComponent.prototype, "card", void 0);
+        __metadata("design:type", Card),
+        __metadata("design:paramtypes", [Card])
+    ], GSCardComponent.prototype, "card", null);
     __decorate([
         Input(),
-        __metadata("design:type", Object)
-    ], GSCardComponent.prototype, "imageSrc", void 0);
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], GSCardComponent.prototype, "imageSrc", null);
     GSCardComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/card/card.component.html"*/'<!-- <ion-card *ngIf="card" style="width: 100%; height: 95%; border-radius: 13px;">\n    <img src="{{card.imageURL}}" />\n    <ion-card-title style="color: white !important;">\n    </ion-card-title>\n    {{card.dealDescription}}\n</ion-card> -->\n\n<div id="preview-card-stack" [style.zIindex]="-1000">\n    <ion-card>\n        <img *ngIf="card" class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content *ngIf="card" class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.restuarant?.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/card/card.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/card/card.component.html"*/'<!-- <ion-card *ngIf="card" style="width: 100%; height: 95%; border-radius: 13px;">\n    <img src="{{card.imageURL}}" />\n    <ion-card-title style="color: white !important;">\n    </ion-card-title>\n    {{card.dealDescription}}\n</ion-card> -->\n\n<div id="preview-card-stack" [style.zIindex]="-1000">\n    <ion-card>\n        <div *ngIf="card && !card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>\n        <img *ngIf="card && card.imageURL" class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content *ngIf="card" class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{_card.restaurant?.name}}\n            </ion-card-title>\n            {{_card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/card/card.component.html"*/,
             selector: 'gs-card',
             styleUrls: ['/card.component.scss']
         }),

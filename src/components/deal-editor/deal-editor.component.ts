@@ -116,7 +116,6 @@ export class DealEditorComponent{
         }
         else 
             this.reportBadFields();
-
     }
 
     private getSaveCombinedTime(time: any, date: any): Date {
@@ -215,24 +214,29 @@ export class DealEditorComponent{
     }
 
     public editPhotoData() {
-        // this.actionSheetCtrl.create({
-        //     title: 'Upload Destination',
-        //     buttons: [
-        //         {
-        //             text: 'Camera',
-        //             icon: !this.platform.is('ios') ? 'camera' : null,
-        //             handler: () => {
-        //                 this.cameraUpload(PictureSourceType.CAMERA);
-        //             }
-        //         },{
-        //             text: 'Photo Library',
-        //             icon: !this.platform.is('ios') ? 'images' : null,
-        //             handler: () => {
-        //                 this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
-        //             }
-        //         },
-        //     ]
-        // }).present();
+        if(this.isDesktop()){
+            this.uploadDesktopImage();
+        } else {
+            this.actionSheetCtrl.create({
+                title: 'Mobile Photo uploads not supported yet!',
+                buttons: [
+                    // {
+                    //     text: 'Camera',
+                    //     icon: !this.platform.is('ios') ? 'camera' : null,
+                    //     handler: () => {
+                    //         this.cameraUpload(PictureSourceType.CAMERA);
+                    //     }
+                    // },{
+                    //     text: 'Photo Library',
+                    //     icon: !this.platform.is('ios') ? 'images' : null,
+                    //     handler: () => {
+                    //         this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
+                    //     }
+                    // },
+                ]
+            }).present();
+        }
+
     }
 
     // private cameraUpload(sourceType: PictureSourceType) {
@@ -257,6 +261,6 @@ export class DealEditorComponent{
     }
 
     private reportBadFields() {
-        
+
     }
 }

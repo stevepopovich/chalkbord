@@ -46,6 +46,7 @@ export class DealEditorComponent{
         });
 
         this.dealEditorService.currentDealSubject.subscribe((deal: Card) => {
+            this.clearFields();
             this.setCurrentCardBeingEdited(deal);
         });
 
@@ -73,8 +74,6 @@ export class DealEditorComponent{
     }
 
     public add(){
-        // this.dealEditorFormGroup.updateValueAndValidity();
-
         if(this.dealEditorFormGroup.valid && this.imageDataForUpload){
             const deal = this.getDealFromFields();
 
@@ -92,27 +91,31 @@ export class DealEditorComponent{
     }
 
     public save(){
-        var deal: Card = this.getDealFromFields();
+        if(this.dealEditorFormGroup.valid){ 
+            var deal: Card = this.getDealFromFields();
 
-        const startDate = this.dealEditorFormGroup.get("dealDay").value;
-        const startTime = this.dealEditorFormGroup.get("dealStart").value;
-        const endTime = this.dealEditorFormGroup.get("dealEnd").value;
-
-        const startDatetime = this.getSaveCombinedTime(startTime, startDate);
-        const endDatetime = this.getSaveCombinedTime(endTime, startDate);
-
-        deal.dealStart = startDatetime;
-        deal.dealEnd = endDatetime;
-        deal.id = this.dealEditorService.currentDealBeingEdited.id;
-
-        if(this.imageDataForUpload){
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, true).then(() => {
-                this.cleanUpImageData();
-                this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
-            });
+            const startDate = this.dealEditorFormGroup.get("dealDay").value;
+            const startTime = this.dealEditorFormGroup.get("dealStart").value;
+            const endTime = this.dealEditorFormGroup.get("dealEnd").value;
+    
+            const startDatetime = this.getSaveCombinedTime(startTime, startDate);
+            const endDatetime = this.getSaveCombinedTime(endTime, startDate);
+    
+            deal.dealStart = startDatetime;
+            deal.dealEnd = endDatetime;
+            deal.id = this.dealEditorService.currentDealBeingEdited.id;
+    
+            if(this.imageDataForUpload){
+                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, true).then(() => {
+                    this.cleanUpImageData();
+                    this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
+                });
+            }
+    
+            this.cardService.updateCard(deal);
         }
-
-        this.cardService.updateCard(deal);
+        else 
+            this.reportBadFields();
     }
 
     private getSaveCombinedTime(time: any, date: any): Date {
@@ -211,24 +214,29 @@ export class DealEditorComponent{
     }
 
     public editPhotoData() {
-        // this.actionSheetCtrl.create({
-        //     title: 'Upload Destination',
-        //     buttons: [
-        //         {
-        //             text: 'Camera',
-        //             icon: !this.platform.is('ios') ? 'camera' : null,
-        //             handler: () => {
-        //                 this.cameraUpload(PictureSourceType.CAMERA);
-        //             }
-        //         },{
-        //             text: 'Photo Library',
-        //             icon: !this.platform.is('ios') ? 'images' : null,
-        //             handler: () => {
-        //                 this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
-        //             }
-        //         },
-        //     ]
-        // }).present();
+        if(this.isDesktop()){
+            this.uploadDesktopImage();
+        } else {
+            this.actionSheetCtrl.create({
+                title: 'Mobile Photo uploads not supported yet!',
+                buttons: [
+                    // {
+                    //     text: 'Camera',
+                    //     icon: !this.platform.is('ios') ? 'camera' : null,
+                    //     handler: () => {
+                    //         this.cameraUpload(PictureSourceType.CAMERA);
+                    //     }
+                    // },{
+                    //     text: 'Photo Library',
+                    //     icon: !this.platform.is('ios') ? 'images' : null,
+                    //     handler: () => {
+                    //         this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
+                    //     }
+                    // },
+                ]
+            }).present();
+        }
+
     }
 
     // private cameraUpload(sourceType: PictureSourceType) {
@@ -249,5 +257,10 @@ export class DealEditorComponent{
     private cleanUpImageData() {
         this.imageDataForPreview = null;
         this.imageDataForUpload = null;
+        this.fileReader.abort();
+    }
+
+    private reportBadFields() {
+
     }
 }

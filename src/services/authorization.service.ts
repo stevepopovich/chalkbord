@@ -103,9 +103,11 @@ export class AuthorizationService {
                 for(let deal of deals){
                     if(!this.currentUser.cards){
                         this.currentUser.cards = [];
-                        this.currentUser.cards.push(new Card(null, null, null, null, null, deal));
-                    }
-                    else
+
+                        const newCardFromJSON = new Card(null, null, null, null, null, deal);
+
+                        this.currentUser.cards.push(newCardFromJSON);
+                    } else
                         this.findAndUpdateCards(deals, this.currentUser.cards);
                 }
             });

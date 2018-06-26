@@ -1,12 +1,13 @@
 import { Component, ViewChild } from "@angular/core";
 import { DeviceService } from "../../services/device.service";
 import { ViewControllerService } from "../../services/view-controller.service";
-import { ModalController, ViewController, Button } from "ionic-angular";
+import { ModalController, ViewController, Button, NavParams } from "ionic-angular";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser } from "../../types/user.type";
 
 const rememberMeUserKey = "rememberMeUser";//dont change this unless you want to change the other one is user-signup
+const rememberMeRestKey = "rememberMeRest";//this either
 
 @Component({
     templateUrl: './user-profile.component.html',
@@ -14,8 +15,10 @@ const rememberMeUserKey = "rememberMeUser";//dont change this unless you want to
     styleUrls: ['/user-profile.component.scss']
 })
 
-export class UserProfileComponent{
+export class UserProfileComponent {
     @ViewChild('editButton') editButton: Button;
+
+    public isRestaurant: boolean;
 
     public userEmail: string;
     public firstName: string;
@@ -26,44 +29,47 @@ export class UserProfileComponent{
 
     constructor(public deviceService: DeviceService, public viewController: ViewControllerService, 
         public modalCtrl: ModalController, public viewCtrl: ViewController, 
-        public authService: AuthorizationService, public toastService: ToastService){
+        public authService: AuthorizationService, public toastService: ToastService, 
+        private params: NavParams){
+
+        this.isRestaurant = this.params.get("isRestaurant");
 
         this.userEmail = this.authService.fireAuth.auth.currentUser.email; 
         this.firstName = this.authService.currentUser.firstName;
     }
 
-    public goTouserSignUpScreen(){}
-
     public toggleEdit(){
-        if(this.emailDisabled){
-            this.emailDisabled = false;
-
-            this.editButtonText = "save";
-        }
-        else{
-            if(this.authService.fireAuth.auth.currentUser.email != this.userEmail){
-                this.authService.fireAuth.auth.currentUser.updateEmail(this.userEmail).then(() => {
-                    this.toastService.showReadableToast("Cool, email is updated");
-                }).catch((reason) => {
-                    this.toastService.showReadableToast("Email not updated: " + reason);
-                });
+        if(!this.isRestaurant) {
+            if(this.emailDisabled){
+                this.emailDisabled = false;
+    
+                this.editButtonText = "save";
             }
-
-            if(this.authService.currentUser.firstName != this.firstName){
-                const currUser: GSUser = Object.assign({}, this.authService.currentUser);
-
-                currUser.firstName = this.firstName;
-
-                this.authService.updateUserInDatabase(currUser).then(() => {
-                    this.toastService.showReadableToast("Cool, user name is updated");
-                }).catch((reason) => {
-                    this.toastService.showReadableToast("User not updated: " + reason);
-                });
+            else{
+                if(this.authService.fireAuth.auth.currentUser.email != this.userEmail){
+                    this.authService.fireAuth.auth.currentUser.updateEmail(this.userEmail).then(() => {
+                        this.toastService.showReadableToast("Cool, email is updated");
+                    }).catch((reason) => {
+                        this.toastService.showReadableToast("Email not updated: " + reason);
+                    });
+                }
+    
+                if(this.authService.currentUser.firstName != this.firstName){
+                    const currUser: GSUser = Object.assign({}, this.authService.currentUser);
+    
+                    currUser.firstName = this.firstName;
+    
+                    this.authService.updateUserInDatabase(currUser).then(() => {
+                        this.toastService.showReadableToast("Cool, user name is updated");
+                    }).catch((reason) => {
+                        this.toastService.showReadableToast("User not updated: " + reason);
+                    });
+                }
+    
+                this.emailDisabled = true;
+    
+                this.editButtonText = "edit";
             }
-
-            this.emailDisabled = true;
-
-            this.editButtonText = "edit";
         }
     }
 
@@ -73,10 +79,16 @@ export class UserProfileComponent{
         toast.onDidDismiss((data, dismissType) => {
             data;
             if(dismissType == "close"){
-                this.deviceService.putSetting(rememberMeUserKey, false);
+                if(this.isRestaurant){
+                    this.deviceService.putSetting(rememberMeRestKey, false);
 
-                this.viewController.setSignUpView();
-        
+                    this.viewController.setBrowserHome();
+                } else {
+                    this.deviceService.putSetting(rememberMeUserKey, false);
+
+                    this.viewController.setSignUpView();
+                }
+
                 this.viewCtrl.dismiss();
             }
         });

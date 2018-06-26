@@ -21,17 +21,17 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
 var ConsumerComponent = (function () {
-    function ConsumerComponent(alert, popoverCtrl, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation, toastService) {
+    function ConsumerComponent(alert, popoverCtrl, toastService, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation) {
         var _this = this;
         this.alert = alert;
         this.popoverCtrl = popoverCtrl;
+        this.toastService = toastService;
         this.launchNavigator = launchNavigator;
         this.cardService = cardService;
         this.authService = authService;
         this.imageService = imageService;
         this.modalCtrl = modalCtrl;
         this.geolocation = geolocation;
-        this.toastService = toastService;
         this.transitionString = "";
         this.numberOfCards = 3;
         this.destoryingCard = false;
@@ -235,11 +235,9 @@ var ConsumerComponent = (function () {
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [AlertController, PopoverController,
-            LaunchNavigator, CardDataService,
-            AuthorizationService, ImageService,
-            ModalController, Geolocation,
-            ToastService])
+        __metadata("design:paramtypes", [AlertController, PopoverController, ToastService,
+            LaunchNavigator, CardDataService, AuthorizationService,
+            ImageService, ModalController, Geolocation])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());

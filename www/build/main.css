@@ -40138,6 +40138,16 @@ ion-spinner {
   background-color: silver;
 }
 
+.button-top-right {
+  background-color: black;
+  position: absolute;
+  right: 0;
+  top: 5px;
+  z-index: 10;
+  font-size: 1.5em;
+  height: 5%;
+}
+
 .rest-landing-home-photo {
   background-image: url("../assets/images/management.jpg");
   width: 100%;

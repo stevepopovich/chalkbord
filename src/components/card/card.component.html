@@ -7,11 +7,12 @@
 
 <div id="preview-card-stack" [style.zIindex]="-1000">
     <ion-card>
-        <img *ngIf="card" class="non-draggable-card-image fill" src="{{card.imageURL}}" />
+        <div *ngIf="card && !card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>
+        <img *ngIf="card && card.imageURL" class="non-draggable-card-image fill" src="{{card.imageURL}}" />
 
         <ion-card-content *ngIf="card" class="card-text">
             <ion-card-title style="color: white !important;">
-                {{_card.restuarant?.name}}
+                {{_card.restaurant?.name}}
             </ion-card-title>
             {{_card.dealDescription}}
         </ion-card-content>

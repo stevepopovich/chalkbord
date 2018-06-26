@@ -99,7 +99,8 @@ var AuthorizationService = (function () {
                     var deal = deals_1[_i];
                     if (!_this.currentUser.cards) {
                         _this.currentUser.cards = [];
-                        _this.currentUser.cards.push(new Card(null, null, null, null, null, deal));
+                        var newCardFromJSON = new Card(null, null, null, null, null, deal);
+                        _this.currentUser.cards.push(newCardFromJSON);
                     }
                     else
                         _this.findAndUpdateCards(deals, _this.currentUser.cards);

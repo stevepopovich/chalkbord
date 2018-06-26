@@ -51,11 +51,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public currentLocation: GSLocation = new GSLocation();
 
-    constructor (private alert: AlertController, private popoverCtrl: PopoverController, 
-        private launchNavigator: LaunchNavigator, private cardService: CardDataService, 
-        private authService: AuthorizationService, private imageService: ImageService, 
-        private modalCtrl: ModalController, private geolocation: Geolocation,
-        private toastService: ToastService) {
+    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
+        private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, 
+        private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 offsetY;   

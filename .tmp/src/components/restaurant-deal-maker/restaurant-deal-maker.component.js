@@ -10,11 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
 import { AuthorizationService } from "../../services/authorization.service";
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { ModalController } from 'ionic-angular';
 var RestaurantDealMakerComponent = (function () {
-    function RestaurantDealMakerComponent(authService, dealEditorService) {
+    function RestaurantDealMakerComponent(authService, dealEditorService, modalCtrl) {
         var _this = this;
         this.authService = authService;
         this.dealEditorService = dealEditorService;
+        this.modalCtrl = modalCtrl;
         this.authService.generateCardsFromIds();
         this.dealEditorService.currentDealSubject.subscribe(function (deal) {
             _this.currentCard = deal;
@@ -41,12 +44,16 @@ var RestaurantDealMakerComponent = (function () {
         else
             return "selectable-item";
     };
+    RestaurantDealMakerComponent.prototype.openProfile = function () {
+        this.modalCtrl.create(UserProfileComponent).present();
+    };
     RestaurantDealMakerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of authService.currentUser.cards" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">\n        Add some cards and see them here!\n    </div>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of authService.currentUser.cards" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">\n        Add some cards and see them here!\n    </div>\n</ion-content>\n\n<button (click)="openProfile()" class="button-top-right" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
             selector: 'restaurant-deal-maker',
             styleUrls: ['/restaurant-deal-maker.component.scss']
         }),
-        __metadata("design:paramtypes", [AuthorizationService, DealEditorService])
+        __metadata("design:paramtypes", [AuthorizationService, DealEditorService,
+            ModalController])
     ], RestaurantDealMakerComponent);
     return RestaurantDealMakerComponent;
 }());

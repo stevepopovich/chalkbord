@@ -1,4 +1,4 @@
-<ion-header class="nav-round">
+<ion-header *ngIf="!isRestaurant" class="nav-round">
     <ion-navbar class="navbar-md">
         <ion-title class="title-big">grabsome</ion-title>
     </ion-navbar>
@@ -13,17 +13,17 @@
 </button>
 
 <ion-content>
-    <ion-item>
+    <ion-item *ngIf="!isRestaurant">
         <ion-label floating>First Name</ion-label>
         <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!isRestaurant">
         <ion-label floating>Email</ion-label>
         <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>
     </ion-item>
     
-    <button (click)="toggleEdit()" class="reset-button" ion-button>
+    <button *ngIf="!isRestaurant" (click)="toggleEdit()" class="reset-button" ion-button>
         {{editButtonText}}
     </button>
     

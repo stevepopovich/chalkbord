@@ -10,10 +10,12 @@ import { ImageService } from '../../services/image-service.service';
 export class GSCardComponent {
     @Input()
     set card(card: Card) {
-        this._card = card;
-
-        if(this._card && this._card.id.length && this._card.id.length > 0)
+        if(card) {
+            this._card = card;
             this.imageService.setDealImageURL(this.card);
+        } else
+            this._card = Card.getBlankCard();
+
     }
     get card(): Card {
         return this._card;

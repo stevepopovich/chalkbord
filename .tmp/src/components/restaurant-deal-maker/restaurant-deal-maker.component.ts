@@ -2,6 +2,8 @@ import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
 import { AuthorizationService } from "../../services/authorization.service";
 import { Card } from '../../types/deals.type';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { ModalController } from 'ionic-angular';
 
 @Component({
     templateUrl: './restaurant-deal-maker.component.html',
@@ -11,7 +13,8 @@ import { Card } from '../../types/deals.type';
 export class RestaurantDealMakerComponent{
     public currentCard: Card;
 
-    public constructor(public authService: AuthorizationService, public dealEditorService: DealEditorService){
+    public constructor(public authService: AuthorizationService, public dealEditorService: DealEditorService,
+        private modalCtrl: ModalController){
         this.authService.generateCardsFromIds();
 
         this.dealEditorService.currentDealSubject.subscribe((deal: Card) => {
@@ -43,6 +46,10 @@ export class RestaurantDealMakerComponent{
             return "selected-item";
         else 
             return "selectable-item";
+    }
+
+    public openProfile(){
+        this.modalCtrl.create(UserProfileComponent).present(); 
     }
 }
 
