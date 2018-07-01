@@ -1,6 +1,6 @@
 //import { PictureSourceType } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { Card } from "../../types/deals.type";
+import { GSCard } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
@@ -28,7 +28,7 @@ export class DealEditorComponent{
     public fileReader = new FileReader();
 
     public editingDeal: boolean;
-    public uneditedDeal: Card;
+    public uneditedDeal: GSCard;
 
     public platformReady: boolean;
 
@@ -45,7 +45,7 @@ export class DealEditorComponent{
             dealType: ['', Validators.required],
         });
 
-        this.dealEditorService.currentDealSubject.subscribe((deal: Card) => {
+        this.dealEditorService.currentDealSubject.subscribe((deal: GSCard) => {
             this.clearFields();
             this.setCurrentCardBeingEdited(deal);
         });
@@ -92,7 +92,7 @@ export class DealEditorComponent{
 
     public save(){
         if(this.dealEditorFormGroup.valid){ 
-            var deal: Card = this.getDealFromFields();
+            var deal: GSCard = this.getDealFromFields();
 
             const startDate = this.dealEditorFormGroup.get("dealDay").value;
             const startTime = this.dealEditorFormGroup.get("dealStart").value;
@@ -128,7 +128,7 @@ export class DealEditorComponent{
         return combinedTime;
     }
 
-    private setCurrentCardBeingEdited(deal: Card) {
+    private setCurrentCardBeingEdited(deal: GSCard) {
         if(deal){
             this.uneditedDeal = deal;
             this.editingDeal = true;
@@ -176,7 +176,7 @@ export class DealEditorComponent{
         });
     }
 
-    private getDealFromFields(): Card{
+    private getDealFromFields(): GSCard{
         const startDate = this.dealEditorFormGroup.get("dealDay").value;
 
         const startTime = this.dealEditorFormGroup.get("dealStart").value;
@@ -185,10 +185,10 @@ export class DealEditorComponent{
         const startDatetime = this.getCombinedTime(startTime, startDate);
         const endDatetime = this.getCombinedTime(endTime, startDate);
 
-        let deal: Card;
+        let deal: GSCard;
 
         if(!this.limitDealNumber){
-            deal = new Card(this.dealEditorFormGroup.get("dealDescription").value, 
+            deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, 
             startDatetime,
             endDatetime,
             -1,//no deal limit
@@ -196,7 +196,7 @@ export class DealEditorComponent{
 
             deal.restaurant = this.authService.currentUser.restaurant;
         }else{
-            deal = new Card(this.dealEditorFormGroup.get("dealDescription").value, 
+            deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, 
             startDatetime,
             endDatetime,
             this.dealEditorFormGroup.get("numberOfDeals").value,

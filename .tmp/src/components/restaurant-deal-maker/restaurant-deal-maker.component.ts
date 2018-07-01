@@ -1,7 +1,7 @@
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
 import { AuthorizationService } from "../../services/authorization.service";
-import { Card } from '../../types/deals.type';
+import { GSCard } from '../../types/deals.type';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ModalController } from 'ionic-angular';
 
@@ -11,13 +11,13 @@ import { ModalController } from 'ionic-angular';
     styleUrls: ['/restaurant-deal-maker.component.scss']
 })
 export class RestaurantDealMakerComponent{
-    public currentCard: Card;
+    public currentCard: GSCard;
 
     public constructor(public authService: AuthorizationService, public dealEditorService: DealEditorService,
         private modalCtrl: ModalController){
         this.authService.generateCardsFromIds();
 
-        this.dealEditorService.currentDealSubject.subscribe((deal: Card) => {
+        this.dealEditorService.currentDealSubject.subscribe((deal: GSCard) => {
             this.currentCard = deal;
         });
     }
@@ -28,7 +28,7 @@ export class RestaurantDealMakerComponent{
         && this.authService.currentUser.cards.length > 0;
     }
 
-    public setCurrentCard(deal: Card){
+    public setCurrentCard(deal: GSCard){
         if(this.currentCard != deal && deal != null){
             this.currentCard = deal;
         
@@ -49,7 +49,7 @@ export class RestaurantDealMakerComponent{
     }
 
     public openProfile(){
-        this.modalCtrl.create(UserProfileComponent).present(); 
+        this.modalCtrl.create(UserProfileComponent, {isRestaurant: true}).present(); 
     }
 }
 

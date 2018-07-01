@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 //import { PictureSourceType } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { Card } from "../../types/deals.type";
+import { GSCard } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
@@ -154,12 +154,12 @@ var DealEditorComponent = (function () {
         var endDatetime = this.getCombinedTime(endTime, startDate);
         var deal;
         if (!this.limitDealNumber) {
-            deal = new Card(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, -1, //no deal limit
+            deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, -1, //no deal limit
             this.dealEditorFormGroup.get("dealType").value);
             deal.restaurant = this.authService.currentUser.restaurant;
         }
         else {
-            deal = new Card(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("numberOfDeals").value, this.dealEditorFormGroup.get("dealType").value);
+            deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("numberOfDeals").value, this.dealEditorFormGroup.get("dealType").value);
             deal.restaurant = this.authService.currentUser.restaurant;
         }
         return deal;

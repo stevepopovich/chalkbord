@@ -1,0 +1,21 @@
+<modal-navbar [restaurntModal]="false" [profileModal]="false"></modal-navbar>
+<ion-content>
+    <img *ngIf="card" class="present-card-image fill" src="{{card.imageURL}}" />
+    <div text-wrap style="padding-right: 16px;">
+        <ion-item (click)="goToLocation()">
+            <h1 class="app-text">{{card.restaurant.name}}</h1>
+            <p  class="app-text">{{card.restaurant.address}}</p>
+        </ion-item>
+        <ion-item *ngIf="card.numberOfDeals > 0">
+            <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this deal!</h2>
+        </ion-item>
+        <ion-item>
+            <h2>{{card.dealDescription}}</h2>
+            <p>{{card.dealStart | date: 'MMM d'}}</p>
+            <p>{{card.dealStart | date: 'h:mm a'}} - {{card.dealEnd | date: 'h:mm a'}}</p>
+        </ion-item>
+        <ion-item>
+            <p>Deal type: {{dealType}}</p>
+        </ion-item>
+    </div>
+</ion-content> 

@@ -13,7 +13,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from './toast.service';
 import { CardDataService } from './card-data.service';
-import { Card } from '../types/deals.type';
+import { GSCard } from '../types/deals.type';
 var AuthorizationService = (function () {
     function AuthorizationService(fireAuth, database, toastService, cardService) {
         this.fireAuth = fireAuth;
@@ -99,7 +99,7 @@ var AuthorizationService = (function () {
                     var deal = deals_1[_i];
                     if (!_this.currentUser.cards) {
                         _this.currentUser.cards = [];
-                        var newCardFromJSON = new Card(null, null, null, null, null, deal);
+                        var newCardFromJSON = new GSCard(null, null, null, null, null, deal);
                         _this.currentUser.cards.push(newCardFromJSON);
                     }
                     else

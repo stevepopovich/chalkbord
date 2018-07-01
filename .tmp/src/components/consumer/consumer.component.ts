@@ -3,18 +3,20 @@ import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy
 import {
     StackConfig,
     SwingStackComponent,
-    SwingCardComponent} from 'angular2-swing';
+    SwingCardComponent,
+    Direction} from 'angular2-swing';
 import { AlertController, PopoverController, ModalController } from 'ionic-angular';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
-import { Card, DealType } from '../../types/deals.type';
+import { GSCard, DealType } from '../../types/deals.type';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
+import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -29,8 +31,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public numberOfCards = 3;
 
-    public restaurantViewCards: Card[];// = new Array<DealModel>(this.numberOfCards);
-    public filteredCards: Card[];
+    public restaurantViewCards: GSCard[];// = new Array<DealModel>(this.numberOfCards);
+    public filteredCards: GSCard[];
 
     public stackConfig: StackConfig;
 
@@ -45,7 +47,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public currentFilter: DealType = null;
 
-    public cards: Card[];
+    public cards: GSCard[];
 
     public cardSubscription: Subscription;
 
@@ -56,15 +58,20 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                offsetY;   
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth/2.5), 1);
+
+                const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth/2.75);
+                const throwoutVertical = Math.abs(offsetY) / (element.offsetHeight/4.5);
+
+                 return Math.min(1, 
+                    Math.sqrt((throwoutHorizontal * throwoutHorizontal) + (throwoutVertical * throwoutVertical)));//pythag
             },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: () => {
-                return 200;
-            }
+                return 50;
+            },      
+            allowedDirections: [Direction.UP, Direction.LEFT, Direction.RIGHT],
         };
     }
     
@@ -74,14 +81,15 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
 
-                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 50).subscribe((cardModels) => {
-                    if(!this.cards){
-                        this.cards = this.cardService.filterNonDuplicateDeals(cardModels as Card[]);
-        
-                        this.filterCards(this.currentFilter);
-                    }
-                    else{
-                        this.authService.findAndUpdateCards(this.restaurantViewCards, cardModels as Card[]);
+                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 1000000).subscribe((cardModels) => {
+                    if(cardModels.length > 0) {
+                        if(!this.cards){
+                            this.cards = this.cardService.filterNonDuplicateDeals(cardModels as GSCard[]);
+            
+                            this.filterCards(this.currentFilter);
+                        }
+                        else
+                            this.authService.findAndUpdateCards(this.restaurantViewCards, cardModels as GSCard[]);
                     }
                 });
             }, (error) => {
@@ -119,6 +127,14 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                 this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)`;
             }
         }
+    }
+
+    public moreInfo(): void {
+        const cardSwipedUp = this.popCard();
+
+        this.modalCtrl.create(MoreCardInfoComponent, {card: cardSwipedUp}).present().then(() => {
+            this.restaurantViewCards.unshift(cardSwipedUp);
+        });
     }
 
     public clickLike(): void {
@@ -178,7 +194,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         this.transitionString = "";
     }
 
-    private popLikeAlert(card: Card): void{
+    private popLikeAlert(card: GSCard): void{
         let likeAlert = this.alert.create({
             buttons:[
                 {
@@ -210,7 +226,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         });
     }
 
-    private popCard(): Card{
+    private popCard(): GSCard{
         var poppedCard = this.restaurantViewCards.shift();
         this.addCardToStack();
         
@@ -218,8 +234,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     private filterCards(type: DealType){
-        this.restaurantViewCards = new Array<Card>();
-        this.filteredCards = new Array<Card>();
+        this.restaurantViewCards = new Array<GSCard>();
+        this.filteredCards = new Array<GSCard>();
         if(type || type == 0){
             this.filteredCards = this.cards.filter((card) => {
                 return card.dealType == type;
@@ -274,6 +290,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     public openProfile(){
-        this.modalCtrl.create(UserProfileComponent).present(); 
+        this.modalCtrl.create(UserProfileComponent, {isRestaurant: false}).present(); 
     }
 }

@@ -1,18 +1,6 @@
-<ion-header *ngIf="!isRestaurant" class="nav-round">
-    <ion-navbar class="navbar-md">
-        <ion-title class="title-big">grabsome</ion-title>
-    </ion-navbar>
-</ion-header>
+<modal-navbar [restaurntModal]="false" [profileModal]="true"></modal-navbar>
 
-<button (click)="closeProfile()" class="close-modal-button" ion-button icon-only>
-    <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>
-</button>
-
-<button (click)="logout()" class="signout-button" ion-button icon-only>
-    <ion-icon ios="md-log-out" md="md-log-out"></ion-icon>
-</button>
-
-<ion-content>
+<ion-content style="margin-top: 4em">
     <ion-item *ngIf="!isRestaurant">
         <ion-label floating>First Name</ion-label>
         <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
@@ -29,5 +17,9 @@
     
     <button (click)="resetPassword()" class="reset-button" outline ion-button>
         reset password
+    </button>
+
+    <button (click)="yourCards()" class="reset-button" outline ion-button>
+        your cards
     </button>
 </ion-content>

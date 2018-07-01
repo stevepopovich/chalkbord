@@ -1,0 +1,13 @@
+<ion-header class="nav-round">
+    <ion-navbar class="navbar-md">
+        <ion-title class="title-big">grabsome</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<button (click)="closeProfile()" class="close-modal-button" ion-button icon-only>
+    <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>
+</button>
+
+<button *ngIf="profileModal" (click)="logout()" class="signout-button" ion-button icon-only>
+    <ion-icon ios="md-log-out" md="md-log-out"></ion-icon>
+</button>

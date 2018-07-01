@@ -1,7 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 import { DeviceService } from "../../services/device.service";
 import { ViewControllerService } from "../../services/view-controller.service";
-import { ModalController, ViewController, Button, NavParams } from "ionic-angular";
+import { ModalController, ViewController, Button, NavParams, App } from "ionic-angular";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser } from "../../types/user.type";
@@ -30,7 +30,7 @@ export class UserProfileComponent {
     constructor(public deviceService: DeviceService, public viewController: ViewControllerService, 
         public modalCtrl: ModalController, public viewCtrl: ViewController, 
         public authService: AuthorizationService, public toastService: ToastService, 
-        private params: NavParams){
+        private params: NavParams, private app: App){
 
         this.isRestaurant = this.params.get("isRestaurant");
 
@@ -128,5 +128,9 @@ export class UserProfileComponent {
         });
 
         toast.present();
+    }
+
+    public yourCards() {
+        this.app.getRootNav().push();
     }
 }

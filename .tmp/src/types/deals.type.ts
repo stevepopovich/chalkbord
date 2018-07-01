@@ -2,7 +2,7 @@ import { Guid } from "./utils.type";
 import { Restaurant } from "./restaurant.type"; 
 import { GSLocation } from "./location.type";
 
-export class Card { 
+export class GSCard { 
     public id: string;
 
     public imageURL: string;
@@ -29,8 +29,8 @@ export class Card {
         return Object.assign({}, this);
     }
 
-    public static getBlankCard(): Card {
-        const blankCard = new Card(null, new Date(), new Date(), -1, DealType.Drinks, null)
+    public static getBlankCard(): GSCard {
+        const blankCard = new GSCard(null, new Date(), new Date(), -1, DealType.Drinks, null)
         blankCard.restaurant = new Restaurant("", "", "", "", new GSLocation());
         return blankCard;
     }

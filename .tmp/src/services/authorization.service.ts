@@ -5,7 +5,7 @@ import { GSUser } from '../types/user.type';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from './toast.service';
 import { CardDataService } from './card-data.service';
-import { Card } from '../types/deals.type';
+import { GSCard } from '../types/deals.type';
 
 @Injectable()
 export class AuthorizationService {
@@ -98,13 +98,13 @@ export class AuthorizationService {
     }
 
     public generateCardsFromIds(): void {
-        this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<Card[]>) => {
-            obDeal.subscribe((deals: Card[]) => {
+        this.cardService.getCardsById(this.currentUser.cardIds).subscribe((obDeal: Observable<GSCard[]>) => {
+            obDeal.subscribe((deals: GSCard[]) => {
                 for(let deal of deals){
                     if(!this.currentUser.cards){
                         this.currentUser.cards = [];
 
-                        const newCardFromJSON = new Card(null, null, null, null, null, deal);
+                        const newCardFromJSON = new GSCard(null, null, null, null, null, deal);
 
                         this.currentUser.cards.push(newCardFromJSON);
                     } else
@@ -128,7 +128,7 @@ export class AuthorizationService {
         this.currentUser.cardIds.splice(currentUserId, 1);
     }
 
-    private updateDealModel(objectToUpdate: Card, updatedObject: Card): void{
+    private updateDealModel(objectToUpdate: GSCard, updatedObject: GSCard): void{
         objectToUpdate.dealDescription = updatedObject.dealDescription;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealStart = updatedObject.dealStart;
@@ -138,7 +138,7 @@ export class AuthorizationService {
         objectToUpdate.restaurant = updatedObject.restaurant;
     }
 
-    public findAndUpdateCards(newDealModels: Card[], oldDealModels: Card[]){
+    public findAndUpdateCards(newDealModels: GSCard[], oldDealModels: GSCard[]){
         newDealModels.forEach((dealModel) => {
             var foundCard = oldDealModels[oldDealModels.findIndex(c => c.id == dealModel.id)];
 

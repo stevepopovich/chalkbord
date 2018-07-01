@@ -39959,6 +39959,21 @@ ion-navbar.toolbar {
   height: 30px;
 }
 
+#preview-card-stack {
+  height: 100%;
+}
+
+#preview-card-stack ion-card {
+  border-radius: 10px;
+  position: absolute;
+  text-align: center;
+  height: 95%;
+  background-color: floralwhite;
+  margin-top: 8px;
+  max-width: 325px;
+  max-height: 450px;
+}
+
 .bottom-row {
   position: absolute;
   bottom: 11px;
@@ -40002,6 +40017,23 @@ ion-navbar.toolbar {
   height: 72%;
   background-color: floralwhite;
   margin-top: 8px;
+}
+
+.card-text {
+  text-align: left;
+  color: white !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,000000+100&0+0,1+100 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(206, 220, 231, 0)), to(black));
+  background: linear-gradient(to bottom, rgba(206, 220, 231, 0) 0%, black 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cedce7', endColorstr='#000000',GradientType=0 );
+  /* IE6-9 */
 }
 
 .non-draggable-card-image {
@@ -40071,23 +40103,6 @@ ion-navbar.toolbar {
   height: 5%;
 }
 
-.card-text {
-  text-align: left;
-  color: white !important;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,000000+100&0+0,1+100 */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(206, 220, 231, 0)), to(black));
-  background: linear-gradient(to bottom, rgba(206, 220, 231, 0) 0%, black 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cedce7', endColorstr='#000000',GradientType=0 );
-  /* IE6-9 */
-}
-
 .loading-div {
   float: left;
   height: 100%;
@@ -40111,6 +40126,44 @@ ion-spinner {
   width: 50%;
 }
 
+.nav-round {
+  font-family: Baumans;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  color: black;
+}
+
+.close-modal-button {
+  z-index: 999;
+  margin-top: -3.5em;
+  font-size: 1.5em;
+  height: 4%;
+}
+
+.signout-button {
+  float: right;
+  margin-top: -43px;
+  z-index: 999;
+  font-size: 20px;
+  height: 4%;
+}
+
+.present-card-image {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  display: block;
+  width: 100%;
+  margin-top: 4em;
+}
+
+.app-text {
+  font-family: Baumans;
+}
+
 .push-list-under-menu-bar {
   margin-top: 4em;
 }
@@ -40121,6 +40174,16 @@ ion-spinner {
 
 .selected-item {
   background-color: silver;
+}
+
+.button-top-right {
+  background-color: black;
+  position: absolute;
+  right: 0;
+  top: 5px;
+  z-index: 10;
+  font-size: 1.5em;
+  height: 5%;
 }
 
 .rest-landing-home-photo {

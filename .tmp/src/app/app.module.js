@@ -14,6 +14,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
+import { MoreCardInfoComponent } from '../components/more-card-info/more-card-info.component';
 import { RestaurantService } from './../services/restaurant-service';
 import { GSCardComponent } from './../components/card/card.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -59,7 +61,7 @@ var MyHammerConfig = (function (_super) {
     function MyHammerConfig() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.overrides = {
-            'swipe': { velocity: 1.3, threshold: 20 } // override default settings
+            'swipe': { velocity: 1.3, threshold: 20 } // override default settings,
         };
         return _this;
     }
@@ -82,7 +84,9 @@ var AppModule = (function () {
                 BrowserHomeComponent,
                 RestaurantLandingComponent,
                 RestaurantProfileComponent,
-                GSCardComponent
+                GSCardComponent,
+                MoreCardInfoComponent,
+                ModalNavbarComponent
             ],
             imports: [
                 BrowserModule,
@@ -119,7 +123,9 @@ var AppModule = (function () {
                 BrowserHomeComponent,
                 RestaurantLandingComponent,
                 RestaurantProfileComponent,
-                GSCardComponent
+                GSCardComponent,
+                MoreCardInfoComponent,
+                ModalNavbarComponent
             ],
             providers: [
                 { provide: ErrorHandler, useClass: IonicErrorHandler },

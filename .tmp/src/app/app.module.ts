@@ -1,3 +1,5 @@
+import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
+import { MoreCardInfoComponent } from '../components/more-card-info/more-card-info.component';
 import { RestaurantService } from './../services/restaurant-service';
 import { GSCardComponent } from './../components/card/card.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -48,7 +50,7 @@ import { Geolocation as IonLocation } from '@ionic-native/geolocation';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
-      'swipe': {velocity: 1.3, threshold: 20} // override default settings
+      'swipe': {velocity: 1.3, threshold: 20} // override default settings,
   }
 }
 
@@ -64,7 +66,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     BrowserHomeComponent,
     RestaurantLandingComponent,
     RestaurantProfileComponent,
-    GSCardComponent
+    GSCardComponent,
+    MoreCardInfoComponent,
+    ModalNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     BrowserHomeComponent,
     RestaurantLandingComponent,
     RestaurantProfileComponent,
-    GSCardComponent
+    GSCardComponent,
+    MoreCardInfoComponent,
+    ModalNavbarComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

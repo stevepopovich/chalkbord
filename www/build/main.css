@@ -40126,6 +40126,49 @@ ion-spinner {
   width: 50%;
 }
 
+.nav-round {
+  font-family: Baumans;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  color: black;
+}
+
+.close-modal-button {
+  z-index: 999;
+  margin-top: -3.5em;
+  font-size: 1.5em;
+  height: 4%;
+}
+
+.signout-button {
+  float: right;
+  margin-top: -43px;
+  z-index: 999;
+  font-size: 20px;
+  height: 4%;
+}
+
+.present-card-image {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  display: block;
+  width: 100%;
+  margin-top: 4em;
+}
+
+.app-text {
+  font-family: Baumans;
+}
+
+.red-text {
+  color: red;
+  font-style: italic;
+}
+
 .push-list-under-menu-bar {
   margin-top: 4em;
 }
