@@ -1,10 +1,12 @@
+import { LoginService } from './../../services/login.service';
+import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
-import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
 import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
+import { UserService } from '../../services/user.service';
 
 const userEmailPasswordComboKey = "userEmailCombo";
 const rememberMeUserKey = "rememberMeUser";
@@ -33,8 +35,9 @@ export class UserSignUpComponent implements AfterViewInit{
     public remembered = false;
 
     public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, 
-        private viewControl: ViewControllerService, private deviceService: DeviceService, 
-        public toastService: ToastService){
+        private deviceService: DeviceService, 
+        public toastService: ToastService, private currentUserService: CurrentUserService, 
+        private userService: UserService, private loginService: LoginService){
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
@@ -50,11 +53,7 @@ export class UserSignUpComponent implements AfterViewInit{
         });
     }
 
-    ngAfterViewInit(): void {//bit of a hack, bit it is for security 
-        if(this.auth.checkUserIsLoggedIn()){//user is logged in, possibly from switching screens
-            this.auth.userSignOut();
-        }
-
+    ngAfterViewInit(): void {
         this.deviceService.getSetting(rememberMeUserKey).then((rememberMe: boolean) => {
             if(rememberMe){
                 this.deviceService.getUserEmailPasswordFromLocalStorage(userEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
@@ -62,7 +61,7 @@ export class UserSignUpComponent implements AfterViewInit{
                         this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
         
-                        this.login();
+                        this.loginService.login(this.userLogInGroup);
                     }
                 });
             }
@@ -82,20 +81,21 @@ export class UserSignUpComponent implements AfterViewInit{
             {
                 var userType: UserType = UserType.Consumer;
     
-                this.auth.checkUserSignInMethods(email).then((methods) => {
+                this.auth.checkSignInMethods(email).then((methods) => {
                     if(!methods || methods.length < 1){//if user not in db
                         this.attemptingSignup = true;
-                        this.auth.signUpUser(email, password).then(() => {
+                        this.auth.signUp(email, password).then(() => {
                             this.auth.signIn(email, password).then(() => {
                                 this.handleRememberMe(this.userSignUpGroup);
 
-                                const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, userType, firstName);
+                                const newUser = new GSUser(this.auth.getCurrentUserUID(), userType, firstName);
             
-                                this.auth.currentUser = newUser;
+                                this.currentUserService.setCurrentUser(newUser);
             
-                                this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
+                                this.userService.updateUserInDatabase(newUser);
+                                //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
 
-                                this.setAppropiateView();
+                                this.loginService.setAppropiateView();
             
                             }).catch((reason) => {//couldn't sign in 
                                 this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
@@ -143,64 +143,7 @@ export class UserSignUpComponent implements AfterViewInit{
     public loginHandler(): void{
         this.handleRememberMe(this.userLogInGroup);
 
-        this.login();
-    }
-
-    public login(): void{
-        if(this.userLogInGroup.valid){
-            this.toastService.showReadableToast("Logging you in...welcome back!");
-
-            const email = this.userLogInGroup.get("email").value;
-
-            this.auth.checkUserSignInMethods(email).then((methods) => {
-                if(methods.length > 0){//if user not in db
-                    this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
-                        this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
-                            this.auth.currentUser = users[0];//there SHOULD be only one
-
-                            this.setAppropiateView();
-                        });
-                    }).catch((reason) => {
-                        this.toastService.showReadableToast("Double check your password");
-
-                        console.error("Sign in didn't work because: " + reason);
-                    });
-                }
-                else{
-                    this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
-
-                    console.error("User does not exist!");
-                }
-            }).catch((reason) => {
-                this.toastService.showReadableToast("Sign in didn't work because: " + reason);
-
-                console.error("User does not exist!");
-            });
-        }
-        else{
-            var display: string = "";
-
-            if(this.userLogInGroup.get("email").invalid)
-                display += "Please be sure your email is formatted correctly. ";
-
-            if(this.userLogInGroup.get("password").invalid)
-                display += "Please be sure your password is at least eight characters long. ";
-
-            this.toastService.showReadableToast(display);
-
-            console.error("Fields are invalid");
-        }
-    }
-
-    public setAppropiateView(): void {
-        if(this.auth.checkCurrentUserType()){
-            this.auth.checkCurrentUserType().subscribe((users: GSUser[]) => {
-                if(users[0].userType == UserType.Restaurant)
-                    this.viewControl.setDealMakerView();
-                else
-                    this.viewControl.setConsumerView();
-            })
-        }
+        this.loginService.login(this.userLogInGroup);
     }
 
     public handleRememberMe(formGroup: FormGroup){
@@ -216,9 +159,9 @@ export class UserSignUpComponent implements AfterViewInit{
         const emailControl = this.userLogInGroup.get("email");
 
         if(emailControl.valid){
-            this.auth.checkUserSignInMethods(emailControl.value).then((methods) => {
+            this.auth.checkSignInMethods(emailControl.value).then((methods) => {
                 if(methods.length > 0){
-                    this.auth.fireAuth.auth.sendPasswordResetEmail(emailControl.value).then(() => {
+                    this.auth.sendPasswordResetEmail(emailControl.value).then(() => {
                         this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
                     }).catch((reason) => {
                         this.toastService.showReadableToast("Sorry, couldn't send you a reset link because: " + reason)

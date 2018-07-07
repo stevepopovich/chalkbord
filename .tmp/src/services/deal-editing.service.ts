@@ -8,6 +8,10 @@ export class DealEditorService {
 
     public currentDealSubject: Subject<GSCard> = new Subject<GSCard>();
 
+    public deleteDealSubject: Subject<GSCard> = new Subject<GSCard>();
+
+    public addDealSubject: Subject<GSCard> = new Subject<GSCard>();
+
     public setCurrentDeal(deal: GSCard){
         this.currentDealBeingEdited = deal;
 

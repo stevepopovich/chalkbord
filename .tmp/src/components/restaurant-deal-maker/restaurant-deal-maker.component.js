@@ -7,26 +7,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { CurrentUserService } from './../../services/current-user.service';
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
-import { AuthorizationService } from "../../services/authorization.service";
+import { GSCard } from '../../types/deals.type';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ModalController } from 'ionic-angular';
 var RestaurantDealMakerComponent = (function () {
-    function RestaurantDealMakerComponent(authService, dealEditorService, modalCtrl) {
+    function RestaurantDealMakerComponent(dealEditorService, modalCtrl, currentUserService) {
         var _this = this;
-        this.authService = authService;
         this.dealEditorService = dealEditorService;
         this.modalCtrl = modalCtrl;
-        this.authService.generateCardsFromIds();
+        this.currentUserService = currentUserService;
+        this.cardList = [];
+        this.currentUserService.getCards().subscribe(function (deals) {
+            GSCard.findAndUpdateCards(deals, _this.cardList);
+        });
         this.dealEditorService.currentDealSubject.subscribe(function (deal) {
+            _this.currentCard = deal;
+        });
+        this.dealEditorService.deleteDealSubject.subscribe(function (deal) {
+            _this.cardList.splice(_this.cardList.indexOf(deal), 1);
+        });
+        this.dealEditorService.addDealSubject.subscribe(function (deal) {
+            _this.cardList.push(deal);
             _this.currentCard = deal;
         });
     }
     RestaurantDealMakerComponent.prototype.hasCards = function () {
-        return this.authService.currentUser
-            && this.authService.currentUser.cards
-            && this.authService.currentUser.cards.length > 0;
+        return this.cardList.length > 0;
     };
     RestaurantDealMakerComponent.prototype.setCurrentCard = function (deal) {
         if (this.currentCard != deal && deal != null) {
@@ -48,12 +57,12 @@ var RestaurantDealMakerComponent = (function () {
         this.modalCtrl.create(UserProfileComponent, { isRestaurant: true }).present();
     };
     RestaurantDealMakerComponent = __decorate([
-        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of authService.currentUser.cards" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">\n        Add some cards and see them here!\n    </div>\n</ion-content>\n\n<button (click)="openProfile()" class="button-top-right" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of cardList" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">\n        Add some cards and see them here!\n    </div>\n</ion-content>\n\n<button (click)="openProfile()" class="button-top-right" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/restaurant-deal-maker/restaurant-deal-maker.component.html"*/,
             selector: 'restaurant-deal-maker',
             styleUrls: ['/restaurant-deal-maker.component.scss']
         }),
-        __metadata("design:paramtypes", [AuthorizationService, DealEditorService,
-            ModalController])
+        __metadata("design:paramtypes", [DealEditorService,
+            ModalController, CurrentUserService])
     ], RestaurantDealMakerComponent);
     return RestaurantDealMakerComponent;
 }());

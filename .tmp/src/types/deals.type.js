@@ -28,6 +28,31 @@ var GSCard = (function () {
         blankCard.restaurant = new Restaurant("", "", "", "", new GSLocation());
         return blankCard;
     };
+    GSCard.updateDealModel = function (objectToUpdate, updatedObject) {
+        objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealStart = updatedObject.dealStart;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealType = updatedObject.dealType;
+        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.restaurant = updatedObject.restaurant;
+    };
+    GSCard.findAndUpdateCards = function (incomingCards, cardsToManipulate) {
+        incomingCards.forEach(function (dealModel) {
+            var foundCard = cardsToManipulate[cardsToManipulate.findIndex(function (c) { return c.id == dealModel.id; })];
+            if (foundCard)
+                GSCard.updateDealModel(foundCard, dealModel);
+            else
+                cardsToManipulate.push(dealModel);
+        });
+        // for(var i: number = 0; 0 < cardsToManipulate.length; i++) {
+        //     const foundCard = incomingCards[incomingCards.findIndex(c => c.id == cardsToManipulate[i].id)];
+        //     if(!foundCard){
+        //         cardsToManipulate.splice(i, 1);
+        //         i--;
+        //     }
+        // }
+    };
     return GSCard;
 }());
 export { GSCard };

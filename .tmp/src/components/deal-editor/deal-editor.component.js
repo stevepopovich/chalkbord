@@ -7,32 +7,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { CurrentUserService } from './../../services/current-user.service';
 //import { PictureSourceType } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { GSCard } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
-import { AuthorizationService } from "../../services/authorization.service";
 import { DealEditorService } from "../../services/deal-editing.service";
 import { Platform, ActionSheetController } from "ionic-angular";
 import { IonicScreenSize } from "../../enums/ionic-screen-sizes.enum";
 import { IonicPlatform } from '../../enums/ionic-platform.enum';
 import { ImageService } from '../../services/image-service.service';
+import { UserService } from '../../services/user.service';
 var DealEditorComponent = (function () {
-    function DealEditorComponent(cardService, formBuilder, uploader, authService, dealEditorService, platform, actionSheetCtrl, imageService) {
+    function DealEditorComponent(cardService, formBuilder, uploader, dealEditorService, userService, platform, actionSheetCtrl, imageService, currentUserService) {
         var _this = this;
         this.cardService = cardService;
         this.formBuilder = formBuilder;
         this.uploader = uploader;
-        this.authService = authService;
         this.dealEditorService = dealEditorService;
+        this.userService = userService;
         this.platform = platform;
         this.actionSheetCtrl = actionSheetCtrl;
         this.imageService = imageService;
+        this.currentUserService = currentUserService;
         this.limitDealNumber = false;
         this.fileReader = new FileReader();
-        this.dealEditorFormGroup = formBuilder.group({
+        this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
             numberOfDeals: ['', Validators.compose([Validators.maxLength(1000), Validators.pattern('[0-9 ]*')])],
             limitedDealNumber: [''],
@@ -58,24 +60,21 @@ var DealEditorComponent = (function () {
     };
     DealEditorComponent.prototype.delete = function () {
         this.cardService.deleteCardById(this.dealEditorService.currentDealBeingEdited.id);
-        this.authService.removeUserCardFromCurrentListById(this.dealEditorService.currentDealBeingEdited.id);
+        this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
         this.imageDataForPreview = null;
         this.imageDataForUpload = null;
     };
     DealEditorComponent.prototype.add = function () {
-        var _this = this;
         if (this.dealEditorFormGroup.valid && this.imageDataForUpload) {
-            var deal_1 = this.getDealFromFields();
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal_1.id, false).then(function () {
-                _this.imageDataForUpload = null;
-                _this.dealEditorService.currentDealBeingEdited = deal_1;
-                _this.dealEditorService.currentDealSubject.next();
-                _this.setCurrentCardBeingEdited(deal_1);
-            });
-            this.cardService.addCard(deal_1);
-            this.authService.addCardIdToCurrentUser(deal_1.id);
+            var deal = this.getDealFromFields();
+            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false);
+            this.imageDataForUpload = null;
+            this.dealEditorService.addDealSubject.next(deal);
+            this.cardService.addCard(deal);
+            this.currentUserService.addCardId(deal.id);
+            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
         }
     };
     DealEditorComponent.prototype.save = function () {
@@ -156,11 +155,11 @@ var DealEditorComponent = (function () {
         if (!this.limitDealNumber) {
             deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, -1, //no deal limit
             this.dealEditorFormGroup.get("dealType").value);
-            deal.restaurant = this.authService.currentUser.restaurant;
+            deal.restaurant = this.currentUserService.getCurrentUser().restaurant;
         }
         else {
             deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("numberOfDeals").value, this.dealEditorFormGroup.get("dealType").value);
-            deal.restaurant = this.authService.currentUser.restaurant;
+            deal.restaurant = this.currentUserService.getCurrentUser().restaurant;
         }
         return deal;
     };
@@ -197,6 +196,7 @@ var DealEditorComponent = (function () {
         this.fileReader.abort();
     };
     DealEditorComponent.prototype.reportBadFields = function () {
+        //this.
     };
     __decorate([
         ViewChild('hiddenFileInput'),
@@ -208,8 +208,9 @@ var DealEditorComponent = (function () {
             styleUrls: ['/deal-editor.component.scss']
         }),
         __metadata("design:paramtypes", [CardDataService, FormBuilder, UploadService,
-            AuthorizationService, DealEditorService,
-            Platform, ActionSheetController, ImageService])
+            DealEditorService, UserService,
+            Platform, ActionSheetController, ImageService,
+            CurrentUserService])
     ], DealEditorComponent);
     return DealEditorComponent;
 }());

@@ -1,15 +1,16 @@
+import { CurrentUserService } from './../../services/current-user.service';
 //import { PictureSourceType } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { GSCard } from "../../types/deals.type";
 import { CardDataService } from "../../services/card-data.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
-import { AuthorizationService } from "../../services/authorization.service";
 import { DealEditorService } from "../../services/deal-editing.service";
 import { Platform, ActionSheetController } from "ionic-angular";
 import { IonicScreenSize } from "../../enums/ionic-screen-sizes.enum";
 import { IonicPlatform } from '../../enums/ionic-platform.enum';
 import { ImageService } from '../../services/image-service.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
     templateUrl: './deal-editor.component.html',
@@ -33,11 +34,12 @@ export class DealEditorComponent{
     public platformReady: boolean;
 
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
-                    public authService: AuthorizationService, public dealEditorService: DealEditorService, 
-                    private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService){
-        this.dealEditorFormGroup = formBuilder.group({
+                    private dealEditorService: DealEditorService, private userService: UserService,
+                    private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
+                    private currentUserService: CurrentUserService){
+        this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
-            numberOfDeals: ['', Validators.compose([Validators.maxLength(1000), Validators.pattern('[0-9 ]*')])],
+            numberOfDeals: [''],
             limitedDealNumber: [''],
             dealDay: ['', Validators.required],
             dealStart: ['', Validators.required],
@@ -66,7 +68,7 @@ export class DealEditorComponent{
 
     public delete(){
         this.cardService.deleteCardById(this.dealEditorService.currentDealBeingEdited.id);
-        this.authService.removeUserCardFromCurrentListById(this.dealEditorService.currentDealBeingEdited.id);
+        this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
         this.imageDataForPreview = null;
@@ -77,20 +79,20 @@ export class DealEditorComponent{
         if(this.dealEditorFormGroup.valid && this.imageDataForUpload){
             const deal = this.getDealFromFields();
 
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false).then(() => {
-                this.imageDataForUpload = null;
-                this.dealEditorService.currentDealBeingEdited = deal;
-                this.dealEditorService.currentDealSubject.next();
-                this.setCurrentCardBeingEdited(deal);
-            });
+            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false);
+            this.imageDataForUpload = null;
+
+            this.dealEditorService.addDealSubject.next(deal);
 
             this.cardService.addCard(deal);
-
-            this.authService.addCardIdToCurrentUser(deal.id);
+            this.currentUserService.addCardId(deal.id);
+            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
         }
     }
 
     public save(){
+        console.log("saving");
+        this.dealEditorFormGroup.updateValueAndValidity();
         if(this.dealEditorFormGroup.valid){ 
             var deal: GSCard = this.getDealFromFields();
 
@@ -194,7 +196,7 @@ export class DealEditorComponent{
             -1,//no deal limit
             this.dealEditorFormGroup.get("dealType").value); 
 
-            deal.restaurant = this.authService.currentUser.restaurant;
+            deal.restaurant = this.currentUserService.getCurrentUser().restaurant;
         }else{
             deal = new GSCard(this.dealEditorFormGroup.get("dealDescription").value, 
             startDatetime,
@@ -202,7 +204,7 @@ export class DealEditorComponent{
             this.dealEditorFormGroup.get("numberOfDeals").value,
             this.dealEditorFormGroup.get("dealType").value);
 
-            deal.restaurant = this.authService.currentUser.restaurant;
+            deal.restaurant = this.currentUserService.getCurrentUser().restaurant;
         }
 
         return deal;
@@ -261,6 +263,6 @@ export class DealEditorComponent{
     }
 
     private reportBadFields() {
-
+        //this.
     }
 }

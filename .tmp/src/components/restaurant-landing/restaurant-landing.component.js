@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
-import { ViewControllerService } from "../../services/view-controller.service";
 import { DeviceService } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
@@ -18,18 +17,23 @@ import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
 import { GSLocation } from "../../types/location.type";
 import { RestaurantService } from "../../services/restaurant-service";
+import { CurrentUserService } from "../../services/current-user.service";
+import { UserService } from "../../services/user.service";
+import { LoginService } from "../../services/login.service";
 var restEmailPasswordComboKey = "restEmailCombo";
 var rememberMeRestKey = "rememberMeRest";
 var RestaurantLandingComponent = (function () {
-    function RestaurantLandingComponent(formBuilder, auth, viewControl, deviceService, toastService, alert, restaurantService) {
+    function RestaurantLandingComponent(formBuilder, auth, deviceService, loginService, toastService, alert, restaurantService, currentUserService, userService) {
         var _this = this;
         this.formBuilder = formBuilder;
         this.auth = auth;
-        this.viewControl = viewControl;
         this.deviceService = deviceService;
+        this.loginService = loginService;
         this.toastService = toastService;
         this.alert = alert;
         this.restaurantService = restaurantService;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
         this.rememberMeLogIn = false;
         this.rememberMeSignUp = false;
         this.userLogInGroup = this.formBuilder.group({
@@ -54,13 +58,12 @@ var RestaurantLandingComponent = (function () {
                     if (emailPasswordTup) {
                         _this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         _this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
-                        _this.login();
+                        _this.loginService.login(_this.userLogInGroup);
                     }
                 });
             }
         });
     }
-    ;
     RestaurantLandingComponent.prototype.ngAfterViewInit = function () {
         this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
     };
@@ -69,49 +72,13 @@ var RestaurantLandingComponent = (function () {
     };
     RestaurantLandingComponent.prototype.loginHandler = function () {
         this.handleRememberMe(this.userLogInGroup);
-        this.login();
+        this.loginService.login(this.userLogInGroup);
     };
     RestaurantLandingComponent.prototype.handleRememberMe = function (formGroup) {
         var rememberMe = formGroup.get("rememberMe").value;
         this.deviceService.putSetting(rememberMeRestKey, rememberMe);
         if (rememberMe)
             this.deviceService.putUserEmailPasswordToLocalStorage(restEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
-    };
-    RestaurantLandingComponent.prototype.login = function () {
-        var _this = this;
-        if (this.userLogInGroup.valid) {
-            this.toastService.showReadableToast("Logging you in...welcome back!");
-            var email_1 = this.userLogInGroup.get("email").value;
-            this.auth.checkUserSignInMethods(email_1).then(function (methods) {
-                if (methods.length > 0) {
-                    _this.auth.signIn(email_1, _this.userLogInGroup.get("password").value).then(function () {
-                        _this.auth.getCurrentUserData().subscribe(function (users) {
-                            _this.auth.currentUser = users[0]; //there SHOULD be only one
-                            _this.setAppropiateView();
-                        });
-                    }).catch(function (reason) {
-                        _this.toastService.showReadableToast("Double check your password");
-                        console.error("Sign in didn't work because: " + reason);
-                    });
-                }
-                else {
-                    _this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
-                    console.error("User does not exist!");
-                }
-            }).catch(function (reason) {
-                _this.toastService.showReadableToast("Sign in didn't work because: " + reason);
-                console.error("User does not exist!");
-            });
-        }
-        else {
-            var display = "";
-            if (this.userLogInGroup.get("email").invalid)
-                display += "Please be sure your email is formatted correctly. ";
-            if (this.userLogInGroup.get("password").invalid)
-                display += "Please be sure your password is at least eight characters long. ";
-            this.toastService.showReadableToast(display);
-            console.error("Fields are invalid");
-        }
     };
     RestaurantLandingComponent.prototype.signUp = function () {
         var _this = this;
@@ -136,7 +103,7 @@ var RestaurantLandingComponent = (function () {
         }
         else {
             var display = "";
-            display = "One or more of your fields are messed up!";
+            display = "One or more of your fields are messed up!"; //TODO
             // if(this.restSignUpGroup.get("email").invalid)//TODO
             //     display += "Please be sure your email is formatted correctly. ";
             // if(this.restSignUpGroup.get("password").invalid)
@@ -197,18 +164,19 @@ var RestaurantLandingComponent = (function () {
         var confrimPassword = this.restSignUpGroup.get("confirmPassword").value;
         var restaurantName = this.restSignUpGroup.get("name").value;
         if (password == confrimPassword) {
-            this.auth.checkUserSignInMethods(email).then(function (methods) {
+            this.auth.checkSignInMethods(email).then(function (methods) {
                 if (!methods || methods.length < 1) {
-                    _this.auth.signUpUser(email, password).then(function () {
+                    _this.auth.signUp(email, password).then(function () {
                         _this.auth.signIn(email, password).then(function () {
                             _this.handleRememberMe(_this.restSignUpGroup);
-                            var newUser = new GSUser(_this.auth.fireAuth.auth.currentUser.uid, UserType.Restaurant, restaurantName);
-                            var newRestaurantModel = new Restaurant(_this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
+                            var newUser = new GSUser(_this.auth.getCurrentUserUID(), UserType.Restaurant, restaurantName);
+                            var newRestaurantModel = new Restaurant(_this.auth.getCurrentUserUID(), restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
                             newUser.restaurant = newRestaurantModel;
-                            _this.auth.currentUser = newUser;
-                            _this.restaurantService.restaurantCollection.doc(_this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
-                            _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
-                            _this.setAppropiateView();
+                            _this.currentUserService.setCurrentUser(newUser);
+                            _this.restaurantService.restaurantCollection.doc(_this.auth.getCurrentUserUID()).set(newRestaurantModel.getAsPlainObject());
+                            _this.userService.updateUserInDatabase(newUser);
+                            //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
+                            _this.loginService.setAppropiateView();
                         }).catch(function (reason) {
                             _this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
                             console.error("Sign up failed because: " + reason);
@@ -232,12 +200,6 @@ var RestaurantLandingComponent = (function () {
             console.error("Passwords do not match");
         }
     };
-    RestaurantLandingComponent.prototype.setAppropiateView = function () {
-        if (this.auth.currentUser.userType == UserType.Restaurant)
-            this.viewControl.setRestaurantHome();
-        else
-            this.viewControl.setConsumerView();
-    };
     __decorate([
         ViewChild('signUpCard'),
         __metadata("design:type", ElementRef)
@@ -248,8 +210,9 @@ var RestaurantLandingComponent = (function () {
             styleUrls: ['/restaurant-landing.component.scss']
         }),
         __metadata("design:paramtypes", [FormBuilder, AuthorizationService,
-            ViewControllerService, DeviceService,
-            ToastService, AlertController, RestaurantService])
+            DeviceService, LoginService,
+            ToastService, AlertController, RestaurantService,
+            CurrentUserService, UserService])
     ], RestaurantLandingComponent);
     return RestaurantLandingComponent;
 }());

@@ -1,3 +1,5 @@
+import { LoginService } from './../services/login.service';
+import { CurrentUserService } from './../services/current-user.service';
 import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
 import { MoreCardInfoComponent } from '../components/more-card-info/more-card-info.component';
 import { RestaurantService } from './../services/restaurant-service';
@@ -47,6 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
 import { DealEditorService } from '../services/deal-editing.service';
 import { Geolocation as IonLocation } from '@ionic-native/geolocation';
+import { UserService } from '../services/user.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -90,6 +93,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
       storageBucket: "locale-4112a.appspot.com",
       messagingSenderId: "9042973249"
     }),
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,     
@@ -125,13 +129,16 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ImageService,
     Camera,
     UploadService,
-    ViewControllerService,
+    ViewControllerService, //
     UniqueDeviceID,
     DeviceService,
     ToastService,
     DealEditorService,
     IonLocation,
-    RestaurantService
+    RestaurantService,
+    UserService,
+    CurrentUserService,
+    LoginService
   ]
 })
 export class AppModule { }

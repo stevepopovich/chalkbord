@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
-import { ViewControllerService } from "../../services/view-controller.service";
 import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
@@ -9,6 +8,9 @@ import { AlertController } from "ionic-angular";
 import { Restaurant } from "../../types/restaurant.type";
 import { GSLocation } from "../../types/location.type";
 import { RestaurantService } from "../../services/restaurant-service";
+import { CurrentUserService } from "../../services/current-user.service";
+import { UserService } from "../../services/user.service";
+import { LoginService } from "../../services/login.service";
 
 const restEmailPasswordComboKey = "restEmailCombo";
 const rememberMeRestKey = "rememberMeRest";
@@ -23,15 +25,16 @@ export class RestaurantLandingComponent implements AfterViewInit {
     public restSignUpGroup: FormGroup;
 
     public rememberMeLogIn: boolean = false;
-    public rememberMeSignUp: boolean = false;;
+    public rememberMeSignUp: boolean = false;
 
     public map: google.maps.Map;
 
     @ViewChild('signUpCard') signUpCard: ElementRef;
 
-    constructor(public formBuilder: FormBuilder, private auth: AuthorizationService, 
-        private viewControl: ViewControllerService, private deviceService: DeviceService,
-        public toastService: ToastService, public alert: AlertController, private restaurantService: RestaurantService) {
+    constructor(public formBuilder: FormBuilder, private auth: AuthorizationService,
+        private deviceService: DeviceService, private loginService: LoginService,
+        public toastService: ToastService, private alert: AlertController, private restaurantService: RestaurantService,
+        private currentUserService: CurrentUserService, private userService: UserService) {
         this.userLogInGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
@@ -57,7 +60,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
                         this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
         
-                        this.login();
+                        this.loginService.login(this.userLogInGroup);
                     }
                 });
             }
@@ -75,7 +78,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
     public loginHandler(): void {
         this.handleRememberMe(this.userLogInGroup);
 
-        this.login();
+        this.loginService.login(this.userLogInGroup);
     }
 
     public handleRememberMe(formGroup: FormGroup){
@@ -85,52 +88,6 @@ export class RestaurantLandingComponent implements AfterViewInit {
 
         if(rememberMe)
             this.deviceService.putUserEmailPasswordToLocalStorage(restEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
-    }
-
-    public login() {
-        if(this.userLogInGroup.valid){
-            this.toastService.showReadableToast("Logging you in...welcome back!");
-
-            const email = this.userLogInGroup.get("email").value;
-
-            this.auth.checkUserSignInMethods(email).then((methods) => {
-                if(methods.length > 0){//if user not in db
-                    this.auth.signIn(email, this.userLogInGroup.get("password").value,).then(() => {
-                        this.auth.getCurrentUserData().subscribe((users: GSUser[]) => {
-                            this.auth.currentUser = users[0];//there SHOULD be only one
-                            
-                            this.setAppropiateView();
-                        });
-                    }).catch((reason) => {
-                        this.toastService.showReadableToast("Double check your password");
-
-                        console.error("Sign in didn't work because: " + reason);
-                    });
-                }
-                else{
-                    this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
-
-                    console.error("User does not exist!");
-                }
-            }).catch((reason) => {
-                this.toastService.showReadableToast("Sign in didn't work because: " + reason);
-
-                console.error("User does not exist!");
-            });
-        }
-        else{
-            var display: string = "";
-
-            if(this.userLogInGroup.get("email").invalid)
-                display += "Please be sure your email is formatted correctly. ";
-
-            if(this.userLogInGroup.get("password").invalid)
-                display += "Please be sure your password is at least eight characters long. ";
-
-            this.toastService.showReadableToast(display);
-
-            console.error("Fields are invalid");
-        }
     }
 
     public signUp(): void {
@@ -160,7 +117,7 @@ export class RestaurantLandingComponent implements AfterViewInit {
         } else {
             var display: string = "";
     
-            display = "One or more of your fields are messed up!";
+            display = "One or more of your fields are messed up!";//TODO
     
             // if(this.restSignUpGroup.get("email").invalid)//TODO
             //     display += "Please be sure your email is formatted correctly. ";
@@ -227,25 +184,26 @@ export class RestaurantLandingComponent implements AfterViewInit {
         const restaurantName: string = this.restSignUpGroup.get("name").value;
 
         if(password == confrimPassword) {
-            this.auth.checkUserSignInMethods(email).then((methods) => {
+            this.auth.checkSignInMethods(email).then((methods) => {
                 if(!methods || methods.length < 1){//if user not in db
-                    this.auth.signUpUser(email, password).then(() => {
+                    this.auth.signUp(email, password).then(() => {
                         this.auth.signIn(email, password).then(() => {
                             this.handleRememberMe(this.restSignUpGroup);
 
-                            const newUser = new GSUser(this.auth.fireAuth.auth.currentUser.uid, UserType.Restaurant, restaurantName);
+                            const newUser = new GSUser(this.auth.getCurrentUserUID(), UserType.Restaurant, restaurantName);
                             
-                            const newRestaurantModel = new Restaurant(this.auth.fireAuth.auth.currentUser.uid, restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
+                            const newRestaurantModel = new Restaurant(this.auth.getCurrentUserUID(), restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
                     
                             newUser.restaurant = newRestaurantModel;
                     
-                            this.auth.currentUser = newUser;
+                            this.currentUserService.setCurrentUser(newUser);
                     
-                            this.restaurantService.restaurantCollection.doc(this.auth.fireAuth.auth.currentUser.uid).set(newRestaurantModel.getAsPlainObject());
+                            this.restaurantService.restaurantCollection.doc(this.auth.getCurrentUserUID()).set(newRestaurantModel.getAsPlainObject());
 
-                            this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
+                            this.userService.updateUserInDatabase(newUser);
+                            //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
                     
-                            this.setAppropiateView();
+                            this.loginService.setAppropiateView();
                         }).catch((reason) => {//couldn't sign in 
                             this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
 
@@ -273,12 +231,5 @@ export class RestaurantLandingComponent implements AfterViewInit {
 
             console.error("Passwords do not match");
         }
-    }
-
-    private setAppropiateView(){
-        if(this.auth.currentUser.userType == UserType.Restaurant)
-            this.viewControl.setRestaurantHome();
-        else
-            this.viewControl.setConsumerView();
     }
 }

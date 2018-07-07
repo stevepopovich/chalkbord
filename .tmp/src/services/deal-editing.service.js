@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 var DealEditorService = (function () {
     function DealEditorService() {
         this.currentDealSubject = new Subject();
+        this.deleteDealSubject = new Subject();
+        this.addDealSubject = new Subject();
     }
     DealEditorService.prototype.setCurrentDeal = function (deal) {
         this.currentDealBeingEdited = deal;

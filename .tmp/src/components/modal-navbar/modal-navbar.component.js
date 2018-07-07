@@ -19,8 +19,6 @@ var ModalNavbarComponent = (function () {
         this.ionicViewController = ionicViewController;
         this.deviceService = deviceService;
         this.viewControllerService = viewControllerService;
-        //this.restaurntModal = this.params.get("restaurntModal");
-        //this.profileModal = this.params.get("profileModal");
     }
     ModalNavbarComponent.prototype.logout = function () {
         var _this = this;

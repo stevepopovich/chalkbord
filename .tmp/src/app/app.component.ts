@@ -7,19 +7,18 @@ import { Platform } from 'ionic-angular';
 @Component({
   templateUrl: 'app.template.html'
 })
-
 export class LocaleApp {
 
   constructor(private statusBar: StatusBar, private auth: AuthorizationService, 
-    private viewControl: ViewControllerService, public platform: Platform) {
+    public viewControl: ViewControllerService, private platform: Platform) {
 
     if(this.platform.is("core")){
       this.viewControl.setBrowserHome();
-    }else{
+    } else {
       this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByName("black");
   
-      if(!this.auth.checkUserIsLoggedIn()){
+      if(!this.auth.checkLoggedIn()){
         this.viewControl.setSignUpView();
       }
     }

@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { merge } from 'rxjs';
 var CardDataService = (function () {
     function CardDataService(database) {
         this.database = database;
@@ -30,28 +29,37 @@ var CardDataService = (function () {
         this.cardDoc.doc(data.id).set(Object.assign({}, data.getAsPlainObject()));
     };
     CardDataService.prototype.getCardsById = function (ids) {
-        var observables = [];
-        var _loop_1 = function (id) {
-            observables.push(this_1.database.collection("cards", function (ref) { return ref.where("id", "==", id); }).valueChanges());
-        };
-        var this_1 = this;
-        for (var _i = 0, ids_1 = ids; _i < ids_1.length; _i++) {
-            var id = ids_1[_i];
-            _loop_1(id);
+        if (ids && ids.length > 0) {
+            var observables = [];
+            var _loop_1 = function (id) {
+                observables.push(this_1.database.collection("cards", function (ref) { return ref.where("id", "==", id); }).valueChanges());
+            };
+            var this_1 = this;
+            for (var _i = 0, ids_1 = ids; _i < ids_1.length; _i++) {
+                var id = ids_1[_i];
+                _loop_1(id);
+            }
+            var allCardsObservableMerged = Observable.merge.apply(Observable, observables); //so if you just pass it an array
+            //you get an Observable<Observable<>> but if you add ... it passes each observable seperately giving a single observable out
+            return allCardsObservableMerged;
         }
-        var allCardsObservableMerged = merge(observables);
-        return allCardsObservableMerged;
+        else
+            return Observable.of([]);
     };
+    //gets all cards in the collection within the radius passed
+    //TODO: actaully test this, I am not sure these calculations make any sense
     CardDataService.prototype.getCardsByLatLng = function (location, radiusInKM) {
         var distanceInKMAverageBetweenLatitudes = 111.045;
         var latitudeRadiusLength = radiusInKM / distanceInKMAverageBetweenLatitudes;
-        var radiusOfEarthInKM = 6371;
+        var radiusOfEarthInKM = 6371; //arguable, the earth isn't perfactable sphereical
         var bearingClockwiseFromNorthInRadians = 1.5708; //90 degrees
         var distanceOverRadius = radiusInKM / radiusOfEarthInKM;
         var newLat = Math.asin(Math.sin(location.lat) * Math.cos(distanceOverRadius) +
             Math.cos(location.lat) * Math.sin(distanceOverRadius) * Math.cos(bearingClockwiseFromNorthInRadians));
-        var newLng = location.lng + Math.atan2(Math.sin(bearingClockwiseFromNorthInRadians) * Math.sin(distanceOverRadius) * Math.cos(location.lat), Math.cos(distanceOverRadius) - Math.sin(location.lat) * Math.sin(newLat));
+        var newLng = location.lng + Math.atan2(Math.sin(bearingClockwiseFromNorthInRadians) * Math.sin(distanceOverRadius) * Math.cos(location.lat), Math.cos(distanceOverRadius) - Math.sin(location.lat) * Math.sin(newLat)); //this is some famous calculation
+        //that takes a LatLng, bearing and distance and gives you a new LatLng
         var changeInLng = Math.abs(newLng - location.lng);
+        //get two different deal chains because firebase can't .where across different properties in a collection
         var latDeals = this.database.collection("cards", function (ref) { return ref.where("restaurant.location.lat", "<=", (location.lat + latitudeRadiusLength))
             .where("restaurant.location.lat", ">=", (location.lat - latitudeRadiusLength)); }).valueChanges();
         var lngDeals = this.database.collection("cards", function (ref) { return ref.where("restaurant.location.lng", "<=", (location.lng + changeInLng))

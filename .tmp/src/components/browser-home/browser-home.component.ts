@@ -8,7 +8,7 @@ import { ViewControllerService } from "../../services/view-controller.service";
 })
 export class BrowserHomeComponent{
 
-    constructor(public viewController: ViewControllerService){
+    constructor(private viewController: ViewControllerService){
 
     }
 

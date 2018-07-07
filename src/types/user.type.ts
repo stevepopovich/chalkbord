@@ -1,6 +1,7 @@
 import { GSCard } from "./deals.type";
 import { Restaurant } from "./restaurant.type";
 import { Guid } from "./utils.type";
+import { Observable } from "rxjs";
 
 export class GSUser{
     public uid: string;//from firebase auth
@@ -8,7 +9,7 @@ export class GSUser{
     public userType: UserType;
     public cardIds?: Guid[];
     public restaurant?: Restaurant;
-    public cards?: GSCard[];
+    public cards?: Observable<GSCard[]>;
     public radius?: number; 
 
     public constructor(uid: string, userType: UserType, firstName: string){

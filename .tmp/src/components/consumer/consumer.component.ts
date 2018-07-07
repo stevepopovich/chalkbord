@@ -1,3 +1,5 @@
+import { GSCard, DealType } from './../../types/deals.type';
+import { CurrentUserService } from './../../services/current-user.service';
 import { GSLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import {
@@ -11,12 +13,12 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
-import { GSCard, DealType } from '../../types/deals.type';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -55,10 +57,10 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     constructor (private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, 
-        private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation) {
+        private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
+        private currentUserService: CurrentUserService, private userService: UserService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth/2.75);
                 const throwoutVertical = Math.abs(offsetY) / (element.offsetHeight/4.5);
 
@@ -76,7 +78,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
     
     public ngAfterViewInit(): void {
-        if(this.authService.checkUserIsLoggedIn){
+        if(this.authService.checkLoggedIn){
             this.geolocation.watchPosition().subscribe((resp) => {
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
@@ -89,7 +91,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                             this.filterCards(this.currentFilter);
                         }
                         else
-                            this.authService.findAndUpdateCards(this.restaurantViewCards, cardModels as GSCard[]);
+                            GSCard.findAndUpdateCards(this.restaurantViewCards, cardModels as GSCard[]);
                     }
                 });
             }, (error) => {
@@ -130,7 +132,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     public moreInfo(): void {
-        const cardSwipedUp = this.popCard();
+        const cardSwipedUp = this.restaurantViewCards.shift();
 
         this.modalCtrl.create(MoreCardInfoComponent, {card: cardSwipedUp}).present().then(() => {
             this.restaurantViewCards.unshift(cardSwipedUp);
@@ -186,8 +188,14 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     private handleCard(like: boolean){
-        if(like)
-            this.popLikeAlert(this.popCard());
+        if(like){
+            const poppedCard = this.popCard();
+
+            this.popLikeAlert(poppedCard);
+
+            this.currentUserService.addCardId(poppedCard.id);
+            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+        }
         else
             this.popCard();
 

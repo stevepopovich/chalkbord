@@ -7,22 +7,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { LoginService } from './../../services/login.service';
+import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Validators, FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
-import { ViewControllerService } from "../../services/view-controller.service";
 import { GSUser, UserType } from '../../types/user.type';
 import { DeviceService } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
+import { UserService } from '../../services/user.service';
 var userEmailPasswordComboKey = "userEmailCombo";
 var rememberMeUserKey = "rememberMeUser";
 var UserSignUpComponent = (function () {
-    function UserSignUpComponent(formBuilder, auth, viewControl, deviceService, toastService) {
+    function UserSignUpComponent(formBuilder, auth, deviceService, toastService, currentUserService, userService, loginService) {
         this.formBuilder = formBuilder;
         this.auth = auth;
-        this.viewControl = viewControl;
         this.deviceService = deviceService;
         this.toastService = toastService;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
+        this.loginService = loginService;
         this.signingUp = true;
         this.isRest = false;
         this.attemptingSignup = false;
@@ -43,16 +47,13 @@ var UserSignUpComponent = (function () {
     }
     UserSignUpComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        if (this.auth.checkUserIsLoggedIn()) {
-            this.auth.userSignOut();
-        }
         this.deviceService.getSetting(rememberMeUserKey).then(function (rememberMe) {
             if (rememberMe) {
                 _this.deviceService.getUserEmailPasswordFromLocalStorage(userEmailPasswordComboKey).then(function (emailPasswordTup) {
                     if (emailPasswordTup) {
                         _this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
                         _this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
-                        _this.login();
+                        _this.loginService.login(_this.userLogInGroup);
                     }
                 });
             }
@@ -68,16 +69,17 @@ var UserSignUpComponent = (function () {
             var firstName_1 = this.userSignUpGroup.get("name").value;
             if (password_1 == confrimPassword) {
                 var userType = UserType.Consumer;
-                this.auth.checkUserSignInMethods(email_1).then(function (methods) {
+                this.auth.checkSignInMethods(email_1).then(function (methods) {
                     if (!methods || methods.length < 1) {
                         _this.attemptingSignup = true;
-                        _this.auth.signUpUser(email_1, password_1).then(function () {
+                        _this.auth.signUp(email_1, password_1).then(function () {
                             _this.auth.signIn(email_1, password_1).then(function () {
                                 _this.handleRememberMe(_this.userSignUpGroup);
-                                var newUser = new GSUser(_this.auth.fireAuth.auth.currentUser.uid, userType, firstName_1);
-                                _this.auth.currentUser = newUser;
-                                _this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
-                                _this.setAppropiateView();
+                                var newUser = new GSUser(_this.auth.getCurrentUserUID(), userType, firstName_1);
+                                _this.currentUserService.setCurrentUser(newUser);
+                                _this.userService.updateUserInDatabase(newUser);
+                                //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
+                                _this.loginService.setAppropiateView();
                             }).catch(function (reason) {
                                 _this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
                                 console.error("Sign up failed because: " + reason);
@@ -113,54 +115,7 @@ var UserSignUpComponent = (function () {
     };
     UserSignUpComponent.prototype.loginHandler = function () {
         this.handleRememberMe(this.userLogInGroup);
-        this.login();
-    };
-    UserSignUpComponent.prototype.login = function () {
-        var _this = this;
-        if (this.userLogInGroup.valid) {
-            this.toastService.showReadableToast("Logging you in...welcome back!");
-            var email_2 = this.userLogInGroup.get("email").value;
-            this.auth.checkUserSignInMethods(email_2).then(function (methods) {
-                if (methods.length > 0) {
-                    _this.auth.signIn(email_2, _this.userLogInGroup.get("password").value).then(function () {
-                        _this.auth.getCurrentUserData().subscribe(function (users) {
-                            _this.auth.currentUser = users[0]; //there SHOULD be only one
-                            _this.setAppropiateView();
-                        });
-                    }).catch(function (reason) {
-                        _this.toastService.showReadableToast("Double check your password");
-                        console.error("Sign in didn't work because: " + reason);
-                    });
-                }
-                else {
-                    _this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
-                    console.error("User does not exist!");
-                }
-            }).catch(function (reason) {
-                _this.toastService.showReadableToast("Sign in didn't work because: " + reason);
-                console.error("User does not exist!");
-            });
-        }
-        else {
-            var display = "";
-            if (this.userLogInGroup.get("email").invalid)
-                display += "Please be sure your email is formatted correctly. ";
-            if (this.userLogInGroup.get("password").invalid)
-                display += "Please be sure your password is at least eight characters long. ";
-            this.toastService.showReadableToast(display);
-            console.error("Fields are invalid");
-        }
-    };
-    UserSignUpComponent.prototype.setAppropiateView = function () {
-        var _this = this;
-        if (this.auth.checkCurrentUserType()) {
-            this.auth.checkCurrentUserType().subscribe(function (users) {
-                if (users[0].userType == UserType.Restaurant)
-                    _this.viewControl.setDealMakerView();
-                else
-                    _this.viewControl.setConsumerView();
-            });
-        }
+        this.loginService.login(this.userLogInGroup);
     };
     UserSignUpComponent.prototype.handleRememberMe = function (formGroup) {
         var rememberMe = formGroup.get("rememberMe").value;
@@ -172,9 +127,9 @@ var UserSignUpComponent = (function () {
         var _this = this;
         var emailControl = this.userLogInGroup.get("email");
         if (emailControl.valid) {
-            this.auth.checkUserSignInMethods(emailControl.value).then(function (methods) {
+            this.auth.checkSignInMethods(emailControl.value).then(function (methods) {
                 if (methods.length > 0) {
-                    _this.auth.fireAuth.auth.sendPasswordResetEmail(emailControl.value).then(function () {
+                    _this.auth.sendPasswordResetEmail(emailControl.value).then(function () {
                         _this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
                     }).catch(function (reason) {
                         _this.toastService.showReadableToast("Sorry, couldn't send you a reset link because: " + reason);
@@ -229,8 +184,9 @@ var UserSignUpComponent = (function () {
             styleUrls: ['/user-signup.component.scss']
         }),
         __metadata("design:paramtypes", [FormBuilder, AuthorizationService,
-            ViewControllerService, DeviceService,
-            ToastService])
+            DeviceService,
+            ToastService, CurrentUserService,
+            UserService, LoginService])
     ], UserSignUpComponent);
     return UserSignUpComponent;
 }());

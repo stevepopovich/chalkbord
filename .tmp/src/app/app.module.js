@@ -14,6 +14,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { LoginService } from './../services/login.service';
+import { CurrentUserService } from './../services/current-user.service';
 import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
 import { MoreCardInfoComponent } from '../components/more-card-info/more-card-info.component';
 import { RestaurantService } from './../services/restaurant-service';
@@ -56,6 +58,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
 import { DealEditorService } from '../services/deal-editing.service';
 import { Geolocation as IonLocation } from '@ionic-native/geolocation';
+import { UserService } from '../services/user.service';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -107,6 +110,7 @@ var AppModule = (function () {
                     storageBucket: "locale-4112a.appspot.com",
                     messagingSenderId: "9042973249"
                 }),
+                AngularFirestoreModule.enablePersistence(),
                 AngularFireAuthModule,
                 AngularFireStorageModule,
                 AngularFirestoreModule,
@@ -148,7 +152,10 @@ var AppModule = (function () {
                 ToastService,
                 DealEditorService,
                 IonLocation,
-                RestaurantService
+                RestaurantService,
+                UserService,
+                CurrentUserService,
+                LoginService
             ]
         })
     ], AppModule);

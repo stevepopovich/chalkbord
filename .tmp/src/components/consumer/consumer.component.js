@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { GSCard, DealType } from './../../types/deals.type';
+import { CurrentUserService } from './../../services/current-user.service';
 import { GSLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { SwingStackComponent, Direction } from 'angular2-swing';
@@ -16,13 +18,13 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { CardDataService } from '../../services/card-data.service';
 import { AuthorizationService } from '../../services/authorization.service';
 import { ImageService } from '../../services/image-service.service';
-import { DealType } from '../../types/deals.type';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
+import { UserService } from '../../services/user.service';
 var ConsumerComponent = (function () {
-    function ConsumerComponent(alert, popoverCtrl, toastService, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation) {
+    function ConsumerComponent(alert, popoverCtrl, toastService, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation, currentUserService, userService) {
         var _this = this;
         this.alert = alert;
         this.popoverCtrl = popoverCtrl;
@@ -33,6 +35,8 @@ var ConsumerComponent = (function () {
         this.imageService = imageService;
         this.modalCtrl = modalCtrl;
         this.geolocation = geolocation;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
         this.transitionString = "";
         this.numberOfCards = 3;
         this.destoryingCard = false;
@@ -58,7 +62,7 @@ var ConsumerComponent = (function () {
     }
     ConsumerComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        if (this.authService.checkUserIsLoggedIn) {
+        if (this.authService.checkLoggedIn) {
             this.geolocation.watchPosition().subscribe(function (resp) {
                 _this.currentLocation.lat = resp.coords.latitude;
                 _this.currentLocation.lng = resp.coords.longitude;
@@ -69,7 +73,7 @@ var ConsumerComponent = (function () {
                             _this.filterCards(_this.currentFilter);
                         }
                         else
-                            _this.authService.findAndUpdateCards(_this.restaurantViewCards, cardModels);
+                            GSCard.findAndUpdateCards(_this.restaurantViewCards, cardModels);
                     }
                 });
             }, function (error) {
@@ -103,7 +107,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.moreInfo = function () {
         var _this = this;
-        var cardSwipedUp = this.popCard();
+        var cardSwipedUp = this.restaurantViewCards.shift();
         this.modalCtrl.create(MoreCardInfoComponent, { card: cardSwipedUp }).present().then(function () {
             _this.restaurantViewCards.unshift(cardSwipedUp);
         });
@@ -145,8 +149,12 @@ var ConsumerComponent = (function () {
         });
     };
     ConsumerComponent.prototype.handleCard = function (like) {
-        if (like)
-            this.popLikeAlert(this.popCard());
+        if (like) {
+            var poppedCard = this.popCard();
+            this.popLikeAlert(poppedCard);
+            this.currentUserService.addCardId(poppedCard.id);
+            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+        }
         else
             this.popCard();
         this.transitionString = "";
@@ -248,7 +256,8 @@ var ConsumerComponent = (function () {
         }),
         __metadata("design:paramtypes", [AlertController, PopoverController, ToastService,
             LaunchNavigator, CardDataService, AuthorizationService,
-            ImageService, ModalController, Geolocation])
+            ImageService, ModalController, Geolocation,
+            CurrentUserService, UserService])
     ], ConsumerComponent);
     return ConsumerComponent;
 }());

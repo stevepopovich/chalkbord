@@ -24,7 +24,7 @@ var LocaleApp = (function () {
         else {
             this.statusBar.overlaysWebView(false);
             this.statusBar.backgroundColorByName("black");
-            if (!this.auth.checkUserIsLoggedIn()) {
+            if (!this.auth.checkLoggedIn()) {
                 this.viewControl.setSignUpView();
             }
         }

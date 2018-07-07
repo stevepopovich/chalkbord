@@ -17,9 +17,6 @@ export class ModalNavbarComponent{
     constructor(private toastService: ToastService, private ionicViewController: ViewController, 
         private deviceService: DeviceService,
         private viewControllerService: ViewControllerService) {
-
-            //this.restaurntModal = this.params.get("restaurntModal");
-            //this.profileModal = this.params.get("profileModal");
     }
 
     public logout(){
