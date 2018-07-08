@@ -22,7 +22,7 @@ export class UserService {
      * We can talk about if we really want to use a toast here TODO
      * @param user 
      */
-    public updateUserInDatabase(user: LocaleUser): Promise<any> {
+    public set(user: LocaleUser): Promise<any> {
         if (this.userCollection) {
             const assignedUser = Object.assign({}, user);
 
@@ -35,10 +35,10 @@ export class UserService {
         } else
             this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
 
-        return null;
+        return Promise.reject("User not found!");
     }
 
-    public getUserData(uid: string): Observable<LocaleUser[]> {
+    public get(uid: string): Observable<LocaleUser[]> {
         return this.database.collection<LocaleUser>("users", ref => ref.where("uid", '==', uid)).valueChanges();//this.fireAuth.auth.currentUser.uid
     }
 }

@@ -20,13 +20,15 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
+import { Util } from '../../types/utils.type';
+import { LocaleView } from '../../types/locale-view.type';
 
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent implements AfterViewInit, OnDestroy {
+export class ConsumerComponent extends LocaleView implements AfterViewInit, OnDestroy {
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -60,6 +62,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
         private currentUserService: CurrentUserService, private userService: UserService) {
+
+        super();
+
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 2.75);
@@ -79,7 +84,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
-        if (this.authService.checkLoggedIn) {
+        if (this.authService.checkLoggedIn()) {
             this.geolocation.watchPosition().subscribe((resp) => {
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
@@ -111,7 +116,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
-    public voteUp(like: boolean): void {
+    public swipeCard(like: boolean): void {
         if (this.organizationViewCards.length > 0) {
             this.transitionString = "all 0.25s";
 
@@ -150,7 +155,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
 
-            this.delay(300).then(() => {
+            Util.delay(300).then(() => {
                 this.handleCard(true);
 
                 this.animatingCard = false;
@@ -166,7 +171,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
 
-            this.delay(300).then(() => {
+            Util.delay(300).then(() => {
                 this.handleCard(false);
 
                 this.animatingCard = false;
@@ -195,7 +200,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             this.popLikeAlert(poppedCard);
 
             this.currentUserService.addCardId(poppedCard.id);
-            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+            this.userService.set(this.currentUserService.getCurrentUser());
         }
         else
             this.popCard();
@@ -226,7 +231,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 }
             ],
             title: "You are going to " + card.organization.name + "!",
-            subTitle: "Your deal code is: " + this.randomNumber(),
+            subTitle: "Your deal code is: " + Util.randomNumber(1000, 9000),
             message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
@@ -255,7 +260,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
         this.setUpViewCards();
 
-        this.delay(600).then(() => {//this sucks
+        Util.delay(600).then(() => {//this sucks
             const topCard = this.swingCards.toArray()[0];
 
             if (topCard)
@@ -287,15 +292,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
             this.organizationViewCards.push(this.filteredCards[i]);
         }
-    }
-
-    //used simply to async wait for something
-    private delay(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    private randomNumber(): string {
-        return String(Math.floor(1000 + Math.random() * 9000));
     }
 
     public openProfile() {

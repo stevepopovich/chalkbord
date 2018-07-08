@@ -12,13 +12,14 @@ import { LoginService } from "../../services/login.service";
 import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { Organization } from '../../types/organization.type';
+import { LocaleView } from '../../types/locale-view.type';
 
 @Component({
     templateUrl: './organization-landing.component.html',
     selector: 'organization-landing',
     styleUrls: ['/organization-landing.component.scss']
 })
-export class OrganizationLandingComponent implements AfterViewInit {
+export class OrganizationLandingComponent extends LocaleView implements AfterViewInit {
     public userLogInGroup: UserLoginFormGroup;
     public restSignUpGroup: FormGroup;
 
@@ -33,6 +34,8 @@ export class OrganizationLandingComponent implements AfterViewInit {
         private loginService: LoginService, private organizationService: OrganizationService,
         public toastService: ToastService, private alert: AlertController,
         private currentUserService: CurrentUserService, private userService: UserService, private rememberMeService: RememberMeService) {
+        super();
+
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
         this.restSignUpGroup = this.formBuilder.group({
@@ -172,7 +175,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
 
                             this.organizationService.set(newOrganziationModel);
 
-                            this.userService.updateUserInDatabase(newUser);
+                            this.userService.set(newUser);
 
                             this.loginService.setAppropiateView();
                         }).catch((reason) => {//couldn't sign in 

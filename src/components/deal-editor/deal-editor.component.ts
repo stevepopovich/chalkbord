@@ -86,7 +86,7 @@ export class DealEditorComponent {
 
             this.cardService.set(deal);
             this.currentUserService.addCardId(deal.id);
-            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+            this.userService.set(this.currentUserService.getCurrentUser());
         }
     }
 
@@ -112,7 +112,7 @@ export class DealEditorComponent {
                 });
             }
 
-            this.cardService.update(deal);
+            this.cardService.set(deal);
         }
         else
             this.reportBadFields();

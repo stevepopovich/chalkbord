@@ -1,4 +1,11 @@
+import { ToastService } from './toast.service';
+import { OrganizationDealsHomeComponent } from './../components/organization-deals-home/organization-deals-home.component';
+import { OrganizationLandingComponent } from './../components/organization-landing/organization-landing.component';
+import { BrowserHomeComponent } from './../components/browser-home/browser-home.component';
+import { ConsumerComponent } from './../components/consumer/consumer.component';
 import { Injectable } from "@angular/core";
+import { ConsumerLandingComponent } from '../components/consumer-landing/consumer-landing.component';
+import { LocaleView } from '../types/locale-view.type';
 
 @Injectable()
 export class ViewControllerService {//TODO bag up this entire system
@@ -11,7 +18,7 @@ export class ViewControllerService {//TODO bag up this entire system
     constructor() {
     }
 
-    public setConsumerView(){
+    public setConsumerView() {
         this.consumer = true;
         this.userLanding = false;
         this.browserHome = false;
@@ -19,7 +26,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setSignUpView(){
+    public setSignUpView() {
         this.consumer = false;
         this.userLanding = true;
         this.browserHome = false;
@@ -27,7 +34,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setBrowserHome(){
+    public setBrowserHome() {
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = true;
@@ -35,7 +42,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setOrganizationPortal(){
+    public setOrganizationPortal() {
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;
@@ -43,7 +50,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setOrganizationHome(){
+    public setOrganizationHome() {
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;
@@ -51,5 +58,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = true;
     }
 
-
+    public setView(viewComponent: LocaleView) {
+        viewComponent;
+    }
 }

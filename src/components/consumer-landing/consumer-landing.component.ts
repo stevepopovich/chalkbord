@@ -8,16 +8,17 @@ import { AuthorizationService } from "../../services/firebase/authorization.serv
 import { LocaleUser, UserType } from '../../types/user.type';
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
+import { LocaleView } from '../../types/locale-view.type';
 
 ///PLAN
 //Make a field component that takes a name and error message????
-
+//First figure out overload then good validation then navigation and then we in this bitch 
 @Component({
     templateUrl: './consumer-landing.component.html',
     selector: 'consumer-landing',
     styleUrls: ['/consumer-landing.component.scss']
 })
-export class ConsumerLandingComponent implements AfterViewInit {
+export class ConsumerLandingComponent extends LocaleView implements AfterViewInit {
     @ViewChild('welcomeScreen') welcomeScreen: ElementRef;
     @ViewChild('logInScreen') logInScreen: ElementRef;
     @ViewChild('userSignUpFields') userSignUpScreen: ElementRef;
@@ -39,6 +40,9 @@ export class ConsumerLandingComponent implements AfterViewInit {
         private rememberMeService: RememberMeService,
         public toastService: ToastService, private currentUserService: CurrentUserService,
         private userService: UserService, private loginService: LoginService) {
+
+        super();
+
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
@@ -77,7 +81,7 @@ export class ConsumerLandingComponent implements AfterViewInit {
 
                                 this.currentUserService.setCurrentUser(newUser);
 
-                                this.userService.updateUserInDatabase(newUser);
+                                this.userService.set(newUser);
 
                                 this.loginService.setAppropiateView();
 
