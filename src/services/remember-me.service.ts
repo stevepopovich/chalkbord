@@ -10,18 +10,15 @@ import { FormGroup } from '@angular/forms';
 export class RememberMeService {
 
     constructor(private deviceService: DeviceService, private loginService: LoginService) {
-
     }
-    /**
-     * loginFromRememberMe
-     */
+
     public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
         var deviceKey, tupleKey;
         this.setKeys(userType, deviceKey, tupleKey);
             
         this.deviceService.getSetting(deviceKey).then((rememberMe: boolean) => {
             if(rememberMe){
-                this.deviceService.getUserEmailPasswordFromLocalStorage(tupleKey).then((emailPasswordTup: EmailPasswordTuple) => {
+                this.deviceService.getSetting(tupleKey).then((emailPasswordTup: EmailPasswordTuple) => {
                     if(emailPasswordTup){
                         formGroup.get("email").setValue(emailPasswordTup.email);
                         formGroup.get("password").setValue(emailPasswordTup.password);
@@ -39,7 +36,7 @@ export class RememberMeService {
         var deviceKey, tupleKey;
         this.setKeys(userType, deviceKey, tupleKey);
 
-        this.deviceService.putSetting(deviceKey, rememberMe);
+        this.deviceService.putBooleanSetting(deviceKey, rememberMe);
 
         if(rememberMe)
             this.deviceService.putUserEmailPasswordToLocalStorage(tupleKey, formGroup.get("email").value, formGroup.get("password").value);

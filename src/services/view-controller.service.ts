@@ -35,7 +35,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setRestaurantPortal(){
+    public setOrganizationPortal(){
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;
@@ -43,7 +43,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setRestaurantHome(){
+    public setOrganizationHome(){
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;

@@ -1,11 +1,11 @@
-import { UserService } from './user.service';
 import { CurrentUserService } from './current-user.service';
 import { ToastService } from './toast.service';
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { AuthorizationService } from './authorization.service';
-import { GSUser, UserType } from '../types/user.type';
+import { AuthorizationService } from './firebase/authorization.service';
+import { LocaleUser, UserType } from '../types/user.type';
 import { ViewControllerService } from './view-controller.service';
+import { UserService } from './firebase/firestore-collection/user.service';
 
 @Injectable()
 export class LoginService {
@@ -17,18 +17,18 @@ export class LoginService {
     }
 
     public login(formGroup: FormGroup) {
-        if(formGroup.valid){
+        if (formGroup.valid) {
             this.toastService.showReadableToast("Logging you in...welcome back!");
 
             const email = formGroup.get("email").value;
 
             this.authService.checkSignInMethods(email).then((methods) => {
-                if(methods.length > 0){//if user not in db
-                    this.authService.signIn(email, formGroup.get("password").value,).then(() => {
-                        this.userService.getUserData(this.authService.getCurrentUserUID()).subscribe((users: GSUser[]) => {
-                            if(!this.currentUserService.hasCurrentUser()){
+                if (methods.length > 0) {//if user not in db
+                    this.authService.signIn(email, formGroup.get("password").value, ).then(() => {
+                        this.userService.getUserData(this.authService.getCurrentUserUID()).subscribe((users: LocaleUser[]) => {
+                            if (!this.currentUserService.hasCurrentUser()) {
                                 this.currentUserService.setCurrentUser(users[0]);//there SHOULD be only one
-                            
+
                                 this.setAppropiateView();
                             }
                         });
@@ -38,7 +38,7 @@ export class LoginService {
                         console.error("Sign in didn't work because: " + reason);
                     });
                 }
-                else{
+                else {
                     this.toastService.showReadableToast("Sorry, we dont have that username signed up. Please sign up.");
 
                     console.error("User does not exist!");
@@ -49,13 +49,13 @@ export class LoginService {
                 console.error("User does not exist!");
             });
         }
-        else{
+        else {
             var display: string = "";
 
-            if(formGroup.get("email").invalid)
+            if (formGroup.get("email").invalid)
                 display += "Please be sure your email is formatted correctly. ";
 
-            if(formGroup.get("password").invalid)
+            if (formGroup.get("password").invalid)
                 display += "Please be sure your password is at least eight characters long. ";
 
             this.toastService.showReadableToast(display);
@@ -64,9 +64,9 @@ export class LoginService {
         }
     }
 
-    public setAppropiateView(){
-        if(this.currentUserService.getCurrentUser().userType == UserType.Organization)
-            this.viewControllerService.setRestaurantHome();
+    public setAppropiateView() {
+        if (this.currentUserService.getCurrentUser().userType == UserType.Organization)
+            this.viewControllerService.setOrganizationHome();
         else
             this.viewControllerService.setConsumerView();
     }

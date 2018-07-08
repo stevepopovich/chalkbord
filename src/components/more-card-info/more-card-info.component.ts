@@ -1,7 +1,7 @@
 import { NavParams } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
-import { GSCard, DealType } from '../../types/deals.type';
+import { LocaleCard, DealType } from '../../types/deals.type';
 
 @Component({
     templateUrl: './more-card-info.component.html',
@@ -9,7 +9,7 @@ import { GSCard, DealType } from '../../types/deals.type';
     styleUrls: ['/more-card-info.component.scss']
 })
 export class MoreCardInfoComponent{ 
-    public card: GSCard;
+    public card: LocaleCard;
 
     public dealType: string;
 
@@ -20,6 +20,6 @@ export class MoreCardInfoComponent{
     }
 
     public goToLocation() {
-        this.launchNavigator.navigate(this.card.restaurant.address);
+        this.launchNavigator.navigate(this.card.organization.address);
     }
 }

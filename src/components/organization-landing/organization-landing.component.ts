@@ -1,17 +1,17 @@
+import { OrganizationService } from './../../services/firebase/firestore-collection/organization-service';
 import { RememberMeService } from './../../services/remember-me.service';
 import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { AuthorizationService } from "../../services/authorization.service";
+import { AuthorizationService } from "../../services/firebase/authorization.service";
 import { ToastService } from "../../services/toast.service";
-import { GSUser, UserType } from "../../types/user.type";
+import { LocaleUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
-import { Restaurant } from "../../types/restaurant.type";
-import { GSLocation } from "../../types/location.type";
-import { RestaurantService } from "../../services/restaurant-service";
+import { LocaleLocation } from "../../types/location.type";
 import { CurrentUserService } from "../../services/current-user.service";
-import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
 import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
+import { UserService } from '../../services/firebase/firestore-collection/user.service';
+import { Organization } from '../../types/organization.type';
 
 @Component({
     templateUrl: './organization-landing.component.html',
@@ -30,8 +30,8 @@ export class OrganizationLandingComponent implements AfterViewInit {
     @ViewChild('signUpCard') signUpCard: ElementRef;
 
     constructor(public formBuilder: FormBuilder, private auth: AuthorizationService,
-        private loginService: LoginService, private restaurantService: RestaurantService,
-        public toastService: ToastService, private alert: AlertController, 
+        private loginService: LoginService, private organizationService: OrganizationService,
+        public toastService: ToastService, private alert: AlertController,
         private currentUserService: CurrentUserService, private userService: UserService, private rememberMeService: RememberMeService) {
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
@@ -65,7 +65,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
     }
 
     public signUp(): void {
-        if(this.restSignUpGroup.valid){
+        if (this.restSignUpGroup.valid) {
             const address: string = this.restSignUpGroup.get("address").value;
             const city: string = this.restSignUpGroup.get("city").value;
             const state: string = this.restSignUpGroup.get("state").value;
@@ -78,7 +78,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
             }
 
             service.textSearch(textSearchRequest, (results: google.maps.places.PlaceResult[]) => {
-                if(results.length < 0){
+                if (results.length < 0) {
                     this.toastService.showReadableToast("We couldn't find that address. Please verify your address or contact support");
 
                     console.error("Address not found");
@@ -88,17 +88,17 @@ export class OrganizationLandingComponent implements AfterViewInit {
             });
         } else {
             var display: string = "";
-    
+
             display = "One or more of your fields are messed up!";//TODO
-    
+
             // if(this.restSignUpGroup.get("email").invalid)//TODO
             //     display += "Please be sure your email is formatted correctly. ";
-    
+
             // if(this.restSignUpGroup.get("password").invalid)
             //     display += "Please be sure your password is at least eight characters long and both passwords match. ";
-    
+
             this.toastService.showReadableToast(display);
-    
+
             console.error("Fields are invalid");
         }
     }
@@ -106,23 +106,23 @@ export class OrganizationLandingComponent implements AfterViewInit {
     private concatStringsWithSpaces(...words: string[]): string {
         var spaceSeperatedWords: string[] = [];
 
-        for(var word of words){
+        for (var word of words) {
             var wordsOfWords = word.split(" ");
 
-            for(var wordOfWords of wordsOfWords){
+            for (var wordOfWords of wordsOfWords) {
                 spaceSeperatedWords.push(wordOfWords);
             }
         }
 
         var query = spaceSeperatedWords.join(" ");
-        
+
         return query;
     }
 
     private presentVerifyAddressAlert(places: google.maps.places.PlaceResult[], placesIndex: number): void {
-        if(placesIndex < places.length){
+        if (placesIndex < places.length) {
             this.alert.create({
-                buttons:[
+                buttons: [
                     {
                         text: 'Yes',
                         role: 'yes',
@@ -135,7 +135,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
                         role: 'no',
                         handler: () => {
                             placesIndex += 1;
-    
+
                             this.presentVerifyAddressAlert(places, placesIndex)
                         }
                     },
@@ -148,33 +148,32 @@ export class OrganizationLandingComponent implements AfterViewInit {
             this.toastService.showReadableToast("We couldn't find that address. Please verify your address or contact support");
     }
 
-    private finishSignUpFlow(place: google.maps.places.PlaceResult){
+    private finishSignUpFlow(place: google.maps.places.PlaceResult) {
 
         const email: string = this.restSignUpGroup.get("email").value;
         const password: string = this.restSignUpGroup.get("password").value;
         const confrimPassword: string = this.restSignUpGroup.get("confirmPassword").value;
-        const restaurantName: string = this.restSignUpGroup.get("name").value;
+        const organizationName: string = this.restSignUpGroup.get("name").value;
 
-        if(password == confrimPassword) {
+        if (password == confrimPassword) {
             this.auth.checkSignInMethods(email).then((methods) => {
-                if(!methods || methods.length < 1){//if user not in db
+                if (!methods || methods.length < 1) {//if user not in db
                     this.auth.signUp(email, password).then(() => {
                         this.auth.signIn(email, password).then(() => {
                             this.rememberMeService.handleRememberMeSetting(this.restSignUpGroup, UserType.Organization);
 
-                            const newUser = new GSUser(this.auth.getCurrentUserUID(), UserType.Organization, restaurantName);
-                            
-                            const newRestaurantModel = new Restaurant(this.auth.getCurrentUserUID(), restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
-                    
-                            newUser.restaurant = newRestaurantModel;
-                    
+                            const newUser = new LocaleUser(this.auth.getCurrentUserUID(), UserType.Organization, organizationName);
+
+                            const newOrganziationModel = new Organization(this.auth.getCurrentUserUID(), organizationName, place.formatted_address, "", new LocaleLocation(place.geometry.location));
+
+                            newUser.organization = newOrganziationModel;
+
                             this.currentUserService.setCurrentUser(newUser);
-                    
-                            this.restaurantService.restaurantCollection.doc(this.auth.getCurrentUserUID()).set(newRestaurantModel.getAsPlainObject());
+
+                            this.organizationService.set(newOrganziationModel);
 
                             this.userService.updateUserInDatabase(newUser);
-                            //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
-                    
+
                             this.loginService.setAppropiateView();
                         }).catch((reason) => {//couldn't sign in 
                             this.toastService.showReadableToast("Sorry, that didn't work beacuase " + reason);
@@ -187,7 +186,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
                         console.error("Sign up failed because: " + reason);
                     });
                 }
-                else{
+                else {
                     this.toastService.showReadableToast("Sorry, that email is already signed up.");
 
                     console.error("User account already exists");//user account already exists
@@ -198,7 +197,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
                 console.error("Sign up failed because: " + reason);
             });
         }
-        else{
+        else {
             this.toastService.showReadableToast("Please make sure your passwords match.");
 
             console.error("Passwords do not match");

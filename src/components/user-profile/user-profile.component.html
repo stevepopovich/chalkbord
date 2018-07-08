@@ -1,25 +1,25 @@
-<modal-navbar [restaurntModal]="isRestaurant" [profileModal]="true"></modal-navbar>
+<modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>
 
 <ion-content style="margin-top: 4em">
-    <ion-item *ngIf="!isRestaurant">
+    <ion-item *ngIf="!isOrganization">
         <ion-label floating>First Name</ion-label>
         <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
     </ion-item>
 
-    <ion-item *ngIf="!isRestaurant">
+    <ion-item *ngIf="!isOrganization">
         <ion-label floating>Email</ion-label>
         <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>
     </ion-item>
-    
-    <button *ngIf="!isRestaurant" (click)="toggleEdit()" class="reset-button" ion-button>
+
+    <button *ngIf="!isOrganization" (click)="toggleEdit()" class="reset-button" ion-button>
         {{editButtonText}}
     </button>
-    
+
     <button (click)="resetPassword()" class="reset-button" outline ion-button>
         reset password
     </button>
 
-    <button *ngIf="!isRestaurant" (click)="yourCards()" class="reset-button" outline ion-button>
+    <button *ngIf="!isOrganization" (click)="yourCards()" class="reset-button" outline ion-button>
         your cards
     </button>
 </ion-content>

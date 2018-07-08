@@ -1,23 +1,22 @@
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild } from "@angular/core";
 import { ViewController, Button, NavParams, NavController } from "ionic-angular";
-import { AuthorizationService } from "../../services/authorization.service";
+import { AuthorizationService } from "../../services/firebase/authorization.service";
 import { ToastService } from "../../services/toast.service";
-import { GSUser } from "../../types/user.type";
+import { LocaleUser } from "../../types/user.type";
 import { ConsumerCardList } from "../consumer-card-list/consumer-card-list.component";
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/firebase/firestore-collection/user.service';
 
+//Used in modal with orgs and consumers
 @Component({
     templateUrl: './user-profile.component.html',
     selector: 'user-profile',
     styleUrls: ['/user-profile.component.scss']
 })
-
-//Used in modal with orgs and consumers
 export class UserProfileComponent {
     @ViewChild('editButton') editButton: Button;
 
-    public isRestaurant: boolean;
+    public isOrganization: boolean;
 
     public userEmail: string;
     public firstName: string;
@@ -26,53 +25,53 @@ export class UserProfileComponent {
 
     public editButtonText: string = "edit";
 
-    constructor(private viewCtrl: ViewController, 
-        private authService: AuthorizationService, private toastService: ToastService, 
+    constructor(private viewCtrl: ViewController,
+        private authService: AuthorizationService, private toastService: ToastService,
         private params: NavParams, private navCtrl: NavController, private currentUserService: CurrentUserService,
-        private userService: UserService){
+        private userService: UserService) {
 
-        this.isRestaurant = this.params.get("isRestaurant");
+        this.isOrganization = this.params.get("isOrganization");
 
-        this.userEmail = this.authService.getCurrentUserEmail(); 
+        this.userEmail = this.authService.getCurrentUserEmail();
         this.firstName = this.currentUserService.getCurrentUser().firstName;
     }
 
-    public toggleEdit(){
-        if(!this.isRestaurant) {
-            if(this.emailDisabled){
+    public toggleEdit() {
+        if (!this.isOrganization) {
+            if (this.emailDisabled) {
                 this.emailDisabled = false;
-    
+
                 this.editButtonText = "save";
             }
-            else{
-                if(this.authService.getCurrentUserEmail() != this.userEmail){
+            else {
+                if (this.authService.getCurrentUserEmail() != this.userEmail) {
                     this.authService.updateCurrentUserEmail(this.userEmail).then(() => {//.auth.currentUser.updateEmail(this.userEmail).then(() => {
                         this.toastService.showReadableToast("Cool, email is updated");
                     }).catch((reason) => {
                         this.toastService.showReadableToast("Email not updated: " + reason);
                     });
                 }
-    
-                if(this.currentUserService.getCurrentUser().firstName != this.firstName){
-                    const currUser: GSUser = this.currentUserService.getCurrentUser();
-    
+
+                if (this.currentUserService.getCurrentUser().firstName != this.firstName) {
+                    const currUser: LocaleUser = this.currentUserService.getCurrentUser();
+
                     currUser.firstName = this.firstName;
-    
+
                     this.userService.updateUserInDatabase(currUser).then(() => {
                         this.toastService.showReadableToast("Cool, user name is updated");
                     }).catch((reason) => {
                         this.toastService.showReadableToast("User not updated: " + reason);
                     });
                 }
-    
+
                 this.emailDisabled = true;
-    
+
                 this.editButtonText = "edit";
             }
         }
     }
 
-    public closeProfile(){
+    public closeProfile() {
         this.viewCtrl.dismiss();
     }
 
@@ -81,12 +80,12 @@ export class UserProfileComponent {
 
         toast.onDidDismiss((data, dismissType) => {
             data;
-            if(dismissType == "close"){
+            if (dismissType == "close") {
                 var currentEmail = this.authService.getCurrentUserEmail()//fireAuth.auth.currentUser.email;
 
-                if(currentEmail){
+                if (currentEmail) {
                     this.authService.checkSignInMethods(currentEmail).then((methods) => {
-                        if(methods.length > 0){
+                        if (methods.length > 0) {
                             this.authService.sendPasswordResetEmail(currentEmail).then(() => {
                                 this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
                             }).catch((reason) => {
@@ -97,7 +96,7 @@ export class UserProfileComponent {
                             this.toastService.showReadableToast("We don't have that email signed up. Please sign up!");
                     });
                 }
-                else{
+                else {
                     this.toastService.showReadableToast("Are you logged in? Please contact support");
                 }
             }
@@ -106,7 +105,7 @@ export class UserProfileComponent {
         toast.present();
     }
 
-    public yourCards(){//WIP
+    public yourCards() {//WIP
         this.navCtrl.push(ConsumerCardList);
     }
 }

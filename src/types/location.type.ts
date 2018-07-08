@@ -1,4 +1,4 @@
-export class GSLocation {
+export class LocaleLocation {
     public lat: number;
     public lng: number
 

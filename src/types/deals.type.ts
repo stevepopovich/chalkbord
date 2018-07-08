@@ -1,20 +1,20 @@
 import { Guid } from "./utils.type";
-import { Restaurant } from "./restaurant.type"; 
-import { GSLocation } from "./location.type";
+import { LocaleLocation } from "./location.type";
+import { Organization } from "./organization.type";
 
-export class GSCard { 
+export class LocaleCard {
     public id: string;
 
     public imageURL: string;
-    public restaurant: Restaurant;
+    public organization: Organization;
 
-    public constructor(public dealDescription: string, public dealStart: Date, 
-        public dealEnd: Date, public numberOfDeals: Number, public dealType: DealType, obj?: any){
+    public constructor(public dealDescription: string, public dealStart: Date,
+        public dealEnd: Date, public numberOfDeals: Number, public dealType: DealType, obj?: any) {
         this.id = Guid.newGuid();
 
-        if(obj){
+        if (obj) {
             this.id = obj.id;
-            this.restaurant = obj.restaurant;
+            this.organization = obj.organization;
             this.dealDescription = obj.dealDescription;
             this.dealStart = new Date(obj.dealStart);
             this.dealEnd = new Date(obj.dealEnd);
@@ -24,49 +24,40 @@ export class GSCard {
     }
 
     public getAsPlainObject(): any {
-        this.restaurant = Object.assign({}, this.restaurant);
-        
+        this.organization = Object.assign({}, this.organization);
+
         return Object.assign({}, this);
     }
 
-    public static getBlankCard(): GSCard {
-        const blankCard = new GSCard(null, new Date(), new Date(), -1, DealType.Drinks, null)
-        blankCard.restaurant = new Restaurant("", "", "", "", new GSLocation());
+    public static getBlankCard(): LocaleCard {
+        const blankCard = new LocaleCard(null, new Date(), new Date(), -1, DealType.Drinks, null)
+        blankCard.organization = new Organization("", "", "", "", new LocaleLocation());
         return blankCard;
     }
 
-    public static updateDealModel(objectToUpdate: GSCard, updatedObject: GSCard): void{
+    public static updateDealModel(objectToUpdate: LocaleCard, updatedObject: LocaleCard): void {
         objectToUpdate.dealDescription = updatedObject.dealDescription;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealStart = updatedObject.dealStart;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealType = updatedObject.dealType;
         objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
-        objectToUpdate.restaurant = updatedObject.restaurant;
+        objectToUpdate.organization = updatedObject.organization;
     }
 
-    public static findAndUpdateCards(incomingCards: GSCard[], cardsToManipulate: GSCard[]){
+    public static findAndUpdateCards(incomingCards: LocaleCard[], cardsToManipulate: LocaleCard[]) {
         incomingCards.forEach((dealModel) => {
             const foundCard = cardsToManipulate[cardsToManipulate.findIndex(c => c.id == dealModel.id)];
 
-            if(foundCard)
-                GSCard.updateDealModel(foundCard, dealModel);
+            if (foundCard)
+                LocaleCard.updateDealModel(foundCard, dealModel);
             else
                 cardsToManipulate.push(dealModel);
         });
-
-        // for(var i: number = 0; 0 < cardsToManipulate.length; i++) {
-        //     const foundCard = incomingCards[incomingCards.findIndex(c => c.id == cardsToManipulate[i].id)];
-
-        //     if(!foundCard){
-        //         cardsToManipulate.splice(i, 1);
-        //         i--;
-        //     }
-        // }
     }
 }
 
-export enum DealType{
+export enum DealType {
     Drinks,
     Food,
     Both

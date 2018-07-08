@@ -6,13 +6,13 @@ import { ViewControllerService } from "../../services/view-controller.service";
     selector: 'browser-home',
     styleUrls: ['/browser-home.component.scss']
 })
-export class BrowserHomeComponent{
+export class BrowserHomeComponent {
 
-    constructor(private viewController: ViewControllerService){
+    constructor(private viewController: ViewControllerService) {
 
     }
 
-    public showRestaurantPortal(){
-        this.viewController.setRestaurantPortal();
+    public showOrganizationPortal() {
+        this.viewController.setOrganizationPortal();
     }
 }

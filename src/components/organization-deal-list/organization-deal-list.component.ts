@@ -1,7 +1,7 @@
 import { CurrentUserService } from './../../services/current-user.service';
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
-import { GSCard } from '../../types/deals.type';
+import { LocaleCard } from '../../types/deals.type';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ModalController } from 'ionic-angular';
 
@@ -11,26 +11,26 @@ import { ModalController } from 'ionic-angular';
     styleUrls: ['/organization-deal-list.component.scss']  
 })
 export class OrganizationDealListComponent{
-    private currentCard: GSCard;
-    private cardList: GSCard[] = [];
+    private currentCard: LocaleCard;
+    private cardList: LocaleCard[] = [];
 
     public constructor(private dealEditorService: DealEditorService,
         private modalCtrl: ModalController, private currentUserService: CurrentUserService){
 
-        this.currentUserService.getCards().subscribe((deals: GSCard[]) => {
+        this.currentUserService.getCards().subscribe((deals: LocaleCard[]) => {
             console.log(deals);
-            GSCard.findAndUpdateCards(deals, this.cardList);
+            LocaleCard.findAndUpdateCards(deals, this.cardList);
         });
 
-        this.dealEditorService.currentDealSubject.subscribe((deal: GSCard) => {
+        this.dealEditorService.currentDealSubject.subscribe((deal: LocaleCard) => {
             this.currentCard = deal;
         });
 
-        this.dealEditorService.deleteDealSubject.subscribe((deal: GSCard) => {
+        this.dealEditorService.deleteDealSubject.subscribe((deal: LocaleCard) => {
             this.cardList.splice(this.cardList.indexOf(deal), 1);
         });
 
-        this.dealEditorService.addDealSubject.subscribe((deal: GSCard) => {
+        this.dealEditorService.addDealSubject.subscribe((deal: LocaleCard) => {
             this.cardList.push(deal);
 
             this.currentCard = deal;
@@ -41,7 +41,7 @@ export class OrganizationDealListComponent{
         return this.cardList.length > 0;
     }
 
-    public setCurrentCard(deal: GSCard){
+    public setCurrentCard(deal: LocaleCard){
         if(this.currentCard != deal && deal != null){
             this.currentCard = deal;
         
@@ -62,7 +62,7 @@ export class OrganizationDealListComponent{
     }
 
     public openProfile(){
-        this.modalCtrl.create(UserProfileComponent, {isRestaurant: true}).present(); 
+        this.modalCtrl.create(UserProfileComponent, {isOrganization: true}).present(); 
     }
 }
 

@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
-import { GSUser } from "../types/user.type";
-import { CardDataService } from "./card-data.service";
+import { LocaleUser } from "../types/user.type";
+import { CardDataService } from "./firebase/firestore-collection/card-data.service";
 
 @Injectable()
 export class CurrentUserService {
-
-    private currentUser: GSUser;
+    private currentUser: LocaleUser;
 
     constructor(private cardService: CardDataService) {
     }
 
-    public setCurrentUser(user: GSUser) {
-        if(user != null){
+    public setCurrentUser(user: LocaleUser) {
+        if (user != null) {
             this.currentUser = user;
 
             this.setUpCardObservable();
@@ -36,27 +35,13 @@ export class CurrentUserService {
     }
 
     public addCardId(cardId: string): void {
-        if(this.currentUser.cardIds == null)
+        if (this.currentUser.cardIds == null)
             this.currentUser.cardIds = [];
 
         this.currentUser.cardIds.push(cardId);
     }
 
     private setUpCardObservable(): void {
-        this.currentUser.cards =  this.cardService.getCardsById(this.currentUser.cardIds);
+        this.currentUser.cards = this.cardService.get(this.currentUser.cardIds);
     }
-
-    // public removeUserCardFromCurrentListById(id: string) {
-    //     const currentUserCardsIndex = this.currentUser.cards.findIndex((value, index, deals) => {
-    //         value;
-    //         return deals[index].id == id;
-    //     });//todo
-    //     const currentUserId = this.currentUser.cardIds.findIndex((value, index, deals) => {
-    //         index;deals;
-    //         return value == id;
-    //     });
-
-    //     this.currentUser.cards.splice(currentUserCardsIndex, 1);
-    //     this.currentUser.cardIds.splice(currentUserId, 1);
-    // }
 }

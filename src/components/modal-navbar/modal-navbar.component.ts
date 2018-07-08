@@ -10,26 +10,26 @@ import { LoginKeys } from '../../services/login-keys.service';
     selector: 'modal-navbar',
     styleUrls: ['/modal-navbar.component.scss']
 })
-export class ModalNavbarComponent{ 
+export class ModalNavbarComponent {
     @Input() profileModal: boolean;
-    @Input() restaurntModal: boolean;
+    @Input() organizationModal: boolean;
 
-    constructor(private toastService: ToastService, private ionicViewController: ViewController, 
+    constructor(private toastService: ToastService, private ionicViewController: ViewController,
         private deviceService: DeviceService, private viewControllerService: ViewControllerService) {
     }
 
-    public logout(){
+    public logout() {
         const toast = this.toastService.showReadableAndAnswerableOkayToast("Are you sure you want to log out?");
 
         toast.onDidDismiss((data, dismissType) => {
             data;
-            if(dismissType == "close"){
-                if(this.restaurntModal){
-                    this.deviceService.putSetting(LoginKeys.rememberMeRestKey, false);
+            if (dismissType == "close") {
+                if (this.organizationModal) {
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeRestKey, false);
 
                     this.viewControllerService.setBrowserHome();
                 } else {
-                    this.deviceService.putSetting(LoginKeys.rememberMeUserKey, false);
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
                     this.viewControllerService.setSignUpView();
                 }
@@ -41,7 +41,7 @@ export class ModalNavbarComponent{
         toast.present();
     }
 
-    public closeProfile(){
+    public closeProfile() {
         this.ionicViewController.dismiss();
     }
 }

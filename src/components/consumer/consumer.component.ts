@@ -1,31 +1,32 @@
-import { GSCard, DealType } from './../../types/deals.type';
+import { LocaleCard, DealType } from './../../types/deals.type';
 import { CurrentUserService } from './../../services/current-user.service';
-import { GSLocation } from './../../types/location.type';
+import { LocaleLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import {
     StackConfig,
     SwingStackComponent,
     SwingCardComponent,
-    Direction} from 'angular2-swing';
+    Direction
+} from 'angular2-swing';
 import { AlertController, PopoverController, ModalController } from 'ionic-angular';
 import { FilterDealComponent } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
-import { CardDataService } from '../../services/card-data.service';
-import { AuthorizationService } from '../../services/authorization.service';
-import { ImageService } from '../../services/image-service.service';
+import { AuthorizationService } from '../../services/firebase/authorization.service';
+import { ImageService } from '../../services/firebase/image-service.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ToastService } from '../../services/toast.service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/firebase/firestore-collection/user.service';
+import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
 
 @Component({
     templateUrl: './consumer.component.html',
     selector: 'consumer',
     styleUrls: ['/consumer.component.scss']
 })
-export class ConsumerComponent implements AfterViewInit, OnDestroy{
+export class ConsumerComponent implements AfterViewInit, OnDestroy {
     @ViewChild('myswing1') swingStack: SwingStackComponent;
     @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
 
@@ -33,13 +34,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public numberOfCards = 3;
 
-    public restaurantViewCards: GSCard[];// = new Array<DealModel>(this.numberOfCards);
-    public filteredCards: GSCard[];
+    public organizationViewCards: LocaleCard[];// = new Array<DealModel>(this.numberOfCards);
+    public filteredCards: LocaleCard[];
 
     public stackConfig: StackConfig;
 
     public destoryingCard: boolean = false;
-  
+
     private moveCardIndex: number = 0;
     private viewCardIndex: number;
 
@@ -49,22 +50,22 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
 
     public currentFilter: DealType = null;
 
-    public cards: GSCard[];
+    public cards: LocaleCard[];
 
     public cardSubscription: Subscription;
 
-    public currentLocation: GSLocation = new GSLocation();
+    public currentLocation: LocaleLocation = new LocaleLocation();
 
-    constructor (private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
-        private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService, 
+    constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
+        private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
         private currentUserService: CurrentUserService, private userService: UserService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth/2.75);
-                const throwoutVertical = Math.abs(offsetY) / (element.offsetHeight/4.5);
+                const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 2.75);
+                const throwoutVertical = Math.abs(offsetY) / (element.offsetHeight / 4.5);
 
-                 return Math.min(1, 
+                return Math.min(1,
                     Math.sqrt((throwoutHorizontal * throwoutHorizontal) + (throwoutVertical * throwoutVertical)));//pythag
             },
             transform: (element, x, y, r) => {
@@ -72,26 +73,26 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
             },
             throwOutDistance: () => {
                 return 50;
-            },      
+            },
             allowedDirections: [Direction.UP, Direction.LEFT, Direction.RIGHT],
         };
     }
-    
+
     public ngAfterViewInit(): void {
-        if(this.authService.checkLoggedIn){
+        if (this.authService.checkLoggedIn) {
             this.geolocation.watchPosition().subscribe((resp) => {
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
 
                 this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 1000000).subscribe((cardModels) => {
-                    if(cardModels.length > 0) {
-                        if(!this.cards){
-                            this.cards = this.cardService.filterNonDuplicateDeals(cardModels as GSCard[]);
-            
+                    if (cardModels.length > 0) {
+                        if (!this.cards) {
+                            this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
+
                             this.filterCards(this.currentFilter);
                         }
                         else
-                            GSCard.findAndUpdateCards(this.restaurantViewCards, cardModels as GSCard[]);
+                            LocaleCard.findAndUpdateCards(this.organizationViewCards, cardModels as LocaleCard[]);
                     }
                 });
             }, (error) => {
@@ -111,44 +112,44 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     public voteUp(like: boolean): void {
-        if(this.restaurantViewCards.length > 0){
+        if (this.organizationViewCards.length > 0) {
             this.transitionString = "all 0.25s";
 
-            if(like){
-                if(!this.likingCard){
+            if (like) {
+                if (!this.likingCard) {
                     this.likingCard = true;
-    
+
                     this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
-    
+
                     this.handleCard(like);
                 }
             }
-            else{
+            else {
                 this.handleCard(like);
-                
+
                 this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)`;
             }
         }
     }
 
     public moreInfo(): void {
-        const cardSwipedUp = this.restaurantViewCards.shift();
+        const cardSwipedUp = this.organizationViewCards.shift();
 
-        this.modalCtrl.create(MoreCardInfoComponent, {card: cardSwipedUp}).present().then(() => {
-            this.restaurantViewCards.unshift(cardSwipedUp);
+        this.modalCtrl.create(MoreCardInfoComponent, { card: cardSwipedUp }).present().then(() => {
+            this.organizationViewCards.unshift(cardSwipedUp);
         });
     }
 
     public clickLike(): void {
-        if(this.restaurantViewCards.length > 0 && !this.likingCard && !this.animatingCard){
-           this.transitionString = "all 0.75s";
+        if (this.organizationViewCards.length > 0 && !this.likingCard && !this.animatingCard) {
+            this.transitionString = "all 0.75s";
 
             this.likingCard = true;
 
             this.animatingCard = true;
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
-            
+
             this.delay(300).then(() => {
                 this.handleCard(true);
 
@@ -158,13 +159,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
     }
 
     public clickNo(): void {
-        if(this.restaurantViewCards.length > 0 && !this.animatingCard){
+        if (this.organizationViewCards.length > 0 && !this.animatingCard) {
             this.transitionString = "all 0.75s";
 
             this.animatingCard = true;
 
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
-            
+
             this.delay(300).then(() => {
                 this.handleCard(false);
 
@@ -173,7 +174,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         }
     }
 
-    public openDealTypePopover(event){
+    public openDealTypePopover(event) {
         var filterPopover = this.popoverCtrl.create(FilterDealComponent);
 
         filterPopover.onDidDismiss((data: string) => {
@@ -187,8 +188,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         });
     }
 
-    private handleCard(like: boolean){
-        if(like){
+    private handleCard(like: boolean) {
+        if (like) {
             const poppedCard = this.popCard();
 
             this.popLikeAlert(poppedCard);
@@ -202,9 +203,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         this.transitionString = "";
     }
 
-    private popLikeAlert(card: GSCard): void{
+    private popLikeAlert(card: LocaleCard): void {
         let likeAlert = this.alert.create({
-            buttons:[
+            buttons: [
                 {
                     text: 'Share',
                     role: 'share',
@@ -216,7 +217,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                     text: 'Go',
                     role: 'go',
                     handler: () => {
-                        this.launchNavigator.navigate(card.restaurant.address);
+                        this.launchNavigator.navigate(card.organization.address);
                     }
                 },
                 {
@@ -224,27 +225,27 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
                     role: 'close',
                 }
             ],
-            title: "You are going to " + card.restaurant.name + "!",
+            title: "You are going to " + card.organization.name + "!",
             subTitle: "Your deal code is: " + this.randomNumber(),
-            message: "Bring this code to " + card.restaurant.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
-        likeAlert.present().then(() => { 
-            this.likingCard = false; 
+        likeAlert.present().then(() => {
+            this.likingCard = false;
         });
     }
 
-    private popCard(): GSCard{
-        var poppedCard = this.restaurantViewCards.shift();
+    private popCard(): LocaleCard {
+        var poppedCard = this.organizationViewCards.shift();
         this.addCardToStack();
-        
+
         return poppedCard;
     }
 
-    private filterCards(type: DealType){
-        this.restaurantViewCards = new Array<GSCard>();
-        this.filteredCards = new Array<GSCard>();
-        if(type || type == 0){
+    private filterCards(type: DealType) {
+        this.organizationViewCards = new Array<LocaleCard>();
+        this.filteredCards = new Array<LocaleCard>();
+        if (type || type == 0) {
             this.filteredCards = this.cards.filter((card) => {
                 return card.dealType == type;
             });
@@ -252,39 +253,39 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         else
             this.filteredCards = this.cards;
 
-        this.setUpViewCards();  
+        this.setUpViewCards();
 
         this.delay(600).then(() => {//this sucks
             const topCard = this.swingCards.toArray()[0];
 
-            if(topCard)
+            if (topCard)
                 topCard.getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
         });
     }
 
-    private addCardToStack(){
-        if(this.viewCardIndex < this.filteredCards.length){
+    private addCardToStack() {
+        if (this.viewCardIndex < this.filteredCards.length) {
             var nextCard = this.filteredCards[this.viewCardIndex];
 
             this.imageService.setDealImageURL(nextCard);
 
-            this.restaurantViewCards.push(nextCard);
+            this.organizationViewCards.push(nextCard);
 
             this.viewCardIndex++;
 
-            for(var i = 0; i < this.swingCards.toArray.length; i++){
+            for (var i = 0; i < this.swingCards.toArray.length; i++) {
                 this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
             }
         }
     }
 
-    private setUpViewCards(){
+    private setUpViewCards() {
         this.viewCardIndex = this.numberOfCards;
 
-        for(var i: number = 0; i < this.numberOfCards; i++){
+        for (var i: number = 0; i < this.numberOfCards; i++) {
             this.imageService.setDealImageURL(this.filteredCards[i]);
 
-            this.restaurantViewCards.push(this.filteredCards[i]);
+            this.organizationViewCards.push(this.filteredCards[i]);
         }
     }
 
@@ -293,11 +294,11 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    private randomNumber(): string{
+    private randomNumber(): string {
         return String(Math.floor(1000 + Math.random() * 9000));
     }
 
-    public openProfile(){
-        this.modalCtrl.create(UserProfileComponent, {isRestaurant: false}).present(); 
+    public openProfile() {
+        this.modalCtrl.create(UserProfileComponent, { isOrganization: false }).present();
     }
 }

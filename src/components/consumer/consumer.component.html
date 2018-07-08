@@ -18,12 +18,12 @@
 </div>
 
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()" id="card-stack" [style.zIindex]="-1000">
-    <ion-card #mycards1 swing-card *ngFor="let card of restaurantViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{'transition': transitionString}">
+    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{'transition': transitionString}">
         <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />
 
         <ion-card-content class="card-text">
             <ion-card-title style="color: white !important;">
-                {{card.restaurant.name}}
+                {{card.organization.name}}
             </ion-card-title>
             {{card.dealDescription}}
         </ion-card-content>

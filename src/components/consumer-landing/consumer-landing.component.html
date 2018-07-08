@@ -16,29 +16,29 @@
 </div>
 
 <div #logInScreen class="animate-form offset-form">
-    <ion-card>              
+    <ion-card>
         <ion-card-content>
             <ion-list class="centered-form ">
-                    <form [formGroup]="userLogInGroup">
-                        <ion-item>
-                            <ion-label floating>Email</ion-label>
-                            <ion-input type="email"  formControlName="email"></ion-input>
-                        </ion-item>
-            
-                        <ion-item>
-                            <ion-label floating>Password</ion-label>
-                            <ion-input type="password" formControlName="password"></ion-input>
-                        </ion-item>
-            
-                        <ion-item>
-                            <ion-label>Remember Me</ion-label>
-                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
-                        </ion-item>
-                    </form>
-                </ion-list>
+                <form [formGroup]="userLogInGroup">
+                    <ion-item>
+                        <ion-label floating>Email</ion-label>
+                        <ion-input type="email" formControlName="email"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label floating>Password</ion-label>
+                        <ion-input type="password" formControlName="password"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Remember Me</ion-label>
+                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                    </ion-item>
+                </form>
+            </ion-list>
         </ion-card-content>
     </ion-card>
-    
+
     <button class="welcome-button" ion-button outline (click)="loginHandler()">
         login
     </button>
@@ -49,7 +49,7 @@
 </div>
 
 <div #userSignUpFields class="animate-form offset-form">
-    <ion-card>              
+    <ion-card>
         <ion-card-content>
             <ion-list class="centered-form">
                 <form [formGroup]="userSignUpGroup">
@@ -60,7 +60,7 @@
 
                     <ion-item>
                         <ion-label floating>Email</ion-label>
-                        <ion-input type="email"  formControlName="email"></ion-input>
+                        <ion-input type="email" formControlName="email"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -91,38 +91,3 @@
         <ion-icon name="arrow-back"></ion-icon>
     </button>
 </div>
-
-<!-- <div #restaurantSignUpFields>
-    <ion-list>
-        <form [formGroup]="userFormGroup">
-            <ion-item>
-                <ion-label floating>Email</ion-label>
-                <ion-input type="email"  formControlName="email"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label floating>Password</ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label floating>Confirm Password</ion-label>
-                <ion-input type="password" formControlName="confirmPassword"></ion-input>
-            </ion-item>
-        </form>
-    </ion-list>
-
-</div> -->
-
-<!-- <div #userTypeChoice class="animate-form offset-form">
-    <div class="user-type-button-area">
-        <button class="welcome-button" ion-button (click)="signUpConsumer()">
-           consumer
-        </button>
-        <div class="or-text">or</div>
-        <button class="welcome-button" ion-button outline (click)="signUpRestaurant()">
-            business
-        </button>
-    </div>
-</div> -->
-    

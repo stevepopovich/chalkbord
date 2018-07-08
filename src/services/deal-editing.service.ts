@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
-import { GSCard } from "../types/deals.type";
+import { LocaleCard } from "../types/deals.type";
 import { Subject } from 'rxjs';
 
 @Injectable()
 export class DealEditorService {
-    public currentDealBeingEdited: GSCard;
+    public currentDealBeingEdited: LocaleCard;
 
-    public currentDealSubject: Subject<GSCard> = new Subject<GSCard>();
+    public currentDealSubject: Subject<LocaleCard> = new Subject<LocaleCard>();
 
-    public deleteDealSubject: Subject<GSCard> = new Subject<GSCard>();
+    public deleteDealSubject: Subject<LocaleCard> = new Subject<LocaleCard>();
 
-    public addDealSubject: Subject<GSCard> = new Subject<GSCard>();
+    public addDealSubject: Subject<LocaleCard> = new Subject<LocaleCard>();
 
-    public setCurrentDeal(deal: GSCard){
+    public setCurrentDeal(deal: LocaleCard){
         this.currentDealBeingEdited = deal;
 
         this.currentDealSubject.next(deal);

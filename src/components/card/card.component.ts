@@ -1,6 +1,6 @@
-import { GSCard } from './../../types/deals.type';
+import { LocaleCard } from './../../types/deals.type';
 import { Component, Input } from "@angular/core";
-import { ImageService } from '../../services/image-service.service';
+import { ImageService } from '../../services/firebase/image-service.service';
 
 @Component({
     templateUrl: './card.component.html',
@@ -9,15 +9,15 @@ import { ImageService } from '../../services/image-service.service';
 })
 export class GSCardComponent {
     @Input()
-    set card(card: GSCard) {
+    set card(card: LocaleCard) {
         if(card) {
             this._card = card;
             this.imageService.setDealImageURL(this.card);
         } else
-            this._card = GSCard.getBlankCard();
+            this._card = LocaleCard.getBlankCard();
 
     }
-    get card(): GSCard {
+    get card(): LocaleCard {
         return this._card;
     }
 
@@ -26,7 +26,7 @@ export class GSCardComponent {
         this._imageSrc = imageSrc;
     
         if(!this._card)
-            this._card = GSCard.getBlankCard();
+            this._card = LocaleCard.getBlankCard();
 
         this._card.imageURL = imageSrc;
     };
@@ -36,10 +36,10 @@ export class GSCardComponent {
 
     @Input() showCardText: boolean = true;
 
-    private _card: GSCard;
+    private _card: LocaleCard;
     private _imageSrc;
 
     constructor(private imageService: ImageService) {
-        this._card = GSCard.getBlankCard();
+        this._card = LocaleCard.getBlankCard();
     }
 }

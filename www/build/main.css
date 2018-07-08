@@ -40002,7 +40002,7 @@ ion-navbar.toolbar {
   color: black;
 }
 
-.restaurant-card {
+.organization-card {
   width: 100%;
 }
 
@@ -40185,7 +40185,7 @@ ion-spinner {
 }
 
 .background-photo {
-  background-image: url("../assets/images/restaurant-portrait.jpg");
+  background-image: url("../assets/images/organization-portrait.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
