@@ -6,7 +6,7 @@ import { ViewController } from "ionic-angular";
     selector: 'filter-deal',
     styleUrls: ['/filter-deal.component.scss']
 })
-export class FilterDealComponent{
+export class FilterDealComponent {
     constructor(public viewCtrl: ViewController){
 
     }

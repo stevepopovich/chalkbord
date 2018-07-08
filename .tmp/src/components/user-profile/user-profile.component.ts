@@ -1,8 +1,6 @@
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild } from "@angular/core";
-import { DeviceService } from "../../services/device.service";
-import { ViewControllerService } from "../../services/view-controller.service";
-import { ModalController, ViewController, Button, NavParams, NavController } from "ionic-angular";
+import { ViewController, Button, NavParams, NavController } from "ionic-angular";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser } from "../../types/user.type";
@@ -15,6 +13,7 @@ import { UserService } from '../../services/user.service';
     styleUrls: ['/user-profile.component.scss']
 })
 
+//Used in modal with orgs and consumers
 export class UserProfileComponent {
     @ViewChild('editButton') editButton: Button;
 
@@ -27,9 +26,8 @@ export class UserProfileComponent {
 
     public editButtonText: string = "edit";
 
-    constructor(public deviceService: DeviceService, public viewController: ViewControllerService, 
-        public modalCtrl: ModalController, public viewCtrl: ViewController, 
-        public authService: AuthorizationService, public toastService: ToastService, 
+    constructor(private viewCtrl: ViewController, 
+        private authService: AuthorizationService, private toastService: ToastService, 
         private params: NavParams, private navCtrl: NavController, private currentUserService: CurrentUserService,
         private userService: UserService){
 

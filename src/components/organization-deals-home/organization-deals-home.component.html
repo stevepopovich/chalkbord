@@ -1,0 +1,14 @@
+<ion-split-pane>
+    <!--  our side menu  -->
+    <ion-menu [content]="content">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Your Deals</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <organization-deal-list></organization-deal-list>
+    </ion-menu>
+
+    <!-- the main content -->
+    <ion-nav [root]="root" main #content></ion-nav>
+</ion-split-pane>

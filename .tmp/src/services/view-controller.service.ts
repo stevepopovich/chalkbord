@@ -1,68 +1,55 @@
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class ViewControllerService {
-    public dealMaker: Boolean = false;
+export class ViewControllerService {//TODO bag up this entire system
     public consumer: Boolean = false;
-    public signUp: Boolean = false;
+    public userLanding: Boolean = false;
     public browserHome: Boolean = false;
-    public restaurantLanding: Boolean = false;
-    public restaurantHome: Boolean = false;
+    public organizationLanding: Boolean = false;
+    public organizationDealsHome: Boolean = false;
 
     constructor() {
     }
 
     public setConsumerView(){
-        this.dealMaker = false;
         this.consumer = true;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
-    }
-
-    public setDealMakerView(){
-        this.dealMaker = true;
-        this.consumer = false;
-        this.signUp = false;
-        this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     }
 
     public setSignUpView(){
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = true;
+        this.userLanding = true;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     }
 
     public setBrowserHome(){
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = true;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     }
 
     public setRestaurantPortal(){
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = true;
-        this.restaurantHome = false;
+        this.organizationLanding = true;
+        this.organizationDealsHome = false;
     }
 
     public setRestaurantHome(){
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = true;
+        this.organizationLanding = false;
+        this.organizationDealsHome = true;
     }
+
+
 }

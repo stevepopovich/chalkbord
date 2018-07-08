@@ -1,0 +1,14 @@
+<ion-content>
+    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">
+        <ion-item *ngFor="let deal of cardList" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">
+            <ion-label>{{ deal.dealDescription }}</ion-label>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">
+        Add some cards and see them here!
+    </div>
+</ion-content>
+
+<button (click)="openProfile()" class="button-top-right" ion-button icon-only>
+    <ion-icon ios="md-contact" md="md-contact"></ion-icon>
+</button>

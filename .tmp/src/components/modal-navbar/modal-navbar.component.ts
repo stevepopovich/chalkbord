@@ -15,8 +15,7 @@ export class ModalNavbarComponent{
     @Input() restaurntModal: boolean;
 
     constructor(private toastService: ToastService, private ionicViewController: ViewController, 
-        private deviceService: DeviceService,
-        private viewControllerService: ViewControllerService) {
+        private deviceService: DeviceService, private viewControllerService: ViewControllerService) {
     }
 
     public logout(){

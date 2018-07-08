@@ -56,8 +56,7 @@ var ModalNavbarComponent = (function () {
             styleUrls: ['/modal-navbar.component.scss']
         }),
         __metadata("design:paramtypes", [ToastService, ViewController,
-            DeviceService,
-            ViewControllerService])
+            DeviceService, ViewControllerService])
     ], ModalNavbarComponent);
     return ModalNavbarComponent;
 }());

@@ -39,7 +39,7 @@ export class DealEditorComponent{
                     private currentUserService: CurrentUserService){
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
-            numberOfDeals: ['', Validators.compose([Validators.maxLength(1000), Validators.pattern('[0-9 ]*')])],
+            numberOfDeals: [''],
             limitedDealNumber: [''],
             dealDay: ['', Validators.required],
             dealStart: ['', Validators.required],
@@ -91,6 +91,8 @@ export class DealEditorComponent{
     }
 
     public save(){
+        console.log("saving");
+        this.dealEditorFormGroup.updateValueAndValidity();
         if(this.dealEditorFormGroup.valid){ 
             var deal: GSCard = this.getDealFromFields();
 

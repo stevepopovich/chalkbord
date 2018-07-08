@@ -14,6 +14,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+import { ConsumerLandingComponent } from './../components/consumer-landing/consumer-landing.component';
+import { OrganizationDealsHomeComponent } from './../components/organization-deals-home/organization-deals-home.component';
+import { OrganizationDealListComponent } from './../components/organization-deal-list/organization-deal-list.component';
 import { LoginService } from './../services/login.service';
 import { CurrentUserService } from './../services/current-user.service';
 import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
@@ -32,7 +35,6 @@ import { ConsumerComponent } from '../components/consumer/consumer.component';
 import { SwingModule } from 'angular2-swing';
 import { Dialogs } from '@ionic-native/dialogs';
 import { StatusBar } from '@ionic-native/status-bar';
-import { RestaurantDealMakerComponent } from '../components/restaurant-deal-maker/restaurant-deal-maker.component';
 import { DealEditorComponent } from '../components/deal-editor/deal-editor.component';
 import { FilterDealComponent } from '../components/filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
@@ -46,19 +48,17 @@ import { AuthorizationService } from '../services/authorization.service';
 import { ImageService } from '../services/image-service.service';
 import { Camera } from '@ionic-native/camera';
 import { UploadService } from '../services/uploader.service';
-import { UserSignUpComponent } from '../components/user-signup/user-signup.component';
 import { ViewControllerService } from '../services/view-controller.service';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { DeviceService } from '../services/device.service';
 import { UserProfileComponent } from '../components/user-profile/user-profile.component';
 import { ToastService } from '../services/toast.service';
 import { BrowserHomeComponent } from '../components/browser-home/browser-home.component';
-import { RestaurantLandingComponent } from '../components/restaurant-landing/restaurant-landing.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RestaurantProfileComponent } from '../components/restaurant-profile/restaurant-profile.component';
 import { DealEditorService } from '../services/deal-editing.service';
 import { Geolocation as IonLocation } from '@ionic-native/geolocation';
 import { UserService } from '../services/user.service';
+import { OrganizationLandingComponent } from '../components/organization-landing/organization-landing.component';
 var MyHammerConfig = (function (_super) {
     __extends(MyHammerConfig, _super);
     function MyHammerConfig() {
@@ -79,14 +79,14 @@ var AppModule = (function () {
             declarations: [
                 LocaleApp,
                 ConsumerComponent,
-                RestaurantDealMakerComponent,
+                OrganizationDealListComponent,
                 DealEditorComponent,
                 FilterDealComponent,
-                UserSignUpComponent,
+                ConsumerLandingComponent,
                 UserProfileComponent,
                 BrowserHomeComponent,
-                RestaurantLandingComponent,
-                RestaurantProfileComponent,
+                OrganizationLandingComponent,
+                OrganizationDealsHomeComponent,
                 GSCardComponent,
                 MoreCardInfoComponent,
                 ModalNavbarComponent
@@ -119,14 +119,15 @@ var AppModule = (function () {
             bootstrap: [IonicApp],
             entryComponents: [
                 LocaleApp,
-                RestaurantDealMakerComponent,
+                ConsumerComponent,
+                OrganizationDealListComponent,
                 DealEditorComponent,
                 FilterDealComponent,
-                UserSignUpComponent,
+                ConsumerLandingComponent,
                 UserProfileComponent,
                 BrowserHomeComponent,
-                RestaurantLandingComponent,
-                RestaurantProfileComponent,
+                OrganizationLandingComponent,
+                OrganizationDealsHomeComponent,
                 GSCardComponent,
                 MoreCardInfoComponent,
                 ModalNavbarComponent

@@ -10,60 +10,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from "@angular/core";
 var ViewControllerService = (function () {
     function ViewControllerService() {
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     }
     ViewControllerService.prototype.setConsumerView = function () {
-        this.dealMaker = false;
         this.consumer = true;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
-    };
-    ViewControllerService.prototype.setDealMakerView = function () {
-        this.dealMaker = true;
-        this.consumer = false;
-        this.signUp = false;
-        this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
     ViewControllerService.prototype.setSignUpView = function () {
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = true;
+        this.userLanding = true;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
     ViewControllerService.prototype.setBrowserHome = function () {
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = true;
-        this.restaurantLanding = false;
-        this.restaurantHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
     ViewControllerService.prototype.setRestaurantPortal = function () {
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = true;
-        this.restaurantHome = false;
+        this.organizationLanding = true;
+        this.organizationDealsHome = false;
     };
     ViewControllerService.prototype.setRestaurantHome = function () {
-        this.dealMaker = false;
         this.consumer = false;
-        this.signUp = false;
+        this.userLanding = false;
         this.browserHome = false;
-        this.restaurantLanding = false;
-        this.restaurantHome = true;
+        this.organizationLanding = false;
+        this.organizationDealsHome = true;
     };
     ViewControllerService = __decorate([
         Injectable(),

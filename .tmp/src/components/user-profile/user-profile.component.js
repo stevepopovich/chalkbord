@@ -9,18 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild } from "@angular/core";
-import { DeviceService } from "../../services/device.service";
-import { ViewControllerService } from "../../services/view-controller.service";
-import { ModalController, ViewController, Button, NavParams, NavController } from "ionic-angular";
+import { ViewController, Button, NavParams, NavController } from "ionic-angular";
 import { AuthorizationService } from "../../services/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { ConsumerCardList } from "../consumer-card-list/consumer-card-list.component";
 import { UserService } from '../../services/user.service';
 var UserProfileComponent = (function () {
-    function UserProfileComponent(deviceService, viewController, modalCtrl, viewCtrl, authService, toastService, params, navCtrl, currentUserService, userService) {
-        this.deviceService = deviceService;
-        this.viewController = viewController;
-        this.modalCtrl = modalCtrl;
+    function UserProfileComponent(viewCtrl, authService, toastService, params, navCtrl, currentUserService, userService) {
         this.viewCtrl = viewCtrl;
         this.authService = authService;
         this.toastService = toastService;
@@ -104,9 +99,10 @@ var UserProfileComponent = (function () {
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/'<modal-navbar [restaurntModal]="isRestaurant" [profileModal]="true"></modal-navbar>\n\n<ion-content style="margin-top: 4em">\n    <ion-item *ngIf="!isRestaurant">\n        <ion-label floating>First Name</ion-label>\n        <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>\n    </ion-item>\n\n    <ion-item *ngIf="!isRestaurant">\n        <ion-label floating>Email</ion-label>\n        <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>\n    </ion-item>\n    \n    <button *ngIf="!isRestaurant" (click)="toggleEdit()" class="reset-button" ion-button>\n        {{editButtonText}}\n    </button>\n    \n    <button (click)="resetPassword()" class="reset-button" outline ion-button>\n        reset password\n    </button>\n\n    <button *ngIf="!isRestaurant" (click)="yourCards()" class="reset-button" outline ion-button>\n        your cards\n    </button>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/,
             selector: 'user-profile',
             styleUrls: ['/user-profile.component.scss']
-        }),
-        __metadata("design:paramtypes", [DeviceService, ViewControllerService,
-            ModalController, ViewController,
+        })
+        //Used in modal with orgs and consumers
+        ,
+        __metadata("design:paramtypes", [ViewController,
             AuthorizationService, ToastService,
             NavParams, NavController, CurrentUserService,
             UserService])

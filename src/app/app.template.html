@@ -1,8 +1,7 @@
 <div *ngIf="viewControl">
     <consumer *ngIf="viewControl.consumer"></consumer>
-    <restaurant-deal-maker *ngIf="viewControl.dealMaker"></restaurant-deal-maker>
-    <user-signup *ngIf="viewControl.signUp"></user-signup>
+    <consumer-landing *ngIf="viewControl.userLanding"></consumer-landing>
     <browser-home *ngIf="viewControl.browserHome"></browser-home>
-    <restaurant-landing *ngIf="viewControl.restaurantLanding"></restaurant-landing>
-    <restaurant-profile *ngIf="viewControl.restaurantHome"></restaurant-profile>
+    <organization-landing *ngIf="viewControl.organizationLanding"></organization-landing>
+    <organization-deals-home *ngIf="viewControl.organizationDealsHome"></organization-deals-home>
 </div>

@@ -12,9 +12,6 @@
         <form [formGroup]="dealEditorFormGroup">
             <ion-grid style="padding: 0px;">
                 <ion-row>
-                    <!-- <ion-col *ngIf="getDeviceIsSmall()" style="height: 700px; padding: 0px;">
-                        <gs-card [(card)]="dealEditorService.currentDealBeingEdited"></gs-card>
-                    </ion-col> -->
                     <ion-col col-12 col-sm-6 style="padding: 0px;">
                         <ion-item>
                             <ion-label floating>Deal Description</ion-label>
@@ -67,20 +64,10 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-        
-            <!-- <ion-item>
-                <input type="file" (change)="setImageData($event)" accept="image/*"/>
-            </ion-item> -->
         </form>
     </ion-list>
 
     <div class="button-group">
-        <!-- <button *ngIf="isDesktop()" ion-button (click)="uploadDesktopImage()">
-            Photo
-        </button>
-        <button *ngIf="!isDesktop()" ion-button (click)="editPhotoData()">
-            Photo
-        </button> -->
         <button *ngIf="!editingDeal" ion-button (click)="add()">
             Add
         </button>
