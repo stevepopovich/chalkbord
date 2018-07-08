@@ -1,13 +1,16 @@
+import { RememberMeService } from './../../services/remember-me.service';
+import { UserLoginFormGroup } from './../../types/user-login-form-group.type';
 import { LoginService } from './../../services/login.service';
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
 import { GSUser, UserType } from '../../types/user.type';
-import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/user.service';
-import { LoginKeys } from '../../services/login-keys.service';
+
+///PLAN
+//Make a field component that takes a name and error message????
 
 @Component({
     templateUrl: './consumer-landing.component.html',
@@ -21,7 +24,7 @@ export class ConsumerLandingComponent implements AfterViewInit {
     @ViewChild('goBackButton') goBackButton;
 
     public userSignUpGroup: FormGroup;
-    public userLogInGroup: FormGroup;
+    public userLogInGroup: UserLoginFormGroup;
 
     public signingUp: boolean = true;
 
@@ -33,37 +36,22 @@ export class ConsumerLandingComponent implements AfterViewInit {
     public remembered = false;
 
     public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService, 
-        private deviceService: DeviceService, 
+        private rememberMeService: RememberMeService,
         public toastService: ToastService, private currentUserService: CurrentUserService, 
         private userService: UserService, private loginService: LoginService){
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            name: [''],
+            name: ['', Validators.required],
             rememberMe: ['']
         });
 
-        this.userLogInGroup = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            rememberMe: ['']
-        });
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
     }
 
     ngAfterViewInit(): void {
-        this.deviceService.getSetting(LoginKeys.rememberMeUserKey).then((rememberMe: boolean) => {
-            if(rememberMe){
-                this.deviceService.getUserEmailPasswordFromLocalStorage(LoginKeys.userEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
-                    if(emailPasswordTup){
-                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
-                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
-        
-                        this.loginService.login(this.userLogInGroup);
-                    }
-                });
-            }
-        });
+        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
     }
 
     public signUp(): void{
@@ -82,16 +70,15 @@ export class ConsumerLandingComponent implements AfterViewInit {
                 this.auth.checkSignInMethods(email).then((methods) => {
                     if(!methods || methods.length < 1){//if user not in db
                         this.attemptingSignup = true;
-                        this.auth.signUp(email, password).then(() => {
+                        this.auth.signUp(email, password).then(() => {//todo undo sign up if sign in fails
                             this.auth.signIn(email, password).then(() => {
-                                this.handleRememberMe(this.userSignUpGroup);
+                                this.rememberMeService.handleRememberMeSetting(this.userSignUpGroup, UserType.Consumer);
 
                                 const newUser = new GSUser(this.auth.getCurrentUserUID(), userType, firstName);
             
                                 this.currentUserService.setCurrentUser(newUser);
             
                                 this.userService.updateUserInDatabase(newUser);
-                                //this.auth.userCollection.doc(newUser.uid).set(newUser.getAsPlainObject());
 
                                 this.loginService.setAppropiateView();
             
@@ -139,18 +126,9 @@ export class ConsumerLandingComponent implements AfterViewInit {
     }
     
     public loginHandler(): void{
-        this.handleRememberMe(this.userLogInGroup);
+        this.rememberMeService.handleRememberMeSetting(this.userLogInGroup, UserType.Consumer);
 
         this.loginService.login(this.userLogInGroup);
-    }
-
-    public handleRememberMe(formGroup: FormGroup){
-        const rememberMe: boolean = formGroup.get("rememberMe").value;
-
-        this.deviceService.putSetting(LoginKeys.rememberMeUserKey, rememberMe);
-
-        if(rememberMe)
-            this.deviceService.putUserEmailPasswordToLocalStorage(LoginKeys.userEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
     }
 
     public resetPassword(): void {

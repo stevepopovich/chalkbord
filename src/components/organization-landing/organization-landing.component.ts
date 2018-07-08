@@ -1,7 +1,7 @@
+import { RememberMeService } from './../../services/remember-me.service';
 import { Component, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { AuthorizationService } from "../../services/authorization.service";
-import { DeviceService, EmailPasswordTuple } from "../../services/device.service";
 import { ToastService } from "../../services/toast.service";
 import { GSUser, UserType } from "../../types/user.type";
 import { AlertController } from "ionic-angular";
@@ -11,7 +11,7 @@ import { RestaurantService } from "../../services/restaurant-service";
 import { CurrentUserService } from "../../services/current-user.service";
 import { UserService } from "../../services/user.service";
 import { LoginService } from "../../services/login.service";
-import { LoginKeys } from "../../services/login-keys.service";
+import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
 
 @Component({
     templateUrl: './organization-landing.component.html',
@@ -19,7 +19,7 @@ import { LoginKeys } from "../../services/login-keys.service";
     styleUrls: ['/organization-landing.component.scss']
 })
 export class OrganizationLandingComponent implements AfterViewInit {
-    public userLogInGroup: FormGroup;
+    public userLogInGroup: UserLoginFormGroup;
     public restSignUpGroup: FormGroup;
 
     public rememberMeLogIn: boolean = false;
@@ -30,14 +30,10 @@ export class OrganizationLandingComponent implements AfterViewInit {
     @ViewChild('signUpCard') signUpCard: ElementRef;
 
     constructor(public formBuilder: FormBuilder, private auth: AuthorizationService,
-        private deviceService: DeviceService, private loginService: LoginService,
-        public toastService: ToastService, private alert: AlertController, private restaurantService: RestaurantService,
-        private currentUserService: CurrentUserService, private userService: UserService) {
-        this.userLogInGroup = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
-            rememberMe: ['']
-        });
+        private loginService: LoginService, private restaurantService: RestaurantService,
+        public toastService: ToastService, private alert: AlertController, 
+        private currentUserService: CurrentUserService, private userService: UserService, private rememberMeService: RememberMeService) {
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
         this.restSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -51,18 +47,7 @@ export class OrganizationLandingComponent implements AfterViewInit {
             rememberMe: ['']
         });
 
-        this.deviceService.getSetting(LoginKeys.rememberMeRestKey).then((rememberMe: boolean) => {
-            if(rememberMe){
-                this.deviceService.getUserEmailPasswordFromLocalStorage(LoginKeys.restEmailPasswordComboKey).then((emailPasswordTup: EmailPasswordTuple) => {
-                    if(emailPasswordTup){
-                        this.userLogInGroup.get("email").setValue(emailPasswordTup.email);
-                        this.userLogInGroup.get("password").setValue(emailPasswordTup.password);
-        
-                        this.loginService.login(this.userLogInGroup);
-                    }
-                });
-            }
-        });
+        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
     }
 
     public ngAfterViewInit(): void {
@@ -74,24 +59,13 @@ export class OrganizationLandingComponent implements AfterViewInit {
     }
 
     public loginHandler(): void {
-        this.handleRememberMe(this.userLogInGroup);
+        this.rememberMeService.handleRememberMeSetting(this.userLogInGroup, UserType.Organization);
 
         this.loginService.login(this.userLogInGroup);
     }
 
-    public handleRememberMe(formGroup: FormGroup){
-        const rememberMe: boolean = formGroup.get("rememberMe").value;
-
-        this.deviceService.putSetting(LoginKeys.rememberMeRestKey, rememberMe);
-
-        if(rememberMe)
-            this.deviceService.putUserEmailPasswordToLocalStorage(LoginKeys.restEmailPasswordComboKey, formGroup.get("email").value, formGroup.get("password").value);
-    }
-
     public signUp(): void {
         if(this.restSignUpGroup.valid){
-            //this.toastService.showReadableToast("Signing you up...welcome!");
-
             const address: string = this.restSignUpGroup.get("address").value;
             const city: string = this.restSignUpGroup.get("city").value;
             const state: string = this.restSignUpGroup.get("state").value;
@@ -186,9 +160,9 @@ export class OrganizationLandingComponent implements AfterViewInit {
                 if(!methods || methods.length < 1){//if user not in db
                     this.auth.signUp(email, password).then(() => {
                         this.auth.signIn(email, password).then(() => {
-                            this.handleRememberMe(this.restSignUpGroup);
+                            this.rememberMeService.handleRememberMeSetting(this.restSignUpGroup, UserType.Organization);
 
-                            const newUser = new GSUser(this.auth.getCurrentUserUID(), UserType.Restaurant, restaurantName);
+                            const newUser = new GSUser(this.auth.getCurrentUserUID(), UserType.Organization, restaurantName);
                             
                             const newRestaurantModel = new Restaurant(this.auth.getCurrentUserUID(), restaurantName, place.formatted_address, "", new GSLocation(place.geometry.location));
                     

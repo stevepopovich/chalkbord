@@ -27,5 +27,5 @@ export class GSUser{
 
 export enum UserType {
     Consumer,
-    Restaurant
+    Organization
 }

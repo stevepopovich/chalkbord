@@ -50,6 +50,7 @@ import { DealEditorService } from '../services/deal-editing.service';
 import { Geolocation as IonLocation } from '@ionic-native/geolocation';
 import { UserService } from '../services/user.service';
 import { OrganizationLandingComponent } from '../components/organization-landing/organization-landing.component';
+import { RememberMeService } from '../services/remember-me.service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   overrides = <any>{
@@ -139,7 +140,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     RestaurantService,
     UserService,
     CurrentUserService,
-    LoginService
+    LoginService,
+    RememberMeService
   ]
 })
 export class AppModule { }

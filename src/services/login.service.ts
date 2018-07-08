@@ -65,7 +65,7 @@ export class LoginService {
     }
 
     public setAppropiateView(){
-        if(this.currentUserService.getCurrentUser().userType == UserType.Restaurant)
+        if(this.currentUserService.getCurrentUser().userType == UserType.Organization)
             this.viewControllerService.setRestaurantHome();
         else
             this.viewControllerService.setConsumerView();
