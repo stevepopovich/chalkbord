@@ -1,3 +1,4 @@
+import { FirebaseCollectionService } from './firebase-collection-service.interface';
 import { Injectable } from "@angular/core";
 import { AngularFirestoreCollection, AngularFirestore } from "angularfire2/firestore";
 import { Observable } from 'rxjs';
@@ -5,7 +6,8 @@ import { LocaleUser } from "../../../types/user.type";
 import { ToastService } from "../../toast.service";
 
 @Injectable()
-export class UserService {
+export class UserService implements FirebaseCollectionService<LocaleUser> {
+
     private userCollection: AngularFirestoreCollection<LocaleUser>;
 
     constructor(private database: AngularFirestore, public toastService: ToastService) {
@@ -40,5 +42,21 @@ export class UserService {
 
     public get(uid: string): Observable<LocaleUser[]> {
         return this.database.collection<LocaleUser>("users", ref => ref.where("uid", '==', uid)).valueChanges();//this.fireAuth.auth.currentUser.uid
+    }
+
+    public getAll(): Observable<LocaleUser[]> {
+        throw new Error("Method not implemented.");
+    }
+    public getMulti(ids: string[]): Observable<LocaleUser[]> {
+        ids;
+        throw new Error("Method not implemented.");
+    }
+    public setMulti(models: LocaleUser[]): void {
+        models;
+        throw new Error("Method not implemented.");
+    }
+    public delete(id: string): Promise<void> {
+        id;
+        throw new Error("Method not implemented.");
     }
 }

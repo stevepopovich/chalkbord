@@ -1,10 +1,4 @@
-import { ToastService } from './toast.service';
-import { OrganizationDealsHomeComponent } from './../components/organization-deals-home/organization-deals-home.component';
-import { OrganizationLandingComponent } from './../components/organization-landing/organization-landing.component';
-import { BrowserHomeComponent } from './../components/browser-home/browser-home.component';
-import { ConsumerComponent } from './../components/consumer/consumer.component';
 import { Injectable } from "@angular/core";
-import { ConsumerLandingComponent } from '../components/consumer-landing/consumer-landing.component';
 import { LocaleView } from '../types/locale-view.type';
 
 @Injectable()

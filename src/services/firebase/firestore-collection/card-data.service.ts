@@ -1,3 +1,4 @@
+import { FirebaseCollectionService } from './firebase-collection-service.interface';
 import { LocaleCard } from './../../../types/deals.type';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -6,18 +7,24 @@ import { LocaleLocation } from '../../../types/location.type';
 import { Guid } from '../../../types/utils.type';
 
 @Injectable()
-export class CardDataService {
+export class CardDataService implements FirebaseCollectionService<LocaleCard> {
+
     public cardDoc: AngularFirestoreCollection<LocaleCard>;
 
     constructor(private database: AngularFirestore) {
         this.cardDoc = this.database.collection<LocaleCard>("cards");
     }
 
-    public get(): Observable<LocaleCard[]> {
+    public get(id: string): Observable<LocaleCard[]> {
+        id;
+        throw new Error("Method not implemented.");
+    }
+
+    public getAll(): Observable<LocaleCard[]> {
         return this.cardDoc.valueChanges();
     }
 
-    public get(ids: Guid[]): Observable<LocaleCard[]> {
+    public getMulti(ids: Guid[]): Observable<LocaleCard[]> {
         if (ids && ids.length > 0) {
             const observables: Observable<LocaleCard[]>[] = [];
 
@@ -32,7 +39,7 @@ export class CardDataService {
             return Observable.of([]);
     }
 
-    public set(models: Array<LocaleCard>): void {
+    public setMulti(models: Array<LocaleCard>): void {
         const cards = models.map((card) => { return Object.assign({}, card.getAsPlainObject()) });
         cards.forEach((card) => {
             this.cardDoc.doc(card.id).set(card);

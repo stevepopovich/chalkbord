@@ -2,12 +2,12 @@ import { Observable } from "rxjs";
 
 export interface FirebaseCollectionService<T> {
 
-    get(): Observable<T[]>
+    getAll(): Observable<T[]>
     get(id: string): Observable<T[]>
-    get(ids: string[]): Observable<T[]>
+    getMulti(ids: string[]): Observable<T[]>
 
     set(model: T): Promise<void>
-    set(models: T[]): void
+    setMulti(models: T[]): void
 
     delete(id: string): Promise<void>
 }
