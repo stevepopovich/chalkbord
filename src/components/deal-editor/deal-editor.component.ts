@@ -112,7 +112,7 @@ export class DealEditorComponent {
                 });
             }
 
-            this.cardService.update(deal);
+            this.cardService.set(deal);
         }
         else
             this.reportBadFields();

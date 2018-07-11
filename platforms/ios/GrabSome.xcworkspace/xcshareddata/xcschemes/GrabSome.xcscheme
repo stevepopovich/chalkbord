@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "GrabSome.app"
-               BlueprintName = "GrabSome"
-               ReferencedContainer = "container:GrabSome.xcodeproj">
+               BuildableName = "Chalkbord.app"
+               BlueprintName = "Chalkbord"
+               ReferencedContainer = "container:Chalkbord.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "GrabSome.app"
-            BlueprintName = "GrabSome"
-            ReferencedContainer = "container:GrabSome.xcodeproj">
+            BuildableName = "Chalkbord.app"
+            BlueprintName = "Chalkbord"
+            ReferencedContainer = "container:Chalkbord.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "GrabSome.app"
-            BlueprintName = "GrabSome"
-            ReferencedContainer = "container:GrabSome.xcodeproj">
+            BuildableName = "Chalkbord.app"
+            BlueprintName = "Chalkbord"
+            ReferencedContainer = "container:Chalkbord.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "GrabSome.app"
-            BlueprintName = "GrabSome"
-            ReferencedContainer = "container:GrabSome.xcodeproj">
+            BuildableName = "Chalkbord.app"
+            BlueprintName = "Chalkbord"
+            ReferencedContainer = "container:Chalkbord.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

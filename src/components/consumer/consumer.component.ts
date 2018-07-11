@@ -84,7 +84,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
 
-                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 1000000).subscribe((cardModels) => {
+                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
                     if (cardModels.length > 0) {
                         if (!this.cards) {
                             this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);

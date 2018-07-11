@@ -5,7 +5,7 @@
 	<key>ApplicationProperties</key>
 	<dict>
 		<key>ApplicationPath</key>
-		<string>Applications/GrabSome.app</string>
+		<string>Applications/Chalkbord.app</string>
 		<key>CFBundleIdentifier</key>
 		<string>locale.alpha</string>
 		<key>CFBundleShortVersionString</key>
@@ -20,8 +20,8 @@
 	<key>CreationDate</key>
 	<date>2018-04-30T02:48:40Z</date>
 	<key>Name</key>
-	<string>GrabSome</string>
+	<string>Chalkbord</string>
 	<key>SchemeName</key>
-	<string>GrabSome</string>
+	<string>Chalkbord</string>
 </dict>
 </plist>

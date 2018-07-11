@@ -52,7 +52,7 @@
     <feature name="LaunchNavigator">
         <param name="ios-package" value="LaunchNavigator" />
     </feature>
-    <name>GrabSome</name>
+    <name>Chalkbord</name>
     <description>An app to let you get food deals</description>
     <author email="stevepopovich8@gmail.com">Steven Popovich</author>
     <content src="index.html" />

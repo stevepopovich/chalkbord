@@ -17,7 +17,7 @@ export class CardDataService {
         return this.cardDoc.valueChanges();
     }
 
-    public get(ids: Guid[]): Observable<LocaleCard[]> {
+    public getMutli(ids: Guid[]): Observable<LocaleCard[]> {
         if (ids && ids.length > 0) {
             const observables: Observable<LocaleCard[]>[] = [];
 
@@ -32,7 +32,7 @@ export class CardDataService {
             return Observable.of([]);
     }
 
-    public set(models: Array<LocaleCard>): void {
+    public setMutli(models: Array<LocaleCard>): void {
         const cards = models.map((card) => { return Object.assign({}, card.getAsPlainObject()) });
         cards.forEach((card) => {
             this.cardDoc.doc(card.id).set(card);

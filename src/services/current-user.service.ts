@@ -42,6 +42,6 @@ export class CurrentUserService {
     }
 
     private setUpCardObservable(): void {
-        this.currentUser.cards = this.cardService.get(this.currentUser.cardIds);
+        this.currentUser.cards = this.cardService.getMutli(this.currentUser.cardIds);
     }
 }

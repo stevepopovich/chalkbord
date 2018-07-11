@@ -3,7 +3,7 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title class="title-big">grabsome</ion-title>
+        <ion-title class="title-big">Chalkbord</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -17,12 +17,12 @@
                             <ion-label floating>Deal Description</ion-label>
                             <ion-input formControlName="dealDescription"></ion-input>
                         </ion-item>
-            
+
                         <ion-item>
                             <ion-label floating>Deal date</ion-label>
                             <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
                         </ion-item>
-            
+
                         <ion-item>
                             <ion-label floating>Start time</ion-label>
                             <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>
@@ -37,12 +37,12 @@
                             <ion-label>Limited deal number</ion-label>
                             <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>
                         </ion-item>
-                        
+
                         <ion-item *ngIf="limitDealNumber">
                             <ion-label floating>Deal Number</ion-label>
                             <ion-input type="number" formControlName="numberOfDeals"></ion-input>
                         </ion-item>
-                
+
                         <ion-list style="padding: 1em;" radio-group formControlName="dealType">
                             Deal Type
                             <ion-item>
@@ -75,7 +75,7 @@
         <button *ngIf="editingDeal" ion-button (click)="save()">
             Save
         </button>
-            
+
         <button *ngIf="editingDeal" ion-button (click)="delete()">
             Delete
         </button>
@@ -86,5 +86,4 @@
     </div>
 </ion-content>
 
-<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden"/>
-
+<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden" />
