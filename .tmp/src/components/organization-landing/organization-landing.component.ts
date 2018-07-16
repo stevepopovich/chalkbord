@@ -9,17 +9,17 @@ import { AlertController } from "ionic-angular";
 import { LocaleLocation } from "../../types/location.type";
 import { CurrentUserService } from "../../services/current-user.service";
 import { LoginService } from "../../services/login.service";
+import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { Organization } from '../../types/organization.type';
-import { LocaleView } from '../../types/locale-view.type';
 
 @Component({
     templateUrl: './organization-landing.component.html',
     selector: 'organization-landing',
     styleUrls: ['/organization-landing.component.scss']
 })
-export class OrganizationLandingComponent extends LocaleView implements AfterViewInit {
-    public userLogInGroup: FormGroup;
+export class OrganizationLandingComponent implements AfterViewInit {
+    public userLogInGroup: UserLoginFormGroup;
     public restSignUpGroup: FormGroup;
 
     public rememberMeLogIn: boolean = false;
@@ -33,13 +33,7 @@ export class OrganizationLandingComponent extends LocaleView implements AfterVie
         private loginService: LoginService, private organizationService: OrganizationService,
         public toastService: ToastService, private alert: AlertController,
         private currentUserService: CurrentUserService, private userService: UserService, private rememberMeService: RememberMeService) {
-        super();
-
-        this.userLogInGroup = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            rememberMe: ['']
-        });//new UserLoginFormGroup(this.formBuilder);
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
         this.restSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -171,8 +165,6 @@ export class OrganizationLandingComponent extends LocaleView implements AfterVie
                             const newUser = new LocaleUser(this.auth.getCurrentUserUID(), UserType.Organization, organizationName);
 
                             const newOrganziationModel = new Organization(this.auth.getCurrentUserUID(), organizationName, place.formatted_address, "", new LocaleLocation(place.geometry.location));
-
-                            newUser.organization = newOrganziationModel;
 
                             this.currentUserService.setCurrentUser(newUser);
 

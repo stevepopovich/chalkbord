@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { RememberMeService } from './../../services/remember-me.service';
+import { UserLoginFormGroup } from './../../types/user-login-form-group.type';
 import { LoginService } from './../../services/login.service';
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild, ElementRef } from "@angular/core";
@@ -26,39 +17,30 @@ import { AuthorizationService } from "../../services/firebase/authorization.serv
 import { LocaleUser, UserType } from '../../types/user.type';
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
-import { LocaleView } from '../../types/locale-view.type';
 ///PLAN
 //Make a field component that takes a name and error message????
-//First figure out overload then good validation then navigation and then we in this bitch 
-var ConsumerLandingComponent = (function (_super) {
-    __extends(ConsumerLandingComponent, _super);
+var ConsumerLandingComponent = (function () {
     function ConsumerLandingComponent(formBuilder, auth, rememberMeService, toastService, currentUserService, userService, loginService) {
-        var _this = _super.call(this) || this;
-        _this.formBuilder = formBuilder;
-        _this.auth = auth;
-        _this.rememberMeService = rememberMeService;
-        _this.toastService = toastService;
-        _this.currentUserService = currentUserService;
-        _this.userService = userService;
-        _this.loginService = loginService;
-        _this.signingUp = true;
-        _this.isOrg = false;
-        _this.attemptingSignup = false;
-        _this.attemptingLogin = false;
-        _this.remembered = false;
-        _this.userSignUpGroup = _this.formBuilder.group({
+        this.formBuilder = formBuilder;
+        this.auth = auth;
+        this.rememberMeService = rememberMeService;
+        this.toastService = toastService;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
+        this.loginService = loginService;
+        this.signingUp = true;
+        this.isOrg = false;
+        this.attemptingSignup = false;
+        this.attemptingLogin = false;
+        this.remembered = false;
+        this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
             name: ['', Validators.required],
             rememberMe: ['']
         });
-        _this.userLogInGroup = _this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            rememberMe: ['']
-        }); //new UserLoginFormGroup(this.formBuilder);
-        return _this;
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
     }
     ConsumerLandingComponent.prototype.ngAfterViewInit = function () {
         this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
@@ -176,8 +158,7 @@ var ConsumerLandingComponent = (function (_super) {
         __metadata("design:type", Object)
     ], ConsumerLandingComponent.prototype, "goBackButton", void 0);
     ConsumerLandingComponent = __decorate([
-        Component({
-            template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer-landing/consumer-landing.component.html"*/'<div class="background-photo">\n\n</div>\n\n<div #welcomeScreen class="gs-font animate-form" style="left: 0%">\n    <div class="center-text">Chalkbord</div>\n    <div class="button-area">\n        <button class="welcome-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">\n            login\n        </button>\n    </div>\n</div>\n\n<div #logInScreen class="animate-form offset-form">\n    <ion-card>\n        <ion-card-content>\n            <ion-list class="centered-form ">\n                <form [formGroup]="userLogInGroup">\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n\n    <button class="welcome-button" ion-button outline (click)="loginHandler()">\n        login\n    </button>\n\n    <button class="welcome-button" ion-button outline (click)="resetPassword()">\n        reset password\n    </button>\n</div>\n\n<div #userSignUpFields class="animate-form offset-form">\n    <ion-card>\n        <ion-card-content>\n            <ion-list class="centered-form">\n                <form [formGroup]="userSignUpGroup">\n                    <ion-item>\n                        <ion-label floating>First Name</ion-label>\n                        <ion-input formControlName="name"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Confirm Password</ion-label>\n                        <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n    <button ion-button class="welcome-button" outline (click)="signUp()">\n        sign up\n    </button>\n</div>\n\n<div #goBackButton class="go-back-button">\n    <button ion-fab (click)="goBackAScreen()">\n        <ion-icon name="arrow-back"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer-landing/consumer-landing.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer-landing/consumer-landing.component.html"*/'<div class="background-photo">\n\n</div>\n\n<div #welcomeScreen class="gs-font animate-form" style="left: 0%">\n    <div class="center-text">Chalkbord</div>\n    <div class="button-area">\n        <button class="welcome-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n        <div class="or-text">or</div>\n        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">\n            login\n        </button>\n    </div>\n</div>\n\n<div #logInScreen class="animate-form offset-form">\n    <ion-card>\n        <ion-card-content>\n            <ion-list class="centered-form ">\n                <form [formGroup]="userLogInGroup">\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n\n    <button class="welcome-button" ion-button outline (click)="loginHandler()">\n        login\n    </button>\n\n    <button class="welcome-button" ion-button outline (click)="resetPassword()">\n        reset password\n    </button>\n</div>\n\n<div #userSignUpFields class="animate-form offset-form">\n    <ion-card>\n        <ion-card-content>\n            <ion-list class="centered-form">\n                <form [formGroup]="userSignUpGroup">\n                    <ion-item>\n                        <ion-label floating>First Name</ion-label>\n                        <ion-input formControlName="name"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Email</ion-label>\n                        <ion-input type="email" formControlName="email"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Password</ion-label>\n                        <ion-input type="password" formControlName="password"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label floating>Confirm Password</ion-label>\n                        <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                    </ion-item>\n\n                    <ion-item>\n                        <ion-label>Remember Me</ion-label>\n                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>\n                    </ion-item>\n                </form>\n            </ion-list>\n        </ion-card-content>\n    </ion-card>\n    <button ion-button class="welcome-button" outline (click)="signUp()">\n        sign up\n    </button>\n</div>\n\n<div #goBackButton class="go-back-button">\n    <button ion-fab (click)="goBackAScreen()">\n        <ion-icon name="arrow-back"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer-landing/consumer-landing.component.html"*/,
             selector: 'consumer-landing',
             styleUrls: ['/consumer-landing.component.scss']
         }),
@@ -187,6 +168,6 @@ var ConsumerLandingComponent = (function (_super) {
             UserService, LoginService])
     ], ConsumerLandingComponent);
     return ConsumerLandingComponent;
-}(LocaleView));
+}());
 export { ConsumerLandingComponent };
 //# sourceMappingURL=consumer-landing.component.js.map

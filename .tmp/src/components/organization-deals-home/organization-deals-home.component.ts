@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { DealEditorComponent } from "../deal-editor/deal-editor.component";
-import { LocaleView } from "../../types/locale-view.type";
 
 @Component({
     templateUrl: './organization-deals-home.component.html',
@@ -8,6 +7,6 @@ import { LocaleView } from "../../types/locale-view.type";
     styleUrls: ['/organization-deals-home.component.scss']
 })
 
-export class OrganizationDealsHomeComponent extends LocaleView {
+export class OrganizationDealsHomeComponent{
     public root: any = DealEditorComponent;
 }

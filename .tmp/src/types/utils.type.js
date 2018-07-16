@@ -10,17 +10,4 @@ var Guid = (function () {
     return Guid;
 }());
 export { Guid };
-var Util = (function () {
-    function Util() {
-    }
-    //used simply to async wait for something
-    Util.delay = function (ms) {
-        return new Promise(function (resolve) { return setTimeout(resolve, ms); });
-    };
-    Util.randomNumber = function (from, to) {
-        return Math.floor(from + Math.random() * to);
-    };
-    return Util;
-}());
-export { Util };
 //# sourceMappingURL=utils.type.js.map

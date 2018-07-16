@@ -1,3 +1,5 @@
+import { CardDataService } from './../../services/firebase/firestore-collection/card-data.service';
+import { Observable, merge } from 'rxjs';
 import { CurrentUserService } from './../../services/current-user.service';
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
@@ -14,7 +16,9 @@ export class OrganizationDealListComponent {
     private currentCard: LocaleCard;
     private cardList: LocaleCard[] = [];
 
-    public constructor(private dealEditorService: DealEditorService,
+    private cardStream: Observable<LocaleCard[]>;
+
+    public constructor(private dealEditorService: DealEditorService, private cardService: CardDataService,
         private modalCtrl: ModalController, private currentUserService: CurrentUserService) {
 
         this.currentUserService.getCards().subscribe((deals: LocaleCard[]) => {
@@ -29,10 +33,18 @@ export class OrganizationDealListComponent {
             this.cardList.splice(this.cardList.indexOf(deal), 1);
         });
 
+        this.dealEditorService.updateDealSubject.subscribe((deal: LocaleCard) => {
+            LocaleCard.findAndUpdateCards([deal], this.cardList);
+        });
+
         this.dealEditorService.addDealSubject.subscribe((deal: LocaleCard) => {
+            this.cardStream = merge(this.cardStream, this.cardService.get(deal.id));
+
             this.cardList.push(deal);
 
             this.currentCard = deal;
+
+            this.dealEditorService.setCurrentDeal(deal);
         });
     }
 

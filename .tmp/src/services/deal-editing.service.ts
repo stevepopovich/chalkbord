@@ -12,7 +12,9 @@ export class DealEditorService {
 
     public addDealSubject: Subject<LocaleCard> = new Subject<LocaleCard>();
 
-    public setCurrentDeal(deal: LocaleCard){
+    public updateDealSubject: Subject<LocaleCard> = new Subject<LocaleCard>();
+
+    public setCurrentDeal(deal: LocaleCard) {
         this.currentDealBeingEdited = deal;
 
         this.currentDealSubject.next(deal);

@@ -166,13 +166,11 @@ export class OrganizationLandingComponent implements AfterViewInit {
 
                             const newOrganziationModel = new Organization(this.auth.getCurrentUserUID(), organizationName, place.formatted_address, "", new LocaleLocation(place.geometry.location));
 
-                            newUser.organization = newOrganziationModel;
-
                             this.currentUserService.setCurrentUser(newUser);
 
                             this.organizationService.set(newOrganziationModel);
 
-                            this.userService.updateUserInDatabase(newUser);
+                            this.userService.set(newUser);
 
                             this.loginService.setAppropiateView();
                         }).catch((reason) => {//couldn't sign in 

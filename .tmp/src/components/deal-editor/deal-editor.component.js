@@ -43,6 +43,10 @@ var DealEditorComponent = (function () {
             dealEnd: ['', Validators.required],
             dealType: ['', Validators.required],
         });
+        this.currentUserService.getCurrentOrganization().subscribe(function (orgs) {
+            if (orgs && orgs.length > 0)
+                _this.currentOrganization = orgs[0];
+        });
         this.dealEditorService.currentDealSubject.subscribe(function (deal) {
             _this.clearFields();
             _this.setCurrentCardBeingEdited(deal);
@@ -67,13 +71,18 @@ var DealEditorComponent = (function () {
         this.imageDataForUpload = null;
     };
     DealEditorComponent.prototype.add = function () {
+        var _this = this;
         if (this.dealEditorFormGroup.valid && this.imageDataForUpload) {
-            var deal = this.getDealFromFields();
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false);
-            this.imageDataForUpload = null;
-            this.dealEditorService.addDealSubject.next(deal);
-            this.cardService.set(deal);
-            this.currentUserService.addCardId(deal.id);
+            var deal_1 = this.getDealFromFields();
+            deal_1.organization = this.currentOrganization;
+            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal_1.id, false).then(function () {
+                _this.cleanUpImageData();
+                _this.clearFields();
+                //basically done assuming the below promises resolve faster, which they should saving so set state to saved
+                _this.dealEditorService.addDealSubject.next(deal_1); //add to list and make current
+            });
+            this.cardService.set(deal_1);
+            this.currentUserService.addCardId(deal_1.id);
             this.userService.set(this.currentUserService.getCurrentUser());
         }
     };
@@ -81,7 +90,7 @@ var DealEditorComponent = (function () {
         var _this = this;
         if (this.dealEditorFormGroup.valid) {
             var deal = this.getDealFromFields();
-            var startDate = this.dealEditorFormGroup.get("dealDay").value;
+            var startDate = this.dealEditorFormGroup.get("dealDay").value; //TODO why is this here?
             var startTime = this.dealEditorFormGroup.get("dealStart").value;
             var endTime = this.dealEditorFormGroup.get("dealEnd").value;
             var startDatetime = this.getSaveCombinedTime(startTime, startDate);
@@ -95,6 +104,7 @@ var DealEditorComponent = (function () {
                     _this.imageService.setDealImageURL(_this.dealEditorService.currentDealBeingEdited);
                 });
             }
+            this.dealEditorService.updateDealSubject.next(deal);
             this.cardService.set(deal);
         }
         else
@@ -154,12 +164,12 @@ var DealEditorComponent = (function () {
         var deal;
         if (!this.limitDealNumber) {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, -1, //no deal limit
-                this.dealEditorFormGroup.get("dealType").value);
-            deal.organization = this.currentUserService.getCurrentUser().organization;
+            this.dealEditorFormGroup.get("dealType").value);
+            deal.organization = this.currentOrganization;
         }
         else {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value, startDatetime, endDatetime, this.dealEditorFormGroup.get("numberOfDeals").value, this.dealEditorFormGroup.get("dealType").value);
-            deal.organization = this.currentUserService.getCurrentUser().organization;
+            deal.organization = this.currentOrganization;
         }
         return deal;
     };
@@ -203,8 +213,7 @@ var DealEditorComponent = (function () {
         __metadata("design:type", ElementRef)
     ], DealEditorComponent.prototype, "hiddenFileInput", void 0);
     DealEditorComponent = __decorate([
-        Component({
-            template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal Description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n            \n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n                        \n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item>\n                \n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px;">\n                        <gs-card [card]="dealEditorService.currentDealBeingEdited" [imageSrc]="imageDataForPreview"></gs-card>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n            \n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden"/>\n\n'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal Description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item>\n\n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px;">\n                        <gs-card [card]="dealEditorService.currentDealBeingEdited" [imageSrc]="imageDataForPreview"></gs-card>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden" />'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
             selector: 'deal-editor',
             styleUrls: ['/deal-editor.component.scss']
         }),

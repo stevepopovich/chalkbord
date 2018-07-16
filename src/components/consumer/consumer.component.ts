@@ -195,7 +195,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             this.popLikeAlert(poppedCard);
 
             this.currentUserService.addCardId(poppedCard.id);
-            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+            this.userService.set(this.currentUserService.getCurrentUser());
         }
         else
             this.popCard();

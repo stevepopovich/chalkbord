@@ -1,16 +1,11 @@
-import { LocaleCard } from "./deals.type";
 import { Guid } from "./utils.type";
-import { Observable } from "rxjs";
-import { Organization } from "./organization.type";
 
 export class LocaleUser {
     public uid: string;//from firebase auth
     public firstName: string;
     public userType: UserType;
     public cardIds?: Guid[];
-    public organization?: Organization;
-    public cards?: Observable<LocaleCard[]>;
-    public radius?: number;
+    public radius?: number;//this will probably become user settings
 
     public constructor(uid: string, userType: UserType, firstName: string) {
         this.uid = uid;
@@ -19,8 +14,6 @@ export class LocaleUser {
     }
 
     public getAsPlainObject() {
-        this.organization = Object.assign({}, this.organization);
-
         return Object.assign({}, this);
     }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { DeviceService, EmailPasswordTuple } from "./device.service";
-import { LoginKeyss } from "./login-keys.service";
+import { LoginKeys } from "./login-keys.service";
+import { UserLoginFormGroup } from '../types/user-login-form-group.type';
 import { UserType } from "../types/user.type";
 import { LoginService } from './login.service';
 import { FormGroup } from '@angular/forms';
@@ -11,7 +12,7 @@ export class RememberMeService {
     constructor(private deviceService: DeviceService, private loginService: LoginService) {
     }
 
-    public loginFromRememberMe(formGroup: FormGroup, userType: UserType) {
+    public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
         var deviceKey, tupleKey;
         this.setKeys(userType, deviceKey, tupleKey);
 
@@ -43,12 +44,12 @@ export class RememberMeService {
 
     private setKeys(userType: UserType, deviceKey: string, tupleKey: string) {
         if (userType == UserType.Organization) {
-            deviceKey = LoginKeyss.rememberMeRestKey;
-            tupleKey = LoginKeyss.restEmailPasswordComboKey;
+            deviceKey = LoginKeys.rememberMeRestKey;
+            tupleKey = LoginKeys.restEmailPasswordComboKey;
         }
         else if (userType == UserType.Consumer) {
-            deviceKey = LoginKeyss.rememberMeUserKey;
-            tupleKey = LoginKeyss.userEmailPasswordComboKey;
+            deviceKey = LoginKeys.rememberMeUserKey;
+            tupleKey = LoginKeys.userEmailPasswordComboKey;
         }
     }
 }

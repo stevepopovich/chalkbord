@@ -7,9 +7,8 @@ export class ImageService {
     constructor(private storage: AngularFireStorage) {
     }
 
-    public setDealImageURL(dealModel: LocaleCard): void{
+    public setDealImageURL(dealModel: LocaleCard): void {
         this.storage.ref("locale-deal-photos/" + dealModel.id).getDownloadURL().subscribe(URL => {
-            console.log(URL);
             dealModel.imageURL = URL;
         });
     }

@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -28,30 +18,24 @@ import { AlertController } from "ionic-angular";
 import { LocaleLocation } from "../../types/location.type";
 import { CurrentUserService } from "../../services/current-user.service";
 import { LoginService } from "../../services/login.service";
+import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { Organization } from '../../types/organization.type';
-import { LocaleView } from '../../types/locale-view.type';
-var OrganizationLandingComponent = (function (_super) {
-    __extends(OrganizationLandingComponent, _super);
+var OrganizationLandingComponent = (function () {
     function OrganizationLandingComponent(formBuilder, auth, loginService, organizationService, toastService, alert, currentUserService, userService, rememberMeService) {
-        var _this = _super.call(this) || this;
-        _this.formBuilder = formBuilder;
-        _this.auth = auth;
-        _this.loginService = loginService;
-        _this.organizationService = organizationService;
-        _this.toastService = toastService;
-        _this.alert = alert;
-        _this.currentUserService = currentUserService;
-        _this.userService = userService;
-        _this.rememberMeService = rememberMeService;
-        _this.rememberMeLogIn = false;
-        _this.rememberMeSignUp = false;
-        _this.userLogInGroup = _this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            rememberMe: ['']
-        }); //new UserLoginFormGroup(this.formBuilder);
-        _this.restSignUpGroup = _this.formBuilder.group({
+        this.formBuilder = formBuilder;
+        this.auth = auth;
+        this.loginService = loginService;
+        this.organizationService = organizationService;
+        this.toastService = toastService;
+        this.alert = alert;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
+        this.rememberMeService = rememberMeService;
+        this.rememberMeLogIn = false;
+        this.rememberMeSignUp = false;
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
+        this.restSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
@@ -62,8 +46,7 @@ var OrganizationLandingComponent = (function (_super) {
             name: ['', Validators.compose([Validators.required])],
             rememberMe: ['']
         });
-        _this.rememberMeService.loginFromRememberMe(_this.userLogInGroup, UserType.Organization);
-        return _this;
+        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
     }
     OrganizationLandingComponent.prototype.ngAfterViewInit = function () {
         this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
@@ -165,7 +148,6 @@ var OrganizationLandingComponent = (function (_super) {
                             _this.rememberMeService.handleRememberMeSetting(_this.restSignUpGroup, UserType.Organization);
                             var newUser = new LocaleUser(_this.auth.getCurrentUserUID(), UserType.Organization, organizationName);
                             var newOrganziationModel = new Organization(_this.auth.getCurrentUserUID(), organizationName, place.formatted_address, "", new LocaleLocation(place.geometry.location));
-                            newUser.organization = newOrganziationModel;
                             _this.currentUserService.setCurrentUser(newUser);
                             _this.organizationService.set(newOrganziationModel);
                             _this.userService.set(newUser);
@@ -198,8 +180,7 @@ var OrganizationLandingComponent = (function (_super) {
         __metadata("design:type", ElementRef)
     ], OrganizationLandingComponent.prototype, "signUpCard", void 0);
     OrganizationLandingComponent = __decorate([
-        Component({
-            template:/*ion-inline-start:"/Users/Contence/locale/src/components/organization-landing/organization-landing.component.html"*/'<div class="rest-landing-home-photo">\n\n</div>\n\n<div id="map" name="map">\n\n</div>\n\n<ion-content class="main-area">\n    <div class="rest-center-text">Chalkbord</div>\n    <div class="small-rest-center-text">Organizations</div>\n\n    <ion-card class="log-in-card">\n        <ion-list>\n            <form [formGroup]="userLogInGroup">\n                <ion-item class="padding-right">\n                    <ion-label stacked>Email</ion-label>\n                    <ion-input placeholder="Business email" type="email" formControlName="email"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label stacked>Password</ion-label>\n                    <ion-input placeholder="********" type="password" formControlName="password"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-bottom-checkbox">\n                    <ion-label>Remember Me</ion-label>\n                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeLogIn" checked="false"></ion-checkbox>\n                </ion-item>\n            </form>\n        </ion-list>\n    </ion-card>\n\n    <div class="rest-button-area">\n        <button class="rest-landing-button" ion-button outline (click)="loginHandler()">\n            login\n        </button>\n        <div class="or-text">or</div>\n        <button class="rest-landing-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n    </div>\n\n    <ion-card #signUpCard class="sign-up-card">\n        <ion-list>\n            <form [formGroup]="restSignUpGroup">\n                <ion-item class="padding-right">\n                    <ion-label floating>Email</ion-label>\n                    <ion-input type="email" formControlName="email"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Password</ion-label>\n                    <ion-input type="password" formControlName="password"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Confirm Password</ion-label>\n                    <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>organization Name</ion-label>\n                    <ion-input formControlName="name"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Address </ion-label>\n                    <ion-input formControlName="address"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>City</ion-label>\n                    <ion-input formControlName="city"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>State</ion-label>\n                    <ion-input formControlName="state"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>Zipcode</ion-label>\n                    <ion-input formControlName="zipcode"></ion-input>\n                </ion-item>\n            </form>\n        </ion-list>\n        <button class="rest-landing-button" ion-button (click)="signUp()">\n            sign up\n        </button>\n    </ion-card>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/organization-landing/organization-landing.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/organization-landing/organization-landing.component.html"*/'<div class="rest-landing-home-photo">\n\n</div>\n\n<div id="map" name="map">\n\n</div>\n\n<ion-content class="main-area">\n    <div class="rest-center-text">Chalkbord</div>\n    <div class="small-rest-center-text">Organizations</div>\n\n    <ion-card class="log-in-card">\n        <ion-list>\n            <form [formGroup]="userLogInGroup">\n                <ion-item class="padding-right">\n                    <ion-label stacked>Email</ion-label>\n                    <ion-input placeholder="Business email" type="email" formControlName="email"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label stacked>Password</ion-label>\n                    <ion-input placeholder="********" type="password" formControlName="password"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-bottom-checkbox">\n                    <ion-label>Remember Me</ion-label>\n                    <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeLogIn" checked="false"></ion-checkbox>\n                </ion-item>\n            </form>\n        </ion-list>\n    </ion-card>\n\n    <div class="rest-button-area">\n        <button class="rest-landing-button" ion-button outline (click)="loginHandler()">\n            login\n        </button>\n        <div class="or-text">or</div>\n        <button class="rest-landing-button" ion-button (click)="goToUserSignUpScreen()">\n            sign up\n        </button>\n    </div>\n\n    <ion-card #signUpCard class="sign-up-card">\n        <ion-list>\n            <form [formGroup]="restSignUpGroup">\n                <ion-item class="padding-right">\n                    <ion-label floating>Email</ion-label>\n                    <ion-input type="email" formControlName="email"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Password</ion-label>\n                    <ion-input type="password" formControlName="password"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Confirm Password</ion-label>\n                    <ion-input type="password" formControlName="confirmPassword"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Organization Name</ion-label>\n                    <ion-input formControlName="name"></ion-input>\n                </ion-item>\n\n                <ion-item class="padding-right">\n                    <ion-label floating>Address </ion-label>\n                    <ion-input formControlName="address"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>City</ion-label>\n                    <ion-input formControlName="city"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>State</ion-label>\n                    <ion-input formControlName="state"></ion-input>\n                </ion-item>\n                <ion-item class="padding-right">\n                    <ion-label floating>Zipcode</ion-label>\n                    <ion-input formControlName="zipcode"></ion-input>\n                </ion-item>\n            </form>\n        </ion-list>\n        <button class="rest-landing-button" ion-button (click)="signUp()">\n            sign up\n        </button>\n    </ion-card>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/organization-landing/organization-landing.component.html"*/,
             selector: 'organization-landing',
             styleUrls: ['/organization-landing.component.scss']
         }),
@@ -209,6 +190,6 @@ var OrganizationLandingComponent = (function (_super) {
             CurrentUserService, UserService, RememberMeService])
     ], OrganizationLandingComponent);
     return OrganizationLandingComponent;
-}(LocaleView));
+}());
 export { OrganizationLandingComponent };
 //# sourceMappingURL=organization-landing.component.js.map

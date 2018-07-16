@@ -12,28 +12,13 @@ import { Injectable } from "@angular/core";
 var OrganizationService = (function () {
     function OrganizationService(database) {
         this.database = database;
-        this.organizationCollection = this.database.collection("organization");
+        this.organizationCollection = this.database.collection("organizations");
     }
-    OrganizationService.prototype.get = function (id) {
-        return this.database.collection("organization", function (ref) { return ref.where("id", '==', id); }).valueChanges();
+    OrganizationService.prototype.getCurrent = function (uid) {
+        return this.database.collection("organizations", function (ref) { return ref.where("uid", "==", uid); }).valueChanges();
     };
     OrganizationService.prototype.set = function (model) {
-        return this.organizationCollection.doc(model.uid).set(model);
-    };
-    OrganizationService.prototype.getAll = function () {
-        throw new Error("Method not implemented.");
-    };
-    OrganizationService.prototype.getMulti = function (ids) {
-        ids;
-        throw new Error("Method not implemented.");
-    };
-    OrganizationService.prototype.setMulti = function (models) {
-        models;
-        throw new Error("Method not implemented.");
-    };
-    OrganizationService.prototype.delete = function (id) {
-        id;
-        throw new Error("Method not implemented.");
+        return this.organizationCollection.doc(model.uid).set(model.getAsPlainObject());
     };
     OrganizationService = __decorate([
         Injectable(),

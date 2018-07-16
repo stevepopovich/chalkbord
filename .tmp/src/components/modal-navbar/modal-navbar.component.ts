@@ -3,7 +3,7 @@ import { ToastService } from "../../services/toast.service";
 import { DeviceService } from "../../services/device.service";
 import { ViewController } from "ionic-angular";
 import { ViewControllerService } from '../../services/view-controller.service';
-import { LoginKeyss } from '../../services/login-keys.service';
+import { LoginKeys } from '../../services/login-keys.service';
 
 @Component({
     templateUrl: './modal-navbar.component.html',
@@ -25,11 +25,11 @@ export class ModalNavbarComponent {
             data;
             if (dismissType == "close") {
                 if (this.organizationModal) {
-                    this.deviceService.putBooleanSetting(LoginKeyss.rememberMeRestKey, false);
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeRestKey, false);
 
                     this.viewControllerService.setBrowserHome();
                 } else {
-                    this.deviceService.putBooleanSetting(LoginKeyss.rememberMeUserKey, false);
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
                     this.viewControllerService.setSignUpView();
                 }

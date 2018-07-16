@@ -1,13 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,32 +23,29 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
-import { Util } from '../../types/utils.type';
-import { LocaleView } from '../../types/locale-view.type';
-var ConsumerComponent = (function (_super) {
-    __extends(ConsumerComponent, _super);
+var ConsumerComponent = (function () {
     function ConsumerComponent(alert, popoverCtrl, toastService, launchNavigator, cardService, authService, imageService, modalCtrl, geolocation, currentUserService, userService) {
-        var _this = _super.call(this) || this;
-        _this.alert = alert;
-        _this.popoverCtrl = popoverCtrl;
-        _this.toastService = toastService;
-        _this.launchNavigator = launchNavigator;
-        _this.cardService = cardService;
-        _this.authService = authService;
-        _this.imageService = imageService;
-        _this.modalCtrl = modalCtrl;
-        _this.geolocation = geolocation;
-        _this.currentUserService = currentUserService;
-        _this.userService = userService;
-        _this.transitionString = "";
-        _this.numberOfCards = 3;
-        _this.destoryingCard = false;
-        _this.moveCardIndex = 0;
-        _this.likingCard = false;
-        _this.animatingCard = false;
-        _this.currentFilter = null;
-        _this.currentLocation = new LocaleLocation();
-        _this.stackConfig = {
+        var _this = this;
+        this.alert = alert;
+        this.popoverCtrl = popoverCtrl;
+        this.toastService = toastService;
+        this.launchNavigator = launchNavigator;
+        this.cardService = cardService;
+        this.authService = authService;
+        this.imageService = imageService;
+        this.modalCtrl = modalCtrl;
+        this.geolocation = geolocation;
+        this.currentUserService = currentUserService;
+        this.userService = userService;
+        this.transitionString = "";
+        this.numberOfCards = 3;
+        this.destoryingCard = false;
+        this.moveCardIndex = 0;
+        this.likingCard = false;
+        this.animatingCard = false;
+        this.currentFilter = null;
+        this.currentLocation = new LocaleLocation();
+        this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 var throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 2.75);
                 var throwoutVertical = Math.abs(offsetY) / (element.offsetHeight / 4.5);
@@ -72,15 +59,14 @@ var ConsumerComponent = (function (_super) {
             },
             allowedDirections: [Direction.UP, Direction.LEFT, Direction.RIGHT],
         };
-        return _this;
     }
     ConsumerComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        if (this.authService.checkLoggedIn()) {
+        if (this.authService.checkLoggedIn) {
             this.geolocation.watchPosition().subscribe(function (resp) {
                 _this.currentLocation.lat = resp.coords.latitude;
                 _this.currentLocation.lng = resp.coords.longitude;
-                _this.cardSubscription = _this.cardService.getCardsByLatLng(_this.currentLocation, 1000000).subscribe(function (cardModels) {
+                _this.cardSubscription = _this.cardService.getCardsByLatLng(_this.currentLocation, 100000000).subscribe(function (cardModels) {
                     if (cardModels.length > 0) {
                         if (!_this.cards) {
                             _this.cards = _this.cardService.filterNonDuplicateDeals(cardModels);
@@ -103,7 +89,7 @@ var ConsumerComponent = (function (_super) {
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
         element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
-    ConsumerComponent.prototype.swipeCard = function (like) {
+    ConsumerComponent.prototype.voteUp = function (like) {
         if (this.organizationViewCards.length > 0) {
             this.transitionString = "all 0.25s";
             if (like) {
@@ -133,7 +119,7 @@ var ConsumerComponent = (function (_super) {
             this.likingCard = true;
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)";
-            Util.delay(300).then(function () {
+            this.delay(300).then(function () {
                 _this.handleCard(true);
                 _this.animatingCard = false;
             });
@@ -145,7 +131,7 @@ var ConsumerComponent = (function (_super) {
             this.transitionString = "all 0.75s";
             this.animatingCard = true;
             this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)";
-            Util.delay(300).then(function () {
+            this.delay(300).then(function () {
                 _this.handleCard(false);
                 _this.animatingCard = false;
             });
@@ -197,7 +183,7 @@ var ConsumerComponent = (function (_super) {
                 }
             ],
             title: "You are going to " + card.organization.name + "!",
-            subTitle: "Your deal code is: " + Util.randomNumber(1000, 9000),
+            subTitle: "Your deal code is: " + this.randomNumber(),
             message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
         likeAlert.present().then(function () {
@@ -221,7 +207,7 @@ var ConsumerComponent = (function (_super) {
         else
             this.filteredCards = this.cards;
         this.setUpViewCards();
-        Util.delay(600).then(function () {
+        this.delay(600).then(function () {
             var topCard = _this.swingCards.toArray()[0];
             if (topCard)
                 topCard.getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
@@ -245,6 +231,13 @@ var ConsumerComponent = (function (_super) {
             this.organizationViewCards.push(this.filteredCards[i]);
         }
     };
+    //used simply to async wait for something
+    ConsumerComponent.prototype.delay = function (ms) {
+        return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+    };
+    ConsumerComponent.prototype.randomNumber = function () {
+        return String(Math.floor(1000 + Math.random() * 9000));
+    };
     ConsumerComponent.prototype.openProfile = function () {
         this.modalCtrl.create(UserProfileComponent, { isOrganization: false }).present();
     };
@@ -257,8 +250,7 @@ var ConsumerComponent = (function (_super) {
         __metadata("design:type", QueryList)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Component({
-            template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="swipeCard(false)" (throwoutright)="swipeCard(true)"\n    (throwoutup)="moreInfo()" id="card-stack" [style.zIindex]="-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n</button>\n\n<button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>\n\n<div class="loading-div">\n    <ion-spinner class="loading-spinner"></ion-spinner>\n    <h2 ion-text style="text-align: center">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n    id="card-stack" [style.zIindex]="-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <button class="button-circular" (click)="clickNo()" ion-button icon-only>\n        <ion-icon ios="md-close" md="md-close"></ion-icon>\n    </button>\n    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>\n        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>\n    </button>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
@@ -268,6 +260,6 @@ var ConsumerComponent = (function (_super) {
             CurrentUserService, UserService])
     ], ConsumerComponent);
     return ConsumerComponent;
-}(LocaleView));
+}());
 export { ConsumerComponent };
 //# sourceMappingURL=consumer.component.js.map

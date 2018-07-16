@@ -1,3 +1,4 @@
+import { Organization } from './../../types/organization.type';
 import { CurrentUserService } from './../../services/current-user.service';
 //import { PictureSourceType } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
@@ -33,6 +34,8 @@ export class DealEditorComponent {
 
     public platformReady: boolean;
 
+    public currentOrganization?: Organization;
+
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
@@ -45,6 +48,11 @@ export class DealEditorComponent {
             dealStart: ['', Validators.required],
             dealEnd: ['', Validators.required],
             dealType: ['', Validators.required],
+        });
+
+        this.currentUserService.getCurrentOrganization().subscribe((orgs: Organization[]) => {
+            if (orgs && orgs.length > 0)
+                this.currentOrganization = orgs[0];
         });
 
         this.dealEditorService.currentDealSubject.subscribe((deal: LocaleCard) => {
@@ -79,14 +87,18 @@ export class DealEditorComponent {
         if (this.dealEditorFormGroup.valid && this.imageDataForUpload) {
             const deal = this.getDealFromFields();
 
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false);
-            this.imageDataForUpload = null;
+            deal.organization = this.currentOrganization;
 
-            this.dealEditorService.addDealSubject.next(deal);
+            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false).then(() => {
+                this.cleanUpImageData();
+                this.clearFields();
+                //basically done assuming the below promises resolve faster, which they should saving so set state to saved
+                this.dealEditorService.addDealSubject.next(deal);//add to list and make current
+            });
 
             this.cardService.set(deal);
             this.currentUserService.addCardId(deal.id);
-            this.userService.updateUserInDatabase(this.currentUserService.getCurrentUser());
+            this.userService.set(this.currentUserService.getCurrentUser());
         }
     }
 
@@ -94,7 +106,7 @@ export class DealEditorComponent {
         if (this.dealEditorFormGroup.valid) {
             var deal: LocaleCard = this.getDealFromFields();
 
-            const startDate = this.dealEditorFormGroup.get("dealDay").value;
+            const startDate = this.dealEditorFormGroup.get("dealDay").value;//TODO why is this here?
             const startTime = this.dealEditorFormGroup.get("dealStart").value;
             const endTime = this.dealEditorFormGroup.get("dealEnd").value;
 
@@ -111,6 +123,8 @@ export class DealEditorComponent {
                     this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
                 });
             }
+
+            this.dealEditorService.updateDealSubject.next(deal);
 
             this.cardService.set(deal);
         }
@@ -194,7 +208,7 @@ export class DealEditorComponent {
                 -1,//no deal limit
                 this.dealEditorFormGroup.get("dealType").value);
 
-            deal.organization = this.currentUserService.getCurrentUser().organization;
+            deal.organization = this.currentOrganization;
         } else {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
                 startDatetime,
@@ -202,7 +216,7 @@ export class DealEditorComponent {
                 this.dealEditorFormGroup.get("numberOfDeals").value,
                 this.dealEditorFormGroup.get("dealType").value);
 
-            deal.organization = this.currentUserService.getCurrentUser().organization;
+            deal.organization = this.currentOrganization;
         }
 
         return deal;

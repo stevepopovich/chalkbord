@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from "@angular/core";
 import { DeviceService } from "./device.service";
-import { LoginKeyss } from "./login-keys.service";
+import { LoginKeys } from "./login-keys.service";
 import { UserType } from "../types/user.type";
 import { LoginService } from './login.service';
 var RememberMeService = (function () {
@@ -43,12 +43,12 @@ var RememberMeService = (function () {
     };
     RememberMeService.prototype.setKeys = function (userType, deviceKey, tupleKey) {
         if (userType == UserType.Organization) {
-            deviceKey = LoginKeyss.rememberMeRestKey;
-            tupleKey = LoginKeyss.restEmailPasswordComboKey;
+            deviceKey = LoginKeys.rememberMeRestKey;
+            tupleKey = LoginKeys.restEmailPasswordComboKey;
         }
         else if (userType == UserType.Consumer) {
-            deviceKey = LoginKeyss.rememberMeUserKey;
-            tupleKey = LoginKeyss.userEmailPasswordComboKey;
+            deviceKey = LoginKeys.rememberMeUserKey;
+            tupleKey = LoginKeys.userEmailPasswordComboKey;
         }
     };
     RememberMeService = __decorate([

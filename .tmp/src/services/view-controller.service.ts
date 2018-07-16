@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { LocaleView } from '../types/locale-view.type';
 
 @Injectable()
 export class ViewControllerService {//TODO bag up this entire system
@@ -12,7 +11,7 @@ export class ViewControllerService {//TODO bag up this entire system
     constructor() {
     }
 
-    public setConsumerView() {
+    public setConsumerView(){
         this.consumer = true;
         this.userLanding = false;
         this.browserHome = false;
@@ -20,7 +19,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setSignUpView() {
+    public setSignUpView(){
         this.consumer = false;
         this.userLanding = true;
         this.browserHome = false;
@@ -28,7 +27,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setBrowserHome() {
+    public setBrowserHome(){
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = true;
@@ -36,7 +35,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setOrganizationPortal() {
+    public setOrganizationPortal(){
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;
@@ -44,7 +43,7 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = false;
     }
 
-    public setOrganizationHome() {
+    public setOrganizationHome(){
         this.consumer = false;
         this.userLanding = false;
         this.browserHome = false;
@@ -52,7 +51,5 @@ export class ViewControllerService {//TODO bag up this entire system
         this.organizationDealsHome = true;
     }
 
-    public setView(viewComponent: LocaleView) {
-        viewComponent;
-    }
+
 }

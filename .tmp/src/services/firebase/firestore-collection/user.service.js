@@ -17,45 +17,32 @@ var UserService = (function () {
         this.userCollection = this.database.collection("users");
     }
     /**
-     * We don't wanna save all the cards, they are saved in a seperate collection,
-     * but I want to still have users "have cards"
      *
      * organization users have cards that they created, and consumer users have cards that have
      * "consumed" or intend to use
+     *
+     * Why are we leaving the Organization with the user when it is saved elsewhere?
+     * Great question! The orgs can't be edited so they won't get out of sync and it so much easier to do
+     * it this way for now. Subject to change for sure....
      *
      * We can talk about if we really want to use a toast here TODO
      * @param user
      */
     UserService.prototype.set = function (user) {
         if (this.userCollection) {
-            var assignedUser = Object.assign({}, user);
-            delete (assignedUser.cards);
-            if (assignedUser.getAsPlainObject)
-                return this.userCollection.doc(user.uid).set(assignedUser.getAsPlainObject());
+            var assignedUser;
+            if (user.getAsPlainObject)
+                assignedUser = Object.assign({}, user.getAsPlainObject());
             else
-                return this.userCollection.doc(user.uid).set(assignedUser);
+                assignedUser = Object.assign({}, user);
+            return this.userCollection.doc(user.uid).set(assignedUser);
         }
         else
             this.toastService.showReadableToast("User not updated! You are either not logged in or offline");
-        return Promise.reject("User not found!");
+        return Promise.reject("Something is very wrong! User not updated!");
     };
     UserService.prototype.get = function (uid) {
         return this.database.collection("users", function (ref) { return ref.where("uid", '==', uid); }).valueChanges(); //this.fireAuth.auth.currentUser.uid
-    };
-    UserService.prototype.getAll = function () {
-        throw new Error("Method not implemented.");
-    };
-    UserService.prototype.getMulti = function (ids) {
-        ids;
-        throw new Error("Method not implemented.");
-    };
-    UserService.prototype.setMulti = function (models) {
-        models;
-        throw new Error("Method not implemented.");
-    };
-    UserService.prototype.delete = function (id) {
-        id;
-        throw new Error("Method not implemented.");
     };
     UserService = __decorate([
         Injectable(),

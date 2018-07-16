@@ -1,29 +1,29 @@
+import { Organization } from './../types/organization.type';
+import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { LocaleUser } from "../types/user.type";
 import { CardDataService } from "./firebase/firestore-collection/card-data.service";
+import { OrganizationService } from "./firebase/firestore-collection/organization-service";
+import { LocaleCard } from '../types/deals.type';
 
 @Injectable()
 export class CurrentUserService {
     private currentUser: LocaleUser;
 
-    constructor(private cardService: CardDataService) {
+    constructor(private cardService: CardDataService, private organizationService: OrganizationService) {
     }
 
     public setCurrentUser(user: LocaleUser) {
-        if (user != null) {
+        if (user != null)
             this.currentUser = user;
-
-            this.setUpCardObservable();
-        }
     }
 
-    public getCurrentUser() {
-        return Object.assign({}, this.currentUser);
+    public getCurrentUser(): LocaleUser {
+        return Object.assign({}, this.currentUser) as LocaleUser;
     }
 
-    //for subscription purposes only
-    public getCards() {
-        return this.currentUser.cards;
+    public getCards(): Observable<LocaleCard[]> {
+        return this.cardService.getMutli(this.currentUser.cardIds);
     }
 
     public hasCurrentUser(): boolean {
@@ -41,7 +41,7 @@ export class CurrentUserService {
         this.currentUser.cardIds.push(cardId);
     }
 
-    private setUpCardObservable(): void {
-        this.currentUser.cards = this.cardService.getMutli(this.currentUser.cardIds);
+    public getCurrentOrganization(): Observable<Organization[]> {
+        return this.organizationService.getCurrent(this.currentUser.uid);
     }
 }

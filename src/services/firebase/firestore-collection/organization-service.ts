@@ -8,14 +8,14 @@ export class OrganizationService {
     private organizationCollection: AngularFirestoreCollection<Organization>;
 
     constructor(private database: AngularFirestore) {
-        this.organizationCollection = this.database.collection<Organization>("organization");
+        this.organizationCollection = this.database.collection<Organization>("organizations");
     }
 
-    public get(id: string): Observable<Organization[]> {
-        return this.database.collection<Organization>("organization", ref => ref.where("id", '==', id)).valueChanges();//TODO
+    public getCurrent(uid: string): Observable<Organization[]> {
+        return this.database.collection<Organization>("organizations", ref => ref.where("uid", "==", uid)).valueChanges();
     }
 
     public set(model: Organization): Promise<void> {
-        return this.organizationCollection.doc(model.uid).set(model);
+        return this.organizationCollection.doc(model.uid).set(model.getAsPlainObject());
     }
 }

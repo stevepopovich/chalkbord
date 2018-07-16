@@ -15,14 +15,14 @@ export class RememberMeService {
     public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
         var deviceKey, tupleKey;
         this.setKeys(userType, deviceKey, tupleKey);
-            
+
         this.deviceService.getSetting(deviceKey).then((rememberMe: boolean) => {
-            if(rememberMe){
+            if (rememberMe) {
                 this.deviceService.getSetting(tupleKey).then((emailPasswordTup: EmailPasswordTuple) => {
-                    if(emailPasswordTup){
+                    if (emailPasswordTup) {
                         formGroup.get("email").setValue(emailPasswordTup.email);
                         formGroup.get("password").setValue(emailPasswordTup.password);
-        
+
                         this.loginService.login(formGroup);
                     }
                 });
@@ -30,7 +30,7 @@ export class RememberMeService {
         });
     }
 
-    public handleRememberMeSetting(formGroup: FormGroup, userType: UserType){
+    public handleRememberMeSetting(formGroup: FormGroup, userType: UserType) {
         const rememberMe: boolean = formGroup.get("rememberMe").value;
 
         var deviceKey, tupleKey;
@@ -38,12 +38,12 @@ export class RememberMeService {
 
         this.deviceService.putBooleanSetting(deviceKey, rememberMe);
 
-        if(rememberMe)
+        if (rememberMe)
             this.deviceService.putUserEmailPasswordToLocalStorage(tupleKey, formGroup.get("email").value, formGroup.get("password").value);
     }
 
-    private setKeys(userType: UserType, deviceKey: string, tupleKey: string){
-        if(userType == UserType.Organization){
+    private setKeys(userType: UserType, deviceKey: string, tupleKey: string) {
+        if (userType == UserType.Organization) {
             deviceKey = LoginKeys.rememberMeRestKey;
             tupleKey = LoginKeys.restEmailPasswordComboKey;
         }

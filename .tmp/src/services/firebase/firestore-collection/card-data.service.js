@@ -15,14 +15,13 @@ var CardDataService = (function () {
         this.database = database;
         this.cardDoc = this.database.collection("cards");
     }
-    CardDataService.prototype.get = function (id) {
-        id;
-        throw new Error("Method not implemented.");
-    };
     CardDataService.prototype.getAll = function () {
         return this.cardDoc.valueChanges();
     };
-    CardDataService.prototype.getMulti = function (ids) {
+    CardDataService.prototype.get = function (id) {
+        return this.database.collection("cards", function (ref) { return ref.where("id", "==", id); }).valueChanges();
+    };
+    CardDataService.prototype.getMutli = function (ids) {
         if (ids && ids.length > 0) {
             var observables = [];
             var _loop_1 = function (id) {
@@ -40,7 +39,7 @@ var CardDataService = (function () {
         else
             return Observable.of([]);
     };
-    CardDataService.prototype.setMulti = function (models) {
+    CardDataService.prototype.setMutli = function (models) {
         var _this = this;
         var cards = models.map(function (card) { return Object.assign({}, card.getAsPlainObject()); });
         cards.forEach(function (card) {

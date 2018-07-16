@@ -13,8 +13,12 @@ export class CardDataService {
         this.cardDoc = this.database.collection<LocaleCard>("cards");
     }
 
-    public get(): Observable<LocaleCard[]> {
+    public getAll(): Observable<LocaleCard[]> {
         return this.cardDoc.valueChanges();
+    }
+
+    public get(id: string): Observable<LocaleCard[]> {
+        return this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges();
     }
 
     public getMutli(ids: Guid[]): Observable<LocaleCard[]> {

@@ -1,4 +1,5 @@
 import { RememberMeService } from './../../services/remember-me.service';
+import { UserLoginFormGroup } from './../../types/user-login-form-group.type';
 import { LoginService } from './../../services/login.service';
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
@@ -7,24 +8,23 @@ import { AuthorizationService } from "../../services/firebase/authorization.serv
 import { LocaleUser, UserType } from '../../types/user.type';
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
-import { LocaleView } from '../../types/locale-view.type';
 
 ///PLAN
 //Make a field component that takes a name and error message????
-//First figure out overload then good validation then navigation and then we in this bitch 
+
 @Component({
     templateUrl: './consumer-landing.component.html',
     selector: 'consumer-landing',
     styleUrls: ['/consumer-landing.component.scss']
 })
-export class ConsumerLandingComponent extends LocaleView implements AfterViewInit {
+export class ConsumerLandingComponent implements AfterViewInit {
     @ViewChild('welcomeScreen') welcomeScreen: ElementRef;
     @ViewChild('logInScreen') logInScreen: ElementRef;
     @ViewChild('userSignUpFields') userSignUpScreen: ElementRef;
     @ViewChild('goBackButton') goBackButton;
 
     public userSignUpGroup: FormGroup;
-    public userLogInGroup: FormGroup;
+    public userLogInGroup: UserLoginFormGroup;
 
     public signingUp: boolean = true;
 
@@ -39,9 +39,6 @@ export class ConsumerLandingComponent extends LocaleView implements AfterViewIni
         private rememberMeService: RememberMeService,
         public toastService: ToastService, private currentUserService: CurrentUserService,
         private userService: UserService, private loginService: LoginService) {
-
-        super();
-
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
@@ -50,11 +47,7 @@ export class ConsumerLandingComponent extends LocaleView implements AfterViewIni
             rememberMe: ['']
         });
 
-        this.userLogInGroup = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
-            rememberMe: ['']
-        });//new UserLoginFormGroup(this.formBuilder);
+        this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
     }
 
     ngAfterViewInit(): void {

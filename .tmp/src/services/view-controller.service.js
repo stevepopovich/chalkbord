@@ -51,9 +51,6 @@ var ViewControllerService = (function () {
         this.organizationLanding = false;
         this.organizationDealsHome = true;
     };
-    ViewControllerService.prototype.setView = function (viewComponent) {
-        viewComponent;
-    };
     ViewControllerService = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [])

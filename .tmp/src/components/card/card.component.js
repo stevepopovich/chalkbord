@@ -10,13 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { LocaleCard } from './../../types/deals.type';
 import { Component, Input } from "@angular/core";
 import { ImageService } from '../../services/firebase/image-service.service';
-var LocaleCardComponent = (function () {
-    function LocaleCardComponent(imageService) {
+var GSCardComponent = (function () {
+    function GSCardComponent(imageService) {
         this.imageService = imageService;
         this.showCardText = true;
         this._card = LocaleCard.getBlankCard();
     }
-    Object.defineProperty(LocaleCardComponent.prototype, "card", {
+    Object.defineProperty(GSCardComponent.prototype, "card", {
         get: function () {
             return this._card;
         },
@@ -31,7 +31,7 @@ var LocaleCardComponent = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LocaleCardComponent.prototype, "imageSrc", {
+    Object.defineProperty(GSCardComponent.prototype, "imageSrc", {
         get: function () {
             return this._imageSrc;
         },
@@ -49,24 +49,24 @@ var LocaleCardComponent = (function () {
         Input(),
         __metadata("design:type", LocaleCard),
         __metadata("design:paramtypes", [LocaleCard])
-    ], LocaleCardComponent.prototype, "card", null);
+    ], GSCardComponent.prototype, "card", null);
     __decorate([
         Input(),
         __metadata("design:type", Object),
         __metadata("design:paramtypes", [Object])
-    ], LocaleCardComponent.prototype, "imageSrc", null);
+    ], GSCardComponent.prototype, "imageSrc", null);
     __decorate([
         Input(),
         __metadata("design:type", Boolean)
-    ], LocaleCardComponent.prototype, "showCardText", void 0);
-    LocaleCardComponent = __decorate([
+    ], GSCardComponent.prototype, "showCardText", void 0);
+    GSCardComponent = __decorate([
         Component({template:/*ion-inline-start:"/Users/Contence/locale/src/components/card/card.component.html"*/'<div id="preview-card-stack" [style.zIindex]="-1000">\n    <ion-card>\n        <div *ngIf="card && !card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>\n        <img *ngIf="card && card.imageURL" class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content *ngIf="card || showCardText" class="card-text">\n            <ion-card-title style="color: white !important;">\n                {{_card.organization?.name}}\n            </ion-card-title>\n            {{_card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/card/card.component.html"*/,
             selector: 'gs-card',
             styleUrls: ['/card.component.scss']
         }),
         __metadata("design:paramtypes", [ImageService])
-    ], LocaleCardComponent);
-    return LocaleCardComponent;
+    ], GSCardComponent);
+    return GSCardComponent;
 }());
-export { LocaleCardComponent };
+export { GSCardComponent };
 //# sourceMappingURL=card.component.js.map

@@ -7,7 +7,7 @@ import { ImageService } from '../../services/firebase/image-service.service';
     selector: 'gs-card',
     styleUrls: ['/card.component.scss']
 })
-export class LocaleCardComponent {
+export class GSCardComponent {
     @Input()
     set card(card: LocaleCard) {
         if (card) {

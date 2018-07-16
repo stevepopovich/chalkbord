@@ -77,7 +77,7 @@ export class ConsumerLandingComponent implements AfterViewInit {
 
                                 this.currentUserService.setCurrentUser(newUser);
 
-                                this.userService.updateUserInDatabase(newUser);
+                                this.userService.set(newUser);
 
                                 this.loginService.setAppropiateView();
 

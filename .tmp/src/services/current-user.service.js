@@ -9,22 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from "@angular/core";
 import { CardDataService } from "./firebase/firestore-collection/card-data.service";
+import { OrganizationService } from "./firebase/firestore-collection/organization-service";
 var CurrentUserService = (function () {
-    function CurrentUserService(cardService) {
+    function CurrentUserService(cardService, organizationService) {
         this.cardService = cardService;
+        this.organizationService = organizationService;
     }
     CurrentUserService.prototype.setCurrentUser = function (user) {
-        if (user != null) {
+        if (user != null)
             this.currentUser = user;
-            this.setUpCardObservable();
-        }
     };
     CurrentUserService.prototype.getCurrentUser = function () {
         return Object.assign({}, this.currentUser);
     };
-    //for subscription purposes only
     CurrentUserService.prototype.getCards = function () {
-        return this.currentUser.cards;
+        return this.cardService.getMutli(this.currentUser.cardIds);
     };
     CurrentUserService.prototype.hasCurrentUser = function () {
         return this.currentUser != null;
@@ -37,12 +36,12 @@ var CurrentUserService = (function () {
             this.currentUser.cardIds = [];
         this.currentUser.cardIds.push(cardId);
     };
-    CurrentUserService.prototype.setUpCardObservable = function () {
-        this.currentUser.cards = this.cardService.getMulti(this.currentUser.cardIds);
+    CurrentUserService.prototype.getCurrentOrganization = function () {
+        return this.organizationService.getCurrent(this.currentUser.uid);
     };
     CurrentUserService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [CardDataService])
+        __metadata("design:paramtypes", [CardDataService, OrganizationService])
     ], CurrentUserService);
     return CurrentUserService;
 }());

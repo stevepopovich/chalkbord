@@ -6,7 +6,7 @@ import { LoginService } from './../services/login.service';
 import { CurrentUserService } from './../services/current-user.service';
 import { ModalNavbarComponent } from './../components/modal-navbar/modal-navbar.component';
 import { MoreCardInfoComponent } from '../components/more-card-info/more-card-info.component';
-import { LocaleCardComponent } from './../components/card/card.component';
+import { GSCardComponent } from './../components/card/card.component';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AngularDraggableModule } from 'angular2-draggable';
@@ -63,7 +63,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserHomeComponent,
     OrganizationLandingComponent,
     OrganizationDealsHomeComponent,
-    LocaleCardComponent,
+    GSCardComponent,
     MoreCardInfoComponent,
     ModalNavbarComponent
   ],
@@ -105,7 +105,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserHomeComponent,
     OrganizationLandingComponent,
     OrganizationDealsHomeComponent,
-    LocaleCardComponent,
+    GSCardComponent,
     MoreCardInfoComponent,
     ModalNavbarComponent
   ],

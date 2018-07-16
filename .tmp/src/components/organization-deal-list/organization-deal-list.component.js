@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+import { CardDataService } from './../../services/firebase/firestore-collection/card-data.service';
+import { merge } from 'rxjs';
 import { CurrentUserService } from './../../services/current-user.service';
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
@@ -14,14 +16,14 @@ import { LocaleCard } from '../../types/deals.type';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ModalController } from 'ionic-angular';
 var OrganizationDealListComponent = (function () {
-    function OrganizationDealListComponent(dealEditorService, modalCtrl, currentUserService) {
+    function OrganizationDealListComponent(dealEditorService, cardService, modalCtrl, currentUserService) {
         var _this = this;
         this.dealEditorService = dealEditorService;
+        this.cardService = cardService;
         this.modalCtrl = modalCtrl;
         this.currentUserService = currentUserService;
         this.cardList = [];
         this.currentUserService.getCards().subscribe(function (deals) {
-            console.log(deals);
             LocaleCard.findAndUpdateCards(deals, _this.cardList);
         });
         this.dealEditorService.currentDealSubject.subscribe(function (deal) {
@@ -30,9 +32,14 @@ var OrganizationDealListComponent = (function () {
         this.dealEditorService.deleteDealSubject.subscribe(function (deal) {
             _this.cardList.splice(_this.cardList.indexOf(deal), 1);
         });
+        this.dealEditorService.updateDealSubject.subscribe(function (deal) {
+            LocaleCard.findAndUpdateCards([deal], _this.cardList);
+        });
         this.dealEditorService.addDealSubject.subscribe(function (deal) {
+            _this.cardStream = merge(_this.cardStream, _this.cardService.get(deal.id));
             _this.cardList.push(deal);
             _this.currentCard = deal;
+            _this.dealEditorService.setCurrentDeal(deal);
         });
     }
     OrganizationDealListComponent.prototype.hasCards = function () {
@@ -62,7 +69,7 @@ var OrganizationDealListComponent = (function () {
             selector: 'organization-deal-list',
             styleUrls: ['/organization-deal-list.component.scss']
         }),
-        __metadata("design:paramtypes", [DealEditorService,
+        __metadata("design:paramtypes", [DealEditorService, CardDataService,
             ModalController, CurrentUserService])
     ], OrganizationDealListComponent);
     return OrganizationDealListComponent;

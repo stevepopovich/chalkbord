@@ -10,7 +10,7 @@ import { ImageService } from '../../services/firebase/image-service.service';
 export class GSCardComponent {
     @Input()
     set card(card: LocaleCard) {
-        if(card) {
+        if (card) {
             this._card = card;
             this.imageService.setDealImageURL(this.card);
         } else
@@ -21,11 +21,11 @@ export class GSCardComponent {
         return this._card;
     }
 
-    @Input()   
+    @Input()
     set imageSrc(imageSrc) {
         this._imageSrc = imageSrc;
-    
-        if(!this._card)
+
+        if (!this._card)
             this._card = LocaleCard.getBlankCard();
 
         this._card.imageURL = imageSrc;

@@ -24,7 +24,7 @@ export class LoginService {
 
             this.authService.checkSignInMethods(email).then((methods) => {
                 if (methods.length > 0) {//if user not in db
-                    this.authService.signIn(email, formGroup.get("password").value, ).then(() => {
+                    this.authService.signIn(email, formGroup.get("password").value).then(() => {
                         this.userService.get(this.authService.getCurrentUserUID()).subscribe((users: LocaleUser[]) => {
                             if (!this.currentUserService.hasCurrentUser()) {
                                 this.currentUserService.setCurrentUser(users[0]);//there SHOULD be only one

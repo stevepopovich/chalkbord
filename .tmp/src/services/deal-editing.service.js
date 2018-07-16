@@ -11,6 +11,7 @@ var DealEditorService = (function () {
         this.currentDealSubject = new Subject();
         this.deleteDealSubject = new Subject();
         this.addDealSubject = new Subject();
+        this.updateDealSubject = new Subject();
     }
     DealEditorService.prototype.setCurrentDeal = function (deal) {
         this.currentDealBeingEdited = deal;

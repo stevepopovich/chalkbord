@@ -5,7 +5,6 @@ var LocaleUser = (function () {
         this.firstName = firstName;
     }
     LocaleUser.prototype.getAsPlainObject = function () {
-        this.organization = Object.assign({}, this.organization);
         return Object.assign({}, this);
     };
     return LocaleUser;
