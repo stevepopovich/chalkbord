@@ -20,6 +20,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
+import _ from 'underscore';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -86,6 +87,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
                 this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
                     if (cardModels.length > 0) {
+                        cardModels = cardModels.filter((card) => {
+                            return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id);
+                        })
                         if (!this.cards) {
                             this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
 

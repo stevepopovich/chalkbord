@@ -45,7 +45,7 @@ export class UserProfileComponent {
             }
             else {
                 if (this.authService.getCurrentUserEmail() != this.userEmail) {
-                    this.authService.updateCurrentUserEmail(this.userEmail).then(() => {//.auth.currentUser.updateEmail(this.userEmail).then(() => {
+                    this.authService.updateCurrentUserEmail(this.userEmail).then(() => {
                         this.toastService.showReadableToast("Cool, email is updated");
                     }).catch((reason) => {
                         this.toastService.showReadableToast("Email not updated: " + reason);
@@ -105,7 +105,7 @@ export class UserProfileComponent {
         toast.present();
     }
 
-    public yourCards() {//WIP
+    public yourCards() {
         this.navCtrl.push(ConsumerCardList);
     }
 }

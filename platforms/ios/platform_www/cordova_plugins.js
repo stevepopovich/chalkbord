@@ -57,6 +57,38 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-geolocation.Coordinates",
+    "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "clobbers": [
+      "Coordinates"
+    ]
+  },
+  {
+    "id": "cordova-plugin-geolocation.PositionError",
+    "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "clobbers": [
+      "PositionError"
+    ]
+  },
+  {
+    "id": "cordova-plugin-geolocation.Position",
+    "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "clobbers": [
+      "Position"
+    ]
+  },
+  {
+    "id": "cordova-plugin-geolocation.geolocation",
+    "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+    "pluginId": "cordova-plugin-geolocation",
+    "clobbers": [
+      "navigator.geolocation"
+    ]
+  },
+  {
     "id": "cordova-plugin-inappbrowser.inappbrowser",
     "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
     "pluginId": "cordova-plugin-inappbrowser",
@@ -98,6 +130,22 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-uniquedeviceid.UniqueDeviceID",
+    "file": "plugins/cordova-plugin-uniquedeviceid/www/uniqueid.js",
+    "pluginId": "cordova-plugin-uniquedeviceid",
+    "merges": [
+      "window.plugins.uniqueDeviceID"
+    ]
+  },
+  {
+    "id": "cordova-sqlite-storage.SQLitePlugin",
+    "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+    "pluginId": "cordova-sqlite-storage",
+    "clobbers": [
+      "SQLitePlugin"
+    ]
+  },
+  {
     "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
     "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
     "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
@@ -120,54 +168,6 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
-  },
-  {
-    "id": "cordova-plugin-uniquedeviceid.UniqueDeviceID",
-    "file": "plugins/cordova-plugin-uniquedeviceid/www/uniqueid.js",
-    "pluginId": "cordova-plugin-uniquedeviceid",
-    "merges": [
-      "window.plugins.uniqueDeviceID"
-    ]
-  },
-  {
-    "id": "cordova-sqlite-storage.SQLitePlugin",
-    "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
-    "pluginId": "cordova-sqlite-storage",
-    "clobbers": [
-      "SQLitePlugin"
-    ]
-  },
-  {
-    "id": "cordova-plugin-geolocation.Coordinates",
-    "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
-    "pluginId": "cordova-plugin-geolocation",
-    "clobbers": [
-      "Coordinates"
-    ]
-  },
-  {
-    "id": "cordova-plugin-geolocation.PositionError",
-    "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-    "pluginId": "cordova-plugin-geolocation",
-    "clobbers": [
-      "PositionError"
-    ]
-  },
-  {
-    "id": "cordova-plugin-geolocation.Position",
-    "file": "plugins/cordova-plugin-geolocation/www/Position.js",
-    "pluginId": "cordova-plugin-geolocation",
-    "clobbers": [
-      "Position"
-    ]
-  },
-  {
-    "id": "cordova-plugin-geolocation.geolocation",
-    "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
-    "pluginId": "cordova-plugin-geolocation",
-    "clobbers": [
-      "navigator.geolocation"
-    ]
   }
 ];
 module.exports.metadata = 
@@ -177,16 +177,16 @@ module.exports.metadata =
   "cordova-plugin-camera": "4.0.2",
   "cordova-plugin-device": "1.1.7",
   "cordova-plugin-dialogs": "2.0.1",
+  "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-inappbrowser": "1.7.2",
   "cordova-plugin-ionic-keyboard": "2.0.5",
   "cordova-plugin-ionic-webview": "1.1.16",
   "cordova-plugin-splashscreen": "4.1.0",
   "cordova-plugin-statusbar": "2.4.1",
-  "cordova-plugin-whitelist": "1.3.3",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
   "cordova-plugin-uniquedeviceid": "1.3.2",
+  "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.3.1",
-  "cordova-plugin-geolocation": "4.0.1"
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
 };
 // BOTTOM OF METADATA
 });

@@ -24,6 +24,8 @@ export class DealEditorComponent {
     public dealEditorFormGroup: FormGroup;
 
     public limitDealNumber: boolean = false;
+    public isVegetarian: boolean = false;
+    public isVegan: boolean = false;
 
     public imageDataForUpload;
     public imageDataForPreview;
@@ -41,13 +43,16 @@ export class DealEditorComponent {
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
         private currentUserService: CurrentUserService) {
         this.dealEditorFormGroup = this.formBuilder.group({
-            dealDescription: ['', Validators.required],
+            shortDealDescription: ['', Validators.required],
+            longDealDescription: [''],
             numberOfDeals: [''],
             limitedDealNumber: [''],
             dealDay: ['', Validators.required],
             dealStart: ['', Validators.required],
             dealEnd: ['', Validators.required],
             dealType: ['', Validators.required],
+            isVegetarian: [''],
+            isVegan: ['']
         });
 
         this.currentUserService.getCurrentOrganization().subscribe((orgs: Organization[]) => {
@@ -202,19 +207,25 @@ export class DealEditorComponent {
         let deal: LocaleCard;
 
         if (!this.limitDealNumber) {
-            deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
+            deal = new LocaleCard(this.dealEditorFormGroup.get("shortDealDescription").value,
+                this.dealEditorFormGroup.get("longDealDescription").value,
                 startDatetime,
                 endDatetime,
                 -1,//no deal limit
-                this.dealEditorFormGroup.get("dealType").value);
+                this.dealEditorFormGroup.get("dealType").value,
+                this.dealEditorFormGroup.get("isVegetarian").value,
+                this.dealEditorFormGroup.get("isVegan").value);
 
             deal.organization = this.currentOrganization;
         } else {
-            deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
+            deal = new LocaleCard(this.dealEditorFormGroup.get("shortDealDescription").value,
+                this.dealEditorFormGroup.get("longDealDescription").value,
                 startDatetime,
                 endDatetime,
                 this.dealEditorFormGroup.get("numberOfDeals").value,
-                this.dealEditorFormGroup.get("dealType").value);
+                this.dealEditorFormGroup.get("dealType").value,
+                this.dealEditorFormGroup.get("isVegetarian").value,
+                this.dealEditorFormGroup.get("isVegan").value);
 
             deal.organization = this.currentOrganization;
         }

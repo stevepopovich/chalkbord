@@ -1,5 +1,5 @@
 import { LocaleCard } from './../../types/deals.type';
-import { Component, Input } from "@angular/core";
+import { Component, Input, AfterViewInit } from "@angular/core";
 import { ImageService } from '../../services/firebase/image-service.service';
 
 @Component({
@@ -7,7 +7,8 @@ import { ImageService } from '../../services/firebase/image-service.service';
     selector: 'gs-card',
     styleUrls: ['/card.component.scss']
 })
-export class GSCardComponent {
+export class GSCardComponent implements AfterViewInit {
+
     @Input()
     set card(card: LocaleCard) {
         if (card) {
@@ -36,10 +37,15 @@ export class GSCardComponent {
 
     @Input() showCardText: boolean = true;
 
+    @Input() inputClass: string = "default-class";
     private _card: LocaleCard;
     private _imageSrc;
 
     constructor(private imageService: ImageService) {
         this._card = LocaleCard.getBlankCard();
+    }
+
+    public ngAfterViewInit(): void {
+        console.log(this.inputClass);
     }
 }

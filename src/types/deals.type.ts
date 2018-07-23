@@ -8,17 +8,27 @@ export class LocaleCard {
     public imageURL: string;
     public organization: Organization;
 
-    public constructor(public dealDescription: string, public dealStart: Date,
-        public dealEnd: Date, public numberOfDeals: Number, public dealType: DealType, obj?: any) {
+    public constructor(public dealDescription: string,
+        public longDealDescription: string,
+        public dealStart: Date,
+        public dealEnd: Date,
+        public numberOfDeals: Number,
+        public dealType: DealType,
+        public isVegetarian: boolean,
+        public isVegan: boolean,
+        obj?: any) { // This obj is used for easily building a card
         this.id = Guid.newGuid();
 
         if (obj) {
             this.id = obj.id;
             this.organization = obj.organization;
             this.dealDescription = obj.dealDescription;
+            this.longDealDescription = obj.longDealDescription;
             this.dealStart = new Date(obj.dealStart);
             this.dealEnd = new Date(obj.dealEnd);
             this.numberOfDeals = obj.numberOfDeals;
+            this.isVegetarian = obj.isVegetarian;
+            this.isVegan = obj.isVegan;
             this.dealType = obj.dealType;
         }
     }
@@ -30,18 +40,21 @@ export class LocaleCard {
     }
 
     public static getBlankCard(): LocaleCard {
-        const blankCard = new LocaleCard(null, new Date(), new Date(), -1, DealType.Drinks, null)
+        const blankCard = new LocaleCard(null, null, new Date(), new Date(), -1, DealType.Drinks, false, false, null);
         blankCard.organization = new Organization("", "", "", "", new LocaleLocation());
         return blankCard;
     }
 
     public static updateDealModel(objectToUpdate: LocaleCard, updatedObject: LocaleCard): void {
         objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.longDealDescription = updatedObject.longDealDescription;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealStart = updatedObject.dealStart;
         objectToUpdate.dealEnd = updatedObject.dealEnd;
         objectToUpdate.dealType = updatedObject.dealType;
         objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.isVegetarian = updatedObject.isVegetarian;
+        objectToUpdate.isVegan = updatedObject.isVegan;
         objectToUpdate.organization = updatedObject.organization;
     }
 

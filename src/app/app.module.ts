@@ -44,6 +44,7 @@ import { OrganizationLandingComponent } from '../components/organization-landing
 import { RememberMeService } from '../services/remember-me.service';
 import { CardDataService } from '../services/firebase/firestore-collection/card-data.service';
 import { UserService } from '../services/firebase/firestore-collection/user.service';
+import { ConsumerCardList } from '../components/consumer-card-list/consumer-card-list.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -65,7 +66,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     OrganizationDealsHomeComponent,
     GSCardComponent,
     MoreCardInfoComponent,
-    ModalNavbarComponent
+    ModalNavbarComponent,
+    ConsumerCardList
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     OrganizationDealsHomeComponent,
     GSCardComponent,
     MoreCardInfoComponent,
-    ModalNavbarComponent
+    ModalNavbarComponent,
+    ConsumerCardList
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
@@ -124,7 +127,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ImageService,
     Camera,
     UploadService,
-    ViewControllerService, //
+    ViewControllerService,
     UniqueDeviceID,
     DeviceService,
     ToastService,
@@ -134,7 +137,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     UserService,
     CurrentUserService,
     LoginService,
-    RememberMeService
+    RememberMeService,
+    InAppBrowser,
   ]
 })
 export class AppModule { }

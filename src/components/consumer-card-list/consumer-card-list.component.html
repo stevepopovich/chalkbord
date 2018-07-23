@@ -1,1 +1,4 @@
-<ion-content></ion-content>
+<modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
+<ion-content style="height: 94%; top: 4em;">
+    <gs-card *ngFor="let currCard of cardList;" (click)="moreInfo(currCard)" [card]="currCard" [inputClass]="cardClass"></gs-card>
+</ion-content>

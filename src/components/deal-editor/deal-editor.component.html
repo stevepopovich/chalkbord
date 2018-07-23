@@ -14,8 +14,13 @@
                 <ion-row>
                     <ion-col col-12 col-sm-6 style="padding: 0px;">
                         <ion-item>
-                            <ion-label floating>Deal Description</ion-label>
+                            <ion-label floating>Short deal description</ion-label>
                             <ion-input formControlName="dealDescription"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label floating>Long deal description</ion-label>
+                            <ion-input formControlName="longDealDescription"></ion-input>
                         </ion-item>
 
                         <ion-item>
@@ -58,6 +63,16 @@
                                 <ion-radio value="2"></ion-radio>
                             </ion-item>
                         </ion-list>
+
+                        <ion-item>
+                            <ion-label>Deal is vegetarian</ion-label>
+                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false"></ion-checkbox>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>Deal is vegan</ion-label>
+                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false"></ion-checkbox>
+                        </ion-item>
                     </ion-col>
                     <ion-col (click)="editPhotoData()" style="padding: 0px;">
                         <gs-card [card]="dealEditorService.currentDealBeingEdited" [imageSrc]="imageDataForPreview"></gs-card>

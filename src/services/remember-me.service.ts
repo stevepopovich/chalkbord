@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 export class RememberMeService {
 
     constructor(private deviceService: DeviceService, private loginService: LoginService) {
+        this.loginService;
     }
 
     public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
@@ -23,7 +24,7 @@ export class RememberMeService {
                         formGroup.get("email").setValue(emailPasswordTup.email);
                         formGroup.get("password").setValue(emailPasswordTup.password);
 
-                        this.loginService.login(formGroup);
+                        //this.loginService.login(formGroup);
                     }
                 });
             }

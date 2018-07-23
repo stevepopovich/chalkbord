@@ -1,14 +1,11 @@
-#preview-card-stack {
-    height: 100%;
-}
- 
-#preview-card-stack ion-card {
+ #preview-card-stack ion-card {
     border-radius: 10px;
     position: absolute;
     text-align: center;
     height: 95%;
     background-color: floralwhite;
     margin-top: 8px;
+    width: 95%;
     max-width: 325px;
     max-height: 450px;
 }

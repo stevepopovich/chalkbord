@@ -6,16 +6,21 @@
             <h1 class="app-text">{{card.organization.name}}</h1>
             <p class="app-text">{{card.organization.address}}</p>
         </ion-item>
-        <ion-item *ngIf="card.numberOfDeals > 0">
-            <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this deal!</h2>
-        </ion-item>
         <ion-item>
             <h2>{{card.dealDescription}}</h2>
             <p>{{card.dealStart | date: 'MMM d'}}</p>
             <p>{{card.dealStart | date: 'h:mm a'}} - {{card.dealEnd | date: 'h:mm a'}}</p>
         </ion-item>
+        <ion-item *ngIf="card.numberOfDeals > 0">
+            <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this deal!</h2>
+        </ion-item>
+        <ion-item *ngIf="card.longDealDescrption">
+            {{card.longDealDescrption}}
+        </ion-item>
         <ion-item>
             <p>Deal type: {{dealType}}</p>
+            <div *ngIf="card.isVegetarian">VT</div>
+            <div *ngIf="card.isVegan">VG</div>
         </ion-item>
     </div>
 </ion-content>

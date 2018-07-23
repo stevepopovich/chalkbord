@@ -39959,10 +39959,6 @@ ion-navbar.toolbar {
   height: 30px;
 }
 
-#preview-card-stack {
-  height: 100%;
-}
-
 #preview-card-stack ion-card {
   border-radius: 10px;
   position: absolute;
@@ -39970,6 +39966,7 @@ ion-navbar.toolbar {
   height: 95%;
   background-color: floralwhite;
   margin-top: 8px;
+  width: 95%;
   max-width: 325px;
   max-height: 450px;
 }
@@ -39979,6 +39976,8 @@ ion-navbar.toolbar {
   bottom: 11px;
   left: 23%;
   height: 14.3%;
+  z-index: -2;
+  margin-bottom: 0.5em;
 }
 
 .title-big
@@ -39992,6 +39991,7 @@ ion-navbar.toolbar {
 
 .toolbar-background {
   background: black;
+  background-image: url("../../assets/images/good chalkboard.jpg");
 }
 
 .nav-round {
@@ -40000,6 +40000,7 @@ ion-navbar.toolbar {
   vertical-align: middle;
   position: relative;
   color: black;
+  background-image: url("../../assets/images/good chalkboard.jpg");
 }
 
 .organization-card {
@@ -40015,25 +40016,19 @@ ion-navbar.toolbar {
   position: absolute;
   text-align: center;
   height: 72%;
-  background-color: floralwhite;
+  background-color: white;
   margin-top: 8px;
+  border-color: black;
 }
 
 .card-text {
   text-align: left;
-  color: white !important;
+  color: black;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,000000+100&0+0,1+100 */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(206, 220, 231, 0)), to(black));
-  background: linear-gradient(to bottom, rgba(206, 220, 231, 0) 0%, black 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cedce7', endColorstr='#000000',GradientType=0 );
-  /* IE6-9 */
+  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
 }
 
 .non-draggable-card-image {
@@ -40062,21 +40057,25 @@ ion-navbar.toolbar {
 }
 
 .button-circular {
-  background-color: black;
+  background-color: transparent;
   max-width: 33%;
   border-radius: 70%;
   height: 100%;
   display: inline-block;
   font-size: 3.8em;
+  color: white;
+  z-index: -2;
 }
 
 .button-circular-heart {
-  background-color: black;
+  background-color: transparent;
   max-width: 33%;
   border-radius: 70%;
   height: 100%;
   display: inline-block;
   font-size: 3.2em;
+  color: white;
+  z-index: -2;
 }
 
 .padding-top {
@@ -40084,7 +40083,7 @@ ion-navbar.toolbar {
 }
 
 .button-top {
-  background-color: black;
+  background-color: transparent;
   position: absolute;
   right: 0;
   top: 11px;
@@ -40094,7 +40093,7 @@ ion-navbar.toolbar {
 }
 
 .button-top-left {
-  background-color: black;
+  background-color: transparent;
   position: absolute;
   left: 0;
   top: 5px;
@@ -40109,6 +40108,7 @@ ion-navbar.toolbar {
   width: 100%;
   z-index: -9999 !important;
   position: absolute;
+  background-image: url("../../assets/images/good chalkboard.jpg");
 }
 
 ion-spinner {
@@ -40118,6 +40118,20 @@ ion-spinner {
   width: 100%;
   margin: 0 auto;
   margin-top: 14em;
+}
+
+.user-card-list {
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+  height: 500px;
+  width: 95%;
+  background-color: floralwhite;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  left: 0.7em;
 }
 
 .button-group {
@@ -40199,6 +40213,18 @@ ion-spinner {
   width: 50%;
 }
 
+.default-class {
+  border-radius: 10px;
+  position: absolute;
+  text-align: center;
+  height: 95%;
+  background-color: floralwhite;
+  margin-top: 8px;
+  max-width: 325px;
+  max-height: 450px;
+  width: 100%;
+}
+
 .nav-round {
   font-family: Baumans;
   text-align: center;
@@ -40230,7 +40256,7 @@ ion-spinner {
   -ms-user-select: none;
   display: block;
   width: 100%;
-  margin-top: 4em;
+  margin-top: 3.9em;
 }
 
 .app-text {
