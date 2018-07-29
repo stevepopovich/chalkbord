@@ -1,3 +1,5 @@
+import { ToastService } from './../../services/toast.service';
+import { FormBuilderHelper } from './../../types/utils.type';
 import { Organization } from './../../types/organization.type';
 import { CurrentUserService } from './../../services/current-user.service';
 //import { PictureSourceType } from '@ionic-native/camera';
@@ -38,12 +40,15 @@ export class DealEditorComponent {
 
     public currentOrganization?: Organization;
 
+    public previewCard: LocaleCard;
+
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
-        private dealEditorService: DealEditorService, private userService: UserService,
+        private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
         private currentUserService: CurrentUserService) {
+
         this.dealEditorFormGroup = this.formBuilder.group({
-            shortDealDescription: ['', Validators.required],
+            dealDescription: ['', Validators.required],
             longDealDescription: [''],
             numberOfDeals: [''],
             limitedDealNumber: [''],
@@ -53,6 +58,15 @@ export class DealEditorComponent {
             dealType: ['', Validators.required],
             isVegetarian: [''],
             isVegan: ['']
+        });
+
+        this.dealEditorFormGroup.valueChanges.subscribe(() => {
+            if (this.currentOrganization && this.dealEditorFormGroup.get("dealDescription").value) {
+                const preCard = LocaleCard.getBlankCard();
+                preCard.dealDescription = this.dealEditorFormGroup.get("dealDescription").value;
+                preCard.organization = this.currentOrganization;
+                this.previewCard = preCard;
+            }
         });
 
         this.currentUserService.getCurrentOrganization().subscribe((orgs: Organization[]) => {
@@ -89,25 +103,32 @@ export class DealEditorComponent {
     }
 
     public add() {
-        if (this.dealEditorFormGroup.valid && this.imageDataForUpload) {
-            const deal = this.getDealFromFields();
+        FormBuilderHelper.markFormGroupTouched(this.dealEditorFormGroup);
+        this.dealEditorFormGroup.updateValueAndValidity();
+        if (this.imageDataForUpload) {
+            if (this.dealEditorFormGroup.valid) {
+                const deal = this.getDealFromFields();
 
-            deal.organization = this.currentOrganization;
+                deal.organization = this.currentOrganization;
 
-            this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false).then(() => {
-                this.cleanUpImageData();
-                this.clearFields();
-                //basically done assuming the below promises resolve faster, which they should saving so set state to saved
-                this.dealEditorService.addDealSubject.next(deal);//add to list and make current
-            });
+                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false).then(() => {
+                    this.cleanUpImageData();
+                    this.clearFields();
+                    //basically done; assuming the below promises resolve faster set state to saved
+                    this.dealEditorService.addDealSubject.next(deal);//add to list and make current
+                });
 
-            this.cardService.set(deal);
-            this.currentUserService.addCardId(deal.id);
-            this.userService.set(this.currentUserService.getCurrentUser());
-        }
+                this.cardService.set(deal);
+                this.currentUserService.addCardId(deal.id);
+                this.userService.set(this.currentUserService.getCurrentUser());
+            }
+        } else
+            this.toastService.showReadableToast("Please add a photo for this deal!");
     }
 
     public save() {
+        FormBuilderHelper.markFormGroupTouched(this.dealEditorFormGroup);
+        this.dealEditorFormGroup.updateValueAndValidity();
         if (this.dealEditorFormGroup.valid) {
             var deal: LocaleCard = this.getDealFromFields();
 
@@ -168,7 +189,7 @@ export class DealEditorComponent {
 
     private getCombinedTime(time: any, date: any): Date {//still needs to be tested
         const combinedTime = new Date(Date.parse(date));
-        const timeDateObj = new Date('1970-01-01T' + time);//use abitrary stuff date here to make parsing happen
+        const timeDateObj = new Date('1970-01-01T' + time);//use arbitrary stuff date here to make parsing happen
 
         const timeOffsetInHours = timeDateObj.getTimezoneOffset() / 60;
 
@@ -193,6 +214,8 @@ export class DealEditorComponent {
         Object.keys(this.dealEditorFormGroup.controls).forEach(key => {
             this.dealEditorFormGroup.get(key).setValue(null);
         });
+
+        FormBuilderHelper.markFormGroupUntouched(this.dealEditorFormGroup);
     }
 
     private getDealFromFields(): LocaleCard {
@@ -207,7 +230,7 @@ export class DealEditorComponent {
         let deal: LocaleCard;
 
         if (!this.limitDealNumber) {
-            deal = new LocaleCard(this.dealEditorFormGroup.get("shortDealDescription").value,
+            deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
                 this.dealEditorFormGroup.get("longDealDescription").value,
                 startDatetime,
                 endDatetime,
@@ -218,7 +241,7 @@ export class DealEditorComponent {
 
             deal.organization = this.currentOrganization;
         } else {
-            deal = new LocaleCard(this.dealEditorFormGroup.get("shortDealDescription").value,
+            deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
                 this.dealEditorFormGroup.get("longDealDescription").value,
                 startDatetime,
                 endDatetime,

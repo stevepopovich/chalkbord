@@ -14,17 +14,17 @@ export class RememberMeService {
     }
 
     public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
-        var deviceKey, tupleKey;
-        this.setKeys(userType, deviceKey, tupleKey);
+        console.log(userType.toString());
+        const keys = this.setKeys(userType);
 
-        this.deviceService.getSetting(deviceKey).then((rememberMe: boolean) => {
+        this.deviceService.getSetting(keys.deviceKey).then((rememberMe: boolean) => {
             if (rememberMe) {
-                this.deviceService.getSetting(tupleKey).then((emailPasswordTup: EmailPasswordTuple) => {
+                this.deviceService.getSetting(keys.tupleKey).then((emailPasswordTup: EmailPasswordTuple) => {
                     if (emailPasswordTup) {
                         formGroup.get("email").setValue(emailPasswordTup.email);
                         formGroup.get("password").setValue(emailPasswordTup.password);
 
-                        //this.loginService.login(formGroup);
+                        this.loginService.login(formGroup);
                     }
                 });
             }
@@ -34,23 +34,18 @@ export class RememberMeService {
     public handleRememberMeSetting(formGroup: FormGroup, userType: UserType) {
         const rememberMe: boolean = formGroup.get("rememberMe").value;
 
-        var deviceKey, tupleKey;
-        this.setKeys(userType, deviceKey, tupleKey);
+        const keys = this.setKeys(userType);
 
-        this.deviceService.putBooleanSetting(deviceKey, rememberMe);
+        this.deviceService.putBooleanSetting(keys.deviceKey, rememberMe);
 
         if (rememberMe)
-            this.deviceService.putUserEmailPasswordToLocalStorage(tupleKey, formGroup.get("email").value, formGroup.get("password").value);
+            this.deviceService.putUserEmailPasswordToLocalStorage(keys.tupleKey, formGroup.get("email").value, formGroup.get("password").value);
     }
 
-    private setKeys(userType: UserType, deviceKey: string, tupleKey: string) {
-        if (userType == UserType.Organization) {
-            deviceKey = LoginKeys.rememberMeRestKey;
-            tupleKey = LoginKeys.restEmailPasswordComboKey;
-        }
-        else if (userType == UserType.Consumer) {
-            deviceKey = LoginKeys.rememberMeUserKey;
-            tupleKey = LoginKeys.userEmailPasswordComboKey;
-        }
+    private setKeys(userType: UserType): { deviceKey: string, tupleKey: string } {
+        if (userType == UserType.Organization)
+            return { deviceKey: LoginKeys.rememberMeRestKey, tupleKey: LoginKeys.restEmailPasswordComboKey };
+        else if (userType == UserType.Consumer)
+            return { deviceKey: LoginKeys.rememberMeUserKey, tupleKey: LoginKeys.userEmailPasswordComboKey };
     }
 }

@@ -39971,18 +39971,10 @@ ion-navbar.toolbar {
   max-height: 450px;
 }
 
-.bottom-row {
-  position: absolute;
-  bottom: 11px;
-  left: 23%;
-  height: 14.3%;
-  z-index: -2;
-  margin-bottom: 0.5em;
-}
-
 .title-big
-.toolbar-title {
-  font-size: 2.4em !important;
+.toolbar-title-md
+.toolbar-title-ios {
+  font-size: 3em !important;
 }
 
 .toolbar-title-ios {
@@ -39996,10 +39988,6 @@ ion-navbar.toolbar {
 
 .nav-round {
   font-family: Baumans;
-  text-align: center;
-  vertical-align: middle;
-  position: relative;
-  color: black;
   background-image: url("../../assets/images/good chalkboard.jpg");
 }
 
@@ -40029,6 +40017,14 @@ ion-navbar.toolbar {
   left: 0;
   width: 100%;
   text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+65 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(65%, white), to(white));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 65%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  /* IE6-9 */
 }
 
 .non-draggable-card-image {
@@ -40061,10 +40057,8 @@ ion-navbar.toolbar {
   max-width: 33%;
   border-radius: 70%;
   height: 100%;
-  display: inline-block;
-  font-size: 3.8em;
-  color: white;
-  z-index: -2;
+  z-index: -3;
+  padding: 0;
 }
 
 .button-circular-heart {
@@ -40072,10 +40066,29 @@ ion-navbar.toolbar {
   max-width: 33%;
   border-radius: 70%;
   height: 100%;
-  display: inline-block;
-  font-size: 3.2em;
-  color: white;
-  z-index: -2;
+  z-index: -3;
+  padding: 0;
+}
+
+.bottom-row {
+  position: absolute;
+  bottom: 1%;
+  height: 14%;
+  z-index: -4;
+  width: 100%;
+  left: 20.5%;
+}
+
+.x-image {
+  height: 85%;
+  width: 25%;
+  margin-right: 1em;
+}
+
+.heat-image {
+  height: 85%;
+  width: 25%;
+  margin-left: 1em;
 }
 
 .padding-top {
@@ -40084,22 +40097,12 @@ ion-navbar.toolbar {
 
 .button-top {
   background-color: transparent;
-  position: absolute;
-  right: 0;
-  top: 11px;
-  z-index: 10;
-  font-size: 1.5em;
-  height: inherit !important;
+  color: white;
 }
 
 .button-top-left {
   background-color: transparent;
-  position: absolute;
-  left: 0;
-  top: 5px;
-  z-index: 10;
-  font-size: 1.5em;
-  height: 5%;
+  color: white;
 }
 
 .loading-div {
@@ -40120,13 +40123,17 @@ ion-spinner {
   margin-top: 14em;
 }
 
+.spinner-md-crescent circle {
+  stroke: white;
+}
+
 .user-card-list {
   border-radius: 10px;
   position: relative;
   text-align: center;
-  height: 500px;
+  height: 600px;
   width: 95%;
-  background-color: floralwhite;
+  background-color: white;
   margin-top: 1em;
   margin-bottom: 1em;
   -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -40218,11 +40225,22 @@ ion-spinner {
   position: absolute;
   text-align: center;
   height: 95%;
-  background-color: floralwhite;
+  background-color: white;
+  width: 95%;
   margin-top: 8px;
+  margin-left: 2em;
+  margin-right: 2em;
   max-width: 325px;
   max-height: 450px;
-  width: 100%;
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.error-message {
+  padding-left: 1em;
+  color: red;
+  margin: 0;
+  margin-top: 0.5em;
 }
 
 .nav-round {
