@@ -14,29 +14,33 @@
                 <ion-row>
                     <ion-col col-12 col-sm-6 style="padding: 0px;">
                         <ion-item>
-                            <ion-label floating>Short deal description</ion-label>
+                            <ion-label floating>Deal description</ion-label>
                             <ion-input formControlName="dealDescription"></ion-input>
                         </ion-item>
+                        <p *ngIf="dealEditorFormGroup.get('dealDescription').errors && dealEditorFormGroup.get('dealDescription').dirty" class="error-message">Deal description is required.</p>
 
                         <ion-item>
                             <ion-label floating>Long deal description</ion-label>
-                            <ion-input formControlName="longDealDescription"></ion-input>
+                            <ion-textarea formControlName="longDealDescription"></ion-textarea>
                         </ion-item>
 
                         <ion-item>
                             <ion-label floating>Deal date</ion-label>
                             <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
                         </ion-item>
+                        <p *ngIf="dealEditorFormGroup.get('dealDay').errors && dealEditorFormGroup.get('dealDay').dirty" class="error-message">Deal date is required.</p>
 
                         <ion-item>
                             <ion-label floating>Start time</ion-label>
                             <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>
                         </ion-item>
+                        <p *ngIf="dealEditorFormGroup.get('dealStart').errors && dealEditorFormGroup.get('dealStart').dirty" class="error-message">Deal start time is required.</p>
 
                         <ion-item>
                             <ion-label floating>End time</ion-label>
                             <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>
                         </ion-item>
+                        <p *ngIf="dealEditorFormGroup.get('dealEnd').errors && dealEditorFormGroup.get('dealEnd').dirty" class="error-message">Deal end time is required.</p>
 
                         <ion-item>
                             <ion-label>Limited deal number</ion-label>
@@ -63,6 +67,7 @@
                                 <ion-radio value="2"></ion-radio>
                             </ion-item>
                         </ion-list>
+                        <p *ngIf="dealEditorFormGroup.get('dealType').errors && dealEditorFormGroup.get('dealType').dirty" class="error-message">Deal type is required.</p>
 
                         <ion-item>
                             <ion-label>Deal is vegetarian</ion-label>
@@ -75,7 +80,7 @@
                         </ion-item>
                     </ion-col>
                     <ion-col (click)="editPhotoData()" style="padding: 0px;">
-                        <gs-card [card]="dealEditorService.currentDealBeingEdited" [imageSrc]="imageDataForPreview"></gs-card>
+                        <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>
                     </ion-col>
                 </ion-row>
             </ion-grid>

@@ -4,7 +4,7 @@
         <img *ngIf="card && card.imageURL" class="non-draggable-card-image fill" src="{{card.imageURL}}" />
 
         <ion-card-content *ngIf="card || showCardText" class="card-text">
-            <ion-card-title style="color: white !important;">
+            <ion-card-title style="color: black !important;">
                 {{_card.organization?.name}}
             </ion-card-title>
             {{_card.dealDescription}}

@@ -1,20 +1,22 @@
 <ion-header class="nav-round">
-    <ion-navbar class="navbar-md">
-        <ion-title class="title-big">Chalkbord</ion-title>
-    </ion-navbar>
+    <ion-toolbar style="min-height: 56px;">
+        <ion-buttons start>
+            <button (click)="openProfile()" class="button-top-left" ion-button icon-only>
+                <ion-icon ios="md-contact" md="md-contact"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>
+        <ion-buttons end>
+            <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>
+                <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
-<button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>
-    <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>
-</button>
-
-<button (click)="openProfile()" class="button-top-left" ion-button icon-only>
-    <ion-icon ios="md-contact" md="md-contact"></ion-icon>
-</button>
-
 <div class="loading-div">
-    <ion-spinner class="loading-spinner"></ion-spinner>
-    <h2 ion-text style="text-align: center">Getting your local deals!</h2>
+    <ion-spinner></ion-spinner>
+    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>
 </div>
 
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"
@@ -32,10 +34,6 @@
 </div>
 
 <div class="bottom-row">
-    <button class="button-circular" (click)="clickNo()" ion-button icon-only>
-        <ion-icon ios="md-close" md="md-close"></ion-icon>
-    </button>
-    <button class="button-circular-heart" (click)="clickLike()" ion-button icon-only>
-        <ion-icon class="padding-top" ios="md-heart" md="md-heart"></ion-icon>
-    </button>
+    <img (click)="clickNo()" class="x-image" src="../../assets/images/x-chalk.png" />
+    <img (click)="clickLike()" class="heat-image" src="../../assets/images/heart-chalk.png" />
 </div>

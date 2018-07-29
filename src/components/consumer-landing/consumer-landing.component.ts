@@ -51,7 +51,7 @@ export class ConsumerLandingComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
+        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
     }
 
     public signUp(): void {

@@ -13,7 +13,7 @@ export class GSCardComponent implements AfterViewInit {
     set card(card: LocaleCard) {
         if (card) {
             this._card = card;
-            this.imageService.setDealImageURL(this.card);
+            //this.imageService.setDealImageURL(this.card);
         } else
             this._card = LocaleCard.getBlankCard();
 
@@ -42,10 +42,11 @@ export class GSCardComponent implements AfterViewInit {
     private _imageSrc;
 
     constructor(private imageService: ImageService) {
+        imageService;
         this._card = LocaleCard.getBlankCard();
     }
 
     public ngAfterViewInit(): void {
-        console.log(this.inputClass);
+        //console.log(this.inputClass);
     }
 }

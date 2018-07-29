@@ -24,18 +24,10 @@ $button-top-offest: 79%;
     text-shadow: setLongShadow($color, $length);
 }
 
-.bottom-row{
-    position: absolute;
-    bottom: 11px;
-    left: 23%;
-    height: 14.3%;
-    z-index: -2;
-    margin-bottom: 0.5em;
-}
-
 .title-big
-.toolbar-title{
-    font-size: 2.4em !important;
+.toolbar-title-md
+.toolbar-title-ios {
+    font-size: 3em !important;
 }
 
 .toolbar-title-ios{
@@ -49,10 +41,6 @@ $button-top-offest: 79%;
 
 .nav-round{
     font-family: Baumans;
-    text-align: center;
-    vertical-align: middle; 
-    position: relative;
-    color: black;
     background-image: url("../../assets/images/good\ chalkboard.jpg");
 }
 
@@ -85,11 +73,11 @@ $button-top-offest: 79%;
 
     text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
 
-    // /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cedce7+0,000000+100&0+0,1+100 */
-    // background: -moz-linear-gradient(top, rgba(206,220,231,0) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
-    // background: -webkit-linear-gradient(top, rgba(206,220,231,0) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    // background: linear-gradient(to bottom, rgba(206,220,231,0) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cedce7', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+65 */
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 65%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 65%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 65%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 .non-draggable-card-image{
@@ -121,10 +109,11 @@ $button-top-offest: 79%;
     max-width: 33%;
     border-radius: 70%;
     height: 100%;
-    display: inline-block;
-    font-size: 3.8em;
-    color: white;
-    z-index: -2;
+    //display: inline-block;
+    //font-size: 3.8em;
+    //color: white;
+    z-index: -3;
+    padding: 0; 
 }
 
 .button-circular-heart{
@@ -132,10 +121,32 @@ $button-top-offest: 79%;
     max-width: 33%;
     border-radius: 70%;
     height: 100%;
-    display: inline-block;
-    font-size: 3.2em;
-    color: white;
-    z-index: -2;
+    //display: inline-block;
+    //font-size: 3.2em;
+    //color: white;
+    z-index: -3;
+    padding: 0;
+}
+
+.bottom-row{
+    position: absolute;
+    bottom: 1%;
+    height: 14%;
+    z-index: -4;
+    width: 100%;
+    left: 20.5%;
+}
+
+.x-image {
+    height: 85%;
+    width: 25%;
+    margin-right: 1em;
+}
+
+.heat-image {
+    height: 85%;
+    width: 25%;
+    margin-left: 1em;
 }
 
 .padding-top{
@@ -144,22 +155,24 @@ $button-top-offest: 79%;
 
 .button-top{
     background-color: transparent;
-    position: absolute;
-    right: 0;
-    top: 11px;
-    z-index: 10;
-    font-size: 1.5em;
-    height: inherit !important;
+    color: white;
+    // position: absolute;
+    // right: 0;
+    // top: 11px;
+    // z-index: 10;
+    // font-size: 1.5em;
+    // height: inherit !important;
 }
 
 .button-top-left{
     background-color: transparent;
-    position: absolute;
-    left: 0;
-    top: 5px;
-    z-index: 10;
-    font-size: 1.5em;
-    height: 5%;
+    color: white;
+    // position: absolute;
+    // left: 0;
+    // top: 5px;
+    // z-index: 10;
+    // font-size: 1.5em;
+    // height: 5%;
 }
 
 .loading-div {
@@ -178,4 +191,8 @@ ion-spinner {
     width: 100%;
     margin: 0 auto;
     margin-top: 14em;
+}
+
+.spinner-md-crescent circle {
+    stroke: white;
 }
