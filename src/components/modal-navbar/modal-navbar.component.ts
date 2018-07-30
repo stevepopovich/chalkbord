@@ -1,3 +1,4 @@
+import { CurrentUserService } from './../../services/current-user.service';
 import { Component, Input } from "@angular/core";
 import { ToastService } from "../../services/toast.service";
 import { DeviceService } from "../../services/device.service";
@@ -15,7 +16,8 @@ export class ModalNavbarComponent {
     @Input() organizationModal: boolean;
 
     constructor(private toastService: ToastService, private ionicViewController: ViewController,
-        private deviceService: DeviceService, private viewControllerService: ViewControllerService) {
+        private deviceService: DeviceService, private viewControllerService: ViewControllerService,
+        private currentUserService: CurrentUserService) {
     }
 
     public logout() {
@@ -35,6 +37,8 @@ export class ModalNavbarComponent {
                 }
 
                 this.ionicViewController.dismiss();
+
+                this.currentUserService.removeCurrentUser();
             }
         });
 

@@ -60,12 +60,12 @@ export class DealEditorComponent {
             isVegan: ['']
         });
 
+        this.previewCard = LocaleCard.getBlankCard();
+
         this.dealEditorFormGroup.valueChanges.subscribe(() => {
-            if (this.currentOrganization && this.dealEditorFormGroup.get("dealDescription").value) {
-                const preCard = LocaleCard.getBlankCard();
-                preCard.dealDescription = this.dealEditorFormGroup.get("dealDescription").value;
-                preCard.organization = this.currentOrganization;
-                this.previewCard = preCard;
+            if (this.currentOrganization) {
+                this.previewCard.dealDescription = this.dealEditorFormGroup.get("dealDescription").value || "";
+                this.previewCard.organization = this.currentOrganization;
             }
         });
 
@@ -153,9 +153,9 @@ export class DealEditorComponent {
             this.dealEditorService.updateDealSubject.next(deal);
 
             this.cardService.set(deal);
+
+            this.uneditedDeal = deal;
         }
-        else
-            this.reportBadFields();
     }
 
     private getSaveCombinedTime(time: any, date: any): Date {
@@ -170,7 +170,7 @@ export class DealEditorComponent {
 
     private setCurrentCardBeingEdited(deal: LocaleCard) {
         if (deal) {
-            this.uneditedDeal = deal;
+            this.uneditedDeal = Object.assign({}, deal);
             this.editingDeal = true;
 
             Object.keys(this.dealEditorFormGroup.controls).forEach(key => {
@@ -183,18 +183,20 @@ export class DealEditorComponent {
             this.dealEditorFormGroup.get("dealEnd").setValue(deal.dealEnd.toISOString());
 
             this.dealEditorFormGroup.get("limitedDealNumber").setValue(deal.numberOfDeals > 0);
+
+            this.previewCard.imageURL = undefined;
+            this.previewCard.id = deal.id;
+            this.imageService.setDealImageURL(this.previewCard);
         } else
             this.clearFields();
     }
 
-    private getCombinedTime(time: any, date: any): Date {//still needs to be tested
+    private getCombinedTime(time: any, date: any): Date {
         const combinedTime = new Date(Date.parse(date));
-        const timeDateObj = new Date('1970-01-01T' + time);//use arbitrary stuff date here to make parsing happen
+        const timeDateObj = new Date(Date.parse(time));
 
-        const timeOffsetInHours = timeDateObj.getTimezoneOffset() / 60;
-
-        combinedTime.setHours(timeDateObj.getHours() - timeOffsetInHours + 1);//add one bc combinedTime is one hour off?? GMT-400???
-        combinedTime.setMinutes(timeDateObj.getMinutes());//idk but this should be watched
+        combinedTime.setHours(timeDateObj.getHours());
+        combinedTime.setMinutes(timeDateObj.getMinutes());
 
         return combinedTime;
     }
@@ -208,6 +210,7 @@ export class DealEditorComponent {
     private clearFields() {
         this.uneditedDeal = null;
         this.editingDeal = false;
+        this.previewCard = LocaleCard.getBlankCard();
 
         this.cleanUpImageData();
 
@@ -231,7 +234,7 @@ export class DealEditorComponent {
 
         if (!this.limitDealNumber) {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
-                this.dealEditorFormGroup.get("longDealDescription").value,
+                this.dealEditorFormGroup.get("longDealDescription").value || "",
                 startDatetime,
                 endDatetime,
                 -1,//no deal limit
@@ -242,7 +245,7 @@ export class DealEditorComponent {
             deal.organization = this.currentOrganization;
         } else {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
-                this.dealEditorFormGroup.get("longDealDescription").value,
+                this.dealEditorFormGroup.get("longDealDescription").value || "",
                 startDatetime,
                 endDatetime,
                 this.dealEditorFormGroup.get("numberOfDeals").value,
@@ -258,7 +261,7 @@ export class DealEditorComponent {
 
     public getDeviceIsSmall(): boolean {
         if (this.platformReady)
-            return this.platform.width() < IonicScreenSize.Md;
+            return this.platform.width() < IonicScreenSize.Lg;
     }
 
     public editPhotoData() {
@@ -302,13 +305,13 @@ export class DealEditorComponent {
         this.hiddenFileInput.nativeElement.click();
     }
 
+    public cardIsEdited(): boolean {
+        return !LocaleCard.cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUpload;
+    }
+
     private cleanUpImageData() {
         this.imageDataForPreview = null;
         this.imageDataForUpload = null;
         this.fileReader.abort();
-    }
-
-    private reportBadFields() {
-        //this.
     }
 }

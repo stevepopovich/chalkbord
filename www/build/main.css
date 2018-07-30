@@ -40243,6 +40243,12 @@ ion-spinner {
   margin-top: 0.5em;
 }
 
+.editing-status {
+  margin-top: 480px;
+  margin-left: 25px;
+  width: 100%;
+}
+
 .nav-round {
   font-family: Baumans;
   text-align: center;

@@ -81,6 +81,12 @@
                     </ion-col>
                     <ion-col (click)="editPhotoData()" style="padding: 0px;">
                         <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>
+                        <div *ngIf="uneditedDeal" class="editing-status">
+                            <ion-badge>
+                                <div *ngIf="!cardIsEdited()" style="color: green">Deal saved</div>
+                                <div *ngIf="cardIsEdited()" style="color: yellow">Your changes are unsaved</div>
+                            </ion-badge>
+                        </div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

@@ -68,6 +68,20 @@ export class LocaleCard {
                 cardsToManipulate.push(dealModel);
         });
     }
+
+    public static cardsAreLogicallyEqual(obj1: LocaleCard, obj2: LocaleCard): boolean {
+        if (obj1 && obj2) {
+            return obj1.dealDescription === obj2.dealDescription
+                && obj1.dealEnd.getTime() === obj2.dealEnd.getTime()
+                && obj1.dealStart.getTime() === obj2.dealStart.getTime()
+                && obj1.dealType === obj2.dealType
+                && obj1.isVegan === obj2.isVegan
+                && obj1.isVegetarian === obj2.isVegetarian
+                && obj1.longDealDescription === obj2.longDealDescription
+                && obj1.numberOfDeals === obj2.numberOfDeals;
+        } else
+            return false;
+    }
 }
 
 export enum DealType {

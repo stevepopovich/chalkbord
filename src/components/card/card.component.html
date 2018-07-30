@@ -1,9 +1,9 @@
 <div [style.zIindex]="-1000">
     <ion-card class="{{inputClass}}">
-        <div *ngIf="card && !card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>
-        <img *ngIf="card && card.imageURL" class="non-draggable-card-image fill" src="{{card.imageURL}}" />
+        <div *ngIf="_card && !_card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>
+        <img *ngIf="_card && _card.imageURL" class="non-draggable-card-image fill" src="{{_card.imageURL}}" />
 
-        <ion-card-content *ngIf="card || showCardText" class="card-text">
+        <ion-card-content *ngIf="_card || showCardText" class="card-text">
             <ion-card-title style="color: black !important;">
                 {{_card.organization?.name}}
             </ion-card-title>
