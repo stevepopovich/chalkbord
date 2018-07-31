@@ -12,6 +12,7 @@ import { LoginService } from "../../services/login.service";
 import { UserLoginFormGroup } from "../../types/user-login-form-group.type";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { Organization } from '../../types/organization.type';
+import { FormBuilderHelper } from '../../types/utils.type';
 
 @Component({
     templateUrl: './organization-landing.component.html',
@@ -20,7 +21,7 @@ import { Organization } from '../../types/organization.type';
 })
 export class OrganizationLandingComponent implements AfterViewInit {
     public userLogInGroup: UserLoginFormGroup;
-    public restSignUpGroup: FormGroup;
+    public signUpGroup: FormGroup;
 
     public rememberMeLogIn: boolean = false;
     public rememberMeSignUp: boolean = false;
@@ -35,14 +36,14 @@ export class OrganizationLandingComponent implements AfterViewInit {
         private currentUserService: CurrentUserService, private userService: UserService, private rememberMeService: RememberMeService) {
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
-        this.restSignUpGroup = this.formBuilder.group({
+        this.signUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
-            confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64)])],
+            password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+            confirmPassword: ['', Validators.compose([Validators.minLength(8)])],
             address: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             state: ['', Validators.compose([Validators.required])],
-            zipcode: ['', Validators.compose([Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]*')])],
+            zipcode: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]*')])],
             name: ['', Validators.compose([Validators.required])],
             rememberMe: ['']
         });
@@ -64,20 +65,29 @@ export class OrganizationLandingComponent implements AfterViewInit {
         this.loginService.login(this.userLogInGroup);
     }
 
-    public signUp(): void {
-        if (this.restSignUpGroup.valid) {
-            const address: string = this.restSignUpGroup.get("address").value;
-            const city: string = this.restSignUpGroup.get("city").value;
-            const state: string = this.restSignUpGroup.get("state").value;
-            const zipcode: string = this.restSignUpGroup.get("zipcode").value;
+    public passwordsMatch(): boolean {
+        if (this.signUpGroup.get("password").dirty
+            && this.signUpGroup.get("confirmPassword").dirty)
+            return this.signUpGroup.get("password").value === this.signUpGroup.get("confirmPassword").value;
+        else
+            return true;
+    }
 
-            var service = new google.maps.places.PlacesService(this.map);
+    public signUp(): void {
+        FormBuilderHelper.markFormGroupTouched(this.signUpGroup);
+        if (this.signUpGroup.valid && this.passwordsMatch()) {
+            const address: string = this.signUpGroup.get("address").value;
+            const city: string = this.signUpGroup.get("city").value;
+            const state: string = this.signUpGroup.get("state").value;
+            const zipcode: string = this.signUpGroup.get("zipcode").value;
+
+            var googleMapsPlacesService = new google.maps.places.PlacesService(this.map);
 
             var textSearchRequest: google.maps.places.TextSearchRequest = {
                 query: this.concatStringsWithSpaces(address, city, state, zipcode)
             }
 
-            service.textSearch(textSearchRequest, (results: google.maps.places.PlaceResult[]) => {
+            googleMapsPlacesService.textSearch(textSearchRequest, (results: google.maps.places.PlaceResult[]) => {
                 if (results.length < 0) {
                     this.toastService.showReadableToast("We couldn't find that address. Please verify your address or contact support");
 
@@ -86,20 +96,6 @@ export class OrganizationLandingComponent implements AfterViewInit {
                 else
                     this.presentVerifyAddressAlert(results, 0);
             });
-        } else {
-            var display: string = "";
-
-            display = "One or more of your fields are messed up!";//TODO
-
-            // if(this.restSignUpGroup.get("email").invalid)//TODO
-            //     display += "Please be sure your email is formatted correctly. ";
-
-            // if(this.restSignUpGroup.get("password").invalid)
-            //     display += "Please be sure your password is at least eight characters long and both passwords match. ";
-
-            this.toastService.showReadableToast(display);
-
-            console.error("Fields are invalid");
         }
     }
 
@@ -150,17 +146,17 @@ export class OrganizationLandingComponent implements AfterViewInit {
 
     private finishSignUpFlow(place: google.maps.places.PlaceResult) {
 
-        const email: string = this.restSignUpGroup.get("email").value;
-        const password: string = this.restSignUpGroup.get("password").value;
-        const confrimPassword: string = this.restSignUpGroup.get("confirmPassword").value;
-        const organizationName: string = this.restSignUpGroup.get("name").value;
+        const email: string = this.signUpGroup.get("email").value;
+        const password: string = this.signUpGroup.get("password").value;
+        const confrimPassword: string = this.signUpGroup.get("confirmPassword").value;
+        const organizationName: string = this.signUpGroup.get("name").value;
 
         if (password == confrimPassword) {
             this.auth.checkSignInMethods(email).then((methods) => {
                 if (!methods || methods.length < 1) {//if user not in db
                     this.auth.signUp(email, password).then(() => {
                         this.auth.signIn(email, password).then(() => {
-                            this.rememberMeService.handleRememberMeSetting(this.restSignUpGroup, UserType.Organization);
+                            this.rememberMeService.handleRememberMeSetting(this.signUpGroup, UserType.Organization);
 
                             const newUser = new LocaleUser(this.auth.getCurrentUserUID(), UserType.Organization, organizationName);
 
@@ -194,11 +190,6 @@ export class OrganizationLandingComponent implements AfterViewInit {
 
                 console.error("Sign up failed because: " + reason);
             });
-        }
-        else {
-            this.toastService.showReadableToast("Please make sure your passwords match.");
-
-            console.error("Passwords do not match");
         }
     }
 }

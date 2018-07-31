@@ -40391,6 +40391,13 @@ ion-content {
   position: inherit;
 }
 
+.error-message {
+  padding-left: 1em;
+  color: red !important;
+  margin: 0 !important;
+  margin-top: 0.5em !important;
+}
+
 .nav-round {
   font-family: Baumans;
   text-align: center;
