@@ -1,3 +1,5 @@
+import { AlertController } from 'ionic-angular';
+import { OrganizationSignupComponent } from './../organization-signup/organization-signup.component';
 import { RememberMeService } from './../../services/remember-me.service';
 import { UserLoginFormGroup } from './../../types/user-login-form-group.type';
 import { LoginService } from './../../services/login.service';
@@ -8,37 +10,36 @@ import { AuthorizationService } from "../../services/firebase/authorization.serv
 import { LocaleUser, UserType } from '../../types/user.type';
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
-
-///PLAN
-//Make a field component that takes a name and error message????
+import { OrganizationService } from '../../services/firebase/firestore-collection/organization-service';
 
 @Component({
     templateUrl: './consumer-landing.component.html',
     selector: 'consumer-landing',
     styleUrls: ['/consumer-landing.component.scss']
 })
-export class ConsumerLandingComponent implements AfterViewInit {
+export class ConsumerLandingComponent extends OrganizationSignupComponent implements AfterViewInit {
     @ViewChild('welcomeScreen') welcomeScreen: ElementRef;
     @ViewChild('logInScreen') logInScreen: ElementRef;
     @ViewChild('userSignUpFields') userSignUpScreen: ElementRef;
     @ViewChild('goBackButton') goBackButton;
+    @ViewChild('userTypeChoiceFields') userTypeChoiceFields: ElementRef;
+    @ViewChild('restaurantSignUpFields') restaurantSignUpFields: ElementRef;
 
     public userSignUpGroup: FormGroup;
     public userLogInGroup: UserLoginFormGroup;
-
     public signingUp: boolean = true;
-
     public isOrg: boolean = false;
-
     public attemptingSignup: boolean = false;
     public attemptingLogin: boolean = false;
-
     public remembered = false;
 
-    public constructor(private formBuilder: FormBuilder, private auth: AuthorizationService,
-        private rememberMeService: RememberMeService,
-        public toastService: ToastService, private currentUserService: CurrentUserService,
-        private userService: UserService, private loginService: LoginService) {
+    public constructor(formBuilder: FormBuilder, auth: AuthorizationService,
+        rememberMeService: RememberMeService, alert: AlertController, organizationService: OrganizationService,
+        toastService: ToastService, currentUserService: CurrentUserService,
+        userService: UserService, loginService: LoginService) {
+
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService);
+
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(64), Validators.pattern('[a-zA-Z0-9]*')])],
@@ -50,11 +51,12 @@ export class ConsumerLandingComponent implements AfterViewInit {
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
     }
 
-    ngAfterViewInit(): void {
-        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
+    public ngAfterViewInit(): void {
+        //this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
+        this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
     }
 
-    public signUp(): void {
+    public signUpUser(): void {
         if (this.userSignUpGroup.valid) {
             this.toastService.showReadableToast("Signing you up...welcome!");
 
@@ -154,10 +156,22 @@ export class ConsumerLandingComponent implements AfterViewInit {
     /**
      * Ugly css animations
      */
-    public goToUserSignUpScreen(): void {
-        this.welcomeScreen.nativeElement.style['left'] = "-100%";
-        this.userSignUpScreen.nativeElement.style['left'] = "0%";
-        this.goBackButton.nativeElement.style['bottom'] = "2%";
+    public goBackAScreen(): void {
+        if (this.userTypeChoiceFields.nativeElement.style['left'] == "0%") {
+            this.welcomeScreen.nativeElement.style['left'] = "0%";
+            this.userTypeChoiceFields.nativeElement.style['left'] = "100%";
+            this.goBackButton.nativeElement.style['bottom'] = "-10%";
+        } else if (this.logInScreen.nativeElement.style['left'] == "0%") {
+            this.welcomeScreen.nativeElement.style['left'] = "0%";
+            this.logInScreen.nativeElement.style['left'] = "100%";
+            this.goBackButton.nativeElement.style['bottom'] = "-10%";
+        } else if (this.userSignUpScreen.nativeElement.style['left'] == "0%") {
+            this.userTypeChoiceFields.nativeElement.style['left'] = "0%";
+            this.userSignUpScreen.nativeElement.style['left'] = "100%";
+        } else if (this.restaurantSignUpFields.nativeElement.style['left'] == "0%") {
+            this.userTypeChoiceFields.nativeElement.style['left'] = "0%";
+            this.restaurantSignUpFields.nativeElement.style['left'] = "100%";
+        }
     }
 
     public goToLoginScreen(): void {
@@ -166,10 +180,21 @@ export class ConsumerLandingComponent implements AfterViewInit {
         this.goBackButton.nativeElement.style['bottom'] = "2%";
     }
 
-    public goBackAScreen(): void {
-        this.welcomeScreen.nativeElement.style['left'] = "0%";
-        this.logInScreen.nativeElement.style['left'] = "100%";
-        this.userSignUpScreen.nativeElement.style['left'] = "100%";
-        this.goBackButton.nativeElement.style['bottom'] = "-10%";
+    public goToUserTypeScreen(): void {
+        this.welcomeScreen.nativeElement.style['left'] = "-100%";
+        this.userTypeChoiceFields.nativeElement.style['left'] = "0%";
+        this.goBackButton.nativeElement.style['bottom'] = "2%";
+    }
+
+    public goToUserSignUpScreen(): void {
+        this.userTypeChoiceFields.nativeElement.style['left'] = "-100%";
+        this.userSignUpScreen.nativeElement.style['left'] = "0%";
+        this.goBackButton.nativeElement.style['bottom'] = "2%";
+    }
+
+    public goToRestaurantSignUpScreen(): void {
+        this.userTypeChoiceFields.nativeElement.style['left'] = "-100%";
+        this.restaurantSignUpFields.nativeElement.style['left'] = "0%";
+        this.goBackButton.nativeElement.style['bottom'] = "2%";
     }
 }

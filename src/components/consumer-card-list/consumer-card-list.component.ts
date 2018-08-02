@@ -16,7 +16,14 @@ export class ConsumerCardList {
 
     constructor(private currentUserService: CurrentUserService, private modalCtrl: ModalController) {
         this.currentUserService.getCards().subscribe((deals: LocaleCard[]) => {
-            LocaleCard.findAndUpdateCards(deals, this.cardList);
+            const currentDeals = [];
+
+            deals.forEach(card => {
+                if (card.dealStart.getTime() > Date.now())
+                    currentDeals.push(card);
+            });
+
+            LocaleCard.findAndUpdateCards(currentDeals, this.cardList);
         });
     }
 

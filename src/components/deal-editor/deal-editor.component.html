@@ -42,7 +42,7 @@
                         </ion-item>
                         <p *ngIf="dealEditorFormGroup.get('dealEnd').errors && dealEditorFormGroup.get('dealEnd').dirty" class="error-message">Deal end time is required.</p>
 
-                        <ion-item>
+                        <!-- <ion-item>
                             <ion-label>Limited deal number</ion-label>
                             <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>
                         </ion-item>
@@ -50,7 +50,7 @@
                         <ion-item *ngIf="limitDealNumber">
                             <ion-label floating>Deal Number</ion-label>
                             <ion-input type="number" formControlName="numberOfDeals"></ion-input>
-                        </ion-item>
+                        </ion-item> -->
 
                         <ion-list style="padding: 1em;" radio-group formControlName="dealType">
                             Deal Type
