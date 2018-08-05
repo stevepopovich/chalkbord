@@ -1,4 +1,4 @@
-import { LocaleCard, DealType } from './../../types/deals.type';
+import { LocaleCard } from './../../types/deals.type';
 import { CurrentUserService } from './../../services/current-user.service';
 import { LocaleLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
@@ -9,7 +9,7 @@ import {
     Direction
 } from 'angular2-swing';
 import { AlertController, PopoverController, ModalController } from 'ionic-angular';
-import { FilterDealComponent } from '../filter-deals/filter-deal.component';
+import { FilterDealComponent, FilterDealsOptionsInterface } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { AuthorizationService } from '../../services/firebase/authorization.service';
 import { ImageService } from '../../services/firebase/image-service.service';
@@ -33,7 +33,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public transitionString: string = "";
 
-    public numberOfCards = 3;
+    public numberOfCardsToHaveInView = 3;
 
     public organizationViewCards: LocaleCard[];// = new Array<DealModel>(this.numberOfCards);
     public filteredCards: LocaleCard[];
@@ -49,7 +49,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     private animatingCard: boolean = false;
 
-    public currentFilter: DealType = null;
+    public currentFilter: FilterDealsOptionsInterface = { dealType: null, onlyVegan: false, onlyVegetarian: false };
 
     public cards: LocaleCard[];
 
@@ -179,12 +179,15 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     public openDealTypePopover(event) {
-        var filterPopover = this.popoverCtrl.create(FilterDealComponent);
+        var filterPopover = this.popoverCtrl.create(FilterDealComponent, this.currentFilter);
 
-        filterPopover.onDidDismiss((data: string) => {
-            this.currentFilter = DealType[data];
+        filterPopover.onDidDismiss((data: FilterDealsOptionsInterface) => {
+            if (data) {
+                if (data.dealType)
+                    this.currentFilter = data;
 
-            this.filterCards(DealType[data]);
+                this.filterCards(data);
+            }
         });
 
         filterPopover.present({
@@ -246,16 +249,25 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         return poppedCard;
     }
 
-    private filterCards(type: DealType) {
+    private filterCards(filterOptions: FilterDealsOptionsInterface) {
         this.organizationViewCards = new Array<LocaleCard>();
-        this.filteredCards = new Array<LocaleCard>();
-        if (type || type == 0) {
-            this.filteredCards = this.cards.filter((card) => {
-                return card.dealType == type;
+        this.filteredCards = this.cards;
+        if (filterOptions.dealType || filterOptions.dealType == 0) {
+            this.filteredCards = this.filteredCards.filter((card) => {
+                return card.dealType == filterOptions.dealType;
             });
         }
-        else
-            this.filteredCards = this.cards;
+
+        if (filterOptions.onlyVegan) {
+            this.filteredCards = this.filteredCards.filter((card) => {
+                return card.isVegan && card.isVegetarian;
+            });
+        }
+        else if (filterOptions.onlyVegetarian) {
+            this.filteredCards = this.filteredCards.filter((card) => {
+                return card.isVegetarian;
+            });
+        }
 
         this.setUpViewCards();
 
@@ -284,12 +296,14 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     private setUpViewCards() {
-        this.viewCardIndex = this.numberOfCards;
+        this.viewCardIndex = this.numberOfCardsToHaveInView;
 
-        for (var i: number = 0; i < this.numberOfCards; i++) {
-            this.imageService.setDealImageURL(this.filteredCards[i]);
+        for (var i: number = 0; i < this.numberOfCardsToHaveInView; i++) {
+            if (this.filteredCards[i]) {
+                this.imageService.setDealImageURL(this.filteredCards[i]);
 
-            this.organizationViewCards.push(this.filteredCards[i]);
+                this.organizationViewCards.push(this.filteredCards[i]);
+            }
         }
     }
 

@@ -1165,7 +1165,6 @@ var DealEditorComponent = (function () {
         this.isVegetarian = false;
         this.isVegan = false;
         this.fileReader = new FileReader();
-        this.now = new Date();
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', __WEBPACK_IMPORTED_MODULE_5__angular_forms__["g" /* Validators */].required],
             longDealDescription: [''],
@@ -1274,6 +1273,16 @@ var DealEditorComponent = (function () {
         else
             this.clearFields();
     };
+    DealEditorComponent.prototype.updateDealContentType = function (changeVegetarianOption) {
+        if (changeVegetarianOption) {
+            if (!this.isVegetarian)
+                this.isVegan = false;
+        }
+        else {
+            if (this.isVegan)
+                this.isVegetarian = true;
+        }
+    };
     DealEditorComponent.prototype.cancel = function () {
         this.dealEditorService.setCurrentDeal(null);
         this.clearFields();
@@ -1369,7 +1378,7 @@ var DealEditorComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["ElementRef"])
     ], DealEditorComponent.prototype, "hiddenFileInput", void 0);
     DealEditorComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDescription\').errors && dealEditorFormGroup.get(\'dealDescription\').dirty" class="error-message">Deal description is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Long deal description</ion-label>\n                            <ion-textarea formControlName="longDealDescription"></ion-textarea>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDay\').errors && dealEditorFormGroup.get(\'dealDay\').dirty" class="error-message">Deal date is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealStart\').errors && dealEditorFormGroup.get(\'dealStart\').dirty" class="error-message">Deal start time is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealEnd\').errors && dealEditorFormGroup.get(\'dealEnd\').dirty" class="error-message">Deal end time is required.</p>\n\n                        <!-- <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item> -->\n\n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealType\').errors && dealEditorFormGroup.get(\'dealType\').dirty" class="error-message">Deal type is required.</p>\n\n                        <ion-item>\n                            <ion-label>Deal is vegetarian</ion-label>\n                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Deal is vegan</ion-label>\n                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false"></ion-checkbox>\n                        </ion-item>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">\n                        <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>\n                        <div *ngIf="uneditedDeal" class="editing-status">\n                            <ion-badge>\n                                <div *ngIf="!cardIsEdited()" style="color: green">Deal saved</div>\n                                <div *ngIf="cardIsEdited()" style="color: yellow">Your changes are unsaved</div>\n                            </ion-badge>\n                        </div>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility: hidden;" />'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDescription\').errors && dealEditorFormGroup.get(\'dealDescription\').dirty" class="error-message">Deal description is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Long deal description</ion-label>\n                            <ion-textarea formControlName="longDealDescription"></ion-textarea>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDay\').errors && dealEditorFormGroup.get(\'dealDay\').dirty" class="error-message">Deal date is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealStart\').errors && dealEditorFormGroup.get(\'dealStart\').dirty" class="error-message">Deal start time is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealEnd\').errors && dealEditorFormGroup.get(\'dealEnd\').dirty" class="error-message">Deal end time is required.</p>\n\n                        <!-- <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item> -->\n\n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealType\').errors && dealEditorFormGroup.get(\'dealType\').dirty" class="error-message">Deal type is required.</p>\n\n                        <ion-item>\n                            <ion-label>Deal is vegetarian</ion-label>\n                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Deal is vegan</ion-label>\n                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n                        </ion-item>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">\n                        <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>\n                        <div *ngIf="uneditedDeal" class="editing-status">\n                            <ion-badge>\n                                <div *ngIf="!cardIsEdited()" style="color: green">Deal saved</div>\n                                <div *ngIf="cardIsEdited()" style="color: yellow">Your changes are unsaved</div>\n                            </ion-badge>\n                        </div>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility: hidden;" />'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
             selector: 'deal-editor',
             styleUrls: ['/deal-editor.component.scss']
         }),
@@ -1516,18 +1525,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var FilterDealComponent = (function () {
-    function FilterDealComponent(viewCtrl) {
+    function FilterDealComponent(viewCtrl, navParams) {
         this.viewCtrl = viewCtrl;
+        this.navParams = navParams;
+        this.onlyVegetarian = false;
+        this.onlyVegan = false;
+        var appliedFilterOptions = this.navParams.data;
+        this.dealType = appliedFilterOptions.dealType;
+        this.onlyVegetarian = appliedFilterOptions.onlyVegetarian;
+        this.onlyVegan = appliedFilterOptions.onlyVegan;
     }
-    FilterDealComponent.prototype.closePopover = function (model) {
-        this.viewCtrl.dismiss(model);
+    FilterDealComponent.prototype.applyFilters = function () {
+        var returnData = {
+            onlyVegetarian: this.onlyVegetarian,
+            onlyVegan: this.onlyVegan,
+            dealType: this.dealType
+        };
+        this.viewCtrl.dismiss(returnData);
+    };
+    FilterDealComponent.prototype.updateDealContentType = function (changeVegetarianOption) {
+        if (changeVegetarianOption) {
+            if (!this.onlyVegetarian)
+                this.onlyVegan = false;
+        }
+        else {
+            if (this.onlyVegan)
+                this.onlyVegetarian = true;
+        }
     };
     FilterDealComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-list radio-group [(ngModel)]="dealType" (ngModelChange)="closePopover($event)">\n  <ion-item>\n    <ion-label>Deal Type</ion-label>  \n  </ion-item>  \n    <ion-item>\n      <ion-label>Drinks</ion-label>\n      <ion-radio value="Drinks"></ion-radio>\n    </ion-item>\n    <ion-item>\n      <ion-label>Food</ion-label>\n      <ion-radio value="Food"></ion-radio>\n    </ion-item>\n    <!-- <ion-item>\n        <ion-label>Both</ion-label>\n        <ion-radio value="Both"></ion-radio>\n    </ion-item> -->\n    <ion-item>\n        <ion-label>All</ion-label>\n        <ion-radio value="null"></ion-radio>\n    </ion-item>\n  </ion-list>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-grid>\n  <ion-row>\n    <ion-col>\n      <ion-list radio-group [(ngModel)]="dealType">\n        <ion-item>\n          <ion-label>Filter deals</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Drinks</ion-label>\n          <ion-radio value="0"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Food</ion-label>\n          <ion-radio value="1"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Both</ion-label>\n          <ion-radio value="2"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>All</ion-label>\n          <ion-radio value="null"></ion-radio>\n        </ion-item>\n      </ion-list>\n    </ion-col>\n    <ion-col>\n      <ion-item>\n        <ion-label>Vegetarian</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegetarian" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Vegan</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegan" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n      </ion-item>\n      <button ion-button (click)="applyFilters()">APPLY</button>\n    </ion-col>\n  </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
             selector: 'filter-deal',
             styleUrls: ['/filter-deal.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], FilterDealComponent);
     return FilterDealComponent;
 }());
@@ -3006,12 +3037,12 @@ var ConsumerComponent = (function () {
         this.currentUserService = currentUserService;
         this.userService = userService;
         this.transitionString = "";
-        this.numberOfCards = 3;
+        this.numberOfCardsToHaveInView = 3;
         this.destoryingCard = false;
         this.moveCardIndex = 0;
         this.likingCard = false;
         this.animatingCard = false;
-        this.currentFilter = null;
+        this.currentFilter = { dealType: null, onlyVegan: false, onlyVegetarian: false };
         this.currentLocation = new __WEBPACK_IMPORTED_MODULE_2__types_location_type__["a" /* LocaleLocation */]();
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
@@ -3110,10 +3141,13 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.openDealTypePopover = function (event) {
         var _this = this;
-        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__["a" /* FilterDealComponent */]);
+        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__["a" /* FilterDealComponent */], this.currentFilter);
         filterPopover.onDidDismiss(function (data) {
-            _this.currentFilter = __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */][data];
-            _this.filterCards(__WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */][data]);
+            if (data) {
+                if (data.dealType)
+                    _this.currentFilter = data;
+                _this.filterCards(data);
+            }
         });
         filterPopover.present({
             ev: event,
@@ -3166,17 +3200,25 @@ var ConsumerComponent = (function () {
         this.addCardToStack();
         return poppedCard;
     };
-    ConsumerComponent.prototype.filterCards = function (type) {
+    ConsumerComponent.prototype.filterCards = function (filterOptions) {
         var _this = this;
         this.organizationViewCards = new Array();
-        this.filteredCards = new Array();
-        if (type || type == 0) {
-            this.filteredCards = this.cards.filter(function (card) {
-                return card.dealType == type;
+        this.filteredCards = this.cards;
+        if (filterOptions.dealType || filterOptions.dealType == 0) {
+            this.filteredCards = this.filteredCards.filter(function (card) {
+                return card.dealType == filterOptions.dealType;
             });
         }
-        else
-            this.filteredCards = this.cards;
+        if (filterOptions.onlyVegan) {
+            this.filteredCards = this.filteredCards.filter(function (card) {
+                return card.isVegan && card.isVegetarian;
+            });
+        }
+        else if (filterOptions.onlyVegetarian) {
+            this.filteredCards = this.filteredCards.filter(function (card) {
+                return card.isVegetarian;
+            });
+        }
         this.setUpViewCards();
         this.delay(600).then(function () {
             var topCard = _this.swingCards.toArray()[0];
@@ -3196,10 +3238,12 @@ var ConsumerComponent = (function () {
         }
     };
     ConsumerComponent.prototype.setUpViewCards = function () {
-        this.viewCardIndex = this.numberOfCards;
-        for (var i = 0; i < this.numberOfCards; i++) {
-            this.imageService.setDealImageURL(this.filteredCards[i]);
-            this.organizationViewCards.push(this.filteredCards[i]);
+        this.viewCardIndex = this.numberOfCardsToHaveInView;
+        for (var i = 0; i < this.numberOfCardsToHaveInView; i++) {
+            if (this.filteredCards[i]) {
+                this.imageService.setDealImageURL(this.filteredCards[i]);
+                this.organizationViewCards.push(this.filteredCards[i]);
+            }
         }
     };
     //used simply to async wait for something

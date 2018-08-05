@@ -44,8 +44,6 @@ export class DealEditorComponent {
 
     public previewCard: LocaleCard;
 
-    public nowString = moment().format("YYYY-MM-DD");
-
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
@@ -177,7 +175,18 @@ export class DealEditorComponent {
             this.clearFields();
     }
 
-    public cancel() {
+    public updateDealContentType(changeVegetarianOption: boolean): void {
+        if (changeVegetarianOption) {
+            if (!this.isVegetarian)
+                this.isVegan = false;
+        }
+        else {//change vegan option
+            if (this.isVegan)
+                this.isVegetarian = true;
+        }
+    }
+
+    public cancel(): void {
         this.dealEditorService.setCurrentDeal(null);
 
         this.clearFields();

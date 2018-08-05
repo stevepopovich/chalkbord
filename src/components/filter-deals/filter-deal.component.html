@@ -1,21 +1,38 @@
-<ion-list radio-group [(ngModel)]="dealType" (ngModelChange)="closePopover($event)">
-  <ion-item>
-    <ion-label>Deal Type</ion-label>  
-  </ion-item>  
-    <ion-item>
-      <ion-label>Drinks</ion-label>
-      <ion-radio value="Drinks"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Food</ion-label>
-      <ion-radio value="Food"></ion-radio>
-    </ion-item>
-    <!-- <ion-item>
-        <ion-label>Both</ion-label>
-        <ion-radio value="Both"></ion-radio>
-    </ion-item> -->
-    <ion-item>
-        <ion-label>All</ion-label>
-        <ion-radio value="null"></ion-radio>
-    </ion-item>
-  </ion-list>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-list radio-group [(ngModel)]="dealType">
+        <ion-item>
+          <ion-label>Filter deals</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Drinks</ion-label>
+          <ion-radio value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Food</ion-label>
+          <ion-radio value="1"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Both</ion-label>
+          <ion-radio value="2"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>All</ion-label>
+          <ion-radio value="null"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label>Vegetarian</ion-label>
+        <ion-checkbox [(ngModel)]="onlyVegetarian" (ionChange)="updateDealContentType(true)"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Vegan</ion-label>
+        <ion-checkbox [(ngModel)]="onlyVegan" (ionChange)="updateDealContentType(false)"></ion-checkbox>
+      </ion-item>
+      <button ion-button (click)="applyFilters()">APPLY</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

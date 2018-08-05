@@ -71,12 +71,12 @@
 
                         <ion-item>
                             <ion-label>Deal is vegetarian</ion-label>
-                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false"></ion-checkbox>
+                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false" (ionChange)="updateDealContentType(true)"></ion-checkbox>
                         </ion-item>
 
                         <ion-item>
                             <ion-label>Deal is vegan</ion-label>
-                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false"></ion-checkbox>
+                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false" (ionChange)="updateDealContentType(false)"></ion-checkbox>
                         </ion-item>
                     </ion-col>
                     <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">
