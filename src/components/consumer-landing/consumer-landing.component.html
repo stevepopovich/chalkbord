@@ -6,175 +6,177 @@
 
 </div>
 
-<div #welcomeScreen class="gs-font animate-form" style="left: 0%">
-    <div class="center-text">Chalkbord</div>
-    <div class="button-area">
-        <button class="welcome-button" ion-button (click)="goToUserTypeScreen()">
-            sign up
-        </button>
-        <div class="or-text">or</div>
-        <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">
+<ion-content>
+    <div #welcomeScreen class="gs-font animate-form" style="left: 0%">
+        <div class="center-text">Chalkbord</div>
+        <div class="button-area">
+            <button class="welcome-button" ion-button (click)="goToUserTypeScreen()">
+                sign up
+            </button>
+            <div class="or-text">or</div>
+            <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">
+                login
+            </button>
+        </div>
+    </div>
+
+    <div #logInScreen class="animate-form offset-form">
+        <ion-card>
+            <ion-card-content>
+                <ion-list class="centered-form ">
+                    <form [formGroup]="userLogInGroup">
+                        <ion-item>
+                            <ion-label floating>Email</ion-label>
+                            <ion-input type="email" formControlName="email"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label floating>Password</ion-label>
+                            <ion-input type="password" formControlName="password"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label>Stay signed in</ion-label>
+                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                        </ion-item>
+                    </form>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+
+        <button class="welcome-button" ion-button outline (click)="loginHandler()">
             login
         </button>
+
+        <button class="welcome-button" ion-button outline (click)="resetPassword()">
+            reset password
+        </button>
     </div>
-</div>
 
-<div #logInScreen class="animate-form offset-form">
-    <ion-card>
-        <ion-card-content>
-            <ion-list class="centered-form ">
-                <form [formGroup]="userLogInGroup">
-                    <ion-item>
-                        <ion-label floating>Email</ion-label>
-                        <ion-input type="email" formControlName="email"></ion-input>
-                    </ion-item>
+    <div #userTypeChoiceFields class="animate-form offset-form" style="height: 100%;">
+        <ion-grid style="height: 100%">
+            <ion-row style="height: 33%">
+                <ion-col class="center-content">
+                    <button class="consumer-type-button" ion-button (click)="goToUserSignUpScreen()">
+                        <ion-icon name="contact"></ion-icon> personal
+                    </button>
+                </ion-col>
+            </ion-row>
+            <ion-row style="height: 33%">
+                <ion-col class="center-content locale-or-text">
+                    or
+                </ion-col>
+            </ion-row>
+            <ion-row style="height: 33%">
+                <ion-col class="center-content">
+                    <button class="restaurant-type-button" ion-button outline (click)="goToRestaurantSignUpScreen()">
+                        <ion-icon name="restaurant"></ion-icon> restaurant
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
-                    <ion-item>
-                        <ion-label floating>Password</ion-label>
-                        <ion-input type="password" formControlName="password"></ion-input>
-                    </ion-item>
+    <div #userSignUpFields class="animate-form offset-form">
+        <ion-card>
+            <ion-card-content>
+                <ion-list class="centered-form">
+                    <form [formGroup]="userSignUpGroup">
+                        <ion-item>
+                            <ion-label floating>First Name</ion-label>
+                            <ion-input formControlName="name"></ion-input>
+                        </ion-item>
 
-                    <ion-item>
-                        <ion-label>Stay signed in</ion-label>
-                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
-                    </ion-item>
-                </form>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
+                        <ion-item>
+                            <ion-label floating>Email</ion-label>
+                            <ion-input type="email" formControlName="email"></ion-input>
+                        </ion-item>
 
-    <button class="welcome-button" ion-button outline (click)="loginHandler()">
-        login
-    </button>
+                        <ion-item>
+                            <ion-label floating>Password</ion-label>
+                            <ion-input type="password" formControlName="password"></ion-input>
+                        </ion-item>
 
-    <button class="welcome-button" ion-button outline (click)="resetPassword()">
-        reset password
-    </button>
-</div>
+                        <ion-item>
+                            <ion-label floating>Confirm Password</ion-label>
+                            <ion-input type="password" formControlName="confirmPassword"></ion-input>
+                        </ion-item>
 
-<div #userTypeChoiceFields class="animate-form offset-form" style="height: 100%;">
-    <ion-grid style="height: 100%">
-        <ion-row style="height: 33%">
-            <ion-col class="center-content">
-                <button class="consumer-type-button" ion-button (click)="goToUserSignUpScreen()">
-                    <ion-icon name="contact"></ion-icon> personal
-                </button>
-            </ion-col>
-        </ion-row>
-        <ion-row style="height: 33%">
-            <ion-col class="center-content locale-or-text">
-                or
-            </ion-col>
-        </ion-row>
-        <ion-row style="height: 33%">
-            <ion-col class="center-content">
-                <button class="restaurant-type-button" ion-button outline (click)="goToRestaurantSignUpScreen()">
-                    <ion-icon name="restaurant"></ion-icon> restaurant
-                </button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</div>
+                        <ion-item>
+                            <ion-label>Stay signed in</ion-label>
+                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
+                        </ion-item>
+                    </form>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        <button ion-button class="welcome-button" (click)="signUpUser()">
+            sign up
+        </button>
+    </div>
 
-<div #userSignUpFields class="animate-form offset-form">
-    <ion-card>
-        <ion-card-content>
-            <ion-list class="centered-form">
-                <form [formGroup]="userSignUpGroup">
-                    <ion-item>
-                        <ion-label floating>First Name</ion-label>
-                        <ion-input formControlName="name"></ion-input>
-                    </ion-item>
+    <div #restaurantSignUpFields class="animate-form offset-form">
+        <ion-card>
+            <ion-card-content>
+                <ion-list class="centered-form">
+                    <form [formGroup]="signUpGroup">
+                        <ion-item>
+                            <ion-label floating>Email</ion-label>
+                            <ion-input type="email" formControlName="email"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('email').errors && signUpGroup.get('email').dirty" class="error-message">Make sure your email is formatted correctly.</p>
 
-                    <ion-item>
-                        <ion-label floating>Email</ion-label>
-                        <ion-input type="email" formControlName="email"></ion-input>
-                    </ion-item>
+                        <ion-item>
+                            <ion-label floating>Password</ion-label>
+                            <ion-input type="password" formControlName="password"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('password').errors && signUpGroup.get('password').dirty" class="error-message">Make sure your password is at least eight characters long</p>
 
-                    <ion-item>
-                        <ion-label floating>Password</ion-label>
-                        <ion-input type="password" formControlName="password"></ion-input>
-                    </ion-item>
+                        <ion-item>
+                            <ion-label floating>Confirm Password</ion-label>
+                            <ion-input type="password" formControlName="confirmPassword"></ion-input>
+                        </ion-item>
+                        <p *ngIf="!passwordsMatch()" class="error-message">Make sure your passwords match</p>
 
-                    <ion-item>
-                        <ion-label floating>Confirm Password</ion-label>
-                        <ion-input type="password" formControlName="confirmPassword"></ion-input>
-                    </ion-item>
+                        <ion-item>
+                            <ion-label floating>Organization Name</ion-label>
+                            <ion-input formControlName="name"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('name').errors && signUpGroup.get('name').dirty" class="error-message">Restaurant name is required</p>
 
-                    <ion-item>
-                        <ion-label>Stay signed in</ion-label>
-                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
-                    </ion-item>
-                </form>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
-    <button ion-button class="welcome-button" (click)="signUpUser()">
-        sign up
-    </button>
-</div>
-
-<div #restaurantSignUpFields class="animate-form offset-form">
-    <ion-card>
-        <ion-card-content>
-            <ion-list class="centered-form">
-                <form [formGroup]="signUpGroup">
-                    <ion-item>
-                        <ion-label floating>Email</ion-label>
-                        <ion-input type="email" formControlName="email"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('email').errors && signUpGroup.get('email').dirty" class="error-message">Make sure your email is formatted correctly.</p>
-
-                    <ion-item>
-                        <ion-label floating>Password</ion-label>
-                        <ion-input type="password" formControlName="password"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('password').errors && signUpGroup.get('password').dirty" class="error-message">Make sure your password is at least eight characters long</p>
-
-                    <ion-item>
-                        <ion-label floating>Confirm Password</ion-label>
-                        <ion-input type="password" formControlName="confirmPassword"></ion-input>
-                    </ion-item>
-                    <p *ngIf="!passwordsMatch()" class="error-message">Make sure your passwords match</p>
-
-                    <ion-item>
-                        <ion-label floating>Organization Name</ion-label>
-                        <ion-input formControlName="name"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('name').errors && signUpGroup.get('name').dirty" class="error-message">Restaurant name is required</p>
-
-                    <ion-item>
-                        <ion-label floating>Address </ion-label>
-                        <ion-input formControlName="address"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('address').errors && signUpGroup.get('address').dirty" class="error-message">Address is required</p>
-                    <ion-item>
-                        <ion-label floating>City</ion-label>
-                        <ion-input formControlName="city"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('city').errors && signUpGroup.get('city').dirty" class="error-message">City is required</p>
-                    <ion-item>
-                        <ion-label floating>State</ion-label>
-                        <ion-input formControlName="state"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('state').errors && signUpGroup.get('state').dirty" class="error-message">State is required</p>
-                    <ion-item>
-                        <ion-label floating>Zipcode</ion-label>
-                        <ion-input formControlName="zipcode"></ion-input>
-                    </ion-item>
-                    <p *ngIf="signUpGroup.get('zipcode').errors && signUpGroup.get('zipcode').dirty" class="error-message">Zipcode is required</p>
-                    <ion-item>
-                        <ion-label>Stay signed in</ion-label>
-                        <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeSignUp" checked="false"></ion-checkbox>
-                    </ion-item>
-                </form>
-            </ion-list>
-        </ion-card-content>
-    </ion-card>
-    <button ion-button class="welcome-button" (click)="signUp()">
-        sign up
-    </button>
-</div>
+                        <ion-item>
+                            <ion-label floating>Address </ion-label>
+                            <ion-input formControlName="address"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('address').errors && signUpGroup.get('address').dirty" class="error-message">Address is required</p>
+                        <ion-item>
+                            <ion-label floating>City</ion-label>
+                            <ion-input formControlName="city"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('city').errors && signUpGroup.get('city').dirty" class="error-message">City is required</p>
+                        <ion-item>
+                            <ion-label floating>State</ion-label>
+                            <ion-input formControlName="state"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('state').errors && signUpGroup.get('state').dirty" class="error-message">State is required</p>
+                        <ion-item>
+                            <ion-label floating>Zipcode</ion-label>
+                            <ion-input formControlName="zipcode"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('zipcode').errors && signUpGroup.get('zipcode').dirty" class="error-message">Zipcode is required</p>
+                        <ion-item>
+                            <ion-label>Stay signed in</ion-label>
+                            <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeSignUp" checked="false"></ion-checkbox>
+                        </ion-item>
+                    </form>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        <button ion-button class="welcome-button" (click)="signUp()">
+            sign up
+        </button>
+    </div>
+</ion-content>
 
 <div #goBackButton class="go-back-button">
     <button ion-fab (click)="goBackAScreen()">

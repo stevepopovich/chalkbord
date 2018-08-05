@@ -53,6 +53,7 @@
     "firebase": "^4.12.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "moment": "^2.22.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
     "sw-toolbox": "3.6.0",

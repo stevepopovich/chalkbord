@@ -28,9 +28,11 @@ export class ModalNavbarComponent {
             if (dismissType == "close") {
                 if (this.organizationModal) {
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeRestKey, false);
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
                     this.viewControllerService.setBrowserHome();
                 } else {
+                    this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
                     this.viewControllerService.setSignUpView();

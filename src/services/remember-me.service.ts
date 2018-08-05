@@ -14,7 +14,6 @@ export class RememberMeService {
     }
 
     public loginFromRememberMe(formGroup: UserLoginFormGroup, userType: UserType) {
-        console.log(userType.toString());
         const keys = this.setKeys(userType);
 
         this.deviceService.getSetting(keys.deviceKey).then((rememberMe: boolean) => {

@@ -40017,6 +40017,14 @@ ion-navbar.toolbar {
   left: 0;
   width: 100%;
   text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+65 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(65%, white), to(white));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 65%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  /* IE6-9 */
 }
 
 .non-draggable-card-image {
@@ -40195,6 +40203,7 @@ ion-spinner {
   position: absolute;
   bottom: -10%;
   right: 1em;
+  z-index: 9999;
 }
 
 .background-photo {
@@ -40204,6 +40213,38 @@ ion-spinner {
   position: absolute;
   opacity: 0.25;
   background-size: 100% 100%;
+}
+
+.consumer-type-button {
+  margin-bottom: -75%;
+  width: 80%;
+  z-index: 9999;
+}
+
+.restaurant-type-button {
+  margin-top: -75%;
+  width: 80%;
+  z-index: 9999;
+}
+
+.center-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.locale-or-text {
+  font-size: 2em;
+  font-family: baumans;
 }
 
 .button-group {
@@ -40233,6 +40274,12 @@ ion-spinner {
   color: red;
   margin: 0;
   margin-top: 0.5em;
+}
+
+.editing-status {
+  margin-top: 480px;
+  margin-left: 25px;
+  width: 100%;
 }
 
 .nav-round {
@@ -40375,6 +40422,13 @@ ion-spinner {
 
 ion-content {
   position: inherit;
+}
+
+.error-message {
+  padding-left: 1em;
+  color: red !important;
+  margin: 0 !important;
+  margin-top: 0.5em !important;
 }
 
 .nav-round {

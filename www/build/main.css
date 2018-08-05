@@ -40203,6 +40203,7 @@ ion-spinner {
   position: absolute;
   bottom: -10%;
   right: 1em;
+  z-index: 9999;
 }
 
 .background-photo {

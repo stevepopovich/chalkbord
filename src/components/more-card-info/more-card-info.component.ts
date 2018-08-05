@@ -2,6 +2,7 @@ import { NavParams } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { LocaleCard, DealType } from '../../types/deals.type';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './more-card-info.component.html',
@@ -22,5 +23,9 @@ export class MoreCardInfoComponent {
     public goToLocation() {
         this.iab.create("http://www.google.com/search?q=" + this.card.organization.name);
         //this.launchNavigator.navigate(this.card.organization.address);
+    }
+
+    public getMomentFormatted(dateTime: string, format: string): string {
+        return moment(dateTime).format(format);
     }
 }

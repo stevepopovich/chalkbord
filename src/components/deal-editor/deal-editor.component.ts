@@ -14,6 +14,8 @@ import { IonicPlatform } from '../../enums/ionic-platform.enum';
 import { ImageService } from '../../services/firebase/image-service.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
+import { PictureSourceType, Camera } from '@ionic-native/camera';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './deal-editor.component.html',
@@ -42,10 +44,12 @@ export class DealEditorComponent {
 
     public previewCard: LocaleCard;
 
+    public nowString = moment().format("YYYY-MM-DD");
+
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
-        private currentUserService: CurrentUserService) {
+        private currentUserService: CurrentUserService, private cameraService: Camera) {
 
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
@@ -111,16 +115,17 @@ export class DealEditorComponent {
 
                 deal.organization = this.currentOrganization;
 
-                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false).then(() => {
+                Promise.all([this.cardService.set(deal),
+                this.currentUserService.addCardId(deal.id),
+                this.userService.set(this.currentUserService.getCurrentUser()),
+                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false)]).then(() => {
                     this.cleanUpImageData();
                     this.clearFields();
                     //basically done; assuming the below promises resolve faster set state to saved
-                    this.dealEditorService.addDealSubject.next(deal);//add to list and make current
+                    this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
+                }).catch((error) => {
+                    this.toastService.showReadableToast("There was an error " + error);
                 });
-
-                this.cardService.set(deal);
-                this.currentUserService.addCardId(deal.id);
-                this.userService.set(this.currentUserService.getCurrentUser());
             }
         } else
             this.toastService.showReadableToast("Please add a photo for this deal!");
@@ -132,40 +137,21 @@ export class DealEditorComponent {
         if (this.dealEditorFormGroup.valid) {
             var deal: LocaleCard = this.getDealFromFields();
 
-            const startDate = this.dealEditorFormGroup.get("dealDay").value;//TODO why is this here?
-            const startTime = this.dealEditorFormGroup.get("dealStart").value;
-            const endTime = this.dealEditorFormGroup.get("dealEnd").value;
-
-            const startDatetime = this.getSaveCombinedTime(startTime, startDate);
-            const endDatetime = this.getSaveCombinedTime(endTime, startDate);
-
-            deal.dealStart = startDatetime;
-            deal.dealEnd = endDatetime;
             deal.id = this.dealEditorService.currentDealBeingEdited.id;
 
             if (this.imageDataForUpload) {
                 this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, true).then(() => {
                     this.cleanUpImageData();
                     this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
+
+                    this.dealEditorService.updateDealSubject.next(deal);
                 });
             }
-
-            this.dealEditorService.updateDealSubject.next(deal);
 
             this.cardService.set(deal);
 
             this.uneditedDeal = deal;
         }
-    }
-
-    private getSaveCombinedTime(time: any, date: any): Date {
-        const combinedTime = new Date(date);
-        const timeDateObj = new Date(time);
-
-        combinedTime.setHours(timeDateObj.getHours());
-        combinedTime.setMinutes(timeDateObj.getMinutes());
-
-        return combinedTime;
     }
 
     private setCurrentCardBeingEdited(deal: LocaleCard) {
@@ -178,9 +164,9 @@ export class DealEditorComponent {
                     this.dealEditorFormGroup.get(key).setValue(deal[key]);
             });
 
-            this.dealEditorFormGroup.get("dealDay").setValue(deal.dealStart.toISOString());
-            this.dealEditorFormGroup.get("dealStart").setValue(deal.dealStart.toISOString());
-            this.dealEditorFormGroup.get("dealEnd").setValue(deal.dealEnd.toISOString());
+            this.dealEditorFormGroup.get("dealDay").setValue(moment(deal.dealStart).format('YYYY-MM-DD'));
+            this.dealEditorFormGroup.get("dealStart").setValue(moment(deal.dealStart).format('HH:mm'));
+            this.dealEditorFormGroup.get("dealEnd").setValue(moment(deal.dealEnd).format('HH:mm'));
 
             this.dealEditorFormGroup.get("limitedDealNumber").setValue(deal.numberOfDeals > 0);
 
@@ -189,16 +175,6 @@ export class DealEditorComponent {
             this.imageService.setDealImageURL(this.previewCard);
         } else
             this.clearFields();
-    }
-
-    private getCombinedTime(time: any, date: any): Date {
-        const combinedTime = new Date(Date.parse(date));
-        const timeDateObj = new Date(Date.parse(time));
-
-        combinedTime.setHours(timeDateObj.getHours());
-        combinedTime.setMinutes(timeDateObj.getMinutes());
-
-        return combinedTime;
     }
 
     public cancel() {
@@ -224,19 +200,16 @@ export class DealEditorComponent {
     private getDealFromFields(): LocaleCard {
         const startDate = this.dealEditorFormGroup.get("dealDay").value;
 
-        const startTime = this.dealEditorFormGroup.get("dealStart").value;
-        const endTime = this.dealEditorFormGroup.get("dealEnd").value;
-
-        const startDatetime = this.getCombinedTime(startTime, startDate);
-        const endDatetime = this.getCombinedTime(endTime, startDate);
+        const startTime = moment(startDate + " " + this.dealEditorFormGroup.get("dealStart").value);
+        const endTime = moment(startDate + " " + this.dealEditorFormGroup.get("dealEnd").value);
 
         let deal: LocaleCard;
 
         if (!this.limitDealNumber) {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
                 this.dealEditorFormGroup.get("longDealDescription").value || "",
-                startDatetime,
-                endDatetime,
+                startTime.toObject(),
+                endTime.toObject(),
                 -1,//no deal limit
                 this.dealEditorFormGroup.get("dealType").value,
                 this.dealEditorFormGroup.get("isVegetarian").value,
@@ -246,8 +219,8 @@ export class DealEditorComponent {
         } else {
             deal = new LocaleCard(this.dealEditorFormGroup.get("dealDescription").value,
                 this.dealEditorFormGroup.get("longDealDescription").value || "",
-                startDatetime,
-                endDatetime,
+                startTime.toObject(),
+                endTime.toObject(),
                 this.dealEditorFormGroup.get("numberOfDeals").value,
                 this.dealEditorFormGroup.get("dealType").value,
                 this.dealEditorFormGroup.get("isVegetarian").value,
@@ -269,33 +242,42 @@ export class DealEditorComponent {
             this.uploadDesktopImage();
         } else {
             this.actionSheetCtrl.create({
-                title: 'Mobile Photo uploads not supported yet!',
+                title: 'Upload type',
                 buttons: [
-                    // {
-                    //     text: 'Camera',
-                    //     icon: !this.platform.is('ios') ? 'camera' : null,
-                    //     handler: () => {
-                    //         this.cameraUpload(PictureSourceType.CAMERA);
-                    //     }
-                    // },{
-                    //     text: 'Photo Library',
-                    //     icon: !this.platform.is('ios') ? 'images' : null,
-                    //     handler: () => {
-                    //         this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
-                    //     }
-                    // },
+                    {
+                        text: 'Camera',
+                        icon: !this.platform.is('ios') ? 'camera' : null,
+                        handler: () => {
+                            this.cameraUpload(PictureSourceType.CAMERA);
+                        }
+                    }, {
+                        text: 'Photo Library',
+                        icon: !this.platform.is('ios') ? 'images' : null,
+                        handler: () => {
+                            this.cameraUpload(PictureSourceType.PHOTOLIBRARY);
+                        }
+                    },
                 ]
             }).present();
         }
 
     }
 
-    // private cameraUpload(sourceType: PictureSourceType) {
-    //     // this.cameraService.getPhotoFromLibrary(sourceType).then((photoData) => {
-    //     //     this.imageData = photoData;
-    //     // })
-    //     sourceType; 
-    // }
+    private cameraUpload(sourceType: PictureSourceType) {
+        var options = {
+            quality: 100,
+            sourceType: sourceType,
+            destinationType: this.cameraService.DestinationType.FILE_URI,
+            saveToPhotoAlbum: false,
+            correctOrientation: true,
+            allowEdit: true,
+        };
+
+        this.cameraService.getPicture(options).then((photoData) => {
+            this.imageDataForPreview = photoData;
+            this.imageDataForUpload = photoData;
+        });
+    }
 
     public isDesktop(): boolean {
         return this.platform.is(IonicPlatform.Core);

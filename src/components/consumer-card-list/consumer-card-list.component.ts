@@ -3,6 +3,7 @@ import { LocaleCard } from '../../types/deals.type';
 import { CurrentUserService } from "../../services/current-user.service";
 import { ModalController } from "ionic-angular";
 import { MoreCardInfoComponent } from "../more-card-info/more-card-info.component";
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './consumer-card-list.component.html',
@@ -19,7 +20,7 @@ export class ConsumerCardList {
             const currentDeals = [];
 
             deals.forEach(card => {
-                if (card.dealStart.getTime() > Date.now())
+                if (card.dealStart > moment().toObject())
                     currentDeals.push(card);
             });
 

@@ -79,7 +79,7 @@
                             <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false"></ion-checkbox>
                         </ion-item>
                     </ion-col>
-                    <ion-col (click)="editPhotoData()" style="padding: 0px;">
+                    <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">
                         <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>
                         <div *ngIf="uneditedDeal" class="editing-status">
                             <ion-badge>
@@ -112,4 +112,4 @@
     </div>
 </ion-content>
 
-<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility:hidden" />
+<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility: hidden;" />

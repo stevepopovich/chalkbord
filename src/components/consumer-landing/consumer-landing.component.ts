@@ -52,7 +52,7 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     }
 
     public ngAfterViewInit(): void {
-        //this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
+        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
         this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
     }
 

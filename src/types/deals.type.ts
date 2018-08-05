@@ -1,6 +1,7 @@
 import { Guid } from "./utils.type";
 import { LocaleLocation } from "./location.type";
 import { Organization } from "./organization.type";
+import * as moment from 'moment';
 
 export class LocaleCard {
     public id: string;
@@ -10,8 +11,8 @@ export class LocaleCard {
 
     public constructor(public dealDescription: string,
         public longDealDescription: string,
-        public dealStart: Date,
-        public dealEnd: Date,
+        public dealStart: moment.MomentObjectOutput,
+        public dealEnd: moment.MomentObjectOutput,
         public numberOfDeals: Number,
         public dealType: DealType,
         public isVegetarian: boolean,
@@ -24,8 +25,8 @@ export class LocaleCard {
             this.organization = obj.organization;
             this.dealDescription = obj.dealDescription;
             this.longDealDescription = obj.longDealDescription;
-            this.dealStart = new Date(obj.dealStart);
-            this.dealEnd = new Date(obj.dealEnd);
+            this.dealStart = obj.dealStart;
+            this.dealEnd = obj.dealEnd;
             this.numberOfDeals = obj.numberOfDeals;
             this.isVegetarian = obj.isVegetarian;
             this.isVegan = obj.isVegan;
@@ -40,7 +41,7 @@ export class LocaleCard {
     }
 
     public static getBlankCard(): LocaleCard {
-        const blankCard = new LocaleCard(null, null, new Date(), new Date(), -1, DealType.Drinks, false, false, null);
+        const blankCard = new LocaleCard(null, null, moment().toObject(), moment().toObject(), -1, DealType.Drinks, false, false, null);
         blankCard.organization = new Organization("", "", "", "", new LocaleLocation());
         return blankCard;
     }
@@ -72,8 +73,8 @@ export class LocaleCard {
     public static cardsAreLogicallyEqual(obj1: LocaleCard, obj2: LocaleCard): boolean {
         if (obj1 && obj2) {
             return obj1.dealDescription === obj2.dealDescription
-                && obj1.dealEnd.getTime() === obj2.dealEnd.getTime()
-                && obj1.dealStart.getTime() === obj2.dealStart.getTime()
+                && moment(obj1.dealEnd).isSame(moment(obj2.dealEnd))
+                && moment(obj1.dealStart).isSame(moment(obj2.dealStart))
                 && obj1.dealType === obj2.dealType
                 && obj1.isVegan === obj2.isVegan
                 && obj1.isVegetarian === obj2.isVegetarian
