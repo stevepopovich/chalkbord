@@ -423,7 +423,7 @@ var LocaleLocation = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RememberMeService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__device_service__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_keys_service__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_keys_service__ = __webpack_require__(401);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types_user_type__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_service__ = __webpack_require__(146);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -492,9 +492,9 @@ var RememberMeService = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DeviceService; });
 /* unused harmony export EmailPasswordTuple */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enums_ionic_platform_enum__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_unique_device_id__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_unique_device_id__ = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(400);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -533,7 +533,7 @@ var DeviceService = (function () {
     };
     DeviceService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_unique_device_id__["a" /* UniqueDeviceID */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Platform */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_unique_device_id__["a" /* UniqueDeviceID */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["k" /* Platform */]])
     ], DeviceService);
     return DeviceService;
 }());
@@ -575,7 +575,7 @@ var IonicPlatform;
 
 /***/ }),
 
-/***/ 249:
+/***/ 248:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -611,7 +611,7 @@ var DealEditorService = (function () {
 
 /***/ }),
 
-/***/ 250:
+/***/ 249:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -649,7 +649,7 @@ var ImageService = (function () {
 
 /***/ }),
 
-/***/ 251:
+/***/ 250:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -764,9 +764,9 @@ var UserProfileComponent = (function () {
             selector: 'user-profile',
             styleUrls: ['/user-profile.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ViewController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["n" /* ViewController */],
             __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__["a" /* AuthorizationService */], __WEBPACK_IMPORTED_MODULE_4__services_toast_service__["a" /* ToastService */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */],
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */],
             __WEBPACK_IMPORTED_MODULE_6__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
     ], UserProfileComponent);
     return UserProfileComponent;
@@ -776,7 +776,7 @@ var UserProfileComponent = (function () {
 
 /***/ }),
 
-/***/ 252:
+/***/ 251:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -820,7 +820,7 @@ var MoreCardInfoComponent = (function () {
             selector: 'more-card-info',
             styleUrls: ['/more-card-info.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */]])
     ], MoreCardInfoComponent);
     return MoreCardInfoComponent;
 }());
@@ -829,7 +829,7 @@ var MoreCardInfoComponent = (function () {
 
 /***/ }),
 
-/***/ 296:
+/***/ 295:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -842,11 +842,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 296;
+webpackEmptyAsyncContext.id = 295;
 
 /***/ }),
 
-/***/ 357:
+/***/ 356:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -859,11 +859,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 357;
+webpackEmptyAsyncContext.id = 356;
 
 /***/ }),
 
-/***/ 397:
+/***/ 396:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -871,7 +871,7 @@ webpackEmptyAsyncContext.id = 357;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_utils_type__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types_user_type__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types_organization_type__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types_organization_type__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_location_type__ = __webpack_require__(237);
 
 
@@ -1022,7 +1022,7 @@ var OrganizationSignupComponent = (function () {
 
 /***/ }),
 
-/***/ 398:
+/***/ 397:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1046,7 +1046,7 @@ var Organization = (function () {
 
 /***/ }),
 
-/***/ 402:
+/***/ 401:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1065,7 +1065,7 @@ var LoginKeys = (function () {
 
 /***/ }),
 
-/***/ 407:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1099,7 @@ var UserLoginFormGroup = (function (_super) {
 
 /***/ }),
 
-/***/ 408:
+/***/ 407:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1110,15 +1110,15 @@ var UserLoginFormGroup = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_deals_type__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_uploader_service__ = __webpack_require__(532);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_deal_editing_service__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_uploader_service__ = __webpack_require__(531);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_deal_editing_service__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__enums_ionic_screen_sizes_enum__ = __webpack_require__(850);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__enums_ionic_platform_enum__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__ = __webpack_require__(250);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_firebase_firestore_collection_card_data_service__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_firebase_firestore_collection_user_service__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__ = __webpack_require__(541);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_moment__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_moment__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1133,7 +1133,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-//import { PictureSourceType } from '@ionic-native/camera';
+//import { PictureSourceType, CameraOptions } from '@ionic-native/camera';
 
 
 
@@ -1148,7 +1148,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var DealEditorComponent = (function () {
-    function DealEditorComponent(cardService, formBuilder, uploader, dealEditorService, userService, toastService, platform, actionSheetCtrl, imageService, currentUserService, cameraService) {
+    function DealEditorComponent(cardService, formBuilder, uploader, dealEditorService, userService, toastService, platform, actionSheetCtrl, imageService, currentUserService, cameraService, loadingController) {
         var _this = this;
         this.cardService = cardService;
         this.formBuilder = formBuilder;
@@ -1161,10 +1161,12 @@ var DealEditorComponent = (function () {
         this.imageService = imageService;
         this.currentUserService = currentUserService;
         this.cameraService = cameraService;
+        this.loadingController = loadingController;
         this.limitDealNumber = false;
         this.isVegetarian = false;
         this.isVegan = false;
         this.fileReader = new FileReader();
+        this.saving = false;
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', __WEBPACK_IMPORTED_MODULE_5__angular_forms__["g" /* Validators */].required],
             longDealDescription: [''],
@@ -1197,11 +1199,13 @@ var DealEditorComponent = (function () {
         });
         this.fileReader.onloadend = function () {
             _this.imageDataForPreview = _this.fileReader.result;
+            console.log(_this.imageDataForPreview);
         };
     }
     DealEditorComponent.prototype.setImageData = function (event) {
-        this.imageDataForUpload = event.srcElement.files[0];
-        this.fileReader.readAsDataURL(this.imageDataForUpload);
+        this.imageDataForUploadDesktop = event.srcElement.files[0];
+        console.log(this.imageDataForUploadDesktop);
+        this.fileReader.readAsDataURL(this.imageDataForUploadDesktop);
     };
     DealEditorComponent.prototype.delete = function () {
         this.cardService.delete(this.dealEditorService.currentDealBeingEdited.id);
@@ -1209,24 +1213,51 @@ var DealEditorComponent = (function () {
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
         this.imageDataForPreview = null;
-        this.imageDataForUpload = null;
+        this.imageDataForUploadDesktop = null;
     };
     DealEditorComponent.prototype.add = function () {
         var _this = this;
         __WEBPACK_IMPORTED_MODULE_1__types_utils_type__["a" /* FormBuilderHelper */].markFormGroupTouched(this.dealEditorFormGroup);
         this.dealEditorFormGroup.updateValueAndValidity();
-        if (this.imageDataForUpload) {
+        if (this.imageDataForUploadDesktop) {
             if (this.dealEditorFormGroup.valid) {
                 var deal_1 = this.getDealFromFields();
                 deal_1.organization = this.currentOrganization;
+                var loadingPopover_1 = this.loadingController.create({
+                    content: 'Saving your deal...'
+                });
+                loadingPopover_1.present();
                 Promise.all([this.cardService.set(deal_1),
                     this.currentUserService.addCardId(deal_1.id),
                     this.userService.set(this.currentUserService.getCurrentUser()),
-                    this.uploader.uploadDealPhoto(this.imageDataForUpload, deal_1.id, false)]).then(function () {
+                    this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal_1.id, false)]).then(function () {
                     _this.cleanUpImageData();
                     _this.clearFields();
                     //basically done; assuming the below promises resolve faster set state to saved
                     _this.dealEditorService.addDealSubject.next(deal_1); //add to list and make currents
+                    loadingPopover_1.dismiss();
+                }).catch(function (error) {
+                    _this.toastService.showReadableToast("There was an error " + error);
+                });
+            }
+        }
+        else if (this.imageDataForUploadMobile) {
+            if (this.dealEditorFormGroup.valid) {
+                var deal_2 = this.getDealFromFields();
+                deal_2.organization = this.currentOrganization;
+                var loadingPopover_2 = this.loadingController.create({
+                    content: 'Saving your deal...'
+                });
+                loadingPopover_2.present();
+                Promise.all([this.cardService.set(deal_2),
+                    this.currentUserService.addCardId(deal_2.id),
+                    this.userService.set(this.currentUserService.getCurrentUser()),
+                    this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal_2.id, false)]).then(function () {
+                    _this.cleanUpImageData();
+                    _this.clearFields();
+                    //basically done; assuming the below promises resolve faster set state to saved
+                    _this.dealEditorService.addDealSubject.next(deal_2); //add to list and make currents
+                    loadingPopover_2.dismiss();
                 }).catch(function (error) {
                     _this.toastService.showReadableToast("There was an error " + error);
                 });
@@ -1239,17 +1270,43 @@ var DealEditorComponent = (function () {
         var _this = this;
         __WEBPACK_IMPORTED_MODULE_1__types_utils_type__["a" /* FormBuilderHelper */].markFormGroupTouched(this.dealEditorFormGroup);
         this.dealEditorFormGroup.updateValueAndValidity();
-        if (this.dealEditorFormGroup.valid) {
+        if (this.dealEditorFormGroup.valid && this.cardIsEdited()) {
             var deal = this.getDealFromFields();
             deal.id = this.dealEditorService.currentDealBeingEdited.id;
-            if (this.imageDataForUpload) {
-                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, true).then(function () {
+            var loadingPopover_3 = this.loadingController.create({
+                spinner: 'dots',
+                content: 'Saving your deal...'
+            });
+            loadingPopover_3.present();
+            if (this.imageDataForUploadDesktop) {
+                Promise.all([this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal.id, true),
+                    this.cardService.set(deal)])
+                    .then(function () {
                     _this.cleanUpImageData();
                     _this.imageService.setDealImageURL(_this.dealEditorService.currentDealBeingEdited);
                     _this.dealEditorService.updateDealSubject.next(deal);
+                    loadingPopover_3.dismiss();
                 });
             }
-            this.cardService.set(deal);
+            else if (this.imageDataForUploadMobile) {
+                Promise.all([this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal.id, true),
+                    this.cardService.set(deal)])
+                    .then(function () {
+                    _this.cleanUpImageData();
+                    _this.imageService.setDealImageURL(_this.dealEditorService.currentDealBeingEdited);
+                    _this.dealEditorService.updateDealSubject.next(deal);
+                    loadingPopover_3.dismiss();
+                });
+            }
+            else {
+                this.cardService.set(deal)
+                    .then(function () {
+                    _this.cleanUpImageData();
+                    _this.imageService.setDealImageURL(_this.dealEditorService.currentDealBeingEdited);
+                    _this.dealEditorService.updateDealSubject.next(deal);
+                    loadingPopover_3.dismiss();
+                });
+            }
             this.uneditedDeal = deal;
         }
     };
@@ -1347,16 +1404,18 @@ var DealEditorComponent = (function () {
     DealEditorComponent.prototype.cameraUpload = function (sourceType) {
         var _this = this;
         var options = {
-            quality: 100,
+            quality: 25,
             sourceType: sourceType,
-            destinationType: this.cameraService.DestinationType.FILE_URI,
+            destinationType: this.cameraService.DestinationType.DATA_URL,
+            encodingType: this.cameraService.EncodingType.JPEG,
+            mediaType: this.cameraService.MediaType.PICTURE,
             saveToPhotoAlbum: false,
-            correctOrientation: true,
             allowEdit: true,
         };
         this.cameraService.getPicture(options).then(function (photoData) {
+            //photoData = 'data:image/jpeg;base64,' + photoData;
             _this.imageDataForPreview = photoData;
-            _this.imageDataForUpload = photoData;
+            _this.imageDataForUploadMobile = photoData;
         });
     };
     DealEditorComponent.prototype.isDesktop = function () {
@@ -1366,11 +1425,12 @@ var DealEditorComponent = (function () {
         this.hiddenFileInput.nativeElement.click();
     };
     DealEditorComponent.prototype.cardIsEdited = function () {
-        return !__WEBPACK_IMPORTED_MODULE_4__types_deals_type__["b" /* LocaleCard */].cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUpload;
+        return !__WEBPACK_IMPORTED_MODULE_4__types_deals_type__["b" /* LocaleCard */].cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUploadDesktop || this.imageDataForUploadMobile;
     };
     DealEditorComponent.prototype.cleanUpImageData = function () {
         this.imageDataForPreview = null;
-        this.imageDataForUpload = null;
+        this.imageDataForUploadDesktop = null;
+        this.imageDataForUploadMobile = null;
         this.fileReader.abort();
     };
     __decorate([
@@ -1384,8 +1444,8 @@ var DealEditorComponent = (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_12__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */], __WEBPACK_IMPORTED_MODULE_5__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_6__services_uploader_service__["a" /* UploadService */],
             __WEBPACK_IMPORTED_MODULE_7__services_deal_editing_service__["a" /* DealEditorService */], __WEBPACK_IMPORTED_MODULE_13__services_firebase_firestore_collection_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_0__services_toast_service__["a" /* ToastService */],
-            __WEBPACK_IMPORTED_MODULE_8_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_8_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__["a" /* ImageService */],
-            __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__["a" /* Camera */]])
+            __WEBPACK_IMPORTED_MODULE_8_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_8_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__["a" /* ImageService */],
+            __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_8_ionic_angular__["g" /* LoadingController */]])
     ], DealEditorComponent);
     return DealEditorComponent;
 }());
@@ -1394,14 +1454,13 @@ var DealEditorComponent = (function () {
 
 /***/ }),
 
-/***/ 532:
+/***/ 531:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UploadService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_storage__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(248);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1413,31 +1472,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var UploadService = (function () {
-    function UploadService(storage, camera) {
+    function UploadService(storage) {
         this.storage = storage;
-        this.camera = camera;
     }
-    UploadService.prototype.captureImage = function () {
-        var options = {
-            quality: 100,
-            destinationType: this.camera.DestinationType.DATA_URL,
-            encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            sourceType: this.camera.PictureSourceType.CAMERA
-        };
-        return this.camera.getPicture(options); //returns image data base 64 as string
-    };
     UploadService.prototype.uploadDealPhoto = function (imageData, fileName, updatePicture) {
         if (updatePicture && this.storage.ref("/locale-deal-photos/" + fileName))
-            this.storage.ref("/locale-deal-photos/" + fileName).delete();
+            this.storage.ref("/locale-deal-photos/" + fileName);
         return this.storage.upload("/locale-deal-photos/" + fileName, imageData);
+    };
+    UploadService.prototype.uploadDealBase64Photo = function (imageData, fileName, updatePicture) {
+        if (updatePicture && this.storage.ref("/locale-deal-photos/" + fileName))
+            this.storage.ref("/locale-deal-photos/" + fileName);
+        return this.storage.ref("/locale-deal-photos/" + fileName).putString(imageData, 'base64');
     };
     UploadService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_storage__["a" /* AngularFireStorage */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_storage__["a" /* AngularFireStorage */]])
     ], UploadService);
     return UploadService;
 }());
@@ -1455,7 +1506,7 @@ var UploadService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types_deals_type__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__more_card_info_more_card_info_component__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__more_card_info_more_card_info_component__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_moment__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1497,7 +1548,7 @@ var ConsumerCardList = (function () {
             selector: 'consumer-card-list',
             styleUrls: ['/consumer-card-list.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* ModalController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* ModalController */]])
     ], ConsumerCardList);
     return ConsumerCardList;
 }());
@@ -1558,7 +1609,7 @@ var FilterDealComponent = (function () {
             selector: 'filter-deal',
             styleUrls: ['/filter-deal.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
     ], FilterDealComponent);
     return FilterDealComponent;
 }());
@@ -1694,7 +1745,7 @@ var ToastService = (function () {
     };
     ToastService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */]])
     ], ToastService);
     return ToastService;
 }());
@@ -1716,7 +1767,7 @@ var ToastService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_login_service__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_current_user_service__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_modal_navbar_modal_navbar_component__ = __webpack_require__(852);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_more_card_info_more_card_info_component__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_more_card_info_more_card_info_component__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_card_card_component__ = __webpack_require__(853);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_platform_browser__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(854);
@@ -1724,33 +1775,33 @@ var ToastService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_in_app_browser__ = __webpack_require__(543);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_storage__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_storage__ = __webpack_require__(400);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_component__ = __webpack_require__(856);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_consumer_consumer_component__ = __webpack_require__(857);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_swing__ = __webpack_require__(545);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_angular2_swing__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_dialogs__ = __webpack_require__(869);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(544);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_deal_editor_deal_editor_component__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_deal_editor_deal_editor_component__ = __webpack_require__(407);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_filter_deals_filter_deal_component__ = __webpack_require__(552);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_launch_navigator__ = __webpack_require__(553);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_angularfire2__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angularfire2_database__ = __webpack_require__(870);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_angularfire2_auth__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_angularfire2_auth__ = __webpack_require__(402);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_angularfire2_storage__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angularfire2_firestore__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_firebase_authorization_service__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_firebase_image_service_service__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_camera__ = __webpack_require__(248);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_uploader_service__ = __webpack_require__(532);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_firebase_image_service_service__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_camera__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_uploader_service__ = __webpack_require__(531);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_view_controller_service__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_unique_device_id__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_unique_device_id__ = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__services_device_service__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_user_profile_user_profile_component__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_user_profile_user_profile_component__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__services_toast_service__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_browser_home_browser_home_component__ = __webpack_require__(923);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__angular_common_http__ = __webpack_require__(924);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__services_deal_editing_service__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__services_deal_editing_service__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_geolocation__ = __webpack_require__(554);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_organization_landing_organization_landing_component__ = __webpack_require__(930);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__services_remember_me_service__ = __webpack_require__(238);
@@ -1939,7 +1990,7 @@ var AppModule = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthorizationService; });
 /* unused harmony export SignUpReturnCode */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(402);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2071,9 +2122,9 @@ var UserService = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConsumerLandingComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__organization_signup_organization_signup_component__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__organization_signup_organization_signup_component__ = __webpack_require__(396);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_remember_me_service__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types_user_login_form_group_type__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__types_user_login_form_group_type__ = __webpack_require__(406);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_login_service__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_current_user_service__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_core__ = __webpack_require__(0);
@@ -2337,7 +2388,7 @@ var RememberMeFormGroup = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrganizationDealsHomeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__deal_editor_deal_editor_component__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__deal_editor_deal_editor_component__ = __webpack_require__(407);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2367,252 +2418,252 @@ var OrganizationDealsHomeComponent = (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 409,
-	"./af.js": 409,
-	"./ar": 410,
-	"./ar-dz": 411,
-	"./ar-dz.js": 411,
-	"./ar-kw": 412,
-	"./ar-kw.js": 412,
-	"./ar-ly": 413,
-	"./ar-ly.js": 413,
-	"./ar-ma": 414,
-	"./ar-ma.js": 414,
-	"./ar-sa": 415,
-	"./ar-sa.js": 415,
-	"./ar-tn": 416,
-	"./ar-tn.js": 416,
-	"./ar.js": 410,
-	"./az": 417,
-	"./az.js": 417,
-	"./be": 418,
-	"./be.js": 418,
-	"./bg": 419,
-	"./bg.js": 419,
-	"./bm": 420,
-	"./bm.js": 420,
-	"./bn": 421,
-	"./bn.js": 421,
-	"./bo": 422,
-	"./bo.js": 422,
-	"./br": 423,
-	"./br.js": 423,
-	"./bs": 424,
-	"./bs.js": 424,
-	"./ca": 425,
-	"./ca.js": 425,
-	"./cs": 426,
-	"./cs.js": 426,
-	"./cv": 427,
-	"./cv.js": 427,
-	"./cy": 428,
-	"./cy.js": 428,
-	"./da": 429,
-	"./da.js": 429,
-	"./de": 430,
-	"./de-at": 431,
-	"./de-at.js": 431,
-	"./de-ch": 432,
-	"./de-ch.js": 432,
-	"./de.js": 430,
-	"./dv": 433,
-	"./dv.js": 433,
-	"./el": 434,
-	"./el.js": 434,
-	"./en-au": 435,
-	"./en-au.js": 435,
-	"./en-ca": 436,
-	"./en-ca.js": 436,
-	"./en-gb": 437,
-	"./en-gb.js": 437,
-	"./en-ie": 438,
-	"./en-ie.js": 438,
-	"./en-il": 439,
-	"./en-il.js": 439,
-	"./en-nz": 440,
-	"./en-nz.js": 440,
-	"./eo": 441,
-	"./eo.js": 441,
-	"./es": 442,
-	"./es-do": 443,
-	"./es-do.js": 443,
-	"./es-us": 444,
-	"./es-us.js": 444,
-	"./es.js": 442,
-	"./et": 445,
-	"./et.js": 445,
-	"./eu": 446,
-	"./eu.js": 446,
-	"./fa": 447,
-	"./fa.js": 447,
-	"./fi": 448,
-	"./fi.js": 448,
-	"./fo": 449,
-	"./fo.js": 449,
-	"./fr": 450,
-	"./fr-ca": 451,
-	"./fr-ca.js": 451,
-	"./fr-ch": 452,
-	"./fr-ch.js": 452,
-	"./fr.js": 450,
-	"./fy": 453,
-	"./fy.js": 453,
-	"./gd": 454,
-	"./gd.js": 454,
-	"./gl": 455,
-	"./gl.js": 455,
-	"./gom-latn": 456,
-	"./gom-latn.js": 456,
-	"./gu": 457,
-	"./gu.js": 457,
-	"./he": 458,
-	"./he.js": 458,
-	"./hi": 459,
-	"./hi.js": 459,
-	"./hr": 460,
-	"./hr.js": 460,
-	"./hu": 461,
-	"./hu.js": 461,
-	"./hy-am": 462,
-	"./hy-am.js": 462,
-	"./id": 463,
-	"./id.js": 463,
-	"./is": 464,
-	"./is.js": 464,
-	"./it": 465,
-	"./it.js": 465,
-	"./ja": 466,
-	"./ja.js": 466,
-	"./jv": 467,
-	"./jv.js": 467,
-	"./ka": 468,
-	"./ka.js": 468,
-	"./kk": 469,
-	"./kk.js": 469,
-	"./km": 470,
-	"./km.js": 470,
-	"./kn": 471,
-	"./kn.js": 471,
-	"./ko": 472,
-	"./ko.js": 472,
-	"./ky": 473,
-	"./ky.js": 473,
-	"./lb": 474,
-	"./lb.js": 474,
-	"./lo": 475,
-	"./lo.js": 475,
-	"./lt": 476,
-	"./lt.js": 476,
-	"./lv": 477,
-	"./lv.js": 477,
-	"./me": 478,
-	"./me.js": 478,
-	"./mi": 479,
-	"./mi.js": 479,
-	"./mk": 480,
-	"./mk.js": 480,
-	"./ml": 481,
-	"./ml.js": 481,
-	"./mn": 482,
-	"./mn.js": 482,
-	"./mr": 483,
-	"./mr.js": 483,
-	"./ms": 484,
-	"./ms-my": 485,
-	"./ms-my.js": 485,
-	"./ms.js": 484,
-	"./mt": 486,
-	"./mt.js": 486,
-	"./my": 487,
-	"./my.js": 487,
-	"./nb": 488,
-	"./nb.js": 488,
-	"./ne": 489,
-	"./ne.js": 489,
-	"./nl": 490,
-	"./nl-be": 491,
-	"./nl-be.js": 491,
-	"./nl.js": 490,
-	"./nn": 492,
-	"./nn.js": 492,
-	"./pa-in": 493,
-	"./pa-in.js": 493,
-	"./pl": 494,
-	"./pl.js": 494,
-	"./pt": 495,
-	"./pt-br": 496,
-	"./pt-br.js": 496,
-	"./pt.js": 495,
-	"./ro": 497,
-	"./ro.js": 497,
-	"./ru": 498,
-	"./ru.js": 498,
-	"./sd": 499,
-	"./sd.js": 499,
-	"./se": 500,
-	"./se.js": 500,
-	"./si": 501,
-	"./si.js": 501,
-	"./sk": 502,
-	"./sk.js": 502,
-	"./sl": 503,
-	"./sl.js": 503,
-	"./sq": 504,
-	"./sq.js": 504,
-	"./sr": 505,
-	"./sr-cyrl": 506,
-	"./sr-cyrl.js": 506,
-	"./sr.js": 505,
-	"./ss": 507,
-	"./ss.js": 507,
-	"./sv": 508,
-	"./sv.js": 508,
-	"./sw": 509,
-	"./sw.js": 509,
-	"./ta": 510,
-	"./ta.js": 510,
-	"./te": 511,
-	"./te.js": 511,
-	"./tet": 512,
-	"./tet.js": 512,
-	"./tg": 513,
-	"./tg.js": 513,
-	"./th": 514,
-	"./th.js": 514,
-	"./tl-ph": 515,
-	"./tl-ph.js": 515,
-	"./tlh": 516,
-	"./tlh.js": 516,
-	"./tr": 517,
-	"./tr.js": 517,
-	"./tzl": 518,
-	"./tzl.js": 518,
-	"./tzm": 519,
-	"./tzm-latn": 520,
-	"./tzm-latn.js": 520,
-	"./tzm.js": 519,
-	"./ug-cn": 521,
-	"./ug-cn.js": 521,
-	"./uk": 522,
-	"./uk.js": 522,
-	"./ur": 523,
-	"./ur.js": 523,
-	"./uz": 524,
-	"./uz-latn": 525,
-	"./uz-latn.js": 525,
-	"./uz.js": 524,
-	"./vi": 526,
-	"./vi.js": 526,
-	"./x-pseudo": 527,
-	"./x-pseudo.js": 527,
-	"./yo": 528,
-	"./yo.js": 528,
-	"./zh-cn": 529,
-	"./zh-cn.js": 529,
-	"./zh-hk": 530,
-	"./zh-hk.js": 530,
-	"./zh-tw": 531,
-	"./zh-tw.js": 531
+	"./af": 408,
+	"./af.js": 408,
+	"./ar": 409,
+	"./ar-dz": 410,
+	"./ar-dz.js": 410,
+	"./ar-kw": 411,
+	"./ar-kw.js": 411,
+	"./ar-ly": 412,
+	"./ar-ly.js": 412,
+	"./ar-ma": 413,
+	"./ar-ma.js": 413,
+	"./ar-sa": 414,
+	"./ar-sa.js": 414,
+	"./ar-tn": 415,
+	"./ar-tn.js": 415,
+	"./ar.js": 409,
+	"./az": 416,
+	"./az.js": 416,
+	"./be": 417,
+	"./be.js": 417,
+	"./bg": 418,
+	"./bg.js": 418,
+	"./bm": 419,
+	"./bm.js": 419,
+	"./bn": 420,
+	"./bn.js": 420,
+	"./bo": 421,
+	"./bo.js": 421,
+	"./br": 422,
+	"./br.js": 422,
+	"./bs": 423,
+	"./bs.js": 423,
+	"./ca": 424,
+	"./ca.js": 424,
+	"./cs": 425,
+	"./cs.js": 425,
+	"./cv": 426,
+	"./cv.js": 426,
+	"./cy": 427,
+	"./cy.js": 427,
+	"./da": 428,
+	"./da.js": 428,
+	"./de": 429,
+	"./de-at": 430,
+	"./de-at.js": 430,
+	"./de-ch": 431,
+	"./de-ch.js": 431,
+	"./de.js": 429,
+	"./dv": 432,
+	"./dv.js": 432,
+	"./el": 433,
+	"./el.js": 433,
+	"./en-au": 434,
+	"./en-au.js": 434,
+	"./en-ca": 435,
+	"./en-ca.js": 435,
+	"./en-gb": 436,
+	"./en-gb.js": 436,
+	"./en-ie": 437,
+	"./en-ie.js": 437,
+	"./en-il": 438,
+	"./en-il.js": 438,
+	"./en-nz": 439,
+	"./en-nz.js": 439,
+	"./eo": 440,
+	"./eo.js": 440,
+	"./es": 441,
+	"./es-do": 442,
+	"./es-do.js": 442,
+	"./es-us": 443,
+	"./es-us.js": 443,
+	"./es.js": 441,
+	"./et": 444,
+	"./et.js": 444,
+	"./eu": 445,
+	"./eu.js": 445,
+	"./fa": 446,
+	"./fa.js": 446,
+	"./fi": 447,
+	"./fi.js": 447,
+	"./fo": 448,
+	"./fo.js": 448,
+	"./fr": 449,
+	"./fr-ca": 450,
+	"./fr-ca.js": 450,
+	"./fr-ch": 451,
+	"./fr-ch.js": 451,
+	"./fr.js": 449,
+	"./fy": 452,
+	"./fy.js": 452,
+	"./gd": 453,
+	"./gd.js": 453,
+	"./gl": 454,
+	"./gl.js": 454,
+	"./gom-latn": 455,
+	"./gom-latn.js": 455,
+	"./gu": 456,
+	"./gu.js": 456,
+	"./he": 457,
+	"./he.js": 457,
+	"./hi": 458,
+	"./hi.js": 458,
+	"./hr": 459,
+	"./hr.js": 459,
+	"./hu": 460,
+	"./hu.js": 460,
+	"./hy-am": 461,
+	"./hy-am.js": 461,
+	"./id": 462,
+	"./id.js": 462,
+	"./is": 463,
+	"./is.js": 463,
+	"./it": 464,
+	"./it.js": 464,
+	"./ja": 465,
+	"./ja.js": 465,
+	"./jv": 466,
+	"./jv.js": 466,
+	"./ka": 467,
+	"./ka.js": 467,
+	"./kk": 468,
+	"./kk.js": 468,
+	"./km": 469,
+	"./km.js": 469,
+	"./kn": 470,
+	"./kn.js": 470,
+	"./ko": 471,
+	"./ko.js": 471,
+	"./ky": 472,
+	"./ky.js": 472,
+	"./lb": 473,
+	"./lb.js": 473,
+	"./lo": 474,
+	"./lo.js": 474,
+	"./lt": 475,
+	"./lt.js": 475,
+	"./lv": 476,
+	"./lv.js": 476,
+	"./me": 477,
+	"./me.js": 477,
+	"./mi": 478,
+	"./mi.js": 478,
+	"./mk": 479,
+	"./mk.js": 479,
+	"./ml": 480,
+	"./ml.js": 480,
+	"./mn": 481,
+	"./mn.js": 481,
+	"./mr": 482,
+	"./mr.js": 482,
+	"./ms": 483,
+	"./ms-my": 484,
+	"./ms-my.js": 484,
+	"./ms.js": 483,
+	"./mt": 485,
+	"./mt.js": 485,
+	"./my": 486,
+	"./my.js": 486,
+	"./nb": 487,
+	"./nb.js": 487,
+	"./ne": 488,
+	"./ne.js": 488,
+	"./nl": 489,
+	"./nl-be": 490,
+	"./nl-be.js": 490,
+	"./nl.js": 489,
+	"./nn": 491,
+	"./nn.js": 491,
+	"./pa-in": 492,
+	"./pa-in.js": 492,
+	"./pl": 493,
+	"./pl.js": 493,
+	"./pt": 494,
+	"./pt-br": 495,
+	"./pt-br.js": 495,
+	"./pt.js": 494,
+	"./ro": 496,
+	"./ro.js": 496,
+	"./ru": 497,
+	"./ru.js": 497,
+	"./sd": 498,
+	"./sd.js": 498,
+	"./se": 499,
+	"./se.js": 499,
+	"./si": 500,
+	"./si.js": 500,
+	"./sk": 501,
+	"./sk.js": 501,
+	"./sl": 502,
+	"./sl.js": 502,
+	"./sq": 503,
+	"./sq.js": 503,
+	"./sr": 504,
+	"./sr-cyrl": 505,
+	"./sr-cyrl.js": 505,
+	"./sr.js": 504,
+	"./ss": 506,
+	"./ss.js": 506,
+	"./sv": 507,
+	"./sv.js": 507,
+	"./sw": 508,
+	"./sw.js": 508,
+	"./ta": 509,
+	"./ta.js": 509,
+	"./te": 510,
+	"./te.js": 510,
+	"./tet": 511,
+	"./tet.js": 511,
+	"./tg": 512,
+	"./tg.js": 512,
+	"./th": 513,
+	"./th.js": 513,
+	"./tl-ph": 514,
+	"./tl-ph.js": 514,
+	"./tlh": 515,
+	"./tlh.js": 515,
+	"./tr": 516,
+	"./tr.js": 516,
+	"./tzl": 517,
+	"./tzl.js": 517,
+	"./tzm": 518,
+	"./tzm-latn": 519,
+	"./tzm-latn.js": 519,
+	"./tzm.js": 518,
+	"./ug-cn": 520,
+	"./ug-cn.js": 520,
+	"./uk": 521,
+	"./uk.js": 521,
+	"./ur": 522,
+	"./ur.js": 522,
+	"./uz": 523,
+	"./uz-latn": 524,
+	"./uz-latn.js": 524,
+	"./uz.js": 523,
+	"./vi": 525,
+	"./vi.js": 525,
+	"./x-pseudo": 526,
+	"./x-pseudo.js": 526,
+	"./yo": 527,
+	"./yo.js": 527,
+	"./zh-cn": 528,
+	"./zh-cn.js": 528,
+	"./zh-hk": 529,
+	"./zh-hk.js": 529,
+	"./zh-tw": 530,
+	"./zh-tw.js": 530
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -2659,10 +2710,10 @@ var IonicScreenSize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_firebase_firestore_collection_card_data_service__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_deal_editing_service__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_deal_editing_service__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__types_deals_type__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__user_profile_user_profile_component__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__user_profile_user_profile_component__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2736,7 +2787,7 @@ var OrganizationDealListComponent = (function () {
             styleUrls: ['/organization-deal-list.component.scss']
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__services_deal_editing_service__["a" /* DealEditorService */], __WEBPACK_IMPORTED_MODULE_0__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */],
-            __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */]])
+            __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__["a" /* CurrentUserService */]])
     ], OrganizationDealListComponent);
     return OrganizationDealListComponent;
 }());
@@ -2756,7 +2807,7 @@ var OrganizationDealListComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_device_service__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_view_controller_service__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_login_keys_service__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_login_keys_service__ = __webpack_require__(401);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2819,7 +2870,7 @@ var ModalNavbarComponent = (function () {
             selector: 'modal-navbar',
             styleUrls: ['/modal-navbar.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_toast_service__["a" /* ToastService */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["m" /* ViewController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_toast_service__["a" /* ToastService */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["n" /* ViewController */],
             __WEBPACK_IMPORTED_MODULE_3__services_device_service__["a" /* DeviceService */], __WEBPACK_IMPORTED_MODULE_5__services_view_controller_service__["a" /* ViewControllerService */],
             __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */]])
     ], ModalNavbarComponent);
@@ -2963,7 +3014,7 @@ var LocaleApp = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/app/app.template.html"*/'<div *ngIf="viewControl">\n    <consumer *ngIf="viewControl.consumer"></consumer>\n    <consumer-landing *ngIf="viewControl.userLanding"></consumer-landing>\n    <browser-home *ngIf="viewControl.browserHome"></browser-home>\n    <organization-landing *ngIf="viewControl.organizationLanding"></organization-landing>\n    <organization-deals-home *ngIf="viewControl.organizationDealsHome"></organization-deals-home>\n</div>\n'/*ion-inline-end:"/Users/Contence/locale/src/app/app.template.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__["a" /* AuthorizationService */],
-            __WEBPACK_IMPORTED_MODULE_4__services_view_controller_service__["a" /* ViewControllerService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["j" /* Platform */]])
+            __WEBPACK_IMPORTED_MODULE_4__services_view_controller_service__["a" /* ViewControllerService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* Platform */]])
     ], LocaleApp);
     return LocaleApp;
 }());
@@ -2987,11 +3038,11 @@ var LocaleApp = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__ = __webpack_require__(552);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__ = __webpack_require__(553);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__user_profile_user_profile_component__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__user_profile_user_profile_component__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_toast_service__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(554);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__more_card_info_more_card_info_component__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__more_card_info_more_card_info_component__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_underscore__ = __webpack_require__(868);
@@ -3265,13 +3316,13 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-toolbar style="min-height: 56px;">\n        <ion-buttons start>\n            <button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n                <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>\n        <ion-buttons end>\n            <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n                <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n            </button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<div class="loading-div">\n    <ion-spinner></ion-spinner>\n    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n    id="card-stack" [style.zIindex]="-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: black;">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <img (click)="clickNo()" class="x-image" src="../../assets/images/x-chalk.png" />\n    <img (click)="clickLike()" class="heat-image" src="../../assets/images/heart-chalk.png" />\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-toolbar style="min-height: 56px;">\n        <ion-buttons start>\n            <button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n                <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>\n        <ion-buttons end>\n            <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n                <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n            </button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<div class="loading-div">\n    <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n    id="card-stack" [style.zIindex]="-1000">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title style="color: black;">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <img (click)="clickNo()" class="x-image" src="../../assets/images/x-chalk.png" />\n    <img (click)="clickLike()" class="heat-image" src="../../assets/images/heart-chalk.png" />\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */], __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["l" /* PopoverController */], __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */],
             __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */], __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */], __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */],
-            __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["g" /* ModalController */], __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
     ], ConsumerComponent);
     return ConsumerComponent;
@@ -3289,7 +3340,7 @@ var ConsumerComponent = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DealType; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_type__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__location_type__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__organization_type__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__organization_type__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
 
@@ -3428,12 +3479,12 @@ var BrowserHomeComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_toast_service__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__types_user_type__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_login_service__ = __webpack_require__(146);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__types_user_login_form_group_type__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__types_user_login_form_group_type__ = __webpack_require__(406);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_current_user_service__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ionic_angular__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_firebase_firestore_collection_user_service__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_firebase_authorization_service__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__organization_signup_organization_signup_component__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__organization_signup_organization_signup_component__ = __webpack_require__(396);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||

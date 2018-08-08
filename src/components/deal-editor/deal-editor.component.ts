@@ -2,19 +2,19 @@ import { ToastService } from './../../services/toast.service';
 import { FormBuilderHelper } from './../../types/utils.type';
 import { Organization } from './../../types/organization.type';
 import { CurrentUserService } from './../../services/current-user.service';
-//import { PictureSourceType } from '@ionic-native/camera';
+//import { PictureSourceType, CameraOptions } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { LocaleCard } from "../../types/deals.type";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
 import { DealEditorService } from "../../services/deal-editing.service";
-import { Platform, ActionSheetController } from "ionic-angular";
+import { Platform, ActionSheetController, LoadingController } from "ionic-angular";
 import { IonicScreenSize } from "../../enums/ionic-screen-sizes.enum";
 import { IonicPlatform } from '../../enums/ionic-platform.enum';
 import { ImageService } from '../../services/firebase/image-service.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
-import { PictureSourceType, Camera } from '@ionic-native/camera';
+import { PictureSourceType, Camera, CameraOptions } from '@ionic-native/camera';
 import * as moment from 'moment';
 
 @Component({
@@ -31,7 +31,8 @@ export class DealEditorComponent {
     public isVegetarian: boolean = false;
     public isVegan: boolean = false;
 
-    public imageDataForUpload;
+    public imageDataForUploadDesktop;
+    public imageDataForUploadMobile;
     public imageDataForPreview;
     public fileReader = new FileReader();
 
@@ -44,10 +45,12 @@ export class DealEditorComponent {
 
     public previewCard: LocaleCard;
 
+    public saving: boolean = false;
+
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
-        private currentUserService: CurrentUserService, private cameraService: Camera) {
+        private currentUserService: CurrentUserService, private cameraService: Camera, private loadingController: LoadingController) {
 
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
@@ -91,36 +94,69 @@ export class DealEditorComponent {
     }
 
     public setImageData(event): void {
-        this.imageDataForUpload = event.srcElement.files[0];
-        this.fileReader.readAsDataURL(this.imageDataForUpload);
+        this.imageDataForUploadDesktop = event.srcElement.files[0];
+        this.fileReader.readAsDataURL(this.imageDataForUploadDesktop);
     }
 
-    public delete() {
+    public delete() {//maybe kill photo
         this.cardService.delete(this.dealEditorService.currentDealBeingEdited.id);
         this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
         this.imageDataForPreview = null;
-        this.imageDataForUpload = null;
+        this.imageDataForUploadDesktop = null;
+        this.imageDataForUploadMobile = null;
     }
 
     public add() {
         FormBuilderHelper.markFormGroupTouched(this.dealEditorFormGroup);
         this.dealEditorFormGroup.updateValueAndValidity();
-        if (this.imageDataForUpload) {
+        if (this.imageDataForUploadDesktop) {
             if (this.dealEditorFormGroup.valid) {
                 const deal = this.getDealFromFields();
 
                 deal.organization = this.currentOrganization;
 
+                const loadingPopover = this.loadingController.create({
+                    content: 'Saving your deal...'
+                });
+
+                loadingPopover.present();
+
                 Promise.all([this.cardService.set(deal),
                 this.currentUserService.addCardId(deal.id),
                 this.userService.set(this.currentUserService.getCurrentUser()),
-                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, false)]).then(() => {
+                this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal.id, false)]).then(() => {
                     this.cleanUpImageData();
                     this.clearFields();
                     //basically done; assuming the below promises resolve faster set state to saved
                     this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
+                    loadingPopover.dismiss();
+                }).catch((error) => {
+                    this.toastService.showReadableToast("There was an error " + error);
+                });
+            }
+        } else if (this.imageDataForUploadMobile) {
+            if (this.dealEditorFormGroup.valid) {
+                const deal = this.getDealFromFields();
+
+                deal.organization = this.currentOrganization;
+
+                const loadingPopover = this.loadingController.create({
+                    content: 'Saving your deal...'
+                });
+
+                loadingPopover.present();
+
+                Promise.all([this.cardService.set(deal),
+                this.currentUserService.addCardId(deal.id),
+                this.userService.set(this.currentUserService.getCurrentUser()),
+                this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal.id, false)]).then(() => {
+                    this.cleanUpImageData();
+                    this.clearFields();
+                    //basically done; assuming the below promises resolve faster set state to saved
+                    this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
+                    loadingPopover.dismiss();
                 }).catch((error) => {
                     this.toastService.showReadableToast("There was an error " + error);
                 });
@@ -132,21 +168,52 @@ export class DealEditorComponent {
     public save() {
         FormBuilderHelper.markFormGroupTouched(this.dealEditorFormGroup);
         this.dealEditorFormGroup.updateValueAndValidity();
-        if (this.dealEditorFormGroup.valid) {
+        if (this.dealEditorFormGroup.valid && this.cardIsEdited()) {
             var deal: LocaleCard = this.getDealFromFields();
 
             deal.id = this.dealEditorService.currentDealBeingEdited.id;
 
-            if (this.imageDataForUpload) {
-                this.uploader.uploadDealPhoto(this.imageDataForUpload, deal.id, true).then(() => {
-                    this.cleanUpImageData();
-                    this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
+            const loadingPopover = this.loadingController.create({
+                spinner: 'dots',
+                content: 'Saving your deal...'
+            });
 
-                    this.dealEditorService.updateDealSubject.next(deal);
-                });
+            loadingPopover.present();
+
+            if (this.imageDataForUploadDesktop) {
+                Promise.all([this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal.id, true),
+                this.cardService.set(deal)])
+                    .then(() => {
+                        this.cleanUpImageData();
+                        this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
+
+                        this.dealEditorService.updateDealSubject.next(deal);
+
+                        loadingPopover.dismiss();
+                    });
             }
+            else if (this.imageDataForUploadMobile) {
+                Promise.all([this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal.id, true),
+                this.cardService.set(deal)])
+                    .then(() => {
+                        this.cleanUpImageData();
+                        this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
 
-            this.cardService.set(deal);
+                        this.dealEditorService.updateDealSubject.next(deal);
+
+                        loadingPopover.dismiss();
+                    });
+            } else {
+                this.cardService.set(deal)
+                    .then(() => {
+                        this.cleanUpImageData();
+                        this.imageService.setDealImageURL(this.dealEditorService.currentDealBeingEdited);
+
+                        this.dealEditorService.updateDealSubject.next(deal);
+
+                        loadingPopover.dismiss();
+                    });
+            }
 
             this.uneditedDeal = deal;
         }
@@ -269,22 +336,22 @@ export class DealEditorComponent {
                 ]
             }).present();
         }
-
     }
 
     private cameraUpload(sourceType: PictureSourceType) {
-        var options = {
-            quality: 100,
+        var options: CameraOptions = {
+            quality: 25,
             sourceType: sourceType,
-            destinationType: this.cameraService.DestinationType.FILE_URI,
+            destinationType: this.cameraService.DestinationType.DATA_URL,
+            encodingType: this.cameraService.EncodingType.JPEG,
+            mediaType: this.cameraService.MediaType.PICTURE,
             saveToPhotoAlbum: false,
-            correctOrientation: true,
             allowEdit: true,
         };
 
         this.cameraService.getPicture(options).then((photoData) => {
-            this.imageDataForPreview = photoData;
-            this.imageDataForUpload = photoData;
+            this.imageDataForPreview = 'data:image/jpeg;base64,' + photoData;
+            this.imageDataForUploadMobile = photoData;
         });
     }
 
@@ -297,12 +364,13 @@ export class DealEditorComponent {
     }
 
     public cardIsEdited(): boolean {
-        return !LocaleCard.cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUpload;
+        return !LocaleCard.cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUploadDesktop || this.imageDataForUploadMobile;
     }
 
     private cleanUpImageData() {
         this.imageDataForPreview = null;
-        this.imageDataForUpload = null;
+        this.imageDataForUploadDesktop = null;
+        this.imageDataForUploadMobile = null;
         this.fileReader.abort();
     }
 }
