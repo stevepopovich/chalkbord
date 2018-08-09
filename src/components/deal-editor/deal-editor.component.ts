@@ -71,6 +71,14 @@ export class DealEditorComponent {
             if (this.currentOrganization) {
                 this.previewCard.dealDescription = this.dealEditorFormGroup.get("dealDescription").value || "";
                 this.previewCard.organization = this.currentOrganization;
+
+                const startDate = this.dealEditorFormGroup.get("dealDay").value;
+                const startTime = this.dealEditorFormGroup.get("dealStart").value;
+                const endTime = this.dealEditorFormGroup.get("dealEnd").value
+                if (startDate) {
+                    this.previewCard.dealStart = moment(startDate + " " + startTime).toObject();
+                    this.previewCard.dealEnd = moment(startDate + " " + endTime).toObject();
+                }
             }
         });
 
@@ -126,7 +134,7 @@ export class DealEditorComponent {
                 Promise.all([this.cardService.set(deal),
                 this.currentUserService.addCardId(deal.id),
                 this.userService.set(this.currentUserService.getCurrentUser()),
-                this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal.id, false)]).then(() => {
+                this.uploader.uploadDealBlobPhoto(this.imageDataForUploadDesktop, deal.id, false)]).then(() => {
                     this.cleanUpImageData();
                     this.clearFields();
                     //basically done; assuming the below promises resolve faster set state to saved
@@ -181,7 +189,7 @@ export class DealEditorComponent {
             loadingPopover.present();
 
             if (this.imageDataForUploadDesktop) {
-                Promise.all([this.uploader.uploadDealPhoto(this.imageDataForUploadDesktop, deal.id, true),
+                Promise.all([this.uploader.uploadDealBlobPhoto(this.imageDataForUploadDesktop, deal.id, true),
                 this.cardService.set(deal)])
                     .then(() => {
                         this.cleanUpImageData();
@@ -366,7 +374,6 @@ export class DealEditorComponent {
     public cardIsEdited(): boolean {
         return !LocaleCard.cardsAreLogicallyEqual(this.getDealFromFields(), this.uneditedDeal) || this.imageDataForUploadDesktop || this.imageDataForUploadMobile;
     }
-
     private cleanUpImageData() {
         this.imageDataForPreview = null;
         this.imageDataForUploadDesktop = null;

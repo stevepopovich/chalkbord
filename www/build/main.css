@@ -39971,6 +39971,43 @@ ion-navbar.toolbar {
   max-height: 450px;
 }
 
+.card-text {
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 18px;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(24%, white), to(white));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 24%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  /* IE6-9 */
+}
+
+.locale-card-title {
+  color: white;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  text-align: center;
+  font-family: Baumans;
+  font-size: 36px;
+}
+
+.locale-card-time {
+  color: white !important;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  font-style: italic;
+}
+
+p {
+  margin: 0;
+}
+
 .title-big
 .toolbar-title-md
 .toolbar-title-ios {
@@ -39998,7 +40035,7 @@ ion-navbar.toolbar {
 }
 
 #card-stack ion-card {
-  border-radius: 10px;
+  border-radius: 14px;
   position: absolute;
   text-align: center;
   height: 72%;
@@ -40008,21 +40045,36 @@ ion-navbar.toolbar {
 }
 
 .card-text {
-  text-align: left;
-  color: black;
+  text-align: center;
+  color: white;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+65 */
+  font-size: 18px;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
   /* FF3.6-15 */
   /* Chrome10-25,Safari5.1-6 */
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(65%, white), to(white));
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 65%, white 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(24%, white), to(white));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 24%, white 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
   /* IE6-9 */
+}
+
+.locale-card-title {
+  color: white;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  text-align: center;
+  font-family: Baumans;
+  font-size: 36px;
+}
+
+.locale-card-time {
+  color: white !important;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  font-style: italic;
 }
 
 .non-draggable-card-image {
@@ -40109,7 +40161,7 @@ ion-navbar.toolbar {
   width: 100%;
   z-index: -9999 !important;
   position: absolute;
-  background-image: url("assets/images/good chalkboard.jpg");
+  background-image: url("../assets/images/good-chalkboard.jpg");
 }
 
 ion-spinner {

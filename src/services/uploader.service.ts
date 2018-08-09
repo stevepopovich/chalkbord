@@ -5,7 +5,7 @@ import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage'
 export class UploadService {
     constructor(public storage: AngularFireStorage) { }
 
-    public uploadDealPhoto(imageData: File, fileName: string, updatePicture: boolean): AngularFireUploadTask {
+    public uploadDealBlobPhoto(imageData: File, fileName: string, updatePicture: boolean): AngularFireUploadTask {
         if (updatePicture && this.storage.ref("/locale-deal-photos/" + fileName))
             this.storage.ref("/locale-deal-photos/" + fileName);
 

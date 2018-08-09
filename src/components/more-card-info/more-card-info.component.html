@@ -9,7 +9,7 @@
         <ion-item>
             <h2>{{card.dealDescription}}</h2>
             <p>{{getMomentFormatted(card.dealStart, "MMMM Do, YYYY")}}</p>
-            <p>{{getMomentFormatted(card.dealStart, "HH:mm a")}} - {{getMomentFormatted(card.dealEnd, "HH:mm a")}}</p>
+            <p>{{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd, "hh:mm a")}}</p>
         </ion-item>
         <ion-item *ngIf="card.numberOfDeals > 0">
             <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this deal!</h2>

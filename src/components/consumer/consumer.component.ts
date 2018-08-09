@@ -21,6 +21,7 @@ import { MoreCardInfoComponent } from '../more-card-info/more-card-info.componen
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
 import _ from 'underscore';
+import moment from 'Moment';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -318,5 +319,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public openProfile() {
         this.modalCtrl.create(UserProfileComponent, { isOrganization: false }).present();
+    }
+
+    public getMomentFormatted(dateTime: string, format: string): string {
+        return moment(dateTime).format(format);
     }
 }

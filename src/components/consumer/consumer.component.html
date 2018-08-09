@@ -15,25 +15,27 @@
 </ion-header>
 
 <div class="loading-div">
-    <ion-spinner class="ion-spinner-consumer"></ion-spinner>
+    <ion-spinner></ion-spinner>
     <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>
 </div>
 
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"
-    id="card-stack" [style.zIindex]="-1000">
-    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i = index;" [style.zIndex]="-1*i" [ngStyle]="{'transition': transitionString}">
+    id="card-stack" [style.zIindex]="-1000 ">
+    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{'transition':transitionString}">
         <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />
 
         <ion-card-content class="card-text">
-            <ion-card-title style="color: black;">
+            <ion-card-title class="locale-card-title">
                 {{card.organization.name}}
             </ion-card-title>
             {{card.dealDescription}}
+            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
+                "hh:mm a")}}</p>
         </ion-card-content>
     </ion-card>
 </div>
 
 <div class="bottom-row">
-    <img (click)="clickNo()" class="x-image" src="../../assets/images/x-chalk.png" />
-    <img (click)="clickLike()" class="heat-image" src="../../assets/images/heart-chalk.png" />
+    <img (click)="clickNo()" class="x-image" src="assets/images/x-chalk.png" />
+    <img (click)="clickLike()" class="heat-image" src="assets/images/heart-chalk.png" />
 </div>

@@ -1,5 +1,6 @@
 import { LocaleCard } from './../../types/deals.type';
 import { Component, Input, AfterViewInit } from "@angular/core";
+import moment from 'Moment';
 
 @Component({
     templateUrl: './card.component.html',
@@ -44,5 +45,10 @@ export class LocaleCardComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         //console.log(this.inputClass);
+    }
+
+    public getMomentFormatted(dateTime: string, format: string): string {
+        if (dateTime && format)
+            return moment(dateTime).format(format);
     }
 }
