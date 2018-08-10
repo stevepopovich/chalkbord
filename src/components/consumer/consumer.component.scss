@@ -88,6 +88,7 @@ $button-top-offest: 79%;
     text-align: center;
     font-family: Baumans;
     font-size: 36px;
+    padding: 0;
 }
 
 .locale-card-time{
@@ -200,7 +201,7 @@ $button-top-offest: 79%;
     background-image: url("../assets/images/good-chalkboard.jpg");
 }
 
-ion-spinner {
+.ion-spinner-consumer {
     position: relative;
     display: inline-block;
     height: 90px;

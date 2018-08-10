@@ -1321,6 +1321,13 @@ var DealEditorComponent = (function () {
             if (_this.currentOrganization) {
                 _this.previewCard.dealDescription = _this.dealEditorFormGroup.get("dealDescription").value || "";
                 _this.previewCard.organization = _this.currentOrganization;
+                var startDate = _this.dealEditorFormGroup.get("dealDay").value;
+                var startTime = _this.dealEditorFormGroup.get("dealStart").value;
+                var endTime = _this.dealEditorFormGroup.get("dealEnd").value;
+                if (startDate) {
+                    _this.previewCard.dealStart = __WEBPACK_IMPORTED_MODULE_15_moment__(startDate + " " + startTime).toObject();
+                    _this.previewCard.dealEnd = __WEBPACK_IMPORTED_MODULE_15_moment__(startDate + " " + endTime).toObject();
+                }
             }
         });
         this.currentUserService.getCurrentOrganization().subscribe(function (orgs) {
@@ -1573,7 +1580,7 @@ var DealEditorComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["ElementRef"])
     ], DealEditorComponent.prototype, "hiddenFileInput", void 0);
     DealEditorComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDescription\').errors && dealEditorFormGroup.get(\'dealDescription\').dirty" class="error-message">Deal description is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Long deal description</ion-label>\n                            <ion-textarea formControlName="longDealDescription"></ion-textarea>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDay\').errors && dealEditorFormGroup.get(\'dealDay\').dirty" class="error-message">Deal date is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealStart\').errors && dealEditorFormGroup.get(\'dealStart\').dirty" class="error-message">Deal start time is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealEnd\').errors && dealEditorFormGroup.get(\'dealEnd\').dirty" class="error-message">Deal end time is required.</p>\n\n                        <!-- <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item> -->\n\n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealType\').errors && dealEditorFormGroup.get(\'dealType\').dirty" class="error-message">Deal type is required.</p>\n\n                        <ion-item>\n                            <ion-label>Deal is vegetarian</ion-label>\n                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Deal is vegan</ion-label>\n                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n                        </ion-item>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">\n                        <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>\n                        <div *ngIf="uneditedDeal" class="editing-status">\n                            <ion-badge>\n                                <div *ngIf="!cardIsEdited()" style="color: green">Deal saved</div>\n                                <div *ngIf="cardIsEdited()" style="color: yellow">Your changes are unsaved</div>\n                            </ion-badge>\n                        </div>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility: hidden;" />'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title class="title-big" style="text-align: right;">Chalkbord Organizations</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-list>\n        <form [formGroup]="dealEditorFormGroup">\n            <ion-grid style="padding: 0px;">\n                <ion-row>\n                    <ion-col col-12 col-sm-6 style="padding: 0px;">\n                        <ion-item>\n                            <ion-label floating>Deal description</ion-label>\n                            <ion-input formControlName="dealDescription"></ion-input>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDescription\').errors && dealEditorFormGroup.get(\'dealDescription\').dirty" class="error-message">Deal description is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Long deal description</ion-label>\n                            <ion-textarea formControlName="longDealDescription"></ion-textarea>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label floating>Deal date</ion-label>\n                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealDay\').errors && dealEditorFormGroup.get(\'dealDay\').dirty" class="error-message">Deal date is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>Start time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealStart"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealStart\').errors && dealEditorFormGroup.get(\'dealStart\').dirty" class="error-message">Deal start time is required.</p>\n\n                        <ion-item>\n                            <ion-label floating>End time</ion-label>\n                            <ion-datetime displayFormat="h:mm a" formControlName="dealEnd"></ion-datetime>\n                        </ion-item>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealEnd\').errors && dealEditorFormGroup.get(\'dealEnd\').dirty" class="error-message">Deal end time is required.</p>\n\n                        <!-- <ion-item>\n                            <ion-label>Limited deal number</ion-label>\n                            <ion-checkbox formControlName="limitedDealNumber" [(ngModel)]="limitDealNumber" checked="false"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item *ngIf="limitDealNumber">\n                            <ion-label floating>Deal Number</ion-label>\n                            <ion-input type="number" formControlName="numberOfDeals"></ion-input>\n                        </ion-item> -->\n\n                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">\n                            Deal Type\n                            <ion-item>\n                                <ion-label>Drinks</ion-label>\n                                <ion-radio value="0"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Food</ion-label>\n                                <ion-radio value="1"></ion-radio>\n                            </ion-item>\n                            <ion-item>\n                                <ion-label>Both</ion-label>\n                                <ion-radio value="2"></ion-radio>\n                            </ion-item>\n                        </ion-list>\n                        <p *ngIf="dealEditorFormGroup.get(\'dealType\').errors && dealEditorFormGroup.get(\'dealType\').dirty" class="error-message">Deal type is required.</p>\n\n                        <ion-item>\n                            <ion-label>Deal is vegetarian</ion-label>\n                            <ion-checkbox formControlName="isVegetarian" [(ngModel)]="isVegetarian" checked="false" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n                        </ion-item>\n\n                        <ion-item>\n                            <ion-label>Deal is vegan</ion-label>\n                            <ion-checkbox formControlName="isVegan" [(ngModel)]="isVegan" checked="false" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n                        </ion-item>\n                    </ion-col>\n                    <ion-col (click)="editPhotoData()" style="padding: 0px; min-width: 285px; min-height: 450px;">\n                        <gs-card [card]="previewCard" [imageSrc]="imageDataForPreview"></gs-card>\n                        <div *ngIf="uneditedDeal" class="editing-status">\n                            <ion-badge>\n                                <div *ngIf="!cardIsEdited()" style="color: green">Deal saved</div>\n                                <div *ngIf="cardIsEdited()" style="color: yellow">Your changes are unsaved</div>\n                            </ion-badge>\n                        </div>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </form>\n    </ion-list>\n\n    <div class="button-group center-content">\n        <button *ngIf="!editingDeal" ion-button (click)="add()">\n            Add\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="save()">\n            Save\n        </button>\n\n        <button *ngIf="editingDeal" ion-button (click)="delete()">\n            Delete\n        </button>\n\n        <button ion-button (click)="cancel()">\n            Cancel\n        </button>\n    </div>\n</ion-content>\n\n<input #hiddenFileInput type="file" (change)="setImageData($event)" accept="image/*" style="visibility: hidden;" />'/*ion-inline-end:"/Users/Contence/locale/src/components/deal-editor/deal-editor.component.html"*/,
             selector: 'deal-editor',
             styleUrls: ['/deal-editor.component.scss']
         }),
@@ -1689,67 +1696,6 @@ var ConsumerCardList = (function () {
 }());
 
 //# sourceMappingURL=consumer-card-list.component.js.map
-
-/***/ }),
-
-/***/ 553:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterDealComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(34);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var FilterDealComponent = (function () {
-    function FilterDealComponent(viewCtrl, navParams) {
-        this.viewCtrl = viewCtrl;
-        this.navParams = navParams;
-        this.onlyVegetarian = false;
-        this.onlyVegan = false;
-        var appliedFilterOptions = this.navParams.data;
-        this.dealType = appliedFilterOptions.dealType;
-        this.onlyVegetarian = appliedFilterOptions.onlyVegetarian;
-        this.onlyVegan = appliedFilterOptions.onlyVegan;
-    }
-    FilterDealComponent.prototype.applyFilters = function () {
-        var returnData = {
-            onlyVegetarian: this.onlyVegetarian,
-            onlyVegan: this.onlyVegan,
-            dealType: this.dealType
-        };
-        this.viewCtrl.dismiss(returnData);
-    };
-    FilterDealComponent.prototype.updateDealContentType = function (changeVegetarianOption) {
-        if (changeVegetarianOption) {
-            if (!this.onlyVegetarian)
-                this.onlyVegan = false;
-        }
-        else {
-            if (this.onlyVegan)
-                this.onlyVegetarian = true;
-        }
-    };
-    FilterDealComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-grid>\n  <ion-row>\n    <ion-col>\n      <ion-list radio-group [(ngModel)]="dealType">\n        <ion-item>\n          <ion-label>Filter deals</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Drinks</ion-label>\n          <ion-radio value="0"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Food</ion-label>\n          <ion-radio value="1"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Both</ion-label>\n          <ion-radio value="2"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>All</ion-label>\n          <ion-radio value="null"></ion-radio>\n        </ion-item>\n      </ion-list>\n    </ion-col>\n    <ion-col>\n      <ion-item>\n        <ion-label>Vegetarian</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegetarian" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Vegan</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegan" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n      </ion-item>\n      <button ion-button (click)="applyFilters()">APPLY</button>\n    </ion-col>\n  </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
-            selector: 'filter-deal',
-            styleUrls: ['/filter-deal.component.scss']
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], FilterDealComponent);
-    return FilterDealComponent;
-}());
-
-//# sourceMappingURL=filter-deal.component.js.map
 
 /***/ }),
 
@@ -1872,6 +1818,67 @@ var ToastService = (function () {
 }());
 
 //# sourceMappingURL=toast.service.js.map
+
+/***/ }),
+
+/***/ 676:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterDealComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(34);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var FilterDealComponent = (function () {
+    function FilterDealComponent(viewCtrl, navParams) {
+        this.viewCtrl = viewCtrl;
+        this.navParams = navParams;
+        this.onlyVegetarian = false;
+        this.onlyVegan = false;
+        var appliedFilterOptions = this.navParams.data;
+        this.dealType = appliedFilterOptions.dealType;
+        this.onlyVegetarian = appliedFilterOptions.onlyVegetarian;
+        this.onlyVegan = appliedFilterOptions.onlyVegan;
+    }
+    FilterDealComponent.prototype.applyFilters = function () {
+        var returnData = {
+            onlyVegetarian: this.onlyVegetarian,
+            onlyVegan: this.onlyVegan,
+            dealType: this.dealType
+        };
+        this.viewCtrl.dismiss(returnData);
+    };
+    FilterDealComponent.prototype.updateDealContentType = function (changeVegetarianOption) {
+        if (changeVegetarianOption) {
+            if (!this.onlyVegetarian)
+                this.onlyVegan = false;
+        }
+        else {
+            if (this.onlyVegan)
+                this.onlyVegetarian = true;
+        }
+    };
+    FilterDealComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-grid>\n  <ion-row>\n    <ion-col>\n      <ion-list radio-group [(ngModel)]="dealType">\n        <ion-item>\n          <ion-label>Filter deals</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Drinks</ion-label>\n          <ion-radio value="0"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Food</ion-label>\n          <ion-radio value="1"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Both</ion-label>\n          <ion-radio value="2"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>All</ion-label>\n          <ion-radio value="null"></ion-radio>\n        </ion-item>\n      </ion-list>\n    </ion-col>\n    <ion-col>\n      <ion-item>\n        <ion-label>Vegetarian</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegetarian" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Vegan</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegan" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n      </ion-item>\n      <button ion-button (click)="applyFilters()">APPLY</button>\n    </ion-col>\n  </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
+            selector: 'filter-deal',
+            styleUrls: ['/filter-deal.component.scss']
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], FilterDealComponent);
+    return FilterDealComponent;
+}());
+
+//# sourceMappingURL=filter-deal.component.js.map
 
 /***/ }),
 
@@ -2038,21 +2045,21 @@ var UserService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_more_card_info_more_card_info_component__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_card_card_component__ = __webpack_require__(977);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_platform_browser__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(978);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular2_draggable__ = __webpack_require__(979);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(979);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular2_draggable__ = __webpack_require__(980);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ionic_angular__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_in_app_browser__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_storage__ = __webpack_require__(401);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_component__ = __webpack_require__(980);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_consumer_consumer_component__ = __webpack_require__(981);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_swing__ = __webpack_require__(546);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_component__ = __webpack_require__(981);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_consumer_consumer_component__ = __webpack_require__(982);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_swing__ = __webpack_require__(669);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_angular2_swing__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_dialogs__ = __webpack_require__(994);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(545);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(668);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_deal_editor_deal_editor_component__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_filter_deals_filter_deal_component__ = __webpack_require__(553);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_launch_navigator__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_filter_deals_filter_deal_component__ = __webpack_require__(676);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_launch_navigator__ = __webpack_require__(677);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_angularfire2__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angularfire2_database__ = __webpack_require__(995);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26_angularfire2_auth__ = __webpack_require__(403);
@@ -2070,7 +2077,7 @@ var UserService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_browser_home_browser_home_component__ = __webpack_require__(1048);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__angular_common_http__ = __webpack_require__(1049);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__services_deal_editing_service__ = __webpack_require__(249);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_geolocation__ = __webpack_require__(555);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_geolocation__ = __webpack_require__(678);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__components_organization_landing_organization_landing_component__ = __webpack_require__(1055);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__services_remember_me_service__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__services_firebase_firestore_collection_card_data_service__ = __webpack_require__(113);
@@ -3013,7 +3020,7 @@ var OrganizationDealListComponent = (function () {
         this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_6__user_profile_user_profile_component__["a" /* UserProfileComponent */], { isOrganization: true }).present();
     };
     OrganizationDealListComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/organization-deal-list/organization-deal-list.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard"  *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of cardList" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar">\n        Add some deals and see them here!\n    </div>\n</ion-content>\n\n<button (click)="openProfile()" class="button-top-right" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/organization-deal-list/organization-deal-list.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/organization-deal-list/organization-deal-list.component.html"*/'<ion-content>\n    <ion-list radio-group [(ngModel)]="currentCard" *ngIf="hasCards()" class="push-list-under-menu-bar">\n        <ion-item *ngFor="let deal of cardList" (click)="setCurrentCard(deal)" [ngClass]="getBackground(deal)">\n            <ion-label>{{ deal.dealDescription }}</ion-label>\n        </ion-item>\n    </ion-list>\n    <div *ngIf="!hasCards()" class="push-list-under-menu-bar no-cards-text">\n        Add some deals and see them here!\n    </div>\n</ion-content>\n\n<button (click)="openProfile()" class="button-top-right" ion-button icon-only>\n    <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/organization-deal-list/organization-deal-list.component.html"*/,
             selector: 'organization-deal-list',
             styleUrls: ['/organization-deal-list.component.scss']
         }),
@@ -3097,7 +3104,7 @@ var ModalNavbarComponent = (function () {
         __metadata("design:type", Boolean)
     ], ModalNavbarComponent.prototype, "organizationModal", void 0);
     ModalNavbarComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/modal-navbar/modal-navbar.component.html"*/'<ion-header class="nav-round">\n    <ion-navbar class="navbar-md">\n        <ion-title class="title-big">Chalkbord</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<button (click)="closeProfile()" class="close-modal-button" ion-button icon-only>\n    <ion-icon ios="md-arrow-back" md="md-arrow-back"></ion-icon>\n</button>\n\n<button *ngIf="profileModal" (click)="logout()" class="signout-button" ion-button icon-only>\n    <ion-icon ios="md-log-out" md="md-log-out"></ion-icon>\n</button>'/*ion-inline-end:"/Users/Contence/locale/src/components/modal-navbar/modal-navbar.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/modal-navbar/modal-navbar.component.html"*/'<ion-header class="nav-round">\n    <ion-toolbar style="min-height: 56px;">\n        <ion-buttons start>\n            <button (click)="closeProfile()" ion-button icon-only>\n                <ion-icon name="arrow-back"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>\n        <ion-buttons end>\n            <button *ngIf="profileModal" (click)="logout()" ion-button icon-only>\n                <ion-icon name="log-out"></ion-icon>\n            </button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>'/*ion-inline-end:"/Users/Contence/locale/src/components/modal-navbar/modal-navbar.component.html"*/,
             selector: 'modal-navbar',
             styleUrls: ['/modal-navbar.component.scss']
         }),
@@ -3119,6 +3126,8 @@ var ModalNavbarComponent = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocaleCardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(89);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Moment__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Moment__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3128,6 +3137,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 var LocaleCardComponent = (function () {
@@ -3166,6 +3176,10 @@ var LocaleCardComponent = (function () {
     LocaleCardComponent.prototype.ngAfterViewInit = function () {
         //console.log(this.inputClass);
     };
+    LocaleCardComponent.prototype.getMomentFormatted = function (dateTime, format) {
+        if (dateTime && format)
+            return __WEBPACK_IMPORTED_MODULE_2_Moment___default()(dateTime).format(format);
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Input"])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["b" /* LocaleCard */]),
@@ -3185,7 +3199,7 @@ var LocaleCardComponent = (function () {
         __metadata("design:type", String)
     ], LocaleCardComponent.prototype, "inputClass", void 0);
     LocaleCardComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/card/card.component.html"*/'<div [style.zIindex]="-1000">\n    <ion-card class="{{inputClass}}">\n        <div *ngIf="_card && !_card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>\n        <img *ngIf="_card && _card.imageURL" class="non-draggable-card-image fill" src="{{_card.imageURL}}" />\n\n        <ion-card-content *ngIf="_card || showCardText" class="card-text">\n            <ion-card-title style="color: black !important;">\n                {{_card.organization?.name}}\n            </ion-card-title>\n            {{_card.dealDescription}}\n        </ion-card-content>\n    </ion-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/card/card.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/card/card.component.html"*/'<div [style.zIindex]="-1000">\n    <ion-card class="{{inputClass}}">\n        <div *ngIf="_card && !_card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>\n        <img *ngIf="_card && _card.imageURL" class="non-draggable-card-image fill" src="{{_card.imageURL}}" />\n\n        <ion-card-content *ngIf="card.dealDescription && (_card || showCardText)" class="card-text">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p *ngIf="card.dealDescription" class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/card/card.component.html"*/,
             selector: 'gs-card',
             styleUrls: ['/card.component.scss']
         }),
@@ -3198,14 +3212,283 @@ var LocaleCardComponent = (function () {
 
 /***/ }),
 
-/***/ 980:
+/***/ 978:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": 545,
+	"./af.js": 545,
+	"./ar": 546,
+	"./ar-dz": 547,
+	"./ar-dz.js": 547,
+	"./ar-kw": 548,
+	"./ar-kw.js": 548,
+	"./ar-ly": 549,
+	"./ar-ly.js": 549,
+	"./ar-ma": 550,
+	"./ar-ma.js": 550,
+	"./ar-sa": 551,
+	"./ar-sa.js": 551,
+	"./ar-tn": 552,
+	"./ar-tn.js": 552,
+	"./ar.js": 546,
+	"./az": 553,
+	"./az.js": 553,
+	"./be": 554,
+	"./be.js": 554,
+	"./bg": 555,
+	"./bg.js": 555,
+	"./bm": 556,
+	"./bm.js": 556,
+	"./bn": 557,
+	"./bn.js": 557,
+	"./bo": 558,
+	"./bo.js": 558,
+	"./br": 559,
+	"./br.js": 559,
+	"./bs": 560,
+	"./bs.js": 560,
+	"./ca": 561,
+	"./ca.js": 561,
+	"./cs": 562,
+	"./cs.js": 562,
+	"./cv": 563,
+	"./cv.js": 563,
+	"./cy": 564,
+	"./cy.js": 564,
+	"./da": 565,
+	"./da.js": 565,
+	"./de": 566,
+	"./de-at": 567,
+	"./de-at.js": 567,
+	"./de-ch": 568,
+	"./de-ch.js": 568,
+	"./de.js": 566,
+	"./dv": 569,
+	"./dv.js": 569,
+	"./el": 570,
+	"./el.js": 570,
+	"./en-au": 571,
+	"./en-au.js": 571,
+	"./en-ca": 572,
+	"./en-ca.js": 572,
+	"./en-gb": 573,
+	"./en-gb.js": 573,
+	"./en-ie": 574,
+	"./en-ie.js": 574,
+	"./en-il": 575,
+	"./en-il.js": 575,
+	"./en-nz": 576,
+	"./en-nz.js": 576,
+	"./eo": 577,
+	"./eo.js": 577,
+	"./es": 578,
+	"./es-do": 579,
+	"./es-do.js": 579,
+	"./es-us": 580,
+	"./es-us.js": 580,
+	"./es.js": 578,
+	"./et": 581,
+	"./et.js": 581,
+	"./eu": 582,
+	"./eu.js": 582,
+	"./fa": 583,
+	"./fa.js": 583,
+	"./fi": 584,
+	"./fi.js": 584,
+	"./fo": 585,
+	"./fo.js": 585,
+	"./fr": 586,
+	"./fr-ca": 587,
+	"./fr-ca.js": 587,
+	"./fr-ch": 588,
+	"./fr-ch.js": 588,
+	"./fr.js": 586,
+	"./fy": 589,
+	"./fy.js": 589,
+	"./gd": 590,
+	"./gd.js": 590,
+	"./gl": 591,
+	"./gl.js": 591,
+	"./gom-latn": 592,
+	"./gom-latn.js": 592,
+	"./gu": 593,
+	"./gu.js": 593,
+	"./he": 594,
+	"./he.js": 594,
+	"./hi": 595,
+	"./hi.js": 595,
+	"./hr": 596,
+	"./hr.js": 596,
+	"./hu": 597,
+	"./hu.js": 597,
+	"./hy-am": 598,
+	"./hy-am.js": 598,
+	"./id": 599,
+	"./id.js": 599,
+	"./is": 600,
+	"./is.js": 600,
+	"./it": 601,
+	"./it.js": 601,
+	"./ja": 602,
+	"./ja.js": 602,
+	"./jv": 603,
+	"./jv.js": 603,
+	"./ka": 604,
+	"./ka.js": 604,
+	"./kk": 605,
+	"./kk.js": 605,
+	"./km": 606,
+	"./km.js": 606,
+	"./kn": 607,
+	"./kn.js": 607,
+	"./ko": 608,
+	"./ko.js": 608,
+	"./ky": 609,
+	"./ky.js": 609,
+	"./lb": 610,
+	"./lb.js": 610,
+	"./lo": 611,
+	"./lo.js": 611,
+	"./lt": 612,
+	"./lt.js": 612,
+	"./lv": 613,
+	"./lv.js": 613,
+	"./me": 614,
+	"./me.js": 614,
+	"./mi": 615,
+	"./mi.js": 615,
+	"./mk": 616,
+	"./mk.js": 616,
+	"./ml": 617,
+	"./ml.js": 617,
+	"./mn": 618,
+	"./mn.js": 618,
+	"./mr": 619,
+	"./mr.js": 619,
+	"./ms": 620,
+	"./ms-my": 621,
+	"./ms-my.js": 621,
+	"./ms.js": 620,
+	"./mt": 622,
+	"./mt.js": 622,
+	"./my": 623,
+	"./my.js": 623,
+	"./nb": 624,
+	"./nb.js": 624,
+	"./ne": 625,
+	"./ne.js": 625,
+	"./nl": 626,
+	"./nl-be": 627,
+	"./nl-be.js": 627,
+	"./nl.js": 626,
+	"./nn": 628,
+	"./nn.js": 628,
+	"./pa-in": 629,
+	"./pa-in.js": 629,
+	"./pl": 630,
+	"./pl.js": 630,
+	"./pt": 631,
+	"./pt-br": 632,
+	"./pt-br.js": 632,
+	"./pt.js": 631,
+	"./ro": 633,
+	"./ro.js": 633,
+	"./ru": 634,
+	"./ru.js": 634,
+	"./sd": 635,
+	"./sd.js": 635,
+	"./se": 636,
+	"./se.js": 636,
+	"./si": 637,
+	"./si.js": 637,
+	"./sk": 638,
+	"./sk.js": 638,
+	"./sl": 639,
+	"./sl.js": 639,
+	"./sq": 640,
+	"./sq.js": 640,
+	"./sr": 641,
+	"./sr-cyrl": 642,
+	"./sr-cyrl.js": 642,
+	"./sr.js": 641,
+	"./ss": 643,
+	"./ss.js": 643,
+	"./sv": 644,
+	"./sv.js": 644,
+	"./sw": 645,
+	"./sw.js": 645,
+	"./ta": 646,
+	"./ta.js": 646,
+	"./te": 647,
+	"./te.js": 647,
+	"./tet": 648,
+	"./tet.js": 648,
+	"./tg": 649,
+	"./tg.js": 649,
+	"./th": 650,
+	"./th.js": 650,
+	"./tl-ph": 651,
+	"./tl-ph.js": 651,
+	"./tlh": 652,
+	"./tlh.js": 652,
+	"./tr": 653,
+	"./tr.js": 653,
+	"./tzl": 654,
+	"./tzl.js": 654,
+	"./tzm": 655,
+	"./tzm-latn": 656,
+	"./tzm-latn.js": 656,
+	"./tzm.js": 655,
+	"./ug-cn": 657,
+	"./ug-cn.js": 657,
+	"./uk": 658,
+	"./uk.js": 658,
+	"./ur": 659,
+	"./ur.js": 659,
+	"./uz": 660,
+	"./uz-latn": 661,
+	"./uz-latn.js": 661,
+	"./uz.js": 660,
+	"./vi": 662,
+	"./vi.js": 662,
+	"./x-pseudo": 663,
+	"./x-pseudo.js": 663,
+	"./yo": 664,
+	"./yo.js": 664,
+	"./zh-cn": 665,
+	"./zh-cn.js": 665,
+	"./zh-hk": 666,
+	"./zh-hk.js": 666,
+	"./zh-tw": 667,
+	"./zh-tw.js": 667
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 978;
+
+/***/ }),
+
+/***/ 981:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocaleApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enums_ionic_platform_enum__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(545);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(668);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_view_controller_service__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(34);
@@ -3254,7 +3537,7 @@ var LocaleApp = (function () {
 
 /***/ }),
 
-/***/ 981:
+/***/ 982:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3263,20 +3546,20 @@ var LocaleApp = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types_location_type__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_swing__ = __webpack_require__(546);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_swing__ = __webpack_require__(669);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular2_swing___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_angular2_swing__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__ = __webpack_require__(553);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__ = __webpack_require__(676);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__ = __webpack_require__(677);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__user_profile_user_profile_component__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_toast_service__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(555);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__ = __webpack_require__(678);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__more_card_info_more_card_info_component__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_underscore__ = __webpack_require__(992);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_underscore__ = __webpack_require__(993);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_underscore__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_Moment__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_Moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_Moment__);
@@ -3553,7 +3836,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-toolbar style="min-height: 56px;">\n        <ion-buttons start>\n            <button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n                <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>\n        <ion-buttons end>\n            <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n                <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n            </button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<div class="loading-div">\n    <ion-spinner></ion-spinner>\n    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig " (throwoutleft)="voteUp(false) " (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n    id="card-stack" [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index; " [style.zIndex]="-1*i" [ngStyle]="{ \'transition\': transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <img (click)="clickNo()" class="x-image" src="assets/images/x-chalk.png" />\n    <img (click)="clickLike()" class="heat-image" src="assets/images/heart-chalk.png" />\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-header class="nav-round">\n    <ion-toolbar style="min-height: 56px;">\n        <ion-buttons start>\n            <button (click)="openProfile()" class="button-top-left" ion-button icon-only>\n                <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>\n        <ion-buttons end>\n            <button (click)="openDealTypePopover($event)" class="button-top" ion-button icon-only>\n                <ion-icon ios="md-funnel" md="md-funnel"></ion-icon>\n            </button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<div class="loading-div">\n    <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n</div>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n    id="card-stack" [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\':transitionString}">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<div class="bottom-row">\n    <img (click)="clickNo()" class="x-image" src="assets/images/x-chalk.png" />\n    <img (click)="clickLike()" class="heat-image" src="assets/images/heart-chalk.png" />\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
@@ -3566,275 +3849,6 @@ var ConsumerComponent = (function () {
 }());
 
 //# sourceMappingURL=consumer.component.js.map
-
-/***/ }),
-
-/***/ 993:
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./af": 556,
-	"./af.js": 556,
-	"./ar": 557,
-	"./ar-dz": 558,
-	"./ar-dz.js": 558,
-	"./ar-kw": 559,
-	"./ar-kw.js": 559,
-	"./ar-ly": 560,
-	"./ar-ly.js": 560,
-	"./ar-ma": 561,
-	"./ar-ma.js": 561,
-	"./ar-sa": 562,
-	"./ar-sa.js": 562,
-	"./ar-tn": 563,
-	"./ar-tn.js": 563,
-	"./ar.js": 557,
-	"./az": 564,
-	"./az.js": 564,
-	"./be": 565,
-	"./be.js": 565,
-	"./bg": 566,
-	"./bg.js": 566,
-	"./bm": 567,
-	"./bm.js": 567,
-	"./bn": 568,
-	"./bn.js": 568,
-	"./bo": 569,
-	"./bo.js": 569,
-	"./br": 570,
-	"./br.js": 570,
-	"./bs": 571,
-	"./bs.js": 571,
-	"./ca": 572,
-	"./ca.js": 572,
-	"./cs": 573,
-	"./cs.js": 573,
-	"./cv": 574,
-	"./cv.js": 574,
-	"./cy": 575,
-	"./cy.js": 575,
-	"./da": 576,
-	"./da.js": 576,
-	"./de": 577,
-	"./de-at": 578,
-	"./de-at.js": 578,
-	"./de-ch": 579,
-	"./de-ch.js": 579,
-	"./de.js": 577,
-	"./dv": 580,
-	"./dv.js": 580,
-	"./el": 581,
-	"./el.js": 581,
-	"./en-au": 582,
-	"./en-au.js": 582,
-	"./en-ca": 583,
-	"./en-ca.js": 583,
-	"./en-gb": 584,
-	"./en-gb.js": 584,
-	"./en-ie": 585,
-	"./en-ie.js": 585,
-	"./en-il": 586,
-	"./en-il.js": 586,
-	"./en-nz": 587,
-	"./en-nz.js": 587,
-	"./eo": 588,
-	"./eo.js": 588,
-	"./es": 589,
-	"./es-do": 590,
-	"./es-do.js": 590,
-	"./es-us": 591,
-	"./es-us.js": 591,
-	"./es.js": 589,
-	"./et": 592,
-	"./et.js": 592,
-	"./eu": 593,
-	"./eu.js": 593,
-	"./fa": 594,
-	"./fa.js": 594,
-	"./fi": 595,
-	"./fi.js": 595,
-	"./fo": 596,
-	"./fo.js": 596,
-	"./fr": 597,
-	"./fr-ca": 598,
-	"./fr-ca.js": 598,
-	"./fr-ch": 599,
-	"./fr-ch.js": 599,
-	"./fr.js": 597,
-	"./fy": 600,
-	"./fy.js": 600,
-	"./gd": 601,
-	"./gd.js": 601,
-	"./gl": 602,
-	"./gl.js": 602,
-	"./gom-latn": 603,
-	"./gom-latn.js": 603,
-	"./gu": 604,
-	"./gu.js": 604,
-	"./he": 605,
-	"./he.js": 605,
-	"./hi": 606,
-	"./hi.js": 606,
-	"./hr": 607,
-	"./hr.js": 607,
-	"./hu": 608,
-	"./hu.js": 608,
-	"./hy-am": 609,
-	"./hy-am.js": 609,
-	"./id": 610,
-	"./id.js": 610,
-	"./is": 611,
-	"./is.js": 611,
-	"./it": 612,
-	"./it.js": 612,
-	"./ja": 613,
-	"./ja.js": 613,
-	"./jv": 614,
-	"./jv.js": 614,
-	"./ka": 615,
-	"./ka.js": 615,
-	"./kk": 616,
-	"./kk.js": 616,
-	"./km": 617,
-	"./km.js": 617,
-	"./kn": 618,
-	"./kn.js": 618,
-	"./ko": 619,
-	"./ko.js": 619,
-	"./ky": 620,
-	"./ky.js": 620,
-	"./lb": 621,
-	"./lb.js": 621,
-	"./lo": 622,
-	"./lo.js": 622,
-	"./lt": 623,
-	"./lt.js": 623,
-	"./lv": 624,
-	"./lv.js": 624,
-	"./me": 625,
-	"./me.js": 625,
-	"./mi": 626,
-	"./mi.js": 626,
-	"./mk": 627,
-	"./mk.js": 627,
-	"./ml": 628,
-	"./ml.js": 628,
-	"./mn": 629,
-	"./mn.js": 629,
-	"./mr": 630,
-	"./mr.js": 630,
-	"./ms": 631,
-	"./ms-my": 632,
-	"./ms-my.js": 632,
-	"./ms.js": 631,
-	"./mt": 633,
-	"./mt.js": 633,
-	"./my": 634,
-	"./my.js": 634,
-	"./nb": 635,
-	"./nb.js": 635,
-	"./ne": 636,
-	"./ne.js": 636,
-	"./nl": 637,
-	"./nl-be": 638,
-	"./nl-be.js": 638,
-	"./nl.js": 637,
-	"./nn": 639,
-	"./nn.js": 639,
-	"./pa-in": 640,
-	"./pa-in.js": 640,
-	"./pl": 641,
-	"./pl.js": 641,
-	"./pt": 642,
-	"./pt-br": 643,
-	"./pt-br.js": 643,
-	"./pt.js": 642,
-	"./ro": 644,
-	"./ro.js": 644,
-	"./ru": 645,
-	"./ru.js": 645,
-	"./sd": 646,
-	"./sd.js": 646,
-	"./se": 647,
-	"./se.js": 647,
-	"./si": 648,
-	"./si.js": 648,
-	"./sk": 649,
-	"./sk.js": 649,
-	"./sl": 650,
-	"./sl.js": 650,
-	"./sq": 651,
-	"./sq.js": 651,
-	"./sr": 652,
-	"./sr-cyrl": 653,
-	"./sr-cyrl.js": 653,
-	"./sr.js": 652,
-	"./ss": 654,
-	"./ss.js": 654,
-	"./sv": 655,
-	"./sv.js": 655,
-	"./sw": 656,
-	"./sw.js": 656,
-	"./ta": 657,
-	"./ta.js": 657,
-	"./te": 658,
-	"./te.js": 658,
-	"./tet": 659,
-	"./tet.js": 659,
-	"./tg": 660,
-	"./tg.js": 660,
-	"./th": 661,
-	"./th.js": 661,
-	"./tl-ph": 662,
-	"./tl-ph.js": 662,
-	"./tlh": 663,
-	"./tlh.js": 663,
-	"./tr": 664,
-	"./tr.js": 664,
-	"./tzl": 665,
-	"./tzl.js": 665,
-	"./tzm": 666,
-	"./tzm-latn": 667,
-	"./tzm-latn.js": 667,
-	"./tzm.js": 666,
-	"./ug-cn": 668,
-	"./ug-cn.js": 668,
-	"./uk": 669,
-	"./uk.js": 669,
-	"./ur": 670,
-	"./ur.js": 670,
-	"./uz": 671,
-	"./uz-latn": 672,
-	"./uz-latn.js": 672,
-	"./uz.js": 671,
-	"./vi": 673,
-	"./vi.js": 673,
-	"./x-pseudo": 674,
-	"./x-pseudo.js": 674,
-	"./yo": 675,
-	"./yo.js": 675,
-	"./zh-cn": 676,
-	"./zh-cn.js": 676,
-	"./zh-hk": 677,
-	"./zh-hk.js": 677,
-	"./zh-tw": 678,
-	"./zh-tw.js": 678
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 993;
 
 /***/ })
 

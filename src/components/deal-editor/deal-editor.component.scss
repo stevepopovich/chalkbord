@@ -1,7 +1,6 @@
 .button-group {
-    display: block;
-    margin: 0 auto;
-    width: 50%;
+    width: 100%;
+    margin-bottom: 1em;
 }
 
 .default-class {
@@ -38,4 +37,10 @@ ion-spinner {
     width: 28px;
     height: 28px;
     margin: 0;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
