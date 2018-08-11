@@ -44,8 +44,12 @@
             </ion-card-content>
         </ion-card>
 
-        <button class="welcome-button" ion-button outline (click)="loginHandler()">
+        <button class="welcome-button" ion-button (click)="loginHandler()">
             login
+        </button>
+        <div class="or-text">or</div>
+        <button ion-button round class="welcome-button facebook-button" (click)="facebookLogin()">
+            <ion-icon class="facebook-icon" name="logo-facebook"></ion-icon>facebook
         </button>
 
         <button class="welcome-button" ion-button outline (click)="resetPassword()">
@@ -63,7 +67,7 @@
                 </ion-col>
             </ion-row>
             <ion-row style="height: 33%">
-                <ion-col class="center-content locale-or-text">
+                <ion-col class="center-content or-text">
                     or
                 </ion-col>
             </ion-row>
@@ -112,6 +116,10 @@
         </ion-card>
         <button ion-button class="welcome-button" (click)="signUpUser()">
             sign up
+        </button>
+        <div class="or-text">or</div>
+        <button ion-button round class="welcome-button facebook-button" (click)="facebookSignUp()">
+            <ion-icon class="facebook-icon" name="logo-facebook"></ion-icon>facebook
         </button>
     </div>
 

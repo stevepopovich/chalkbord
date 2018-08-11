@@ -15,6 +15,10 @@
     <allow-navigation href="tel:*" />
     <allow-navigation href="mailto:*" />
     <platform name="android">
+        <config-file parent="/resources" target="./res/values/strings.xml">
+            <string name="fb_app_id">296790334414922</string>
+            <string name="fb_app_name">Chalkbord</string>
+        </config-file>
     </platform>
     <platform name="ios">
     </platform>
@@ -49,7 +53,12 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
-    <engine name="browser" spec="5.0.3" />
     <engine name="ios" spec="4.5.4" />
-    <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-facebook4" spec="^2.2.0">
+        <variable name="APP_ID" value="296790334414922" />
+        <variable name="APP_NAME" value="Chalkbord" />
+        <variable name="ANDROID_SDK_VERSION" value="4.+" />
+    </plugin>
+    <engine name="android" spec="~7.0.0" />
+    <engine name="browser" spec="~5.0.3" />
 </widget>

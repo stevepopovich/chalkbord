@@ -12,6 +12,15 @@
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>
+    <feature name="FacebookConnectPlugin">
+        <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
     <feature name="Geolocation">
         <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
     </feature>
@@ -59,11 +68,15 @@
     <allow-navigation href="http://192.168.1.94:8100" />
     <allow-navigation href="http://10.10.10.113:8100" />
     <allow-navigation href="http://10.10.10.107:8100" />
+    <config-file parent="/resources" target="./res/values/strings.xml">
+        <string name="fb_app_id">296790334414922</string>
+        <string name="fb_app_name">Chalkbord</string>
+    </config-file>
     <preference name="loglevel" value="DEBUG" />
+    <preference name="android-minSdkVersion" value="16" />
     <preference name="orientation" value="portrait" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="StatusBarStyle" value="default" />
-    <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />

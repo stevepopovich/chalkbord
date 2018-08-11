@@ -11,6 +11,7 @@ import { Organization } from '../../types/organization.type';
 import { RememberMeService } from '../../services/remember-me.service';
 import { LoginService } from '../../services/login.service';
 import { LocaleLocation } from '../../types/location.type';
+import { Facebook } from '@ionic-native/facebook';
 
 export class OrganizationSignupComponent {
 
@@ -22,7 +23,7 @@ export class OrganizationSignupComponent {
         public currentUserService: CurrentUserService, public userService: UserService,
         public formBuilder: FormBuilder, public auth: AuthorizationService,
         public organizationService: OrganizationService, public loginService: LoginService,
-        public rememberMeService: RememberMeService) {
+        public rememberMeService: RememberMeService, public facebook: Facebook) {
         this.signUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],

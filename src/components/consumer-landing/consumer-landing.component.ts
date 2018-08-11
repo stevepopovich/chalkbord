@@ -11,6 +11,7 @@ import { LocaleUser, UserType } from '../../types/user.type';
 import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { OrganizationService } from '../../services/firebase/firestore-collection/organization-service';
+import { Facebook } from '@ionic-native/facebook';
 
 @Component({
     templateUrl: './consumer-landing.component.html',
@@ -36,9 +37,9 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     public constructor(formBuilder: FormBuilder, auth: AuthorizationService,
         rememberMeService: RememberMeService, alert: AlertController, organizationService: OrganizationService,
         toastService: ToastService, currentUserService: CurrentUserService,
-        userService: UserService, loginService: LoginService) {
+        userService: UserService, loginService: LoginService, facebook: Facebook) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook);
 
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -54,6 +55,36 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     public ngAfterViewInit(): void {
         this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
         this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
+    }
+
+    public async facebookSignUp(): Promise<void> {
+        const response = await this.facebook.login(['email']);
+
+        if (response.status === "connected") {
+            const userInfo = await this.facebook.api("/me?fields=first_name,email", []);
+
+            this.userSignUpGroup.get("email").setValue(userInfo.email);
+            this.userSignUpGroup.get("password").setValue(userInfo.id);
+            this.userSignUpGroup.get("confirmPassword").setValue(userInfo.id);
+            this.userSignUpGroup.get("name").setValue(userInfo.first_name);
+
+            this.userSignUpGroup.get("rememberMe").setValue(true);
+
+            this.signUpUser();
+        }
+    }
+
+    public async facebookLogin(): Promise<void> {
+        const response = await this.facebook.login(['email']);
+
+        if (response.status === "connected") {
+            const userInfo = await this.facebook.api("/me?fields=first_name,email", []);
+
+            this.userLogInGroup.get("email").setValue(userInfo.email);
+            this.userLogInGroup.get("password").setValue(userInfo.id);
+
+            this.loginService.login(this.userLogInGroup);
+        }
     }
 
     public signUpUser(): void {
@@ -155,6 +186,8 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
 
     /**
      * Ugly css animations
+     * 
+     * This can be seriously improved but works fine
      */
     public goBackAScreen(): void {
         if (this.userTypeChoiceFields.nativeElement.style['left'] == "0%") {

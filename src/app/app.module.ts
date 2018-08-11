@@ -45,6 +45,7 @@ import { RememberMeService } from '../services/remember-me.service';
 import { CardDataService } from '../services/firebase/firestore-collection/card-data.service';
 import { UserService } from '../services/firebase/firestore-collection/user.service';
 import { ConsumerCardList } from '../components/consumer-card-list/consumer-card-list.component';
+import { Facebook } from '@ionic-native/facebook';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -139,6 +140,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     LoginService,
     RememberMeService,
     InAppBrowser,
+    Facebook
   ]
 })
 export class AppModule { }

@@ -22,11 +22,13 @@
     margin-top: .5em;
     margin-bottom: .5em;
     font-size: 2.1em;
+    font-family: Baumans;
 }
 
 .or-text{
     text-align: center;
-    font-size: 2em
+    font-size: 2em;
+    font-family: Baumans;
 }
 
 .button-area{
@@ -74,12 +76,14 @@
     margin-bottom: -75%;
     width: 80%;
     z-index: 9999;
+    font-family: Baumans;
 }
 
 .restaurant-type-button {
     margin-top: -75%; 
     width: 80%;
     z-index: 9999;
+    font-family: Baumans;
 }
 
 .center-content {
@@ -88,7 +92,12 @@
     justify-content: center;
 }
 
-.locale-or-text {
-    font-size: 2em;
-    font-family: baumans;
+.facebook-button {
+    background-color: #3B5998;
+    color: white;
+}
+
+.facebook-icon {
+    margin-right: 0.25em;
+    margin-bottom: 0.06em;
 }

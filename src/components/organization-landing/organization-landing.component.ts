@@ -11,6 +11,7 @@ import { AlertController } from 'ionic-angular';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { AuthorizationService } from '../../services/firebase/authorization.service';
 import { OrganizationSignupComponent } from '../organization-signup/organization-signup.component';
+import { Facebook } from '@ionic-native/facebook';
 
 @Component({
     templateUrl: './organization-landing.component.html',
@@ -29,9 +30,9 @@ export class OrganizationLandingComponent extends OrganizationSignupComponent {
         toastService: ToastService, alert: AlertController,
         currentUserService: CurrentUserService, userService: UserService,
         auth: AuthorizationService,
-        organizationService: OrganizationService) {
+        organizationService: OrganizationService, facebook: Facebook) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook);
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
         this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);

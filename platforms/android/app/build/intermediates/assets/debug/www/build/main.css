@@ -39971,6 +39971,43 @@ ion-navbar.toolbar {
   max-height: 450px;
 }
 
+.card-text {
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 18px;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(24%, white), to(white));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 24%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  /* IE6-9 */
+}
+
+.locale-card-title {
+  color: white;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  text-align: center;
+  font-family: Baumans;
+  font-size: 36px;
+}
+
+.locale-card-time {
+  color: white !important;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  font-style: italic;
+}
+
+p {
+  margin: 0;
+}
+
 .title-big
 .toolbar-title-md
 .toolbar-title-ios {
@@ -40032,6 +40069,7 @@ ion-navbar.toolbar {
   text-align: center;
   font-family: Baumans;
   font-size: 36px;
+  padding: 0;
 }
 
 .locale-card-time {
@@ -40127,7 +40165,7 @@ ion-navbar.toolbar {
   background-image: url("../assets/images/good-chalkboard.jpg");
 }
 
-ion-spinner {
+.ion-spinner-consumer {
   position: relative;
   display: inline-block;
   height: 90px;
@@ -40178,11 +40216,13 @@ ion-spinner {
   margin-top: .5em;
   margin-bottom: .5em;
   font-size: 2.1em;
+  font-family: Baumans;
 }
 
 .or-text {
   text-align: center;
   font-size: 2em;
+  font-family: Baumans;
 }
 
 .button-area {
@@ -40232,12 +40272,14 @@ ion-spinner {
   margin-bottom: -75%;
   width: 80%;
   z-index: 9999;
+  font-family: Baumans;
 }
 
 .restaurant-type-button {
   margin-top: -75%;
   width: 80%;
   z-index: 9999;
+  font-family: Baumans;
 }
 
 .center-content {
@@ -40255,15 +40297,19 @@ ion-spinner {
   justify-content: center;
 }
 
-.locale-or-text {
-  font-size: 2em;
-  font-family: baumans;
+.facebook-button {
+  background-color: #3B5998;
+  color: white;
+}
+
+.facebook-icon {
+  margin-right: 0.25em;
+  margin-bottom: 0.06em;
 }
 
 .button-group {
-  display: block;
-  margin: 0 auto;
-  width: 50%;
+  width: 100%;
+  margin-bottom: 1em;
 }
 
 .default-class {
@@ -40301,6 +40347,21 @@ ion-spinner {
   width: 28px;
   height: 28px;
   margin: 0;
+}
+
+.center-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .nav-round {
@@ -40366,6 +40427,13 @@ ion-spinner {
   z-index: 10;
   font-size: 1.5em;
   height: 5%;
+}
+
+.no-cards-text {
+  margin-left: 1em;
+  margin-right: 1em;
+  font-family: Baumans;
+  font-size: 18px;
 }
 
 .rest-landing-home-photo {

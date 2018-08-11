@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		02D3E5A65EC845A8822C0A26 /* GCDWebServerURLEncodedFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EC0A4ACF554FAAADC9B7C0 /* GCDWebServerURLEncodedFormRequest.m */; };
@@ -59,6 +58,11 @@
 		EB10DE3863894CB8978313AF /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D32420C6DB1D4B9E9E291146 /* CDVDevice.m */; };
 		F2192E0621394508853DB9D7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780BE987183F4D26B8A6E0A9 /* CoreLocation.framework */; };
 		F7023F1D6D964975BF199A0D /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5860478ACB78417AAADA1B39 /* CDVSplashScreen.m */; };
+		8CBD1E5076714434800216E0 /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E37F8A05D0436396CD40E3 /* FacebookConnectPlugin.m */; };
+		32DE08EF68CE40D2B9A6F0CB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DD69B91F8C47E38DCBDBAF /* Bolts.framework */; };
+		9F01A80563D846D1839D6A56 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F5E7C166484348819421DC /* FBSDKCoreKit.framework */; };
+		EF31EBFC89DC47CDBC41BF15 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA362F72E8C4FEAB91251B3 /* FBSDKLoginKit.framework */; };
+		83B2CAE6C12E48BDA821A436 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1357E19ECFE44C368DC0264F /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +193,12 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Chalkbord/config.xml; sourceTree = "<group>"; };
 		F9E753FECA5C4B218D250983 /* GCDWebServerFileResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerFileResponse.m; path = "cordova-plugin-ionic-webview/GCDWebServerFileResponse.m"; sourceTree = "<group>"; };
 		FAAD4C09F3AF4196B1769203 /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerDataResponse.m; path = "cordova-plugin-ionic-webview/GCDWebServerDataResponse.m"; sourceTree = "<group>"; };
+		E6E37F8A05D0436396CD40E3 /* FacebookConnectPlugin.m */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.m"; path = "cordova-plugin-facebook4/FacebookConnectPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		8B610FFFD4734271B32E61B8 /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.h"; path = "cordova-plugin-facebook4/FacebookConnectPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		66DD69B91F8C47E38DCBDBAF /* Bolts.framework */ = {isa = PBXFileReference; name = "Bolts.framework"; path = "Chalkbord/Plugins/cordova-plugin-facebook4/Bolts.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		57F5E7C166484348819421DC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; name = "FBSDKCoreKit.framework"; path = "Chalkbord/Plugins/cordova-plugin-facebook4/FBSDKCoreKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		EEA362F72E8C4FEAB91251B3 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; name = "FBSDKLoginKit.framework"; path = "Chalkbord/Plugins/cordova-plugin-facebook4/FBSDKLoginKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		1357E19ECFE44C368DC0264F /* FBSDKShareKit.framework */ = {isa = PBXFileReference; name = "FBSDKShareKit.framework"; path = "Chalkbord/Plugins/cordova-plugin-facebook4/FBSDKShareKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +216,10 @@
 				C8066813E64C4D84B988F75D /* Security.framework in Frameworks */,
 				825747F829EF49C188874CEF /* MapKit.framework in Frameworks */,
 				D7D2ACE195FF420BAD9D6766 /* SystemConfiguration.framework in Frameworks */,
+				32DE08EF68CE40D2B9A6F0CB /* Bolts.framework in Frameworks */,
+				9F01A80563D846D1839D6A56 /* FBSDKCoreKit.framework in Frameworks */,
+				EF31EBFC89DC47CDBC41BF15 /* FBSDKLoginKit.framework in Frameworks */,
+				83B2CAE6C12E48BDA821A436 /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +300,10 @@
 				C98F39D7DAE14E048EA9FB01 /* Security.framework */,
 				0FB3427B2EB94E428AD4A57B /* MapKit.framework */,
 				2588544BD733435CB7A10B21 /* SystemConfiguration.framework */,
+				66DD69B91F8C47E38DCBDBAF /* Bolts.framework */,
+				57F5E7C166484348819421DC /* FBSDKCoreKit.framework */,
+				EEA362F72E8C4FEAB91251B3 /* FBSDKLoginKit.framework */,
+				1357E19ECFE44C368DC0264F /* FBSDKShareKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -385,6 +403,8 @@
 				6AA43B6920BC4E6FA9006F1F /* LN_Reachability.m */,
 				AA803613246144469159E130 /* LaunchNavigator.h */,
 				1ADF8335C0324572958AE532 /* LN_Reachability.h */,
+				E6E37F8A05D0436396CD40E3 /* FacebookConnectPlugin.m */,
+				8B610FFFD4734271B32E61B8 /* FacebookConnectPlugin.h */,
 			);
 			name = Plugins;
 			path = Chalkbord/Plugins;
@@ -549,6 +569,7 @@
 				63297A11C9A944B4A0D0714A /* sqlite3.c in Sources */,
 				641C58B4009C4C1082F1B4FC /* LaunchNavigator.m in Sources */,
 				0491EF69A9834D60AE133C18 /* LN_Reachability.m in Sources */,
+				8CBD1E5076714434800216E0 /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +609,13 @@
 				PRODUCT_NAME = Chalkbord;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+				);
 			};
 			name = Debug;
 		};
@@ -614,6 +642,13 @@
 				PRODUCT_NAME = Chalkbord;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+					"\"Chalkbord/Plugins/cordova-plugin-facebook4\"",
+				);
 			};
 			name = Release;
 		};
