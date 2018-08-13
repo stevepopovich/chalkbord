@@ -21,7 +21,7 @@ export class OrganizationDealListComponent {
     public constructor(private dealEditorService: DealEditorService, private cardService: CardDataService,
         private modalCtrl: ModalController, private currentUserService: CurrentUserService) {
 
-        this.currentUserService.getCards().subscribe((deals: LocaleCard[]) => {
+        this.currentUserService.getNotDeletedCards().subscribe((deals: LocaleCard[]) => {
             LocaleCard.findAndUpdateCards(deals, this.cardList);
         });
 

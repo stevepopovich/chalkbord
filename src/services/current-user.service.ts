@@ -22,8 +22,12 @@ export class CurrentUserService {
         return Object.assign({}, this.currentUser) as LocaleUser;
     }
 
-    public getCards(): Observable<LocaleCard[]> {
-        return this.cardService.getMutli(this.currentUser.cardIds);
+    public getNotDeletedCards(): Observable<LocaleCard[]> {
+        return this.cardService.getMulti(this.currentUser.cardIds, false);
+    }
+
+    public getAllCards(): Observable<LocaleCard[]> {
+        return this.cardService.getMulti(this.currentUser.cardIds, true);
     }
 
     public hasCurrentUser(): boolean {

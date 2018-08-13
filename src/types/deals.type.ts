@@ -17,6 +17,8 @@ export class LocaleCard {
         public dealType: DealType,
         public isVegetarian: boolean,
         public isVegan: boolean,
+
+        public deleted: boolean,
         obj?: any) { // This obj is used for easily building a card
         this.id = Guid.newGuid();
 
@@ -31,6 +33,7 @@ export class LocaleCard {
             this.isVegetarian = obj.isVegetarian;
             this.isVegan = obj.isVegan;
             this.dealType = obj.dealType;
+            this.deleted = obj.deleted;
         }
     }
 
@@ -41,7 +44,7 @@ export class LocaleCard {
     }
 
     public static getBlankCard(): LocaleCard {
-        const blankCard = new LocaleCard(null, null, moment().toObject(), moment().toObject(), -1, DealType.Drinks, false, false, null);
+        const blankCard = new LocaleCard(null, null, moment().toObject(), moment().toObject(), -1, DealType.Drinks, false, false, false, null);
         blankCard.organization = new Organization("", "", "", "", new LocaleLocation());
         return blankCard;
     }

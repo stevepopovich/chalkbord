@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { LocaleLocation } from '../../../types/location.type';
 import { Guid } from '../../../types/utils.type';
+import _ from 'underscore';
 
 @Injectable()
 export class CardDataService {
@@ -21,14 +22,16 @@ export class CardDataService {
         return this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges();
     }
 
-    public getMutli(ids: Guid[]): Observable<LocaleCard[]> {
+    public getMulti(ids: Guid[], getDeleted: boolean): Observable<LocaleCard[]> {
         if (ids && ids.length > 0) {
             const observables: Observable<LocaleCard[]>[] = [];
 
             for (let id of ids) {
-                observables.push(this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges());
+                if (getDeleted)
+                    observables.push(this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges());
+                else
+                    observables.push(this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id).where("deleted", "==", false)).valueChanges());
             }
-
             const allCardsObservableMerged: Observable<LocaleCard[]> = Observable.merge(...observables);//so if you just pass it an array
             //you get an Observable<Observable<>> but if you add ... it passes each observable seperately giving a single observable out
             return allCardsObservableMerged;
@@ -44,7 +47,12 @@ export class CardDataService {
     }
 
     public set(model: LocaleCard): Promise<void> {
-        const assignedCard = Object.assign({}, model.getAsPlainObject());
+        let assignedCard;
+        if (model.getAsPlainObject)
+            assignedCard = Object.assign({}, model.getAsPlainObject());
+        else
+            assignedCard = Object.assign({}, model);
+
         delete (assignedCard.imageURL);
 
         return this.cardDoc.doc(model.id).set(assignedCard);
@@ -76,10 +84,14 @@ export class CardDataService {
 
         //get two different deal chains because firebase can't .where across different properties in a collection
         var latDeals = this.database.collection<LocaleCard>("cards", ref => ref.where("organization.location.lat", "<=", (location.lat + latitudeRadiusLength))
-            .where("organization.location.lat", ">=", (location.lat - latitudeRadiusLength))).valueChanges();
+            .where("organization.location.lat", ">=", (location.lat - latitudeRadiusLength))
+            .where("deleted", "==", false))
+            .valueChanges();
 
         var lngDeals = this.database.collection<LocaleCard>("cards", ref => ref.where("organization.location.lng", "<=", (location.lng + changeInLng))
-            .where("organization.location.lng", ">=", (location.lng - changeInLng))).valueChanges();
+            .where("organization.location.lng", ">=", (location.lng - changeInLng))
+            .where("deleted", "==", false))
+            .valueChanges();
 
         return Observable.merge(latDeals, lngDeals);
     }
@@ -94,5 +106,15 @@ export class CardDataService {
         }
 
         return filteredDeals;
+    }
+
+    // Firebase helper commands that are not meant to be called in normal production
+    public setAllCardsToNotDeleted(): void {
+        this.cardDoc.valueChanges().subscribe((cards: LocaleCard[]) => {
+            _.map(cards, (card) => {
+                card.deleted = false;
+                this.set(card);
+            });
+        });
     }
 }

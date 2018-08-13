@@ -106,8 +106,10 @@ export class DealEditorComponent {
         this.fileReader.readAsDataURL(this.imageDataForUploadDesktop);
     }
 
-    public delete() {//maybe kill photo
-        this.cardService.delete(this.dealEditorService.currentDealBeingEdited.id);
+    public delete() {//maybe kill photo TODO
+        this.dealEditorService.currentDealBeingEdited.deleted = true;
+        this.cardService.set(this.dealEditorService.currentDealBeingEdited);
+        //this.cardService.delete(this.dealEditorService.currentDealBeingEdited.id);
         this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
@@ -297,7 +299,8 @@ export class DealEditorComponent {
                 -1,//no deal limit
                 this.dealEditorFormGroup.get("dealType").value,
                 this.dealEditorFormGroup.get("isVegetarian").value,
-                this.dealEditorFormGroup.get("isVegan").value);
+                this.dealEditorFormGroup.get("isVegan").value,
+                false);
 
             deal.organization = this.currentOrganization;
         } else {
@@ -308,7 +311,8 @@ export class DealEditorComponent {
                 this.dealEditorFormGroup.get("numberOfDeals").value,
                 this.dealEditorFormGroup.get("dealType").value,
                 this.dealEditorFormGroup.get("isVegetarian").value,
-                this.dealEditorFormGroup.get("isVegan").value);
+                this.dealEditorFormGroup.get("isVegan").value,
+                false);
 
             deal.organization = this.currentOrganization;
         }

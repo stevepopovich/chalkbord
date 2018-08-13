@@ -2,9 +2,10 @@ import { CurrentUserService } from './../../services/current-user.service';
 import { Component, Input } from "@angular/core";
 import { ToastService } from "../../services/toast.service";
 import { DeviceService } from "../../services/device.service";
-import { ViewController } from "ionic-angular";
+import { ViewController, Platform } from "ionic-angular";
 import { ViewControllerService } from '../../services/view-controller.service';
 import { LoginKeys } from '../../services/login-keys.service';
+import { IonicPlatform } from '../../enums/ionic-platform.enum';
 
 @Component({
     templateUrl: './modal-navbar.component.html',
@@ -17,7 +18,7 @@ export class ModalNavbarComponent {
 
     constructor(private toastService: ToastService, private ionicViewController: ViewController,
         private deviceService: DeviceService, private viewControllerService: ViewControllerService,
-        private currentUserService: CurrentUserService) {
+        private currentUserService: CurrentUserService, private platform: Platform) {
     }
 
     public logout() {
@@ -30,12 +31,18 @@ export class ModalNavbarComponent {
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeRestKey, false);
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
-                    this.viewControllerService.setBrowserHome();
+                    if (this.platform.is(IonicPlatform.Core))
+                        this.viewControllerService.setBrowserHome();
+                    else
+                        this.viewControllerService.setSignUpView();
                 } else {
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
                     this.deviceService.putBooleanSetting(LoginKeys.rememberMeUserKey, false);
 
-                    this.viewControllerService.setSignUpView();
+                    if (this.platform.is(IonicPlatform.Core))
+                        this.viewControllerService.setBrowserHome();
+                    else
+                        this.viewControllerService.setSignUpView();
                 }
 
                 this.ionicViewController.dismiss();
