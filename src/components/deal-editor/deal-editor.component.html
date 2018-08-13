@@ -26,7 +26,7 @@
 
                         <ion-item>
                             <ion-label floating>Deal date</ion-label>
-                            <ion-datetime displayFormat="MMMM DD, YYYY" formControlName="dealDay"></ion-datetime>
+                            <ion-datetime displayFormat="MMMM DD, YYYY" min="{{now}}" max="{{max}}" formControlName="dealDay"></ion-datetime>
                         </ion-item>
                         <p *ngIf="dealEditorFormGroup.get('dealDay').errors && dealEditorFormGroup.get('dealDay').dirty" class="error-message">Deal date is required.</p>
 

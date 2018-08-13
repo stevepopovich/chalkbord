@@ -2,7 +2,6 @@ import { ToastService } from './../../services/toast.service';
 import { FormBuilderHelper } from './../../types/utils.type';
 import { Organization } from './../../types/organization.type';
 import { CurrentUserService } from './../../services/current-user.service';
-//import { PictureSourceType, CameraOptions } from '@ionic-native/camera';
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { LocaleCard } from "../../types/deals.type";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -46,6 +45,10 @@ export class DealEditorComponent {
     public previewCard: LocaleCard;
 
     public saving: boolean = false;
+
+    public now = moment().toISOString();
+
+    public max = moment().year(moment().year() + 4).toISOString();
 
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
@@ -109,7 +112,6 @@ export class DealEditorComponent {
     public delete() {//maybe kill photo TODO
         this.dealEditorService.currentDealBeingEdited.deleted = true;
         this.cardService.set(this.dealEditorService.currentDealBeingEdited);
-        //this.cardService.delete(this.dealEditorService.currentDealBeingEdited.id);
         this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.currentDealBeingEdited = null;
         this.dealEditorService.currentDealSubject.next();
@@ -123,53 +125,60 @@ export class DealEditorComponent {
         this.dealEditorFormGroup.updateValueAndValidity();
         if (this.imageDataForUploadDesktop) {
             if (this.dealEditorFormGroup.valid) {
-                const deal = this.getDealFromFields();
+                if (this.vaildateDealEnd()) {
+                    const deal = this.getDealFromFields();
 
-                deal.organization = this.currentOrganization;
+                    deal.organization = this.currentOrganization;
 
-                const loadingPopover = this.loadingController.create({
-                    content: 'Saving your deal...'
-                });
+                    const loadingPopover = this.loadingController.create({
+                        content: 'Saving your deal...'
+                    });
 
-                loadingPopover.present();
+                    loadingPopover.present();
 
-                Promise.all([this.cardService.set(deal),
-                this.currentUserService.addCardId(deal.id),
-                this.userService.set(this.currentUserService.getCurrentUser()),
-                this.uploader.uploadDealBlobPhoto(this.imageDataForUploadDesktop, deal.id, false)]).then(() => {
-                    this.cleanUpImageData();
-                    this.clearFields();
-                    //basically done; assuming the below promises resolve faster set state to saved
-                    this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
-                    loadingPopover.dismiss();
-                }).catch((error) => {
-                    this.toastService.showReadableToast("There was an error " + error);
-                });
+                    Promise.all([this.cardService.set(deal),
+                    this.currentUserService.addCardId(deal.id),
+                    this.userService.set(this.currentUserService.getCurrentUser()),
+                    this.uploader.uploadDealBlobPhoto(this.imageDataForUploadDesktop, deal.id, false)]).then(() => {
+                        this.cleanUpImageData();
+                        this.clearFields();
+                        //basically done; assuming the below promises resolve faster set state to saved
+                        this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
+                        loadingPopover.dismiss();
+                    }).catch((error) => {
+                        this.toastService.showReadableToast("There was an error " + error);
+                    });
+                } else
+                    this.toastService.showReadableToast("The deal end must be after the deal start");
+
             }
         } else if (this.imageDataForUploadMobile) {
             if (this.dealEditorFormGroup.valid) {
-                const deal = this.getDealFromFields();
+                if (this.vaildateDealEnd()) {
+                    const deal = this.getDealFromFields();
 
-                deal.organization = this.currentOrganization;
+                    deal.organization = this.currentOrganization;
 
-                const loadingPopover = this.loadingController.create({
-                    content: 'Saving your deal...'
-                });
+                    const loadingPopover = this.loadingController.create({
+                        content: 'Saving your deal...'
+                    });
 
-                loadingPopover.present();
+                    loadingPopover.present();
 
-                Promise.all([this.cardService.set(deal),
-                this.currentUserService.addCardId(deal.id),
-                this.userService.set(this.currentUserService.getCurrentUser()),
-                this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal.id, false)]).then(() => {
-                    this.cleanUpImageData();
-                    this.clearFields();
-                    //basically done; assuming the below promises resolve faster set state to saved
-                    this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
-                    loadingPopover.dismiss();
-                }).catch((error) => {
-                    this.toastService.showReadableToast("There was an error " + error);
-                });
+                    Promise.all([this.cardService.set(deal),
+                    this.currentUserService.addCardId(deal.id),
+                    this.userService.set(this.currentUserService.getCurrentUser()),
+                    this.uploader.uploadDealBase64Photo(this.imageDataForUploadMobile, deal.id, false)]).then(() => {
+                        this.cleanUpImageData();
+                        this.clearFields();
+                        //basically done; assuming the below promises resolve faster set state to saved
+                        this.dealEditorService.addDealSubject.next(deal);//add to list and make currents
+                        loadingPopover.dismiss();
+                    }).catch((error) => {
+                        this.toastService.showReadableToast("There was an error " + error);
+                    });
+                } else
+                    this.toastService.showReadableToast("The deal end must be after the deal start");
             }
         } else
             this.toastService.showReadableToast("Please add a photo for this deal!");
@@ -383,5 +392,21 @@ export class DealEditorComponent {
         this.imageDataForUploadDesktop = null;
         this.imageDataForUploadMobile = null;
         this.fileReader.abort();
+    }
+
+    private vaildateDealEnd(): boolean {
+        const dealStart = this.dealEditorFormGroup.get("dealStart").value;
+        const dealEndValue = this.dealEditorFormGroup.get("dealEnd").value;
+
+        if (dealStart && dealEndValue) {
+            const startDate = this.dealEditorFormGroup.get("dealDay").value;
+
+            const parsedDealStart = moment(startDate + " " + this.dealEditorFormGroup.get("dealStart").value);
+            const parsedDealEnd = moment(startDate + " " + this.dealEditorFormGroup.get("dealEnd").value);
+
+            return parsedDealStart.isBefore(parsedDealEnd);
+        }
+
+        return false;
     }
 }
