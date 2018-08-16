@@ -1,7 +1,7 @@
 {
-  "name": "Locale",
+  "name": "Chalkbord",
   "version": "0.0.0",
-  "description": "Locale",
+  "description": "Chalkbord",
   "license": "Apache-2.0",
   "scripts": {
     "build": "ionic-app-scripts build",
