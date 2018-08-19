@@ -1,15 +1,9 @@
-<ion-header class="nav-round">
-    <ion-toolbar style="min-height: 56px;">
-        <ion-buttons start>
-            <button style="color: white;" (click)="closeProfile()" ion-button icon-only>
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title style="font-size: 2.5rem; text-align: left;">chalkbord</ion-title>
-        <ion-buttons end>
-            <button style="color: white;" *ngIf="profileModal" (click)="logout()" ion-button icon-only>
-                <ion-icon name="log-out"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
+<ion-toolbar>
+    <button style="color: white;" (click)="closeProfile()" ion-button icon-only menuToggle>
+        <ion-icon name="arrow-back"></ion-icon>
+    </button>
+    <ion-title style="font-family: Baumans">chalkbord</ion-title>
+    <button style="color: white; " *ngIf="profileModal" (click)="logout()" ion-button icon-only menuToggle right>
+        <ion-icon name="log-out"></ion-icon>
+    </button>
+</ion-toolbar>

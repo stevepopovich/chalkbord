@@ -1,5 +1,5 @@
-<modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
 <ion-content>
+    <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
     <img *ngIf="card" class="present-card-image fill" src="{{card.imageURL}}" />
     <div text-wrap style="padding-right: 16px;">
         <ion-item (click)="goToLocation()">

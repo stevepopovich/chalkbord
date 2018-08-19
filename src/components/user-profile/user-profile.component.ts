@@ -1,10 +1,9 @@
 import { CurrentUserService } from './../../services/current-user.service';
 import { Component, ViewChild } from "@angular/core";
-import { ViewController, Button, NavParams, NavController } from "ionic-angular";
+import { ViewController, Button, NavParams } from "ionic-angular";
 import { AuthorizationService } from "../../services/firebase/authorization.service";
 import { ToastService } from "../../services/toast.service";
 import { LocaleUser } from "../../types/user.type";
-import { ConsumerCardList } from "../consumer-card-list/consumer-card-list.component";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 
 //Used in modal with orgs and consumers
@@ -27,7 +26,7 @@ export class UserProfileComponent {
 
     constructor(private viewCtrl: ViewController,
         private authService: AuthorizationService, private toastService: ToastService,
-        private params: NavParams, private navCtrl: NavController, private currentUserService: CurrentUserService,
+        private params: NavParams, private currentUserService: CurrentUserService,
         private userService: UserService) {
 
         this.isOrganization = this.params.get("isOrganization");
@@ -103,9 +102,5 @@ export class UserProfileComponent {
         });
 
         toast.present();
-    }
-
-    public yourCards() {
-        this.navCtrl.push(ConsumerCardList);
     }
 }

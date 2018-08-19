@@ -72,15 +72,6 @@
   overflow-y: auto !important;
 }
 
-.nav-round{
-  font-family: Baumans;
-  text-align: center;
-  vertical-align: middle;
-  position: relative;
-  color: black;
-  min-height: 56px;
-}
-
 .button-left{
   position: absolute;
   font-size: 1.4em;
@@ -88,8 +79,4 @@
   top: 0;
   z-index: 10;
   height: 2.4em;
-}
-
-.navbar-md {
-  min-height: 56px;
 }

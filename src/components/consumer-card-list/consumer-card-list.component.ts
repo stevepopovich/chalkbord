@@ -3,7 +3,6 @@ import { LocaleCard } from '../../types/deals.type';
 import { CurrentUserService } from "../../services/current-user.service";
 import { ModalController } from "ionic-angular";
 import { MoreCardInfoComponent } from "../more-card-info/more-card-info.component";
-import * as moment from 'moment';
 import { ImageService } from '../../services/firebase/image-service.service';
 
 @Component({
@@ -22,10 +21,12 @@ export class ConsumerCardList {
             const currentDeals = [];
 
             deals.forEach(card => {
-                if (moment(card.dealEnd).isAfter(moment())) {
-                    currentDeals.push(card);
-                    this.imageService.setDealImageURL(card);
-                }
+                // if (moment(card.dealEnd).isAfter(moment())) {
+                //     currentDeals.push(card);
+                //     this.imageService.setDealImageURL(card); //TODO
+                // }
+                currentDeals.push(card);
+                this.imageService.setDealImageURL(card);
             });
 
             LocaleCard.findAndUpdateCards(currentDeals, this.cardList);

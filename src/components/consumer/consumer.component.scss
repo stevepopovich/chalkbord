@@ -39,17 +39,12 @@ $button-top-offest: 79%;
     //background-image: url("assets/images/good\ chalkboard.jpg");
 }
 
-.nav-round{
-    font-family: Baumans;
-    //background-image: url("assets/images/good\ chalkboard.jpg");
-}
-
 .organization-card{
     width: 100%;
 }
 
 #card-stack {
-    height: 72%;
+    height: 74%;
 }
  
 #card-stack ion-card {
@@ -59,8 +54,6 @@ $button-top-offest: 79%;
     height: 72%;
     background-color: white;
     margin-top: 8px;
-    border-color: black;
-    //background-image: url("../../assets/images/good\ chalkboard.jpg");
 }
 
 .card-text{
@@ -121,75 +114,48 @@ $button-top-offest: 79%;
     height: 29px !important;
 }
 
-.button-circular{
+.button-bottom-right {
     background-color: transparent;
-    max-width: 33%;
-    border-radius: 70%;
-    height: 100%;
-    //display: inline-block;
-    //font-size: 3.8em;
-    //color: white;
-    z-index: -3;
-    padding: 0; 
-}
-
-.button-circular-heart{
-    background-color: transparent;
-    max-width: 33%;
-    border-radius: 70%;
-    height: 100%;
-    //display: inline-block;
-    //font-size: 3.2em;
-    //color: white;
-    z-index: -3;
-    padding: 0;
-}
-
-.bottom-row{
+    color: white;
     position: absolute;
-    bottom: 1%;
-    height: 14%;
-    z-index: -4;
-    width: 100%;
-    left: 20.5%;
+    right: .2em;
+    bottom: .15em;
+    font-size: 1.5em;
+    height: 8%;
+    border-radius: 50%;
+    width: 15%;
 }
 
-.x-image {
-    height: 85%;
-    width: 25%;
-    margin-right: 1em;
+.button-bottom-left {
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    left: .2em;
+    bottom: .2em;
+    font-size: 1.5em;
+    height: 8%;
+    border-radius: 50%;
+    width: 15%;
 }
 
-.heat-image {
-    height: 85%;
-    width: 25%;
-    margin-left: 1em;
+.x-button {
+    max-width: 69%;
+}
+
+.heart-button {
+    max-width: 75%;
+}
+
+.transparent-button {
+    background-color: transparent;
 }
 
 .padding-top{
     padding-top: 0.06em !important;
 }
 
-.button-top{
-    background-color: transparent;
+.button-nav-bar{
     color: white;
-    // position: absolute;
-    // right: 0;
-    // top: 11px;
-    // z-index: 10;
-    // font-size: 1.5em;
-    // height: inherit !important;
-}
-
-.button-top-left{
-    background-color: transparent;
-    color: white;
-    // position: absolute;
-    // left: 0;
-    // top: 5px;
-    // z-index: 10;
-    // font-size: 1.5em;
-    // height: 5%;
 }
 
 .loading-div {
@@ -214,4 +180,29 @@ $button-top-offest: 79%;
     stroke: white;
 }
 
+.center-content-column {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
 
+.middle-button {
+    height: 85%;
+}
+
+.bottom-button {
+    align-self: flex-end;
+    width: 100%;
+}
+
+.outside-button {
+    height: 35%;
+}
+
+.bottom-grid {
+    position: absolute; 
+    bottom: 0;
+    height: 19%; 
+    padding: 0; 
+    z-index: -10;
+}

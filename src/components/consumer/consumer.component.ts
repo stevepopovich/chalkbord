@@ -22,6 +22,7 @@ import { UserService } from '../../services/firebase/firestore-collection/user.s
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
 import _ from 'underscore';
 import moment from 'Moment';
+import { ConsumerCardList } from '../consumer-card-list/consumer-card-list.component';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -36,7 +37,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public numberOfCardsToHaveInView = 3;
 
-    public organizationViewCards: LocaleCard[];// = new Array<DealModel>(this.numberOfCards);
+    public organizationViewCards: LocaleCard[];
     public filteredCards: LocaleCard[];
 
     public stackConfig: StackConfig;
@@ -101,7 +102,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                     }
                 });
             }, (error) => {
-                this.toastService.showReadableToast("We could not find you location, please contact support. " + error);
+                this.toastService.showReadableToast("We could not find your location, please contact support. " + error);
             });
         }
         else
@@ -114,6 +115,10 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public onItemMove(element, x, y, r): void {
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+    }
+
+    public openConsumerCardList() {
+        this.modalCtrl.create(ConsumerCardList).present();
     }
 
     public voteUp(like: boolean): void {

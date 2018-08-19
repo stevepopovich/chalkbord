@@ -1,6 +1,5 @@
-<modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>
-
-<ion-content style="margin-top: 4em">
+<ion-content>
+    <modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>
     <ion-item *ngIf="!isOrganization">
         <ion-label floating>First Name</ion-label>
         <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
@@ -17,9 +16,5 @@
 
     <button (click)="resetPassword()" class="reset-button" outline ion-button>
         reset password
-    </button>
-
-    <button *ngIf="!isOrganization" (click)="yourCards()" class="reset-button" outline ion-button>
-        your cards
     </button>
 </ion-content>
