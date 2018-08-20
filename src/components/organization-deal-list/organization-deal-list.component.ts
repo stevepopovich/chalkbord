@@ -4,8 +4,6 @@ import { CurrentUserService } from './../../services/current-user.service';
 import { DealEditorService } from './../../services/deal-editing.service';
 import { Component } from "@angular/core";
 import { LocaleCard } from '../../types/deals.type';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { ModalController } from 'ionic-angular';
 
 @Component({
     templateUrl: './organization-deal-list.component.html',
@@ -19,7 +17,7 @@ export class OrganizationDealListComponent {
     private cardStream: Observable<LocaleCard[]>;
 
     public constructor(private dealEditorService: DealEditorService, private cardService: CardDataService,
-        private modalCtrl: ModalController, private currentUserService: CurrentUserService) {
+        private currentUserService: CurrentUserService) {
 
         this.currentUserService.getNotDeletedCards().subscribe((deals: LocaleCard[]) => {
             LocaleCard.findAndUpdateCards(deals, this.cardList);
@@ -70,10 +68,6 @@ export class OrganizationDealListComponent {
             return "selected-item";
         else
             return "selectable-item";
-    }
-
-    public openProfile() {
-        this.modalCtrl.create(UserProfileComponent, { isOrganization: true }).present();
     }
 }
 
