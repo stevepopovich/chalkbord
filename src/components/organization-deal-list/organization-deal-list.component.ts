@@ -69,6 +69,7 @@ export class OrganizationDealListComponent {
         else
             return "selectable-item";
     }
+
 }
 
 
