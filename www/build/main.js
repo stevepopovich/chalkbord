@@ -3893,6 +3893,7 @@ var ConsumerComponent = (function () {
         this.numberOfCardsToHaveInView = 3;
         this.destoryingCard = false;
         this.moveCardIndex = 0;
+        this.viewCardIndex = 0;
         this.likingCard = false;
         this.animatingCard = false;
         this.currentFilter = { dealType: null, onlyVegan: false, onlyVegetarian: false };
@@ -4001,9 +4002,7 @@ var ConsumerComponent = (function () {
         var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__["a" /* FilterDealComponent */], this.currentFilter);
         filterPopover.onDidDismiss(function (data) {
             if (data) {
-                console.log(data);
                 _this.currentFilter = data;
-                console.log(_this.currentFilter);
                 _this.filterCards(data);
             }
         });
@@ -4061,8 +4060,12 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.filterCards = function (filterOptions) {
         var _this = this;
         this.organizationViewCards = new Array();
-        this.filteredCards = this.cards;
-        if (filterOptions.dealType || filterOptions.dealType == 0) {
+        this.filteredCards = [];
+        console.log(this.viewCardIndex);
+        console.log(this.cards.length);
+        for (var i = this.viewCardIndex; i < this.cards.length; i++)
+            this.filteredCards.push(this.cards[i]);
+        if (filterOptions.dealType || filterOptions.dealType === 0) {
             this.filteredCards = this.filteredCards.filter(function (card) {
                 return card.dealType == filterOptions.dealType;
             });
@@ -4119,23 +4122,21 @@ var ConsumerComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["ViewChild"])('myswing1'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"]) === "function" && _a || Object)
     ], ConsumerComponent.prototype, "swingStack", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["ViewChildren"])('mycards1'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"]) === "function" && _b || Object)
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-content>\n    <div class="loading-div">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n\n    <ion-toolbar style="min-height: 56px;">\n        <button (click)="openProfile()" class="button-nav-bar" ion-button menuToggle icon-only>\n            <ion-icon name="contact"></ion-icon>\n        </button>\n        <ion-title style="font-family: Baumans">chalkbord</ion-title>\n        <button (click)="openConsumerCardList()" class="button-nav-bar" ion-button icon-only menuToggle right>\n            <ion-icon name="logo-buffer"></ion-icon>\n        </button>\n    </ion-toolbar>\n\n    <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n        id="card-stack" [style.zIindex]="-1000 ">\n        <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\':transitionString}">\n            <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n            <ion-card-content class="card-text">\n                <ion-card-title class="locale-card-title">\n                    {{card.organization.name}}\n                </ion-card-title>\n                {{card.dealDescription}}\n                <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                    "hh:mm a")}}</p>\n            </ion-card-content>\n        </ion-card>\n    </div>\n\n    <ion-grid class="bottom-grid">\n        <ion-row style="height: 100%">\n            <ion-col class="center-content-column" col-2>\n                <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                    <ion-icon name="help"></ion-icon>\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="x-button" src="assets/images/x-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="heart-button" src="assets/images/heart-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-2>\n                <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button" ion-button icon-only\n                    round>\n                    <ion-icon name="funnel"></ion-icon>\n                </button>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */], __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */],
-            __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */], __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */], __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */],
-            __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */],
-            __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
+        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]) === "function" && _o || Object])
     ], ConsumerComponent);
     return ConsumerComponent;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 }());
 
 //# sourceMappingURL=consumer.component.js.map

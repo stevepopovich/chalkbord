@@ -45,7 +45,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     public destoryingCard: boolean = false;
 
     private moveCardIndex: number = 0;
-    private viewCardIndex: number;
+    private viewCardIndex: number = 0;
 
     private likingCard: boolean = false;
 
@@ -191,10 +191,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
         filterPopover.onDidDismiss((data: FilterDealsOptionsInterface) => {
             if (data) {
-                console.log(data);
                 this.currentFilter = data;
 
-                console.log(this.currentFilter);
                 this.filterCards(data);
             }
         });
@@ -260,8 +258,14 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     private filterCards(filterOptions: FilterDealsOptionsInterface) {
         this.organizationViewCards = new Array<LocaleCard>();
-        this.filteredCards = this.cards;
-        if (filterOptions.dealType || filterOptions.dealType == 0) {
+        this.filteredCards = [];
+
+        console.log(this.viewCardIndex);
+        console.log(this.cards.length);
+        for (var i = this.viewCardIndex; i < this.cards.length; i++)
+            this.filteredCards.push(this.cards[i]);
+
+        if (filterOptions.dealType || filterOptions.dealType === 0) {
             this.filteredCards = this.filteredCards.filter((card) => {
                 return card.dealType == filterOptions.dealType;
             });
