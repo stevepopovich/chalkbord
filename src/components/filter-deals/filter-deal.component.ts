@@ -8,35 +8,90 @@ import { ViewController, NavParams } from "ionic-angular";
     styleUrls: ['/filter-deal.component.scss']
 })
 export class FilterDealComponent {
-    public onlyVegetarian: boolean = false;
-    public onlyVegan: boolean = false;
 
-    public dealType: DealType;
+    public boolValues = {
+        vegetarian: false,
+        vegan: false,
+        food: false,
+        drink: false,
+        meal: false
+    }
 
     constructor(private viewCtrl: ViewController, private navParams: NavParams) {
         const appliedFilterOptions: FilterDealsOptionsInterface = this.navParams.data;
-        this.dealType = appliedFilterOptions.dealType;
-        this.onlyVegetarian = appliedFilterOptions.onlyVegetarian;
-        this.onlyVegan = appliedFilterOptions.onlyVegan
+        console.log(this.navParams.data);
+        this.setDealType(appliedFilterOptions.dealType);
+        this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
+        this.boolValues.vegan = appliedFilterOptions.onlyVegan;
     }
 
     public applyFilters() {
         const returnData: FilterDealsOptionsInterface = {
-            onlyVegetarian: this.onlyVegetarian,
-            onlyVegan: this.onlyVegan,
-            dealType: this.dealType
+            onlyVegetarian: this.boolValues.vegetarian,
+            onlyVegan: this.boolValues.vegan,
+            dealType: this.getDealTypeValue()
         };
+        console.log(returnData);
         this.viewCtrl.dismiss(returnData);
     }
 
-    public updateDealContentType(changeVegetarianOption: boolean): void {
-        if (changeVegetarianOption) {
-            if (!this.onlyVegetarian)
-                this.onlyVegan = false;
+    public toggle(boolName: string): void {
+        this.boolValues[boolName] = !this.boolValues[boolName];
+
+        if (boolName == 'vegan' || boolName == 'vegetarian')
+            this.updateVeganVegValues(boolName);
+        else
+            this.updateDealTypeValues(boolName);
+    }
+
+    public getColor(boolName: string): string {
+        return this.boolValues[boolName] ? "black" : "light-grey";
+    }
+
+
+    private updateVeganVegValues(boolName: string): void {
+        if (boolName == 'vegetarian') {
+            if (!this.boolValues.vegetarian)
+                this.boolValues.vegan = false;
         }
         else {//change vegan option
-            if (this.onlyVegan)
-                this.onlyVegetarian = true;
+            if (this.boolValues.vegan)
+                this.boolValues.vegetarian = true;
+        }
+    }
+
+    private updateDealTypeValues(boolName: string) {
+        if (this.boolValues[boolName]) {
+            this.boolValues.drink = false;
+            this.boolValues.food = false;
+            this.boolValues.meal = false;
+            this.boolValues[boolName] = true;
+        }
+    }
+
+    private getDealTypeValue(): DealType {
+        if (this.boolValues.drink)
+            return DealType.Drinks;
+        if (this.boolValues.food)
+            return DealType.Food;
+        if (this.boolValues.meal)
+            return DealType.Meal;
+    }
+
+    private setDealType(dealType: DealType) {
+        switch (dealType) {
+            case DealType.Meal: {
+                this.boolValues.meal = true;
+                break;
+            }
+            case DealType.Drinks: {
+                this.boolValues.drink = true;
+                break;
+            }
+            case DealType.Food: {
+                this.boolValues.food = true;
+                break;
+            }
         }
     }
 }

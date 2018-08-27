@@ -46,6 +46,7 @@ import { CardDataService } from '../services/firebase/firestore-collection/card-
 import { UserService } from '../services/firebase/firestore-collection/user.service';
 import { ConsumerCardList } from '../components/consumer-card-list/consumer-card-list.component';
 import { Facebook } from '@ionic-native/facebook';
+import { ToggleIconButtonComponent } from '../components/toggle-icon-button/toggle-icon-button.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -68,7 +69,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     LocaleCardComponent,
     MoreCardInfoComponent,
     ModalNavbarComponent,
-    ConsumerCardList
+    ConsumerCardList,
+    ToggleIconButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     LocaleCardComponent,
     MoreCardInfoComponent,
     ModalNavbarComponent,
-    ConsumerCardList
+    ConsumerCardList,
+    ToggleIconButtonComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -57,6 +57,14 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+    "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+    "pluginId": "cordova-plugin-facebook4",
+    "clobbers": [
+      "facebookConnectPlugin"
+    ]
+  },
+  {
     "id": "cordova-plugin-geolocation.Coordinates",
     "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
     "pluginId": "cordova-plugin-geolocation",
@@ -168,14 +176,6 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
-  },
-  {
-    "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-    "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-    "pluginId": "cordova-plugin-facebook4",
-    "clobbers": [
-      "facebookConnectPlugin"
-    ]
   }
 ];
 module.exports.metadata = 
@@ -185,6 +185,7 @@ module.exports.metadata =
   "cordova-plugin-camera": "4.0.2",
   "cordova-plugin-device": "1.1.7",
   "cordova-plugin-dialogs": "2.0.1",
+  "cordova-plugin-facebook4": "2.2.0",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-inappbrowser": "1.7.2",
   "cordova-plugin-ionic-keyboard": "2.0.5",
@@ -194,8 +195,7 @@ module.exports.metadata =
   "cordova-plugin-uniquedeviceid": "1.3.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.3.1",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
-  "cordova-plugin-facebook4": "2.2.0"
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
 };
 // BOTTOM OF METADATA
 });

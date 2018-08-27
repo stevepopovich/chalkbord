@@ -91,6 +91,6 @@ export class LocaleCard {
 export enum DealType {
     Drinks,
     Food,
-    Both
+    Meal
 }
 

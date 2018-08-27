@@ -6,7 +6,7 @@ webpackJsonp([0],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BrowserHomeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_view_controller_service__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -129,6 +129,52 @@ var OrganizationLandingComponent = (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_12__organization_signup_organization_signup_component__["a" /* OrganizationSignupComponent */]));
 
 //# sourceMappingURL=organization-landing.component.js.map
+
+/***/ }),
+
+/***/ 1057:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ToggleIconButtonComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ToggleIconButtonComponent = (function () {
+    function ToggleIconButtonComponent() {
+        this.enabledChanged = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+    }
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", String)
+    ], ToggleIconButtonComponent.prototype, "iconName", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], ToggleIconButtonComponent.prototype, "enabled", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+        __metadata("design:type", Object)
+    ], ToggleIconButtonComponent.prototype, "enabledChanged", void 0);
+    ToggleIconButtonComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/toggle-icon-button/toggle-icon-button.component.html"*/''/*ion-inline-end:"/Users/Contence/locale/src/components/toggle-icon-button/toggle-icon-button.component.html"*/,
+            selector: 'toggle-icon-button',
+            styleUrls: ['/toggle-icon-button.component.scss']
+        }),
+        __metadata("design:paramtypes", [])
+    ], ToggleIconButtonComponent);
+    return ToggleIconButtonComponent;
+}());
+
+//# sourceMappingURL=toggle-icon-button.component.js.map
 
 /***/ }),
 
@@ -433,7 +479,7 @@ var EmailPasswordTuple = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__firebase_authorization_service__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_user_type__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__view_controller_service__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__firebase_firestore_collection_user_service__ = __webpack_require__(77);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -768,7 +814,7 @@ var DealEditorService = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MoreCardInfoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types_deals_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_moment__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_moment__);
@@ -1075,7 +1121,7 @@ var UserLoginFormGroup = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types_utils_type__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__types_deals_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_uploader_service__ = __webpack_require__(533);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_deal_editing_service__ = __webpack_require__(252);
@@ -1620,8 +1666,9 @@ var ToastService = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterDealComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(34);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1633,41 +1680,91 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var FilterDealComponent = (function () {
     function FilterDealComponent(viewCtrl, navParams) {
         this.viewCtrl = viewCtrl;
         this.navParams = navParams;
-        this.onlyVegetarian = false;
-        this.onlyVegan = false;
+        this.boolValues = {
+            vegetarian: false,
+            vegan: false,
+            food: false,
+            drink: false,
+            meal: false
+        };
         var appliedFilterOptions = this.navParams.data;
-        this.dealType = appliedFilterOptions.dealType;
-        this.onlyVegetarian = appliedFilterOptions.onlyVegetarian;
-        this.onlyVegan = appliedFilterOptions.onlyVegan;
+        console.log(this.navParams.data);
+        this.setDealType(appliedFilterOptions.dealType);
+        this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
+        this.boolValues.vegan = appliedFilterOptions.onlyVegan;
     }
     FilterDealComponent.prototype.applyFilters = function () {
         var returnData = {
-            onlyVegetarian: this.onlyVegetarian,
-            onlyVegan: this.onlyVegan,
-            dealType: this.dealType
+            onlyVegetarian: this.boolValues.vegetarian,
+            onlyVegan: this.boolValues.vegan,
+            dealType: this.getDealTypeValue()
         };
+        console.log(returnData);
         this.viewCtrl.dismiss(returnData);
     };
-    FilterDealComponent.prototype.updateDealContentType = function (changeVegetarianOption) {
-        if (changeVegetarianOption) {
-            if (!this.onlyVegetarian)
-                this.onlyVegan = false;
+    FilterDealComponent.prototype.toggle = function (boolName) {
+        this.boolValues[boolName] = !this.boolValues[boolName];
+        if (boolName == 'vegan' || boolName == 'vegetarian')
+            this.updateVeganVegValues(boolName);
+        else
+            this.updateDealTypeValues(boolName);
+    };
+    FilterDealComponent.prototype.getColor = function (boolName) {
+        return this.boolValues[boolName] ? "black" : "light-grey";
+    };
+    FilterDealComponent.prototype.updateVeganVegValues = function (boolName) {
+        if (boolName == 'vegetarian') {
+            if (!this.boolValues.vegetarian)
+                this.boolValues.vegan = false;
         }
         else {
-            if (this.onlyVegan)
-                this.onlyVegetarian = true;
+            if (this.boolValues.vegan)
+                this.boolValues.vegetarian = true;
+        }
+    };
+    FilterDealComponent.prototype.updateDealTypeValues = function (boolName) {
+        if (this.boolValues[boolName]) {
+            this.boolValues.drink = false;
+            this.boolValues.food = false;
+            this.boolValues.meal = false;
+            this.boolValues[boolName] = true;
+        }
+    };
+    FilterDealComponent.prototype.getDealTypeValue = function () {
+        if (this.boolValues.drink)
+            return __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Drinks;
+        if (this.boolValues.food)
+            return __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Food;
+        if (this.boolValues.meal)
+            return __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Meal;
+    };
+    FilterDealComponent.prototype.setDealType = function (dealType) {
+        switch (dealType) {
+            case __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Meal: {
+                this.boolValues.meal = true;
+                break;
+            }
+            case __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Drinks: {
+                this.boolValues.drink = true;
+                break;
+            }
+            case __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["a" /* DealType */].Food: {
+                this.boolValues.food = true;
+                break;
+            }
         }
     };
     FilterDealComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-grid>\n  <ion-row>\n    <ion-col>\n      <ion-list radio-group [(ngModel)]="dealType">\n        <ion-item>\n          <ion-label>Filter deals</ion-label>\n        </ion-item>\n        <ion-item>\n          <ion-label>Drinks</ion-label>\n          <ion-radio value="0"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Food</ion-label>\n          <ion-radio value="1"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Both</ion-label>\n          <ion-radio value="2"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>All</ion-label>\n          <ion-radio value="null"></ion-radio>\n        </ion-item>\n      </ion-list>\n    </ion-col>\n    <ion-col>\n      <ion-item>\n        <ion-label>Vegetarian</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegetarian" (ionChange)="updateDealContentType(true)"></ion-checkbox>\n      </ion-item>\n      <ion-item>\n        <ion-label>Vegan</ion-label>\n        <ion-checkbox [(ngModel)]="onlyVegan" (ionChange)="updateDealContentType(false)"></ion-checkbox>\n      </ion-item>\n      <button ion-button (click)="applyFilters()">APPLY</button>\n    </ion-col>\n  </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div class="title">Deal Type</div>\n      </ion-col>\n      <ion-col>\n        <div class="title">Vegan/Vegetarian</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Drinks</div>\n        <button (click)="toggle(\'drink\')" outline ion-button icon-only round>\n          <ion-icon name="beer" color="{{getColor(\'drink\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Vegetarian</div>\n        <button (click)="toggle(\'vegetarian\')" outline ion-button icon-only round>\n          <ion-icon name="nutrition" color="{{getColor(\'vegetarian\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Foods</div>\n        <button (click)="toggle(\'food\')" outline ion-button icon-only round>\n          <ion-icon name="pizza" color="{{getColor(\'food\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Vegan</div>\n        <button (click)="toggle(\'vegan\')" outline ion-button icon-only round>\n          <ion-icon name="leaf" color="{{getColor(\'vegan\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Meal</div>\n        <button (click)="toggle(\'meal\')" outline ion-button icon-only round>\n          <ion-icon name="wine" color="{{getColor(\'meal\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <button style="width: 100%;" ion-button (click)="applyFilters()">Apply</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
             selector: 'filter-deal',
             styleUrls: ['/filter-deal.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]])
     ], FilterDealComponent);
     return FilterDealComponent;
 }());
@@ -1803,7 +1900,7 @@ var UserProfileComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConsumerCardList; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__types_deals_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__more_card_info_more_card_info_component__ = __webpack_require__(253);
@@ -2009,6 +2106,104 @@ var UserService = (function () {
 
 /***/ }),
 
+/***/ 78:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LocaleCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DealType; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_type__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__location_type__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__organization_type__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
+
+
+
+
+var LocaleCard = (function () {
+    function LocaleCard(dealDescription, longDealDescription, dealStart, dealEnd, numberOfDeals, dealType, isVegetarian, isVegan, deleted, obj) {
+        this.dealDescription = dealDescription;
+        this.longDealDescription = longDealDescription;
+        this.dealStart = dealStart;
+        this.dealEnd = dealEnd;
+        this.numberOfDeals = numberOfDeals;
+        this.dealType = dealType;
+        this.isVegetarian = isVegetarian;
+        this.isVegan = isVegan;
+        this.deleted = deleted;
+        this.id = __WEBPACK_IMPORTED_MODULE_0__utils_type__["b" /* Guid */].newGuid();
+        if (obj) {
+            this.id = obj.id;
+            this.organization = obj.organization;
+            this.dealDescription = obj.dealDescription;
+            this.longDealDescription = obj.longDealDescription;
+            this.dealStart = obj.dealStart;
+            this.dealEnd = obj.dealEnd;
+            this.numberOfDeals = obj.numberOfDeals;
+            this.isVegetarian = obj.isVegetarian;
+            this.isVegan = obj.isVegan;
+            this.dealType = obj.dealType;
+            this.deleted = obj.deleted;
+        }
+    }
+    LocaleCard.prototype.getAsPlainObject = function () {
+        this.organization = Object.assign({}, this.organization);
+        return Object.assign({}, this);
+    };
+    LocaleCard.getBlankCard = function () {
+        var blankCard = new LocaleCard(null, null, __WEBPACK_IMPORTED_MODULE_3_moment__().toObject(), __WEBPACK_IMPORTED_MODULE_3_moment__().toObject(), -1, DealType.Drinks, false, false, false, null);
+        blankCard.organization = new __WEBPACK_IMPORTED_MODULE_2__organization_type__["a" /* Organization */]("", "", "", "", new __WEBPACK_IMPORTED_MODULE_1__location_type__["a" /* LocaleLocation */]());
+        return blankCard;
+    };
+    LocaleCard.updateDealModel = function (objectToUpdate, updatedObject) {
+        objectToUpdate.dealDescription = updatedObject.dealDescription;
+        objectToUpdate.longDealDescription = updatedObject.longDealDescription;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealStart = updatedObject.dealStart;
+        objectToUpdate.dealEnd = updatedObject.dealEnd;
+        objectToUpdate.dealType = updatedObject.dealType;
+        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
+        objectToUpdate.isVegetarian = updatedObject.isVegetarian;
+        objectToUpdate.isVegan = updatedObject.isVegan;
+        objectToUpdate.organization = updatedObject.organization;
+    };
+    LocaleCard.findAndUpdateCards = function (incomingCards, cardsToManipulate) {
+        incomingCards.forEach(function (dealModel) {
+            var foundCard = cardsToManipulate[cardsToManipulate.findIndex(function (c) { return c.id == dealModel.id; })];
+            if (foundCard)
+                LocaleCard.updateDealModel(foundCard, dealModel);
+            else
+                cardsToManipulate.push(dealModel);
+        });
+    };
+    LocaleCard.cardsAreLogicallyEqual = function (obj1, obj2) {
+        if (obj1 && obj2) {
+            return obj1.dealDescription === obj2.dealDescription
+                && __WEBPACK_IMPORTED_MODULE_3_moment__(obj1.dealEnd).isSame(__WEBPACK_IMPORTED_MODULE_3_moment__(obj2.dealEnd))
+                && __WEBPACK_IMPORTED_MODULE_3_moment__(obj1.dealStart).isSame(__WEBPACK_IMPORTED_MODULE_3_moment__(obj2.dealStart))
+                && obj1.dealType === obj2.dealType
+                && obj1.isVegan === obj2.isVegan
+                && obj1.isVegetarian === obj2.isVegetarian
+                && obj1.longDealDescription === obj2.longDealDescription
+                && obj1.numberOfDeals === obj2.numberOfDeals;
+        }
+        else
+            return false;
+    };
+    return LocaleCard;
+}());
+
+var DealType;
+(function (DealType) {
+    DealType[DealType["Drinks"] = 0] = "Drinks";
+    DealType[DealType["Food"] = 1] = "Food";
+    DealType[DealType["Meal"] = 2] = "Meal";
+})(DealType || (DealType = {}));
+//# sourceMappingURL=deals.type.js.map
+
+/***/ }),
+
 /***/ 832:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2049,7 +2244,7 @@ var UserService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_firebase_image_service_service__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_camera__ = __webpack_require__(543);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_uploader_service__ = __webpack_require__(533);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__services_view_controller_service__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_unique_device_id__ = __webpack_require__(400);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__services_device_service__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_user_profile_user_profile_component__ = __webpack_require__(678);
@@ -2064,6 +2259,7 @@ var UserService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__services_firebase_firestore_collection_user_service__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__components_consumer_card_list_consumer_card_list_component__ = __webpack_require__(680);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__ionic_native_facebook__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__components_toggle_icon_button_toggle_icon_button_component__ = __webpack_require__(1057);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2080,6 +2276,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2159,7 +2356,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_8__components_card_card_component__["a" /* LocaleCardComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__components_more_card_info_more_card_info_component__["a" /* MoreCardInfoComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__components_modal_navbar_modal_navbar_component__["a" /* ModalNavbarComponent */],
-                __WEBPACK_IMPORTED_MODULE_46__components_consumer_card_list_consumer_card_list_component__["a" /* ConsumerCardList */]
+                __WEBPACK_IMPORTED_MODULE_46__components_consumer_card_list_consumer_card_list_component__["a" /* ConsumerCardList */],
+                __WEBPACK_IMPORTED_MODULE_48__components_toggle_icon_button_toggle_icon_button_component__["a" /* ToggleIconButtonComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_9__angular_platform_browser__["a" /* BrowserModule */],
@@ -2201,7 +2399,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_8__components_card_card_component__["a" /* LocaleCardComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__components_more_card_info_more_card_info_component__["a" /* MoreCardInfoComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__components_modal_navbar_modal_navbar_component__["a" /* ModalNavbarComponent */],
-                __WEBPACK_IMPORTED_MODULE_46__components_consumer_card_list_consumer_card_list_component__["a" /* ConsumerCardList */]
+                __WEBPACK_IMPORTED_MODULE_46__components_consumer_card_list_consumer_card_list_component__["a" /* ConsumerCardList */],
+                __WEBPACK_IMPORTED_MODULE_48__components_toggle_icon_button_toggle_icon_button_component__["a" /* ToggleIconButtonComponent */]
             ],
             providers: [
                 { provide: __WEBPACK_IMPORTED_MODULE_12__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_13_ionic_angular__["e" /* IonicErrorHandler */] },
@@ -2238,76 +2437,6 @@ var AppModule = (function () {
 }());
 
 //# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 89:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewControllerService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var ViewControllerService = (function () {
-    function ViewControllerService() {
-        this.consumer = false;
-        this.userLanding = false;
-        this.browserHome = false;
-        this.organizationLanding = false;
-        this.organizationDealsHome = false;
-    }
-    ViewControllerService.prototype.setConsumerView = function () {
-        this.consumer = true;
-        this.userLanding = false;
-        this.browserHome = false;
-        this.organizationLanding = false;
-        this.organizationDealsHome = false;
-    };
-    ViewControllerService.prototype.setSignUpView = function () {
-        this.consumer = false;
-        this.userLanding = true;
-        this.browserHome = false;
-        this.organizationLanding = false;
-        this.organizationDealsHome = false;
-    };
-    ViewControllerService.prototype.setBrowserHome = function () {
-        this.consumer = false;
-        this.userLanding = false;
-        this.browserHome = true;
-        this.organizationLanding = false;
-        this.organizationDealsHome = false;
-    };
-    ViewControllerService.prototype.setOrganizationPortal = function () {
-        this.consumer = false;
-        this.userLanding = false;
-        this.browserHome = false;
-        this.organizationLanding = true;
-        this.organizationDealsHome = false;
-    };
-    ViewControllerService.prototype.setOrganizationHome = function () {
-        this.consumer = false;
-        this.userLanding = false;
-        this.browserHome = false;
-        this.organizationLanding = false;
-        this.organizationDealsHome = true;
-    };
-    ViewControllerService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [])
-    ], ViewControllerService);
-    return ViewControllerService;
-}());
-
-//# sourceMappingURL=view-controller.service.js.map
 
 /***/ }),
 
@@ -2633,97 +2762,69 @@ var ConsumerLandingComponent = (function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LocaleCard; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DealType; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_type__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__location_type__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__organization_type__ = __webpack_require__(399);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewControllerService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
-
-
-
-var LocaleCard = (function () {
-    function LocaleCard(dealDescription, longDealDescription, dealStart, dealEnd, numberOfDeals, dealType, isVegetarian, isVegan, deleted, obj) {
-        this.dealDescription = dealDescription;
-        this.longDealDescription = longDealDescription;
-        this.dealStart = dealStart;
-        this.dealEnd = dealEnd;
-        this.numberOfDeals = numberOfDeals;
-        this.dealType = dealType;
-        this.isVegetarian = isVegetarian;
-        this.isVegan = isVegan;
-        this.deleted = deleted;
-        this.id = __WEBPACK_IMPORTED_MODULE_0__utils_type__["b" /* Guid */].newGuid();
-        if (obj) {
-            this.id = obj.id;
-            this.organization = obj.organization;
-            this.dealDescription = obj.dealDescription;
-            this.longDealDescription = obj.longDealDescription;
-            this.dealStart = obj.dealStart;
-            this.dealEnd = obj.dealEnd;
-            this.numberOfDeals = obj.numberOfDeals;
-            this.isVegetarian = obj.isVegetarian;
-            this.isVegan = obj.isVegan;
-            this.dealType = obj.dealType;
-            this.deleted = obj.deleted;
-        }
+var ViewControllerService = (function () {
+    function ViewControllerService() {
+        this.consumer = false;
+        this.userLanding = false;
+        this.browserHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     }
-    LocaleCard.prototype.getAsPlainObject = function () {
-        this.organization = Object.assign({}, this.organization);
-        return Object.assign({}, this);
+    ViewControllerService.prototype.setConsumerView = function () {
+        this.consumer = true;
+        this.userLanding = false;
+        this.browserHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
-    LocaleCard.getBlankCard = function () {
-        var blankCard = new LocaleCard(null, null, __WEBPACK_IMPORTED_MODULE_3_moment__().toObject(), __WEBPACK_IMPORTED_MODULE_3_moment__().toObject(), -1, DealType.Drinks, false, false, false, null);
-        blankCard.organization = new __WEBPACK_IMPORTED_MODULE_2__organization_type__["a" /* Organization */]("", "", "", "", new __WEBPACK_IMPORTED_MODULE_1__location_type__["a" /* LocaleLocation */]());
-        return blankCard;
+    ViewControllerService.prototype.setSignUpView = function () {
+        this.consumer = false;
+        this.userLanding = true;
+        this.browserHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
-    LocaleCard.updateDealModel = function (objectToUpdate, updatedObject) {
-        objectToUpdate.dealDescription = updatedObject.dealDescription;
-        objectToUpdate.longDealDescription = updatedObject.longDealDescription;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealStart = updatedObject.dealStart;
-        objectToUpdate.dealEnd = updatedObject.dealEnd;
-        objectToUpdate.dealType = updatedObject.dealType;
-        objectToUpdate.numberOfDeals = updatedObject.numberOfDeals;
-        objectToUpdate.isVegetarian = updatedObject.isVegetarian;
-        objectToUpdate.isVegan = updatedObject.isVegan;
-        objectToUpdate.organization = updatedObject.organization;
+    ViewControllerService.prototype.setBrowserHome = function () {
+        this.consumer = false;
+        this.userLanding = false;
+        this.browserHome = true;
+        this.organizationLanding = false;
+        this.organizationDealsHome = false;
     };
-    LocaleCard.findAndUpdateCards = function (incomingCards, cardsToManipulate) {
-        incomingCards.forEach(function (dealModel) {
-            var foundCard = cardsToManipulate[cardsToManipulate.findIndex(function (c) { return c.id == dealModel.id; })];
-            if (foundCard)
-                LocaleCard.updateDealModel(foundCard, dealModel);
-            else
-                cardsToManipulate.push(dealModel);
-        });
+    ViewControllerService.prototype.setOrganizationPortal = function () {
+        this.consumer = false;
+        this.userLanding = false;
+        this.browserHome = false;
+        this.organizationLanding = true;
+        this.organizationDealsHome = false;
     };
-    LocaleCard.cardsAreLogicallyEqual = function (obj1, obj2) {
-        if (obj1 && obj2) {
-            return obj1.dealDescription === obj2.dealDescription
-                && __WEBPACK_IMPORTED_MODULE_3_moment__(obj1.dealEnd).isSame(__WEBPACK_IMPORTED_MODULE_3_moment__(obj2.dealEnd))
-                && __WEBPACK_IMPORTED_MODULE_3_moment__(obj1.dealStart).isSame(__WEBPACK_IMPORTED_MODULE_3_moment__(obj2.dealStart))
-                && obj1.dealType === obj2.dealType
-                && obj1.isVegan === obj2.isVegan
-                && obj1.isVegetarian === obj2.isVegetarian
-                && obj1.longDealDescription === obj2.longDealDescription
-                && obj1.numberOfDeals === obj2.numberOfDeals;
-        }
-        else
-            return false;
+    ViewControllerService.prototype.setOrganizationHome = function () {
+        this.consumer = false;
+        this.userLanding = false;
+        this.browserHome = false;
+        this.organizationLanding = false;
+        this.organizationDealsHome = true;
     };
-    return LocaleCard;
+    ViewControllerService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], ViewControllerService);
+    return ViewControllerService;
 }());
 
-var DealType;
-(function (DealType) {
-    DealType[DealType["Drinks"] = 0] = "Drinks";
-    DealType[DealType["Food"] = 1] = "Food";
-    DealType[DealType["Both"] = 2] = "Both";
-})(DealType || (DealType = {}));
-//# sourceMappingURL=deals.type.js.map
+//# sourceMappingURL=view-controller.service.js.map
 
 /***/ }),
 
@@ -2771,7 +2872,7 @@ var RememberMeFormGroup = (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__enums_ionic_platform_enum__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_device_service__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_view_controller_service__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_current_user_service__ = __webpack_require__(53);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3131,7 +3232,7 @@ var IonicScreenSize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_current_user_service__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_deal_editing_service__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__types_deals_type__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3217,7 +3318,7 @@ var OrganizationDealListComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_toast_service__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_device_service__ = __webpack_require__(148);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_view_controller_service__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_login_keys_service__ = __webpack_require__(245);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__enums_ionic_platform_enum__ = __webpack_require__(114);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3306,7 +3407,7 @@ var ModalNavbarComponent = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocaleCardComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Moment__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Moment__);
@@ -3672,7 +3773,7 @@ webpackContext.id = 980;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(668);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_view_controller_service__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_view_controller_service__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_angular__ = __webpack_require__(34);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3724,7 +3825,7 @@ var LocaleApp = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConsumerComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__types_location_type__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
@@ -3796,6 +3897,7 @@ var ConsumerComponent = (function () {
         this.animatingCard = false;
         this.currentFilter = { dealType: null, onlyVegan: false, onlyVegetarian: false };
         this.currentLocation = new __WEBPACK_IMPORTED_MODULE_2__types_location_type__["a" /* LocaleLocation */]();
+        this.initialLoading = true;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 var throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 2.75);
@@ -3894,13 +3996,14 @@ var ConsumerComponent = (function () {
             });
         }
     };
-    ConsumerComponent.prototype.openDealTypePopover = function (event) {
+    ConsumerComponent.prototype.openFilterPopover = function (event) {
         var _this = this;
         var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_6__filter_deals_filter_deal_component__["a" /* FilterDealComponent */], this.currentFilter);
         filterPopover.onDidDismiss(function (data) {
             if (data) {
-                if (data.dealType)
-                    _this.currentFilter = data;
+                console.log(data);
+                _this.currentFilter = data;
+                console.log(_this.currentFilter);
                 _this.filterCards(data);
             }
         });
@@ -4023,7 +4126,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-content>\n    <div class="loading-div">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n\n    <ion-toolbar style="min-height: 56px;">\n        <button (click)="openProfile()" class="button-nav-bar" ion-button menuToggle icon-only>\n            <ion-icon name="contact"></ion-icon>\n        </button>\n        <ion-title style="font-family: Baumans">chalkbord</ion-title>\n        <button (click)="openConsumerCardList()" class="button-nav-bar" ion-button icon-only menuToggle right>\n            <ion-icon name="albums"></ion-icon>\n        </button>\n    </ion-toolbar>\n\n    <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n        id="card-stack" [style.zIindex]="-1000 ">\n        <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\':transitionString}">\n            <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n            <ion-card-content class="card-text">\n                <ion-card-title class="locale-card-title">\n                    {{card.organization.name}}\n                </ion-card-title>\n                {{card.dealDescription}}\n                <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                    "hh:mm a")}}</p>\n            </ion-card-content>\n        </ion-card>\n    </div>\n\n    <ion-grid class="bottom-grid">\n        <ion-row style="height: 100%">\n            <ion-col class="center-content-column" col-2>\n                <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                    <ion-icon name="help"></ion-icon>\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="x-button" src="assets/images/x-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="heart-button" src="assets/images/heart-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-2>\n                <button (click)="openDealTypePopover($event)" class="transparent-button bottom-button outside-button" ion-button icon-only\n                    round>\n                    <ion-icon name="funnel"></ion-icon>\n                </button>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<ion-content>\n    <div class="loading-div">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n\n    <ion-toolbar style="min-height: 56px;">\n        <button (click)="openProfile()" class="button-nav-bar" ion-button menuToggle icon-only>\n            <ion-icon name="contact"></ion-icon>\n        </button>\n        <ion-title style="font-family: Baumans">chalkbord</ion-title>\n        <button (click)="openConsumerCardList()" class="button-nav-bar" ion-button icon-only menuToggle right>\n            <ion-icon name="logo-buffer"></ion-icon>\n        </button>\n    </ion-toolbar>\n\n    <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" (throwoutup)="moreInfo()"\n        id="card-stack" [style.zIindex]="-1000 ">\n        <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\':transitionString}">\n            <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n            <ion-card-content class="card-text">\n                <ion-card-title class="locale-card-title">\n                    {{card.organization.name}}\n                </ion-card-title>\n                {{card.dealDescription}}\n                <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                    "hh:mm a")}}</p>\n            </ion-card-content>\n        </ion-card>\n    </div>\n\n    <ion-grid class="bottom-grid">\n        <ion-row style="height: 100%">\n            <ion-col class="center-content-column" col-2>\n                <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                    <ion-icon name="help"></ion-icon>\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="x-button" src="assets/images/x-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-4>\n                <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                    <img class="heart-button" src="assets/images/heart-chalk.png" />\n                </button>\n            </ion-col>\n            <ion-col class="center-content-column" col-2>\n                <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button" ion-button icon-only\n                    round>\n                    <ion-icon name="funnel"></ion-icon>\n                </button>\n            </ion-col>\n        </ion-row>\n    </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),

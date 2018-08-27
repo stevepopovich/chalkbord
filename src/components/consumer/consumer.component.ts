@@ -59,6 +59,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public currentLocation: LocaleLocation = new LocaleLocation();
 
+    public initialLoading: boolean = true;
+
     constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
@@ -184,20 +186,21 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    public openDealTypePopover(event) {
+    public openFilterPopover(event) {
         var filterPopover = this.popoverCtrl.create(FilterDealComponent, this.currentFilter);
 
         filterPopover.onDidDismiss((data: FilterDealsOptionsInterface) => {
             if (data) {
-                if (data.dealType)
-                    this.currentFilter = data;
+                console.log(data);
+                this.currentFilter = data;
 
+                console.log(this.currentFilter);
                 this.filterCards(data);
             }
         });
 
         filterPopover.present({
-            ev: event,
+            ev: event,//pass the event in to put the popover in the right position on screen
         });
     }
 
