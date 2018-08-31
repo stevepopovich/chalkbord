@@ -47,10 +47,13 @@ import { UserService } from '../services/firebase/firestore-collection/user.serv
 import { ConsumerCardList } from '../components/consumer-card-list/consumer-card-list.component';
 import { Facebook } from '@ionic-native/facebook';
 import { ToggleIconButtonComponent } from '../components/toggle-icon-button/toggle-icon-button.component';
+import { SwipeVertical } from '../services/swipe-listener.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
-    'swipe': { velocity: 1.3, threshold: 20 } // override default settings,
+    'swipe': { velocity: 1.3, threshold: 20 },
+    'pinch': { enabled: false },
+    'rotate': { enabled: false }, // override default settings,
   }
 }
 
@@ -70,7 +73,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     MoreCardInfoComponent,
     ModalNavbarComponent,
     ConsumerCardList,
-    ToggleIconButtonComponent
+    ToggleIconButtonComponent,
+    SwipeVertical
   ],
   imports: [
     BrowserModule,
@@ -143,7 +147,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     LoginService,
     RememberMeService,
     InAppBrowser,
-    Facebook
-  ]
+    Facebook,
+  ],
 })
 export class AppModule { }

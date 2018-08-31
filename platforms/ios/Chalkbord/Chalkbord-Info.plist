@@ -21,11 +21,11 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.0.9</string>
+    <string>0.0.10</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>0.0.9</string>
+    <string>0.0.10</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMainNibFile</key>
@@ -131,5 +131,9 @@
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>This app requires access to your location for navigation purposes</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>to upload photos</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>to find you local deals</string>
   </dict>
 </plist>

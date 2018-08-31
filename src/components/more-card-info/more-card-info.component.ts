@@ -1,4 +1,4 @@
-import { NavParams } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { LocaleCard, DealType } from '../../types/deals.type';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -14,7 +14,7 @@ export class MoreCardInfoComponent {
 
     public dealType: string;
 
-    constructor(private navParams: NavParams, private iab: InAppBrowser) {
+    constructor(private navParams: NavParams, private iab: InAppBrowser, private ionicViewController: ViewController) {
         this.card = this.navParams.get("card");
 
         this.dealType = DealType[this.card.dealType.valueOf()];
@@ -27,5 +27,9 @@ export class MoreCardInfoComponent {
 
     public getMomentFormatted(dateTime: string, format: string): string {
         return moment(dateTime).format(format);
+    }
+
+    public swipeGesture() {
+        this.ionicViewController.dismiss();
     }
 }

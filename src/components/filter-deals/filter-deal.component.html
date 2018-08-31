@@ -2,10 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <div class="title">Deal Type</div>
-      </ion-col>
-      <ion-col>
-        <div class="title">Vegan/Vegetarian</div>
+        <div class="title">I want</div>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -16,6 +13,25 @@
         </button>
       </ion-col>
       <ion-col>
+        <div class="label">Food</div>
+        <button (click)="toggle('food')" outline ion-button icon-only round>
+          <ion-icon name="pizza" color="{{getColor('food')}}"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="title">(Optional) that is</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="label">Vegan</div>
+        <button (click)="toggle('vegan')" outline ion-button icon-only round>
+          <ion-icon name="leaf" color="{{getColor('vegan')}}"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
         <div class="label">Vegetarian</div>
         <button (click)="toggle('vegetarian')" outline ion-button icon-only round>
           <ion-icon name="nutrition" color="{{getColor('vegetarian')}}"></ion-icon>
@@ -23,26 +39,6 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
-        <div class="label">Foods</div>
-        <button (click)="toggle('food')" outline ion-button icon-only round>
-          <ion-icon name="pizza" color="{{getColor('food')}}"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col>
-        <div class="label">Vegan</div>
-        <button (click)="toggle('vegan')" outline ion-button icon-only round>
-          <ion-icon name="leaf" color="{{getColor('vegan')}}"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div class="label">Meal</div>
-        <button (click)="toggle('meal')" outline ion-button icon-only round>
-          <ion-icon name="wine" color="{{getColor('meal')}}"></ion-icon>
-        </button>
-      </ion-col>
       <ion-col>
         <button style="width: 100%;" ion-button (click)="applyFilters()">Apply</button>
       </ion-col>

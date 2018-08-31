@@ -261,17 +261,6 @@ export class DealEditorComponent {
             this.clearFields();
     }
 
-    public updateDealContentType(changeVegetarianOption: boolean): void {
-        if (changeVegetarianOption) {
-            if (!this.isVegetarian)
-                this.isVegan = false;
-        }
-        else {//change vegan option
-            if (this.isVegan)
-                this.isVegetarian = true;
-        }
-    }
-
     public cancel(): void {
         this.dealEditorService.setCurrentDeal(null);
 

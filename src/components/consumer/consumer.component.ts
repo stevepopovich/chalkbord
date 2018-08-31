@@ -79,7 +79,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             throwOutDistance: () => {
                 return 50;
             },
-            allowedDirections: [Direction.UP, Direction.LEFT, Direction.RIGHT],
+            allowedDirections: [Direction.LEFT, Direction.RIGHT],
         };
     }
 
@@ -260,8 +260,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         this.organizationViewCards = new Array<LocaleCard>();
         this.filteredCards = [];
 
-        console.log(this.viewCardIndex);
-        console.log(this.cards.length);
         for (var i = this.viewCardIndex; i < this.cards.length; i++)
             this.filteredCards.push(this.cards[i]);
 

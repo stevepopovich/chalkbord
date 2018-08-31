@@ -5,6 +5,20 @@
   },
   "config_munge": {
     "files": {
+      "./res/values/strings.xml": {
+        "parents": {
+          "/resources": [
+            {
+              "xml": "<string name=\"fb_app_id\">296790334414922</string>",
+              "count": 3
+            },
+            {
+              "xml": "<string name=\"fb_app_name\">Chalkbord</string>",
+              "count": 3
+            }
+          ]
+        }
+      },
       "res/xml/config.xml": {
         "parents": {
           "/*": [
@@ -155,20 +169,6 @@
             {
               "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" onload=\"true\" value=\"io.ionic.keyboard.IonicKeyboard\" /></feature>",
               "count": 1
-            }
-          ]
-        }
-      },
-      "./res/values/strings.xml": {
-        "parents": {
-          "/resources": [
-            {
-              "xml": "<string name=\"fb_app_id\">296790334414922</string>",
-              "count": 15
-            },
-            {
-              "xml": "<string name=\"fb_app_name\">Chalkbord</string>",
-              "count": 15
             }
           ]
         }

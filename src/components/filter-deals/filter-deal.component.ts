@@ -31,43 +31,27 @@ export class FilterDealComponent {
             onlyVegan: this.boolValues.vegan,
             dealType: this.getDealTypeValue()
         };
-        console.log(returnData);
         this.viewCtrl.dismiss(returnData);
     }
 
     public toggle(boolName: string): void {
         this.boolValues[boolName] = !this.boolValues[boolName];
 
-        if (boolName == 'vegan' || boolName == 'vegetarian')
-            this.updateVeganVegValues(boolName);
-        else
-            this.updateDealTypeValues(boolName);
+        //this.updateDealTypeValues(boolName);
     }
 
     public getColor(boolName: string): string {
         return this.boolValues[boolName] ? "black" : "light-grey";
     }
 
-
-    private updateVeganVegValues(boolName: string): void {
-        if (boolName == 'vegetarian') {
-            if (!this.boolValues.vegetarian)
-                this.boolValues.vegan = false;
-        }
-        else {//change vegan option
-            if (this.boolValues.vegan)
-                this.boolValues.vegetarian = true;
-        }
-    }
-
-    private updateDealTypeValues(boolName: string) {
-        if (this.boolValues[boolName]) {
-            this.boolValues.drink = false;
-            this.boolValues.food = false;
-            this.boolValues.meal = false;
-            this.boolValues[boolName] = true;
-        }
-    }
+    // private updateDealTypeValues(boolName: string) {
+    //     if (this.boolValues[boolName]) {
+    //         this.boolValues.drink = false;
+    //         this.boolValues.food = false;
+    //         this.boolValues.meal = false;
+    //         this.boolValues[boolName] = true;
+    //     }
+    // }
 
     private getDealTypeValue(): DealType {
         if (this.boolValues.drink)
