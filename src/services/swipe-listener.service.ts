@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 import { Gesture } from 'ionic-angular/gestures/gesture';
-import { ViewController } from 'ionic-angular';
 declare var Hammer: any;
 
 /*

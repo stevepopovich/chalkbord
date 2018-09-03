@@ -67,7 +67,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         private currentUserService: CurrentUserService, private userService: UserService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 2.75);
+                const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);
                 const throwoutVertical = Math.abs(offsetY) / (element.offsetHeight / 4.5);
 
                 return Math.min(1,
@@ -116,7 +116,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     public onItemMove(element, x, y, r): void {
-        element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+        if (this.transitionString != "all 0.55s") // basically not being thrown out
+            element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
     public openConsumerCardList() {
@@ -125,7 +126,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public voteUp(like: boolean): void {
         if (this.organizationViewCards.length > 0) {
-            this.transitionString = "all 0.25s";
+            this.transitionString = "all 0.55s";
 
             if (like) {
                 if (!this.likingCard) {
@@ -133,13 +134,17 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
                     this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(1100px, 0px) rotate(40deg)`;
 
-                    this.handleCard(like);
+                    this.delay(300).then(() => {
+                        this.handleCard(like);
+                    });
                 }
             }
             else {
-                this.handleCard(like);
+                this.delay(300).then(() => {
+                    this.handleCard(like);
+                });
 
-                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(40deg)`;
+                this.swingCards.toArray()[this.moveCardIndex].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(-1100px, 0px) rotate(-40deg)`;
             }
         }
     }
