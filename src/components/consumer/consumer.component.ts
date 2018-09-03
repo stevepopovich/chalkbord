@@ -42,8 +42,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public stackConfig: StackConfig;
 
-    public destoryingCard: boolean = false;
-
     private moveCardIndex: number = 0;
     private viewCardIndex: number = 0;
 
@@ -89,20 +87,23 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 this.currentLocation.lat = resp.coords.latitude;
                 this.currentLocation.lng = resp.coords.longitude;
 
-                this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
-                    if (cardModels.length > 0) {
-                        cardModels = cardModels.filter((card) => {
-                            return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id);
-                        })
-                        if (!this.cards) {
-                            this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
+                if (!this.cardSubscription) {
+                    this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
+                        this.initialLoading = false;
+                        if (cardModels.length > 0) {
+                            cardModels = cardModels.filter((card) => {
+                                return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id);
+                            })
+                            if (!this.cards) {
+                                this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
 
-                            this.filterCards(this.currentFilter);
+                                this.filterCards(this.currentFilter);
+                            }
+                            else
+                                LocaleCard.findAndUpdateCards(this.organizationViewCards, cardModels as LocaleCard[]);
                         }
-                        else
-                            LocaleCard.findAndUpdateCards(this.organizationViewCards, cardModels as LocaleCard[]);
-                    }
-                });
+                    });
+                }
             }, (error) => {
                 this.toastService.showReadableToast("We could not find your location, please contact support. " + error);
             });
@@ -245,7 +246,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 }
             ],
             title: "You are going to " + card.organization.name + "!",
-            subTitle: "Your deal code is: " + this.randomNumber(),
+            subTitle: "Your deal code is: " + this.randomNumber(), // TODO
             message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 

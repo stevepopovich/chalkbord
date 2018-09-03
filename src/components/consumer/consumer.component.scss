@@ -2,51 +2,51 @@ $card-top-offest: 14%;
 $button-top-offest: 79%;
 
 @mixin rotated-text($num-letters: 100, $angle-span: 180deg, $angle-offset: 0deg) {
-        $angle-per-char: $angle-span / $num-letters;
-        @for $i from 1 through $num-letters {
-            .char#{$i} {
-                @include transform(rotate($angle-offset + $angle-per-char * $i))
+    $angle-per-char: $angle-span / $num-letters;
+
+    @for $i from 1 through $num-letters {
+        .char#{$i} {
+            @include transform(rotate($angle-offset + $angle-per-char * $i))
         }
     }
 }
 
 @function setLongShadow($color, $length) {
     $value: 0 0 $color;
- 
+
     @for $i from 1 through $length {
-        $value: #{$value}, #{$i}px #{$i}px #{$color};
+        $value: #{$value},
+        #{$i}px #{$i}px #{$color};
     }
- 
+
     @return $value;
 }
- 
+
 @mixin longShadow($color, $length:200) {
     text-shadow: setLongShadow($color, $length);
 }
 
-.title-big
-.toolbar-title-md
-.toolbar-title-ios {
+.title-big .toolbar-title-md .toolbar-title-ios {
     font-size: 3em !important;
 }
 
-.toolbar-title-ios{
+.toolbar-title-ios {
     color: white;
 }
 
-.toolbar-background{
+.toolbar-background {
     background: black;
     //background-image: url("assets/images/good\ chalkboard.jpg");
 }
 
-.organization-card{
+.organization-card {
     width: 100%;
 }
 
 #card-stack {
     height: 74%;
 }
- 
+
 #card-stack ion-card {
     border-radius: 14px;
     position: absolute;
@@ -56,7 +56,7 @@ $button-top-offest: 79%;
     margin-top: 8px;
 }
 
-.card-text{
+.card-text {
     text-align: center;
     color: white;
     position: absolute;
@@ -64,48 +64,50 @@ $button-top-offest: 79%;
     left: 0;
     width: 100%;
     font-size: 18px;
-
     //http://owumaro.github.io/text-stroke-generator/
     //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
-	text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
-
+    text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
-    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 24%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 24%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 24%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 24%, rgba(255, 255, 255, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 24%, rgba(255, 255, 255, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 24%, rgba(255, 255, 255, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
+    /* IE6-9 */
 }
 
 .locale-card-title {
     color: white;
     //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
     text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
     text-align: center;
     font-family: Baumans;
     font-size: 36px;
     padding: 0;
 }
 
-.locale-card-time{
+.locale-card-time {
     color: white !important;
     //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
     text-shadow:
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000,
-		1px 1px 0 #000;
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
     font-style: italic;
 }
 
-.non-draggable-card-image{
+.non-draggable-card-image {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -117,13 +119,13 @@ $button-top-offest: 79%;
     transform: translateY(-50%);
 }
 
-.non-draggable-image{
+.non-draggable-image {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    margin:auto;
+    margin: auto;
     display: block;
     width: 26%;
     height: 29px !important;
@@ -165,11 +167,11 @@ $button-top-offest: 79%;
     background-color: transparent;
 }
 
-.padding-top{
+.padding-top {
     padding-top: 0.06em !important;
 }
 
-.button-nav-bar{
+.button-nav-bar {
     color: white;
 }
 
@@ -188,7 +190,23 @@ $button-top-offest: 79%;
     height: 90px;
     width: 100%;
     margin: 0 auto;
+    margin-top: 18em;
+    font-family: Baumans;
+    z-index: -9999 !important;
+}
+
+.no-consumer-cards-text {
+    position: relative;
+    display: inline-block;
+    height: 45px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
     margin-top: 14em;
+    font-family: Baumans;
+    color: white;
+    font-size: 24px;
+    z-index: -9999 !important;
 }
 
 .spinner-md-crescent circle {
@@ -215,9 +233,9 @@ $button-top-offest: 79%;
 }
 
 .bottom-grid {
-    position: absolute; 
+    position: absolute;
     bottom: 0;
-    height: 19%; 
-    padding: 0; 
+    height: 19%;
+    padding: 0;
     z-index: -10;
 }

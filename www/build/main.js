@@ -3973,19 +3973,22 @@ var ConsumerComponent = (function () {
             this.geolocation.watchPosition().subscribe(function (resp) {
                 _this.currentLocation.lat = resp.coords.latitude;
                 _this.currentLocation.lng = resp.coords.longitude;
-                _this.cardSubscription = _this.cardService.getCardsByLatLng(_this.currentLocation, 100000000).subscribe(function (cardModels) {
-                    if (cardModels.length > 0) {
-                        cardModels = cardModels.filter(function (card) {
-                            return !__WEBPACK_IMPORTED_MODULE_16_underscore___default.a.contains(_this.currentUserService.getCurrentUser().cardIds, card.id);
-                        });
-                        if (!_this.cards) {
-                            _this.cards = _this.cardService.filterNonDuplicateDeals(cardModels);
-                            _this.filterCards(_this.currentFilter);
+                if (!_this.cardSubscription) {
+                    _this.cardSubscription = _this.cardService.getCardsByLatLng(_this.currentLocation, 100000000).subscribe(function (cardModels) {
+                        _this.initialLoading = false;
+                        if (cardModels.length > 0) {
+                            cardModels = cardModels.filter(function (card) {
+                                return !__WEBPACK_IMPORTED_MODULE_16_underscore___default.a.contains(_this.currentUserService.getCurrentUser().cardIds, card.id);
+                            });
+                            if (!_this.cards) {
+                                _this.cards = _this.cardService.filterNonDuplicateDeals(cardModels);
+                                _this.filterCards(_this.currentFilter);
+                            }
+                            else
+                                __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["b" /* LocaleCard */].findAndUpdateCards(_this.organizationViewCards, cardModels);
                         }
-                        else
-                            __WEBPACK_IMPORTED_MODULE_0__types_deals_type__["b" /* LocaleCard */].findAndUpdateCards(_this.organizationViewCards, cardModels);
-                    }
-                });
+                    });
+                }
             }, function (error) {
                 _this.toastService.showReadableToast("We could not find your location, please contact support. " + error);
             });
@@ -3997,7 +4000,7 @@ var ConsumerComponent = (function () {
         this.cardSubscription.unsubscribe();
     };
     ConsumerComponent.prototype.onItemMove = function (element, x, y, r) {
-        if (this.transitionString != "all 0.45s")
+        if (this.transitionString != "all 0.55s")
             element.style['transform'] = "translate3d(0, 0, 0) translate(" + x + "px, " + y + "px) rotate(" + r + "deg)";
     };
     ConsumerComponent.prototype.openConsumerCardList = function () {
@@ -4006,7 +4009,7 @@ var ConsumerComponent = (function () {
     ConsumerComponent.prototype.voteUp = function (like) {
         var _this = this;
         if (this.organizationViewCards.length > 0) {
-            this.transitionString = "all 0.45s";
+            this.transitionString = "all 0.55s";
             if (like) {
                 if (!this.likingCard) {
                     this.likingCard = true;
@@ -4186,7 +4189,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div class="loading-div">\n    <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n    <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n</div>\n\n<ion-navbar style="min-height: 56px;">\n    <button (click)="openProfile()" class="button-nav-bar" ion-button menuToggle icon-only>\n        <ion-icon name="contact"></ion-icon>\n    </button>\n    <ion-title style="font-family: Baumans">chalkbord</ion-title>\n    <button (click)="openConsumerCardList()" class="button-nav-bar" ion-button icon-only menuToggle right>\n        <ion-icon name="logo-buffer"></ion-icon>\n    </button>\n</ion-navbar>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" \n    id="card-stack" [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i" [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button" ion-button icon-only\n                round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>Sorry, that\'s all the cards!</h2>\n        <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"\n            style="margin-top: 0" ion-text>Try removing filters</h2>\n    </div>\n</div>\n\n<ion-navbar style="min-height: 56px;">\n    <button (click)="openProfile()" class="button-nav-bar" ion-button menuToggle icon-only>\n        <ion-icon name="contact"></ion-icon>\n    </button>\n    <ion-title style="font-family: Baumans">chalkbord</ion-title>\n    <button (click)="openConsumerCardList()" class="button-nav-bar" ion-button icon-only menuToggle right>\n        <ion-icon name="logo-buffer"></ion-icon>\n    </button>\n</ion-navbar>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n\n        <ion-card-content class="card-text">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}\n                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
