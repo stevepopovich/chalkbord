@@ -246,7 +246,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 }
             ],
             title: "You are going to " + card.organization.name + "!",
-            subTitle: "Your deal code is: " + this.randomNumber(), // TODO
             message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
         });
 
@@ -327,10 +326,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     //used simply to async wait for something
     private delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    private randomNumber(): string {
-        return String(Math.floor(1000 + Math.random() * 9000));
     }
 
     public openProfile() {

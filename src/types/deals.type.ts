@@ -45,7 +45,7 @@ export class LocaleCard {
 
     public static getBlankCard(): LocaleCard {
         const blankCard = new LocaleCard(null, null, moment().toObject(), moment().toObject(), -1, DealType.Drinks, false, false, false, null);
-        blankCard.organization = new Organization("", "", "", "", new LocaleLocation());
+        blankCard.organization = new Organization("", "", "", 0, "", "", new LocaleLocation());
         return blankCard;
     }
 

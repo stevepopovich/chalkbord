@@ -114,4 +114,5 @@
     <engine name="browser" spec="5.0.3" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="~7.0.0" />
+    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
 </widget>

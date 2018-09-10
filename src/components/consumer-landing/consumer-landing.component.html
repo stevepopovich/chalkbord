@@ -132,13 +132,15 @@
                             <ion-label floating>Email</ion-label>
                             <ion-input type="email" formControlName="email"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('email').errors && signUpGroup.get('email').dirty" class="error-message">Make sure your email is formatted correctly.</p>
+                        <p *ngIf="signUpGroup.get('email').errors && signUpGroup.get('email').dirty" class="error-message">Make
+                            sure your email is formatted correctly.</p>
 
                         <ion-item>
                             <ion-label floating>Password</ion-label>
                             <ion-input type="password" formControlName="password"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('password').errors && signUpGroup.get('password').dirty" class="error-message">Make sure your password is at least eight characters long</p>
+                        <p *ngIf="signUpGroup.get('password').errors && signUpGroup.get('password').dirty" class="error-message">Make
+                            sure your password is at least eight characters long</p>
 
                         <ion-item>
                             <ion-label floating>Confirm Password</ion-label>
@@ -150,28 +152,46 @@
                             <ion-label floating>Organization Name</ion-label>
                             <ion-input formControlName="name"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('name').errors && signUpGroup.get('name').dirty" class="error-message">Restaurant name is required</p>
+                        <p *ngIf="signUpGroup.get('name').errors && signUpGroup.get('name').dirty" class="error-message">Restaurant
+                            name is required</p>
+                        <ion-item class="padding-right">
+                            <ion-label floating>Restaurant Phone Number</ion-label>
+                            <ion-input type="number" formControlName="phoneNumber"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('phoneNumber').errors && signUpGroup.get('phoneNumber').dirty" class="error-message">Restaurant
+                            phone number is required and needs to be 10 numbers</p>
+
+                        <ion-item class="padding-right">
+                            <ion-label floating>Restaurant Website</ion-label>
+                            <ion-input formControlName="website"></ion-input>
+                        </ion-item>
+                        <p *ngIf="signUpGroup.get('website').errors && signUpGroup.get('website').dirty" class="error-message">Restaurant
+                            website is required and needs to be a valid website</p>
 
                         <ion-item>
                             <ion-label floating>Address </ion-label>
                             <ion-input formControlName="address"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('address').errors && signUpGroup.get('address').dirty" class="error-message">Address is required</p>
+                        <p *ngIf="signUpGroup.get('address').errors && signUpGroup.get('address').dirty" class="error-message">Address
+                            is required</p>
                         <ion-item>
                             <ion-label floating>City</ion-label>
                             <ion-input formControlName="city"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('city').errors && signUpGroup.get('city').dirty" class="error-message">City is required</p>
+                        <p *ngIf="signUpGroup.get('city').errors && signUpGroup.get('city').dirty" class="error-message">City
+                            is required</p>
                         <ion-item>
                             <ion-label floating>State</ion-label>
                             <ion-input formControlName="state"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('state').errors && signUpGroup.get('state').dirty" class="error-message">State is required</p>
+                        <p *ngIf="signUpGroup.get('state').errors && signUpGroup.get('state').dirty" class="error-message">State
+                            is required</p>
                         <ion-item>
                             <ion-label floating>Zipcode</ion-label>
                             <ion-input formControlName="zipcode"></ion-input>
                         </ion-item>
-                        <p *ngIf="signUpGroup.get('zipcode').errors && signUpGroup.get('zipcode').dirty" class="error-message">Zipcode is required</p>
+                        <p *ngIf="signUpGroup.get('zipcode').errors && signUpGroup.get('zipcode').dirty" class="error-message">Zipcode
+                            is required</p>
                         <ion-item>
                             <ion-label>Stay signed in</ion-label>
                             <ion-checkbox formControlName="rememberMe" [(ngModel)]="rememberMeSignUp" checked="false"></ion-checkbox>

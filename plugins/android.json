@@ -51,6 +51,9 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

@@ -1,6 +1,6 @@
 import { FormBuilderHelper } from '../../types/utils.type';
 import { ToastService } from '../../services/toast.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import { CurrentUserService } from '../../services/current-user.service';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
@@ -28,6 +28,8 @@ export class OrganizationSignupComponent {
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8)])],
+            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+            website: ['', Validators.compose([Validators.required, this.URLValidator])],
             address: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             state: ['', Validators.compose([Validators.required])],
@@ -126,6 +128,8 @@ export class OrganizationSignupComponent {
         const password: string = this.signUpGroup.get("password").value;
         const confrimPassword: string = this.signUpGroup.get("confirmPassword").value;
         const organizationName: string = this.signUpGroup.get("name").value;
+        const phoneNumber: number = this.signUpGroup.get("phoneNumber").value;
+        const website: string = this.signUpGroup.get("website").value;
 
         if (password == confrimPassword) {
             this.auth.checkSignInMethods(email).then((methods) => {
@@ -137,7 +141,7 @@ export class OrganizationSignupComponent {
 
                             const newUser = new LocaleUser(this.auth.getCurrentUserUID(), UserType.Organization, organizationName);
 
-                            const newOrganziationModel = new Organization(this.auth.getCurrentUserUID(), organizationName, place.formatted_address, "", new LocaleLocation(place.geometry.location));
+                            const newOrganziationModel = new Organization(this.auth.getCurrentUserUID(), organizationName, place.formatted_address, phoneNumber, website, "", new LocaleLocation(place.geometry.location));
 
                             this.currentUserService.setCurrentUser(newUser);
 
@@ -168,5 +172,15 @@ export class OrganizationSignupComponent {
                 console.error("Sign up failed because: " + reason);
             });
         }
+    }
+
+    private URLValidator(control: FormControl) {
+        const regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+
+        return regexp.test(control.value) ? null : {
+            'invalidUrl': {
+                valid: false
+            }
+        };
     }
 }

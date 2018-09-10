@@ -5,6 +5,8 @@ export class Organization {
         public uid: string,
         public name: string,
         public address: string,
+        public phoneNumber: number,
+        public website: string,
         public imageSource: string,
         public location: LocaleLocation) { }
 

@@ -72,6 +72,9 @@
     <feature name="LaunchNavigator">
         <param name="ios-package" value="LaunchNavigator" />
     </feature>
+    <feature name="CallNumber">
+        <param name="ios-package" value="CFCallNumber" />
+    </feature>
     <name>Chalkbord</name>
     <icon src="src/assets/images/icon.png" />
     <description>An app to let you get deals</description>
@@ -138,7 +141,7 @@
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="4000" />
+    <preference name="SplashScreenDelay" value="1500" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashShowOnlyFirstTime" value="false" />

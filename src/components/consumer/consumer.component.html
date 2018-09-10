@@ -4,7 +4,7 @@
         <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>
     </div>
     <div *ngIf="!initialLoading">
-        <h2 class="no-consumer-cards-text" ion-text>Sorry, that's all the cards!</h2>
+        <h2 class="no-consumer-cards-text" ion-text>Sorry, that's all the deals!</h2>
         <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"
             style="margin-top: 0" ion-text>Try removing filters</h2>
     </div>

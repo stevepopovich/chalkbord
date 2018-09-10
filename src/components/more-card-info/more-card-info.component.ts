@@ -1,7 +1,8 @@
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { NavParams, ViewController } from 'ionic-angular';
 import { Component } from "@angular/core";
 import { LocaleCard, DealType } from '../../types/deals.type';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { CallNumber } from '@ionic-native/call-number';
 import * as moment from 'moment';
 
 @Component({
@@ -14,19 +15,37 @@ export class MoreCardInfoComponent {
 
     public dealType: string;
 
-    constructor(private navParams: NavParams, private iab: InAppBrowser, private ionicViewController: ViewController) {
+    constructor(private navParams: NavParams, private ionicViewController: ViewController,
+        private callNumber: CallNumber, private launchNavigator: LaunchNavigator) {
         this.card = this.navParams.get("card");
 
         this.dealType = DealType[this.card.dealType.valueOf()];
     }
 
+    public goToWebsite() {
+        if (this.card.organization.website.startsWith("http"))
+            window.open(this.card.organization.website, '_system');
+        else
+            window.open("http://" + this.card.organization.website, '_system');
+    }
+
     public goToLocation() {
-        this.iab.create("http://www.google.com/search?q=" + this.card.organization.name);
-        //this.launchNavigator.navigate(this.card.organization.address);
+        this.launchNavigator.navigate(this.card.organization.address);
+    }
+
+    public callPhoneNumber() {
+        this.callNumber.callNumber(this.card.organization.phoneNumber.toString(), true)
     }
 
     public getMomentFormatted(dateTime: string, format: string): string {
         return moment(dateTime).format(format);
+    }
+
+    public getPhoneFormatted(phoneNumber: number): string {
+        const areaCode = phoneNumber.toString().substring(0, 3);
+        const firstThree = phoneNumber.toString().substring(3, 6);
+        const lastFour = phoneNumber.toString().substring(6, 10);
+        return "(" + areaCode + ")" + firstThree + "-" + lastFour;
     }
 
     public swipeGesture() {

@@ -123,5 +123,13 @@
       "APP_ID": "296790334414922",
       "APP_NAME": "Chalkbord"
     }
+  },
+  "mx.ferreyra.callnumber": {
+    "source": {
+      "type": "registry",
+      "id": "call-number"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

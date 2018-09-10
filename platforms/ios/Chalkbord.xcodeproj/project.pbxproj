@@ -63,6 +63,7 @@
 		F2FF3BFC39564753B9CAB082 /* PSPDFThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D681CA7A747460DA95B81C1 /* PSPDFThreadSafeMutableDictionary.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F6C132EDD532464E8B2D748F /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CB48E8E0C6486C9230F242 /* CDVNotification.m */; };
 		F6F8647FB29A41129A159A71 /* LN_Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D413AE4C64934EAA99794A14 /* LN_Reachability.m */; };
+		6C2F7F8BBF3E4864949D86AF /* CFCallNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0199F6B4F4FABA1D732D0 /* CFCallNumber.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,8 @@
 		F336A6E16857490FAABCD3E7 /* CDVNotification.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Chalkbord/config.xml; sourceTree = "<group>"; };
 		F931631648BF41C99E791CEB /* ActionSheet.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = ActionSheet.m; path = "cordova-plugin-actionsheet/ActionSheet.m"; sourceTree = "<group>"; };
+		5AE0199F6B4F4FABA1D732D0 /* CFCallNumber.m */ = {isa = PBXFileReference; name = "CFCallNumber.m"; path = "mx.ferreyra.callnumber/CFCallNumber.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E7147B0785B9424686270ED8 /* CFCallNumber.h */ = {isa = PBXFileReference; name = "CFCallNumber.h"; path = "mx.ferreyra.callnumber/CFCallNumber.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -405,6 +408,8 @@
 				D413AE4C64934EAA99794A14 /* LN_Reachability.m */,
 				7D72DF1F48194A319B816CBA /* LaunchNavigator.h */,
 				82E05154F68F4E519C92F34A /* LN_Reachability.h */,
+				5AE0199F6B4F4FABA1D732D0 /* CFCallNumber.m */,
+				E7147B0785B9424686270ED8 /* CFCallNumber.h */,
 			);
 			name = Plugins;
 			path = Chalkbord/Plugins;
@@ -570,6 +575,7 @@
 				7A5E9F000F5544FD83B6E30E /* sqlite3.c in Sources */,
 				6BB82D8BCCCC4BA0802C0BC4 /* LaunchNavigator.m in Sources */,
 				F6F8647FB29A41129A159A71 /* LN_Reachability.m in Sources */,
+				6C2F7F8BBF3E4864949D86AF /* CFCallNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -51,6 +51,9 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {

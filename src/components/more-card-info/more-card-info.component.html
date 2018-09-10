@@ -1,32 +1,39 @@
+<ion-header>
+    <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
+</ion-header>
 <ion-content>
-    <div>
-        <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
-        <ion-content>
-            <div>
-                <img *ngIf="card" class="present-card-image fill" src="{{card.imageURL}}" />
-                <div text-wrap style="padding-right: 16px;">
-                    <ion-item (click)="goToLocation()">
-                        <h1 class="app-text">{{card.organization.name}}</h1>
-                        <p class="app-text">{{card.organization.address}}</p>
-                    </ion-item>
-                    <ion-item>
-                        <h2>{{card.dealDescription}}</h2>
-                        <p>{{getMomentFormatted(card.dealStart, "MMMM Do, YYYY")}}</p>
-                        <p>{{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd, "hh:mm a")}}</p>
-                    </ion-item>
-                    <ion-item *ngIf="card.numberOfDeals > 0">
-                        <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this deal!</h2>
-                    </ion-item>
-                    <ion-item *ngIf="card.longDealDescrption">
-                        {{card.longDealDescrption}}
-                    </ion-item>
-                    <ion-item>
-                        <p>Deal type: {{dealType}}</p>
-                        <div *ngIf="card.isVegetarian">VT</div>
-                        <div *ngIf="card.isVegan">VG</div>
-                    </ion-item>
-                </div>
-            </div>
-        </ion-content>
+    <img *ngIf="card" class="present-card-image fill" src="{{card.imageURL}}" />
+    <div text-wrap style="padding-right: 16px;">
+        <ion-item>
+            <h1 class="app-text">{{card.organization.name}} </h1>
+            <p (click)="goToLocation()" class="address-text app-text">
+                <ion-icon class="icon-margin" name="navigate"></ion-icon> {{card.organization.address}}
+            </p>
+            <p *ngIf="card.organization.website" (click)="goToWebsite()" class="clickable-text app-text">
+                <ion-icon class="icon-margin" name="globe"></ion-icon> {{card.organization.website}}
+            </p>
+            <p *ngIf="card.organization.phoneNumber" (click)="callPhoneNumber()" class="phone-text app-text">
+                <ion-icon class="icon-margin" name="call"></ion-icon>
+                {{getPhoneFormatted(card.organization.phoneNumber)}}
+            </p>
+        </ion-item>
+        <ion-item>
+            <h2>{{card.dealDescription}}</h2>
+            <p>{{getMomentFormatted(card.dealStart, "MMMM Do, YYYY")}}</p>
+            <p>{{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
+                "hh:mm a")}}</p>
+        </ion-item>
+        <ion-item *ngIf="card.numberOfDeals > 0">
+            <h2 class="app-text red-text">There are only {{card.numberOfDeals}} cards available for this
+                deal!</h2>
+        </ion-item>
+        <ion-item *ngIf="card.longDealDescrption">
+            {{card.longDealDescrption}}
+        </ion-item>
+        <ion-item>
+            <p>Deal type: {{dealType}}</p>
+            <div *ngIf="card.isVegetarian">VT</div>
+            <div *ngIf="card.isVegan">VG</div>
+        </ion-item>
     </div>
 </ion-content>

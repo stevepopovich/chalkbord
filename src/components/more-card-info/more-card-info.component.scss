@@ -1,4 +1,4 @@
-.present-card-image{
+.present-card-image {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -10,6 +10,23 @@
 
 .app-text {
     font-family: Baumans;
+}
+
+.icon-margin {
+    margin-right: 0.25em;
+    padding-top: 0.25em;
+}
+
+.clickable-text {
+    color: blue !important;
+}
+
+.phone-text {
+    color: green !important;
+}
+
+.address-text {
+    color: black;
 }
 
 .red-text {
