@@ -2,6 +2,11 @@
     <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>
 </ion-header>
 <ion-content>
+    <button *ngIf="getDealTypeIcon() != null" class="top-right-icon" color="black" ion-button icon-only round>
+        <ion-icon name="{{getDealTypeIcon()}}">
+        </ion-icon>
+    </button>
+
     <img *ngIf="card" class="present-card-image fill" src="{{card.imageURL}}" />
     <div text-wrap style="padding-right: 16px;">
         <ion-item>
@@ -18,7 +23,8 @@
             </p>
         </ion-item>
         <ion-item>
-            <h2>{{card.dealDescription}}</h2>
+            <h2>{{card.dealDescription}}
+            </h2>
             <p>{{getMomentFormatted(card.dealStart, "MMMM Do, YYYY")}}</p>
             <p>{{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
                 "hh:mm a")}}</p>
@@ -30,10 +36,10 @@
         <ion-item *ngIf="card.longDealDescrption">
             {{card.longDealDescrption}}
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             <p>Deal type: {{dealType}}</p>
             <div *ngIf="card.isVegetarian">VT</div>
             <div *ngIf="card.isVegan">VG</div>
-        </ion-item>
+        </ion-item> -->
     </div>
 </ion-content>

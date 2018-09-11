@@ -26,10 +26,19 @@
 }
 
 .address-text {
-    color: black;
+    color: black !important;
 }
 
 .red-text {
     color: red;
     font-style: italic;
+}
+
+.top-right-icon {
+    position: absolute;
+    color: white;
+    right: 2%;
+    top: 0.5%;
+    font-size: 1em;
+    min-width: 2em;
 }

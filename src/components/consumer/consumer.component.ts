@@ -49,7 +49,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     private animatingCard: boolean = false;
 
-    public currentFilter: FilterDealsOptionsInterface = { dealType: null, onlyVegan: false, onlyVegetarian: false };
+    public currentFilter: FilterDealsOptionsInterface = { dealTypes: [], onlyVegan: false, onlyVegetarian: false };
 
     public cards: LocaleCard[];
 
@@ -268,18 +268,19 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         for (var i = this.viewCardIndex; i < this.cards.length; i++)
             this.filteredCards.push(this.cards[i]);
 
-        if (filterOptions.dealType || filterOptions.dealType === 0) {
+        if (filterOptions.dealTypes.length > 0) {
             this.filteredCards = this.filteredCards.filter((card) => {
-                return card.dealType == filterOptions.dealType;
+                return filterOptions.dealTypes.findIndex(x => x == card.dealType) >= 0;
             });
         }
 
         if (filterOptions.onlyVegan) {
             this.filteredCards = this.filteredCards.filter((card) => {
-                return card.isVegan && card.isVegetarian;
+                return card.isVegan;
             });
         }
-        else if (filterOptions.onlyVegetarian) {
+
+        if (filterOptions.onlyVegetarian) {
             this.filteredCards = this.filteredCards.filter((card) => {
                 return card.isVegetarian;
             });

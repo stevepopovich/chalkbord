@@ -48,6 +48,13 @@ export class MoreCardInfoComponent {
         return "(" + areaCode + ")" + firstThree + "-" + lastFour;
     }
 
+    public getDealTypeIcon(): string {
+        if (this.card.dealType == DealType.Drinks)
+            return "beer";
+        else if (this.card.dealType == DealType.Food)
+            return "pizza";
+    }
+
     public swipeGesture() {
         this.ionicViewController.dismiss();
     }

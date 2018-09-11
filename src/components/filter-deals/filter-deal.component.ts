@@ -20,7 +20,7 @@ export class FilterDealComponent {
     constructor(private viewCtrl: ViewController, private navParams: NavParams) {
         const appliedFilterOptions: FilterDealsOptionsInterface = this.navParams.data;
         console.log(this.navParams.data);
-        this.setDealType(appliedFilterOptions.dealType);
+        this.setDealType(appliedFilterOptions.dealTypes);
         this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
         this.boolValues.vegan = appliedFilterOptions.onlyVegan;
     }
@@ -29,59 +29,54 @@ export class FilterDealComponent {
         const returnData: FilterDealsOptionsInterface = {
             onlyVegetarian: this.boolValues.vegetarian,
             onlyVegan: this.boolValues.vegan,
-            dealType: this.getDealTypeValue()
+            dealTypes: this.getDealTypesValue()
         };
         this.viewCtrl.dismiss(returnData);
     }
 
     public toggle(boolName: string): void {
         this.boolValues[boolName] = !this.boolValues[boolName];
-
-        //this.updateDealTypeValues(boolName);
     }
 
     public getColor(boolName: string): string {
         return this.boolValues[boolName] ? "black" : "light-grey";
     }
 
-    // private updateDealTypeValues(boolName: string) {
-    //     if (this.boolValues[boolName]) {
-    //         this.boolValues.drink = false;
-    //         this.boolValues.food = false;
-    //         this.boolValues.meal = false;
-    //         this.boolValues[boolName] = true;
-    //     }
-    // }
+    private getDealTypesValue(): DealType[] {
+        const dealTypes = [];
 
-    private getDealTypeValue(): DealType {
         if (this.boolValues.drink)
-            return DealType.Drinks;
+            dealTypes.push(DealType.Drinks);
         if (this.boolValues.food)
-            return DealType.Food;
+            dealTypes.push(DealType.Food);
         if (this.boolValues.meal)
-            return DealType.Meal;
+            dealTypes.push(DealType.Meal);
+
+        return dealTypes;
     }
 
-    private setDealType(dealType: DealType) {
-        switch (dealType) {
-            case DealType.Meal: {
-                this.boolValues.meal = true;
-                break;
+    private setDealType(dealTypes: DealType[]) {
+        dealTypes.forEach(dealType => {
+            switch (dealType) {
+                case DealType.Meal: {
+                    this.boolValues.meal = true;
+                    break;
+                }
+                case DealType.Drinks: {
+                    this.boolValues.drink = true;
+                    break;
+                }
+                case DealType.Food: {
+                    this.boolValues.food = true;
+                    break;
+                }
             }
-            case DealType.Drinks: {
-                this.boolValues.drink = true;
-                break;
-            }
-            case DealType.Food: {
-                this.boolValues.food = true;
-                break;
-            }
-        }
+        });
     }
 }
 
 export interface FilterDealsOptionsInterface {
     onlyVegetarian: boolean;
     onlyVegan: boolean;
-    dealType: DealType;
+    dealTypes: DealType[];
 }
