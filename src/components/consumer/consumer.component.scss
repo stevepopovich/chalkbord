@@ -167,6 +167,8 @@ $button-top-offest: 79%;
     z-index: -9999 !important;
     position: absolute;
     background-image: url("../assets/images/good-chalkboard.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .ion-spinner-consumer {
@@ -187,7 +189,7 @@ $button-top-offest: 79%;
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    margin-top: 14em;
+    margin-top: 12em;
     font-family: Baumans;
     color: white;
     font-size: 24px;
@@ -257,7 +259,7 @@ $button-top-offest: 79%;
     top: 10%;
     min-height: 2em;
     min-width: 3em !important;
-    right: 2%;
+    right: 3%;
     background-color: #212121;
 }
 

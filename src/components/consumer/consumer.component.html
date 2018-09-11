@@ -12,12 +12,11 @@
 </div>
 
 <ion-navbar style="min-height: 56px;">
-    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only>
-        <ion-icon name="contact"></ion-icon>
+    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">
+        <ion-icon ios="md-contact" md="md-contact"></ion-icon>
     </button>
-    <!-- <ion-title style="font-family: Baumans">chalkbord</ion-title> -->
     <img class="textured-name" src="assets/images/textured-name.png" />
-    <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right" ion-button icon-only>
+    <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right" ion-button icon-only [clear]="true">
         <img class="card-stack-img" src="assets/images/card-stack.png" />
     </button>
 </ion-navbar>
