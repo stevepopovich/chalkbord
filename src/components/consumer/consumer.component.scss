@@ -1,31 +1,6 @@
 $card-top-offest: 14%;
 $button-top-offest: 79%;
 
-@mixin rotated-text($num-letters: 100, $angle-span: 180deg, $angle-offset: 0deg) {
-    $angle-per-char: $angle-span / $num-letters;
-
-    @for $i from 1 through $num-letters {
-        .char#{$i} {
-            @include transform(rotate($angle-offset + $angle-per-char * $i))
-        }
-    }
-}
-
-@function setLongShadow($color, $length) {
-    $value: 0 0 $color;
-
-    @for $i from 1 through $length {
-        $value: #{$value},
-        #{$i}px #{$i}px #{$color};
-    }
-
-    @return $value;
-}
-
-@mixin longShadow($color, $length:200) {
-    text-shadow: setLongShadow($color, $length);
-}
-
 .title-big .toolbar-title-md .toolbar-title-ios {
     font-size: 3em !important;
 }
@@ -71,6 +46,9 @@ $button-top-offest: 79%;
         1px -1px 0 #000,
         -1px 1px 0 #000,
         1px 1px 0 #000;
+}
+
+.card-inner-shadow {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 24%, rgba(255, 255, 255, 1) 100%);
     /* FF3.6-15 */
@@ -115,8 +93,15 @@ $button-top-offest: 79%;
     -ms-user-select: none;
     text-align: center;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    display: block;
+    top: 35%;
+    min-width: 100%;
+    min-height: 75%;
+    height: 75%;
+    width: auto;
+    max-width: 90000%;
+    margin-left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 
 .non-draggable-image {
@@ -209,6 +194,19 @@ $button-top-offest: 79%;
     z-index: -9999 !important;
 }
 
+.bottom-no-consumer-card-text {
+    position: relative;
+    display: inline-block;
+    height: 45px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Baumans;
+    color: white;
+    font-size: 24px;
+    z-index: -9999 !important;
+}
+
 .spinner-md-crescent circle {
     stroke: white;
 }
@@ -238,4 +236,49 @@ $button-top-offest: 79%;
     height: 19%;
     padding: 0;
     z-index: -10;
+}
+
+.textured-name {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -95px;
+    width: 190px;
+    height: auto;
+    transform: translateY(-50%);
+}
+
+.button-top-right {
+    position: absolute;
+    top: 10%;
+    min-height: 2em;
+    min-width: 3em !important;
+    right: 2%;
+    background-color: #212121;
+}
+
+.button-top-left {
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    font-size: 1.3em;
+    background-color: #212121;
+}
+
+.card-stack-img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    position: absolute;
+    height: auto;
+}
+
+.toolbar-background {
+    background-color: #212121;
 }
