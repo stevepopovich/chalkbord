@@ -47439,42 +47439,21 @@ ion-navbar.toolbar {
 }
 
 #preview-card-stack ion-card {
-  border-radius: 10px;
   position: absolute;
-  text-align: center;
   height: 95%;
-  background-color: floralwhite;
-  margin-top: 8px;
   width: 95%;
   max-width: 325px;
   max-height: 450px;
+  border-radius: 14px;
+  text-align: center;
+  background-color: white;
+  margin-top: 8px;
+  border: 3px solid #404040;
 }
 
-.card-text {
-  text-align: center;
-  color: white;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  font-size: 18px;
-  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+100,ffffff+100&0+0,1+24 */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), color-stop(24%, white), to(white));
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 24%, white 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
-  /* IE6-9 */
-}
-
-.locale-card-title {
-  color: white;
-  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
-  text-align: center;
-  font-family: Baumans;
-  font-size: 36px;
+.centered-tap-text {
+  -webkit-transform: translateY(1200%);
+  transform: translateY(1200%);
 }
 
 .locale-card-time {
@@ -47514,6 +47493,7 @@ p {
   height: 72%;
   background-color: white;
   margin-top: 8px;
+  border: 3px solid #404040;
 }
 
 .card-text {
@@ -47523,7 +47503,7 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  font-size: 18px;
+  font-size: 24px;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -47543,7 +47523,7 @@ p {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   text-align: center;
   font-family: Baumans;
-  font-size: 36px;
+  font-size: 48px;
   padding: 0;
 }
 
@@ -47551,6 +47531,7 @@ p {
   color: white !important;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   font-style: italic;
+  font-size: 18px !important;
 }
 
 .non-draggable-card-image {
@@ -47737,8 +47718,8 @@ p {
 
 .button-top-right {
   position: absolute;
-  top: 10%;
-  min-height: 2em;
+  top: 3%;
+  min-height: 4.8rem;
   min-width: 3em !important;
   right: 3%;
   background-color: #212121;
@@ -47746,10 +47727,11 @@ p {
 
 .button-top-left {
   position: absolute;
-  top: 10%;
+  top: 0%;
   left: 0%;
   font-size: 1.3em;
   background-color: #212121;
+  height: 4.8rem;
 }
 
 .card-stack-img {
@@ -47770,8 +47752,15 @@ p {
   width: 180px;
 }
 
+.gradient-on-card {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: -14%;
+}
+
 .user-card-list {
-  border-radius: 10px;
+  border-radius: 14px;
   position: relative;
   text-align: center;
   height: 550px;
@@ -47782,6 +47771,7 @@ p {
   -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   left: 0.7em;
+  border: 3px solid #404040;
 }
 
 .card-md .item-md.item-block:not(:last-child) .item-inner {
@@ -48018,6 +48008,14 @@ ion-spinner {
   top: 0.5%;
   font-size: 1em;
   min-width: 2em;
+}
+
+.deal-type-icon {
+  font-size: 1em !important;
+  min-width: 2em !important;
+  color: white;
+  padding: 10px !important;
+  height: 38px !important;
 }
 
 .push-list-under-menu-bar {

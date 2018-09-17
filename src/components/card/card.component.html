@@ -1,14 +1,16 @@
 <div [style.zIindex]="-1000">
     <ion-card class="{{inputClass}}">
-        <div *ngIf="_card && !_card.imageURL" class="non-draggable-card-image fill">Tap here to upload a photo</div>
+        <div *ngIf="_card && !_card.imageURL" class="centered-tap-text fill">Tap here to upload a photo</div>
         <img *ngIf="_card && _card.imageURL" class="non-draggable-card-image fill" src="{{_card.imageURL}}" />
+        <img class="gradient-on-card" src="assets/images/gradient.png" />
 
         <ion-card-content *ngIf="card.dealDescription && (_card || showCardText)" class="card-text">
             <ion-card-title class="locale-card-title">
                 {{card.organization.name}}
             </ion-card-title>
             {{card.dealDescription}}
-            <p *ngIf="card.dealDescription" class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}} {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
+            <p *ngIf="card.dealDescription" class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}
+                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
                 "hh:mm a")}}</p>
         </ion-card-content>
     </ion-card>

@@ -29,6 +29,7 @@ $button-top-offest: 79%;
     height: 72%;
     background-color: white;
     margin-top: 8px;
+    border: 3px solid #404040;
 }
 
 .card-text {
@@ -38,7 +39,7 @@ $button-top-offest: 79%;
     bottom: 0;
     left: 0;
     width: 100%;
-    font-size: 18px;
+    font-size: 24px;
     //http://owumaro.github.io/text-stroke-generator/
     //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
     text-shadow:
@@ -70,7 +71,7 @@ $button-top-offest: 79%;
         1px 1px 0 #000;
     text-align: center;
     font-family: Baumans;
-    font-size: 36px;
+    font-size: 48px;
     padding: 0;
 }
 
@@ -83,6 +84,7 @@ $button-top-offest: 79%;
         -1px 1px 0 #000,
         1px 1px 0 #000;
     font-style: italic;
+    font-size: 18px !important;
 }
 
 .non-draggable-card-image {
@@ -256,8 +258,8 @@ $button-top-offest: 79%;
 
 .button-top-right {
     position: absolute;
-    top: 10%;
-    min-height: 2em;
+    top: 3%;
+    min-height: 4.8rem;
     min-width: 3em !important;
     right: 3%;
     background-color: #212121;
@@ -265,10 +267,11 @@ $button-top-offest: 79%;
 
 .button-top-left {
     position: absolute;
-    top: 10%;
+    top: 0%;
     left: 0%;
     font-size: 1.3em;
     background-color: #212121;
+    height: 4.8rem;
 }
 
 .card-stack-img {
@@ -287,4 +290,11 @@ $button-top-offest: 79%;
 
 .popover-md .popover-content {
     width: 180px;
+}
+
+.gradient-on-card {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: -14%;
 }

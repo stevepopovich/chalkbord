@@ -6,7 +6,7 @@
     <div *ngIf="!initialLoading">
         <h2 class="no-consumer-cards-text" ion-text>That's all the deals in your area.</h2>
         <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"
-            style="margin-top: 0" ion-text>Try removing filters</h2>
+            style="margin-top: 0" ion-text>Try removing filters.</h2>
         <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>
     </div>
 </div>
@@ -15,7 +15,7 @@
     <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">
         <ion-icon ios="md-contact" md="md-contact"></ion-icon>
     </button>
-    <img class="textured-name" src="assets/images/textured-name.png" />
+    <img class="textured-name" src="assets/images/chalk-logo.png" />
     <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right" ion-button icon-only [clear]="true">
         <img class="card-stack-img" src="assets/images/card-stack.png" />
     </button>
@@ -26,6 +26,7 @@
     <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"
         [ngStyle]="{'transition':transitionString}" (click)="moreInfo()">
         <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />
+        <img class="gradient-on-card" src="assets/images/gradient.png" />
 
         <ion-card-content class="card-text card-inner-shadow">
             <ion-card-title class="locale-card-title">

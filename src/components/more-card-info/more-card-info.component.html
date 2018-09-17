@@ -36,10 +36,17 @@
         <ion-item *ngIf="card.longDealDescrption">
             {{card.longDealDescrption}}
         </ion-item>
-        <!-- <ion-item>
-            <p>Deal type: {{dealType}}</p>
-            <div *ngIf="card.isVegetarian">VT</div>
-            <div *ngIf="card.isVegan">VG</div>
-        </ion-item> -->
+        <ion-item *ngIf="card.isVegan || card.isVegetarian">
+            <button *ngIf="card.isVegan" class="deal-type-icon" color="black" ion-button icon-only round>
+                Vegan
+                <ion-icon name="leaf">
+                </ion-icon>
+            </button>
+            <button *ngIf="card.isVegetarian" class="deal-type-icon" color="black" ion-button icon-only round>
+                Vegetarian
+                <ion-icon name="nutrition">
+                </ion-icon>
+            </button>
+        </ion-item>
     </div>
 </ion-content>

@@ -1,4 +1,4 @@
-import { LocaleCard } from './../../types/deals.type';
+import { LocaleCard, DealType } from './../../types/deals.type';
 import { CurrentUserService } from './../../services/current-user.service';
 import { LocaleLocation } from './../../types/location.type';
 import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
@@ -270,7 +270,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
         if (filterOptions.dealTypes.length > 0) {
             this.filteredCards = this.filteredCards.filter((card) => {
-                return filterOptions.dealTypes.findIndex(x => x == card.dealType) >= 0;
+                return filterOptions.dealTypes.findIndex(x => x == card.dealType) >= 0 || card.dealType == DealType.Meal;
             });
         }
 
