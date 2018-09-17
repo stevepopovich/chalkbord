@@ -6,6 +6,7 @@ export class LocaleUser {
     public userType: UserType;
     public cardIds?: Guid[];
     public radius?: number;//this will probably become user settings
+    public claimedCards?: Guid[];
 
     public constructor(uid: string, userType: UserType, firstName: string) {
         this.uid = uid;

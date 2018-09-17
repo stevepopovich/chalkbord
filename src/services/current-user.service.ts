@@ -45,6 +45,13 @@ export class CurrentUserService {
         this.currentUser.cardIds.push(cardId);
     }
 
+    public addClaimedId(cardId: string): void {
+        if (this.currentUser.claimedCards == null)
+            this.currentUser.claimedCards = [];
+
+        this.currentUser.claimedCards.push(cardId);
+    }
+
     public getCurrentOrganization(): Observable<Organization[]> {
         return this.organizationService.getCurrent(this.currentUser.uid);
     }

@@ -4,6 +4,9 @@ import { Component } from "@angular/core";
 import { LocaleCard, DealType } from '../../types/deals.type';
 import { CallNumber } from '@ionic-native/call-number';
 import * as moment from 'moment';
+import { CurrentUserService } from '../../services/current-user.service';
+import _ from 'underscore';
+import { UserService } from '../../services/firebase/firestore-collection/user.service';
 
 @Component({
     templateUrl: './more-card-info.component.html',
@@ -14,10 +17,13 @@ export class MoreCardInfoComponent {
     public card: LocaleCard;
 
     public dealType: string;
+    public isCardList: boolean;
 
     constructor(private navParams: NavParams, private ionicViewController: ViewController,
-        private callNumber: CallNumber, private launchNavigator: LaunchNavigator) {
+        private callNumber: CallNumber, private launchNavigator: LaunchNavigator,
+        private currentUserService: CurrentUserService, private userService: UserService) {
         this.card = this.navParams.get("card");
+        this.isCardList = this.navParams.get("isCardList");
 
         this.dealType = DealType[this.card.dealType.valueOf()];
     }
@@ -57,5 +63,14 @@ export class MoreCardInfoComponent {
 
     public swipeGesture() {
         this.ionicViewController.dismiss();
+    }
+
+    public claim(): void {
+        this.currentUserService.addClaimedId(this.card.id);
+        this.userService.set(this.currentUserService.getCurrentUser());
+    }
+
+    public canClaim(): boolean {
+        return !_.contains(this.currentUserService.getCurrentUser().claimedCards, this.card.id);
     }
 }

@@ -153,7 +153,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     public moreInfo(): void {
         const cardSwipedUp = this.organizationViewCards.shift();
 
-        this.modalCtrl.create(MoreCardInfoComponent, { card: cardSwipedUp }).present().then(() => {
+        this.modalCtrl.create(MoreCardInfoComponent, { card: cardSwipedUp, isCardList: false }).present().then(() => {
             this.organizationViewCards.unshift(cardSwipedUp);
         });
     }

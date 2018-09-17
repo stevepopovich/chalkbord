@@ -49,4 +49,8 @@
             </button>
         </ion-item>
     </div>
+    <button *ngIf="isCardList" [disabled]="!canClaim()" class="claim-button" ion-button (click)="claim()">
+        <div *ngIf="canClaim()">claim</div>
+        <div *ngIf="!canClaim()">claimed</div>
+    </button>
 </ion-content>

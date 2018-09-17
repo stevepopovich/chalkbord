@@ -34,6 +34,6 @@ export class ConsumerCardList {
     }
 
     public moreInfo(card: LocaleCard) {
-        this.modalCtrl.create(MoreCardInfoComponent, { card: card }).present();
+        this.modalCtrl.create(MoreCardInfoComponent, { card: card, isCardList: true }).present();
     }
 }
