@@ -59,6 +59,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public initialLoading: boolean = true;
 
+    public swipeHelpOverlayHidden: boolean = true;
+    public auxHelpOverlayHidden: boolean = true;
+
     constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
@@ -124,6 +127,38 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     public openConsumerCardList() {
         this.modalCtrl.create(ConsumerCardList).present();
     }
+
+    public hideHelpOverlay() {
+        if (!this.swipeHelpOverlayHidden)
+            this.swipeHelpOverlayHidden = true;
+        else if (!this.auxHelpOverlayHidden)
+            this.auxHelpOverlayHidden = true;
+    }
+
+    public showHelpOverlay() {
+        this.swipeHelpOverlayHidden = false;
+        this.auxHelpOverlayHidden = false;
+    }
+
+    public getSwipeHelpZ(): string {
+        if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden) {
+            console.log("return 25 for swipe help");
+            return '25';
+        }
+        else
+            return '';
+    }
+
+    public getAuxHelpZ(): string {
+        if (this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
+            return '25';
+        else if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
+            return '0 !important;'
+        else
+            return '';
+    }
+
+    public
 
     public voteUp(like: boolean): void {
         if (this.organizationViewCards.length > 0) {

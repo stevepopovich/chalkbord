@@ -47759,6 +47759,16 @@ p {
   top: -14%;
 }
 
+.help-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 20;
+  top: 0;
+  left: 0;
+}
+
 .user-card-list {
   border-radius: 14px;
   position: relative;
@@ -47772,6 +47782,14 @@ p {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   left: 0.7em;
   border: 3px solid #404040;
+}
+
+.no-claimed-cards-text {
+  margin-left: 1em;
+  margin-right: 1em;
+  font-family: Baumans;
+  font-size: 18px;
+  margin-top: 1em;
 }
 
 .card-md .item-md.item-block:not(:last-child) .item-inner {

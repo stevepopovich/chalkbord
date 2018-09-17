@@ -968,10 +968,11 @@ var MoreCardInfoComponent = (function () {
             selector: 'more-card-info',
             styleUrls: ['/more-card-info.component.scss']
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__services_current_user_service__["a" /* CurrentUserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__services_current_user_service__["a" /* CurrentUserService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_8__services_firebase_firestore_collection_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__services_firebase_firestore_collection_user_service__["a" /* UserService */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */], __WEBPACK_IMPORTED_MODULE_0__ionic_native_launch_navigator__["a" /* LaunchNavigator */],
+            __WEBPACK_IMPORTED_MODULE_6__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_8__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
     ], MoreCardInfoComponent);
     return MoreCardInfoComponent;
-    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=more-card-info.component.js.map
@@ -2054,7 +2055,7 @@ var ConsumerCardList = (function () {
         this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__more_card_info_more_card_info_component__["a" /* MoreCardInfoComponent */], { card: card, isCardList: true }).present();
     };
     ConsumerCardList = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer-card-list/consumer-card-list.component.html"*/'<ion-header>\n    <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>\n</ion-header>\n<ion-content>\n    <gs-card *ngFor="let currCard of cardList;" (click)="moreInfo(currCard)" [card]="currCard" [inputClass]="cardClass"></gs-card>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer-card-list/consumer-card-list.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer-card-list/consumer-card-list.component.html"*/'<ion-header>\n    <modal-navbar [organizationModal]="false" [profileModal]="false"></modal-navbar>\n</ion-header>\n<ion-content>\n    <gs-card *ngFor="let currCard of cardList;" (click)="moreInfo(currCard)" [card]="currCard" [inputClass]="cardClass"></gs-card>\n    <div class="no-claimed-cards-text" *ngIf="cardList.length == 0">\n        Swipe right to add to your claimed deals!\n    </div>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer-card-list/consumer-card-list.component.html"*/,
             selector: 'consumer-card-list',
             styleUrls: ['/consumer-card-list.component.scss']
         }),
@@ -4010,6 +4011,8 @@ var ConsumerComponent = (function () {
         this.currentFilter = { dealTypes: [], onlyVegan: false, onlyVegetarian: false };
         this.currentLocation = new __WEBPACK_IMPORTED_MODULE_2__types_location_type__["a" /* LocaleLocation */]();
         this.initialLoading = true;
+        this.swipeHelpOverlayHidden = true;
+        this.auxHelpOverlayHidden = true;
         this.stackConfig = {
             throwOutConfidence: function (offsetX, offsetY, element) {
                 var throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);
@@ -4063,6 +4066,32 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.openConsumerCardList = function () {
         this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_18__consumer_card_list_consumer_card_list_component__["a" /* ConsumerCardList */]).present();
+    };
+    ConsumerComponent.prototype.hideHelpOverlay = function () {
+        if (!this.swipeHelpOverlayHidden)
+            this.swipeHelpOverlayHidden = true;
+        else if (!this.auxHelpOverlayHidden)
+            this.auxHelpOverlayHidden = true;
+    };
+    ConsumerComponent.prototype.showHelpOverlay = function () {
+        this.swipeHelpOverlayHidden = false;
+        this.auxHelpOverlayHidden = false;
+    };
+    ConsumerComponent.prototype.getSwipeHelpZ = function () {
+        if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden) {
+            console.log("return 25 for swipe help");
+            return '25';
+        }
+        else
+            return '';
+    };
+    ConsumerComponent.prototype.getAuxHelpZ = function () {
+        if (this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden) {
+            console.log("return 25 for aux help");
+            return '25';
+        }
+        else
+            return '';
     };
     ConsumerComponent.prototype.voteUp = function (like) {
         var _this = this;
@@ -4243,7 +4272,7 @@ var ConsumerComponent = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>That\'s all the deals in your area.</h2>\n        <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"\n            style="margin-top: 0" ion-text>Try removing filters.</h2>\n        <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>\n    </div>\n</div>\n\n<ion-navbar style="min-height: 56px;">\n    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">\n        <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n    </button>\n    <img class="textured-name" src="assets/images/chalk-logo.png" />\n    <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right" ion-button icon-only [clear]="true">\n        <img class="card-stack-img" src="assets/images/card-stack.png" />\n    </button>\n</ion-navbar>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n        <img class="gradient-on-card" src="assets/images/gradient.png" />\n\n        <ion-card-content class="card-text card-inner-shadow">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}\n                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div class="help-overlay" (click)="hideHelpOverlay()" padding [hidden]="swipeHelpOverlayHidden && auxHelpOverlayHidden">\n</div>\n\n<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>That\'s all the deals in your area.</h2>\n        <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"\n            style="margin-top: 0" ion-text>Try removing filters.</h2>\n        <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>\n    </div>\n</div>\n\n<ion-navbar style="min-height: 56px;">\n    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">\n        <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n    </button>\n    <img class="textured-name" src="assets/images/chalk-logo.png" />\n    <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right aux-button" ion-button icon-only\n        [clear]="true">\n        <img class="card-stack-img" src="assets/images/card-stack.png" />\n    </button>\n</ion-navbar>\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n        <img class="gradient-on-card" src="assets/images/gradient.png" />\n\n        <ion-card-content class="card-text card-inner-shadow">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}\n                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid" [ngStyle]="{\'z-index\':getSwipeHelpZ()}">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button class="transparent-button bottom-button outside-button" ion-button icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only\n                round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),

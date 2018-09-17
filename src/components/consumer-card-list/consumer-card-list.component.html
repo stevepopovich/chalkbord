@@ -3,4 +3,7 @@
 </ion-header>
 <ion-content>
     <gs-card *ngFor="let currCard of cardList;" (click)="moreInfo(currCard)" [card]="currCard" [inputClass]="cardClass"></gs-card>
+    <div class="no-claimed-cards-text" *ngIf="cardList.length == 0">
+        Swipe right to add to your claimed deals!
+    </div>
 </ion-content>
