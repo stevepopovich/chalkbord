@@ -165,11 +165,11 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"LaunchNavigator\"><param name=\"ios-package\" value=\"LaunchNavigator\" /></feature>",
+              "xml": "<feature name=\"CallNumber\"><param name=\"ios-package\" value=\"CFCallNumber\" /></feature>",
               "count": 1
             },
             {
-              "xml": "<feature name=\"CallNumber\"><param name=\"ios-package\" value=\"CFCallNumber\" /></feature>",
+              "xml": "<feature name=\"LaunchNavigator\"><param name=\"ios-package\" value=\"LaunchNavigator\" /></feature>",
               "count": 1
             }
           ]
@@ -223,11 +223,11 @@
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
+    "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "mx.ferreyra.callnumber": {
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
       "PACKAGE_NAME": "locale.alpha"
     }
   },
@@ -387,6 +387,14 @@
       ]
     },
     {
+      "id": "mx.ferreyra.callnumber.CallNumber",
+      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+      "pluginId": "mx.ferreyra.callnumber",
+      "clobbers": [
+        "call"
+      ]
+    },
+    {
       "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
       "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
       "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
@@ -409,14 +417,6 @@
       "merges": [
         "launchnavigator"
       ]
-    },
-    {
-      "id": "mx.ferreyra.callnumber.CallNumber",
-      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
-      "pluginId": "mx.ferreyra.callnumber",
-      "clobbers": [
-        "call"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -434,7 +434,7 @@
     "cordova-plugin-uniquedeviceid": "1.3.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-sqlite-storage": "2.3.1",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
-    "mx.ferreyra.callnumber": "0.0.2"
+    "mx.ferreyra.callnumber": "0.0.2",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
   }
 }

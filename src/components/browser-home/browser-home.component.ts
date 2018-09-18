@@ -15,4 +15,8 @@ export class BrowserHomeComponent {
     public showOrganizationPortal() {
         this.viewController.setOrganizationPortal();
     }
+
+    public contact() {
+
+    }
 }

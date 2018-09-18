@@ -25,8 +25,10 @@ var BrowserHomeComponent = (function () {
     BrowserHomeComponent.prototype.showOrganizationPortal = function () {
         this.viewController.setOrganizationPortal();
     };
+    BrowserHomeComponent.prototype.contact = function () {
+    };
     BrowserHomeComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/'<div class="home-nav-bar">\n    <button class="home-nav-button" (click)="showOrganizationPortal()" ion-button>\n        <ion-icon name="restaurant"></ion-icon> Organizations\n    </button>\n    <button class="home-nav-button" ion-button>\n        <ion-icon name="send"></ion-icon> Contact\n    </button>\n</div>\n\n<div class="browser-home-photo">\n    <!-- <ion-card>\n        <ion-card-content>\n            <div class="flute-photo">\n            </div>\n        </ion-card-content>\n    </ion-card> -->\n</div>\n\n<div class="center-home-text">Chalkbord</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/'<div class="browser-home-photo">\n\n</div>\n<div class="home-nav-bar">\n    <button class="home-nav-button" (click)="showOrganizationPortal()" ion-button>\n        <ion-icon name="restaurant"></ion-icon> Organizations\n    </button>\n    <!-- <button click="contact()" class="home-nav-button" ion-button>\n        <ion-icon name="send"></ion-icon> Contact\n    </button> -->\n</div>\n\n<div class="center-home-text">Chalkbord</div>\n\n<div class="center-about-text">\n    Chalkbord is a real time deal creation mobile and web application for restaurants and thier patrons. \n    See us on your app store!\n</div>\n\n<div class="center-about-text-lower">\n    For support and business inquries, contact us at support@chalkbord.com.\n</div>'/*ion-inline-end:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/,
             selector: 'browser-home',
             styleUrls: ['/browser-home.component.scss']
         }),
@@ -4086,10 +4088,10 @@ var ConsumerComponent = (function () {
             return '';
     };
     ConsumerComponent.prototype.getAuxHelpZ = function () {
-        if (this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden) {
-            console.log("return 25 for aux help");
+        if (this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
             return '25';
-        }
+        else if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
+            return '0 !important;';
         else
             return '';
     };

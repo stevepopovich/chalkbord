@@ -49,11 +49,11 @@
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
+    "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "mx.ferreyra.callnumber": {
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
       "PACKAGE_NAME": "locale.alpha"
     }
   },
