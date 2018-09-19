@@ -141,24 +141,25 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     public getSwipeHelpZ(): string {
-        if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden) {
-            console.log("return 25 for swipe help");
+        if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
             return '25';
-        }
         else
-            return '';
+            return '0';
     }
 
     public getAuxHelpZ(): string {
         if (this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
             return '25';
-        else if (!this.swipeHelpOverlayHidden && !this.auxHelpOverlayHidden)
-            return '0 !important;'
+        else
+            return '0';
+    }
+
+    public getBottomGridZ() {
+        if (this.swipeHelpOverlayHidden && this.auxHelpOverlayHidden)
+            return '-10';
         else
             return '';
     }
-
-    public
 
     public voteUp(like: boolean): void {
         if (this.organizationViewCards.length > 0) {

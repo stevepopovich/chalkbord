@@ -1,4 +1,15 @@
 <div class="help-overlay" (click)="hideHelpOverlay()" padding [hidden]="swipeHelpOverlayHidden && auxHelpOverlayHidden">
+    <div *ngIf="!swipeHelpOverlayHidden" class="help-text">
+        Swipe right or press the heart to claim a deal or swipe left or press the X to see the next deal.
+    </div>
+    <div *ngIf="!auxHelpOverlayHidden && swipeHelpOverlayHidden">
+        <div class="claimed-help-text">
+            Tap here to see the deals you have claimed and use them.
+        </div>
+        <div class="filter-help-text">
+            Tap here to filter for different types of deals
+        </div>
+    </div>
 </div>
 
 <div class="loading-div">
@@ -19,11 +30,13 @@
         <ion-icon ios="md-contact" md="md-contact"></ion-icon>
     </button>
     <img class="textured-name" src="assets/images/chalk-logo.png" />
-    <button (click)="openConsumerCardList()" class="button-nav-bar button-top-right aux-button" ion-button icon-only
-        [clear]="true">
+    <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">
         <img class="card-stack-img" src="assets/images/card-stack.png" />
     </button>
 </ion-navbar>
+
+<img *ngIf="getAuxHelpZ() == '25'" class="card-stack-img-help" src="assets/images/card-stack.png" />
+<!--I am sorry-->
 
 <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"
     [style.zIindex]="-1000 ">
@@ -44,27 +57,28 @@
     </ion-card>
 </div>
 
-<ion-grid class="bottom-grid" [ngStyle]="{'z-index':getSwipeHelpZ()}">
+<ion-grid class="bottom-grid" [ngStyle]="{'z-index':getBottomGridZ()}">
     <ion-row style="height: 100%">
         <ion-col class="center-content-column" col-2>
-            <button class="transparent-button bottom-button outside-button" ion-button icon-only round>
+            <button (click)="showHelpOverlay()" class="transparent-button bottom-button outside-button" ion-button
+                icon-only round>
                 <ion-icon name="help"></ion-icon>
             </button>
         </ion-col>
         <ion-col class="center-content-column" col-4>
-            <button (click)="clickNo()" class="transparent-button bottom-button middle-button" ion-button icon-only
-                round>
+            <button [ngStyle]="{'z-index':getSwipeHelpZ()}" (click)="clickNo()" class="transparent-button bottom-button middle-button"
+                ion-button icon-only round>
                 <img class="x-button" src="assets/images/x-chalk.png" />
             </button>
         </ion-col>
         <ion-col class="center-content-column" col-4>
-            <button (click)="clickLike()" class="transparent-button bottom-button middle-button" ion-button icon-only
-                round>
+            <button [ngStyle]="{'z-index':getSwipeHelpZ()}" (click)="clickLike()" class="transparent-button bottom-button middle-button"
+                ion-button icon-only round>
                 <img class="heart-button" src="assets/images/heart-chalk.png" />
             </button>
         </ion-col>
         <ion-col class="center-content-column" col-2>
-            <button (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"
+            <button [ngStyle]="{'z-index':getAuxHelpZ()}" (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"
                 ion-button icon-only round>
                 <ion-icon name="funnel"></ion-icon>
             </button>

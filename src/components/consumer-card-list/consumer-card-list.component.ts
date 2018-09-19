@@ -25,7 +25,9 @@ export class ConsumerCardList {
                 //     currentDeals.push(card);
                 //     this.imageService.setDealImageURL(card); //TODO
                 // }
-                currentDeals.push(card);
+                if (!card.deleted)
+                    currentDeals.push(card);
+
                 this.imageService.setDealImageURL(card);
             });
 
