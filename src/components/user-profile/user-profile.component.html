@@ -2,19 +2,15 @@
     <modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>
     <ion-item *ngIf="!isOrganization">
         <ion-label floating>First Name</ion-label>
-        <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>
+        <ion-input [(ngModel)]="firstName"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="!isOrganization">
         <ion-label floating>Email</ion-label>
-        <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>
+        <ion-input type="email" [(ngModel)]="userEmail"></ion-input>
     </ion-item>
 
-    <button *ngIf="!isOrganization" (click)="toggleEdit()" class="reset-button" ion-button>
-        {{editButtonText}}
+    <button *ngIf="!isOrganization && valueChanged()" (click)="save()" class="reset-button" ion-button>
+        save
     </button>
-
-    <!-- <button (click)="resetPassword()" class="reset-button" outline ion-button>
-        reset password
-    </button> -->
 </ion-content>

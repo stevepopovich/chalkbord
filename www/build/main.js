@@ -1920,86 +1920,48 @@ var UserProfileComponent = (function () {
         this.params = params;
         this.currentUserService = currentUserService;
         this.userService = userService;
-        this.emailDisabled = true;
-        this.editButtonText = "edit";
         this.isOrganization = this.params.get("isOrganization");
         this.userEmail = this.authService.getCurrentUserEmail();
         this.firstName = this.currentUserService.getCurrentUser().firstName;
     }
-    UserProfileComponent.prototype.toggleEdit = function () {
+    UserProfileComponent.prototype.save = function () {
         var _this = this;
-        if (!this.isOrganization) {
-            if (this.emailDisabled) {
-                this.emailDisabled = false;
-                this.editButtonText = "save";
-            }
-            else {
-                if (this.authService.getCurrentUserEmail() != this.userEmail) {
-                    this.authService.updateCurrentUserEmail(this.userEmail).then(function () {
-                        _this.toastService.showReadableToast("Cool, email is updated");
-                    }).catch(function (reason) {
-                        _this.toastService.showReadableToast("Email not updated: " + reason);
-                    });
-                }
-                if (this.currentUserService.getCurrentUser().firstName != this.firstName) {
-                    var currUser = this.currentUserService.getCurrentUser();
-                    currUser.firstName = this.firstName;
-                    this.userService.set(currUser).then(function () {
-                        _this.toastService.showReadableToast("Cool, user name is updated");
-                    }).catch(function (reason) {
-                        _this.toastService.showReadableToast("User not updated: " + reason);
-                    });
-                }
-                this.emailDisabled = true;
-                this.editButtonText = "edit";
-            }
+        if (this.authService.getCurrentUserEmail() != this.userEmail) {
+            this.authService.updateCurrentUserEmail(this.userEmail).then(function () {
+                _this.toastService.showReadableToast("Email updated, use this email for future log ins");
+            }).catch(function () {
+                //this.toastService.showReadableToast("Email not updated: " + reason);
+            });
         }
+        if (this.currentUserService.getCurrentUser().firstName != this.firstName) {
+            var currUser = this.currentUserService.getCurrentUser();
+            currUser.firstName = this.firstName;
+            this.userService.set(currUser).then(function () {
+                _this.toastService.showReadableToast("First name updated");
+            }).catch(function (reason) {
+                //this.toastService.showReadableToast("Firstser not updated: " + reason);
+            });
+        }
+    };
+    UserProfileComponent.prototype.valueChanged = function () {
+        return this.authService.getCurrentUserEmail() != this.userEmail || this.currentUserService.getCurrentUser().firstName != this.firstName;
     };
     UserProfileComponent.prototype.closeProfile = function () {
         this.viewCtrl.dismiss();
     };
-    UserProfileComponent.prototype.resetPassword = function () {
-        var _this = this;
-        var toast = this.toastService.showReadableAndAnswerableOkayToast("Are you sure you want to reset your password?");
-        toast.onDidDismiss(function (data, dismissType) {
-            data;
-            if (dismissType == "close") {
-                var currentEmail = _this.authService.getCurrentUserEmail(); //fireAuth.auth.currentUser.email;
-                if (currentEmail) {
-                    _this.authService.checkSignInMethods(currentEmail).then(function (methods) {
-                        if (methods.length > 0) {
-                            _this.authService.sendPasswordResetEmail(currentEmail).then(function () {
-                                _this.toastService.showReadableToast("Cool, a reset link was sent to your email.");
-                            }).catch(function (reason) {
-                                _this.toastService.showReadableToast("Sorry, couldn't send you a reset link because: " + reason);
-                            });
-                        }
-                        else
-                            _this.toastService.showReadableToast("We don't have that email signed up. Please sign up!");
-                    });
-                }
-                else {
-                    _this.toastService.showReadableToast("Are you logged in? Please contact support");
-                }
-            }
-        });
-        toast.present();
-    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewChild"])('editButton'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Button */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Button */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Button */]) === "function" && _a || Object)
     ], UserProfileComponent.prototype, "editButton", void 0);
     UserProfileComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/'<ion-content>\n    <modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>\n    <ion-item *ngIf="!isOrganization">\n        <ion-label floating>First Name</ion-label>\n        <ion-input [disabled]="emailDisabled" [(ngModel)]="firstName"></ion-input>\n    </ion-item>\n\n    <ion-item *ngIf="!isOrganization">\n        <ion-label floating>Email</ion-label>\n        <ion-input [disabled]="emailDisabled" type="email" [(ngModel)]="userEmail"></ion-input>\n    </ion-item>\n\n    <button *ngIf="!isOrganization" (click)="toggleEdit()" class="reset-button" ion-button>\n        {{editButtonText}}\n    </button>\n\n    <!-- <button (click)="resetPassword()" class="reset-button" outline ion-button>\n        reset password\n    </button> -->\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/'<ion-content>\n    <modal-navbar [organizationModal]="isOrganization" [profileModal]="true"></modal-navbar>\n    <ion-item *ngIf="!isOrganization">\n        <ion-label floating>First Name</ion-label>\n        <ion-input [(ngModel)]="firstName"></ion-input>\n    </ion-item>\n\n    <ion-item *ngIf="!isOrganization">\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="userEmail"></ion-input>\n    </ion-item>\n\n    <button *ngIf="!isOrganization && valueChanged()" (click)="save()" class="reset-button" ion-button>\n        save\n    </button>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/user-profile/user-profile.component.html"*/,
             selector: 'user-profile',
             styleUrls: ['/user-profile.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ViewController */],
-            __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__["a" /* AuthorizationService */], __WEBPACK_IMPORTED_MODULE_4__services_toast_service__["a" /* ToastService */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */],
-            __WEBPACK_IMPORTED_MODULE_5__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ViewController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_firebase_authorization_service__["a" /* AuthorizationService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_toast_service__["a" /* ToastService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_toast_service__["a" /* ToastService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavParams */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__services_current_user_service__["a" /* CurrentUserService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__services_firebase_firestore_collection_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_firebase_firestore_collection_user_service__["a" /* UserService */]) === "function" && _g || Object])
     ], UserProfileComponent);
     return UserProfileComponent;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=user-profile.component.js.map
@@ -4270,21 +4232,23 @@ var ConsumerComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["ViewChild"])('myswing1'),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4_angular2_swing__["SwingStackComponent"])
     ], ConsumerComponent.prototype, "swingStack", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["ViewChildren"])('mycards1'),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"]) === "function" && _b || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div class="help-overlay" (click)="hideHelpOverlay()" padding [hidden]="swipeHelpOverlayHidden && auxHelpOverlayHidden">\n    <div *ngIf="!swipeHelpOverlayHidden" class="help-text">\n        Swipe right or press the heart to claim a deal or swipe left or press the X to see the next deal.\n    </div>\n    <div *ngIf="!auxHelpOverlayHidden && swipeHelpOverlayHidden">\n        <div class="claimed-help-text">\n            Tap here to see the deals you have claimed and use them.\n        </div>\n        <div class="filter-help-text">\n            Tap here to filter for different types of deals\n        </div>\n    </div>\n</div>\n\n<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>That\'s all the deals in your area.</h2>\n        <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"\n            style="margin-top: 0" ion-text>Try removing filters.</h2>\n        <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>\n    </div>\n</div>\n\n<ion-navbar style="min-height: 56px;">\n    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">\n        <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n    </button>\n    <img class="textured-name" src="assets/images/chalk-logo.png" />\n    <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">\n        <img class="card-stack-img" src="assets/images/card-stack.png" />\n    </button>\n</ion-navbar>\n\n<img *ngIf="getAuxHelpZ() == \'25\'" class="card-stack-img-help" src="assets/images/card-stack.png" />\n<!--I am sorry-->\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n        <img class="gradient-on-card" src="assets/images/gradient.png" />\n\n        <ion-card-content class="card-text card-inner-shadow">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}\n                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid" [ngStyle]="{\'z-index\':getBottomGridZ()}">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button (click)="showHelpOverlay()" class="transparent-button bottom-button outside-button" ion-button\n                icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickNo()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickLike()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button [ngStyle]="{\'z-index\':getAuxHelpZ()}" (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]) === "function" && _o || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["k" /* PopoverController */], __WEBPACK_IMPORTED_MODULE_11__services_toast_service__["a" /* ToastService */],
+            __WEBPACK_IMPORTED_MODULE_7__ionic_native_launch_navigator__["a" /* LaunchNavigator */], __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */], __WEBPACK_IMPORTED_MODULE_8__services_firebase_authorization_service__["a" /* AuthorizationService */],
+            __WEBPACK_IMPORTED_MODULE_9__services_firebase_image_service_service__["a" /* ImageService */], __WEBPACK_IMPORTED_MODULE_5_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_12__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_1__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]])
     ], ConsumerComponent);
     return ConsumerComponent;
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 }());
 
 //# sourceMappingURL=consumer.component.js.map
