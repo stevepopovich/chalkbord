@@ -1,3 +1,4 @@
+import { FirebaseEnvironmentService, FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { FormBuilderHelper } from '../../types/utils.type';
 import { ToastService } from '../../services/toast.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -12,6 +13,8 @@ import { RememberMeService } from '../../services/remember-me.service';
 import { LoginService } from '../../services/login.service';
 import { LocaleLocation } from '../../types/location.type';
 import { Facebook } from '@ionic-native/facebook';
+import { DeviceService } from '../../services/device.service';
+import { Subject } from 'rxjs';
 
 export class OrganizationSignupComponent {
 
@@ -19,11 +22,16 @@ export class OrganizationSignupComponent {
 
     public map: google.maps.Map;
 
+    public titleClickSubject = new Subject();
+    public titleClickObervable = this.titleClickSubject.asObservable();
+
     constructor(public toastService: ToastService, public alert: AlertController,
         public currentUserService: CurrentUserService, public userService: UserService,
         public formBuilder: FormBuilder, public auth: AuthorizationService,
         public organizationService: OrganizationService, public loginService: LoginService,
-        public rememberMeService: RememberMeService, public facebook: Facebook) {
+        public rememberMeService: RememberMeService, public facebook: Facebook, public firebaseEnvironmentService: FirebaseEnvironmentService,
+        public deviceService: DeviceService) {
+
         this.signUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
@@ -75,6 +83,14 @@ export class OrganizationSignupComponent {
                     this.presentVerifyAddressAlert(results, 0);
             });
         }
+    }
+
+    public iterateEnvironment(key: string): void {
+        const newEnvironment = FirebaseEnvironment[this.firebaseEnvironmentService.iterateEnvironment()];
+
+        this.toastService.showToast(newEnvironment, 100);
+
+        this.deviceService.putToLocalStorage(key, this.firebaseEnvironmentService.getCurrentEnvironment());
     }
 
     private concatStringsWithSpaces(...words: string[]): string {

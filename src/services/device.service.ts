@@ -27,6 +27,14 @@ export class DeviceService {
     public getSetting(key: string): Promise<any> {
         return this.storage.get(key);
     }
+
+    public putToLocalStorage(key: string, value: any) {
+        return this.storage.set(key, value);
+    }
+
+    public getFromLocalStorage(key: string): Promise<any> {
+        return this.storage.get(key);
+    }
 }
 
 export class EmailPasswordTuple {

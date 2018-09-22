@@ -1,3 +1,5 @@
+import { bufferCount } from 'rxjs/operators';
+import { FirebaseEnvironmentService, FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { AlertController } from 'ionic-angular';
 import { OrganizationSignupComponent } from './../organization-signup/organization-signup.component';
 import { RememberMeService } from './../../services/remember-me.service';
@@ -12,6 +14,9 @@ import { ToastService } from "../../services/toast.service";
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { OrganizationService } from '../../services/firebase/firestore-collection/organization-service';
 import { Facebook } from '@ionic-native/facebook';
+import { DeviceService } from '../../services/device.service';
+
+const lastConsumerEnvKey = "lastConsumerEnvKey";
 
 @Component({
     templateUrl: './consumer-landing.component.html',
@@ -36,10 +41,10 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
 
     public constructor(formBuilder: FormBuilder, auth: AuthorizationService,
         rememberMeService: RememberMeService, alert: AlertController, organizationService: OrganizationService,
-        toastService: ToastService, currentUserService: CurrentUserService,
-        userService: UserService, loginService: LoginService, facebook: Facebook) {
+        toastService: ToastService, currentUserService: CurrentUserService, deviceStorage: DeviceService,
+        userService: UserService, loginService: LoginService, facebook: Facebook, firebaseEnvironmentService: FirebaseEnvironmentService) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceStorage);
 
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -50,11 +55,20 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
         });
 
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
+
+        this.deviceService.getSetting(lastConsumerEnvKey).then((lastEnvironment: FirebaseEnvironment) => {
+            if (lastEnvironment || lastEnvironment == 0)
+                this.firebaseEnvironmentService.setCurrentEnvironment(lastEnvironment);
+
+            this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
+        });
+
+        this.titleClickObervable.pipe(bufferCount(5)).subscribe(() => {
+            this.iterateEnvironment(lastConsumerEnvKey);
+        });
     }
 
     public ngAfterViewInit(): void {
-        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
-        this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
     }
 
     public async facebookSignUp(): Promise<void> {

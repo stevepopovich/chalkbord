@@ -1,3 +1,4 @@
+import { FirebaseEnvironmentService } from './../services/firebase/environment.service';
 import { OrganizationService } from './../services/firebase/firestore-collection/organization-service';
 import { ConsumerLandingComponent } from './../components/consumer-landing/consumer-landing.component';
 import { OrganizationDealsHomeComponent } from './../components/organization-deals-home/organization-deals-home.component';
@@ -150,6 +151,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     InAppBrowser,
     Facebook,
     CallNumber,
+    FirebaseEnvironmentService
   ],
 })
 export class AppModule { }

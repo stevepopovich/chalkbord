@@ -1,25 +1,23 @@
+import { FirebaseEnvironmentService } from './../environment.service';
 import { LocaleCard } from './../../../types/deals.type';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { LocaleLocation } from '../../../types/location.type';
 import { Guid } from '../../../types/utils.type';
 import _ from 'underscore';
 
 @Injectable()
 export class CardDataService {
-    public cardDoc: AngularFirestoreCollection<LocaleCard>;
-
-    constructor(private database: AngularFirestore) {
-        this.cardDoc = this.database.collection<LocaleCard>("cards");
+    constructor(private database: AngularFirestore, private firebaseEnvironmentService: FirebaseEnvironmentService) {
     }
 
     public getAll(): Observable<LocaleCard[]> {
-        return this.cardDoc.valueChanges();
+        return this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards").valueChanges();
     }
 
     public get(id: string): Observable<LocaleCard[]> {
-        return this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges();
+        return this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("id", "==", id)).valueChanges();
     }
 
     public getMulti(ids: Guid[], getDeleted: boolean): Observable<LocaleCard[]> {
@@ -28,9 +26,9 @@ export class CardDataService {
 
             for (let id of ids) {
                 if (getDeleted)
-                    observables.push(this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id)).valueChanges());
+                    observables.push(this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("id", "==", id)).valueChanges());
                 else
-                    observables.push(this.database.collection<LocaleCard>("cards", ref => ref.where("id", "==", id).where("deleted", "==", false)).valueChanges());
+                    observables.push(this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("id", "==", id).where("deleted", "==", false)).valueChanges());
             }
             const allCardsObservableMerged: Observable<LocaleCard[]> = Observable.merge(...observables);//so if you just pass it an array
             //you get an Observable<Observable<>> but if you add ... it passes each observable seperately giving a single observable out
@@ -42,7 +40,7 @@ export class CardDataService {
     public setMutli(models: Array<LocaleCard>): void {
         const cards = models.map((card) => { return Object.assign({}, card.getAsPlainObject()) });
         cards.forEach((card) => {
-            this.cardDoc.doc(card.id).set(card);
+            this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards").doc(card.id).set(card);
         })
     }
 
@@ -55,11 +53,11 @@ export class CardDataService {
 
         delete (assignedCard.imageURL);
 
-        return this.cardDoc.doc(model.id).set(assignedCard);
+        return this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards").doc(model.id).set(assignedCard);
     }
 
     public delete(id: string): Promise<void> {
-        return this.cardDoc.doc(id).delete();
+        return this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards").doc(id).delete();
     }
 
     //gets all cards in the collection within the radius passed
@@ -83,12 +81,12 @@ export class CardDataService {
         var changeInLng = Math.abs(newLng - location.lng);
 
         //get two different deal chains because firebase can't .where across different properties in a collection
-        var latDeals = this.database.collection<LocaleCard>("cards", ref => ref.where("organization.location.lat", "<=", (location.lat + latitudeRadiusLength))
+        var latDeals = this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("organization.location.lat", "<=", (location.lat + latitudeRadiusLength))
             .where("organization.location.lat", ">=", (location.lat - latitudeRadiusLength))
             .where("deleted", "==", false))
             .valueChanges();
 
-        var lngDeals = this.database.collection<LocaleCard>("cards", ref => ref.where("organization.location.lng", "<=", (location.lng + changeInLng))
+        var lngDeals = this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("organization.location.lng", "<=", (location.lng + changeInLng))
             .where("organization.location.lng", ">=", (location.lng - changeInLng))
             .where("deleted", "==", false))
             .valueChanges();
@@ -110,7 +108,7 @@ export class CardDataService {
 
     // Firebase helper commands that are not meant to be called in normal production
     public setAllCardsToNotDeleted(): void {
-        this.cardDoc.valueChanges().subscribe((cards: LocaleCard[]) => {
+        this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards").valueChanges().subscribe((cards: LocaleCard[]) => {
             _.map(cards, (card) => {
                 card.deleted = false;
                 this.set(card);

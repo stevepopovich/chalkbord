@@ -1,3 +1,4 @@
+import { FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { OrganizationService } from './../../services/firebase/firestore-collection/organization-service';
 import { RememberMeService } from './../../services/remember-me.service';
 import { Component, ViewChild, ElementRef } from "@angular/core";
@@ -12,6 +13,11 @@ import { UserService } from '../../services/firebase/firestore-collection/user.s
 import { AuthorizationService } from '../../services/firebase/authorization.service';
 import { OrganizationSignupComponent } from '../organization-signup/organization-signup.component';
 import { Facebook } from '@ionic-native/facebook';
+import { FirebaseEnvironmentService } from '../../services/firebase/environment.service';
+import { DeviceService } from '../../services/device.service';
+import { bufferCount } from 'rxjs/operators';
+
+const lastEnvironmentKey = "lastOrgEnv";
 
 @Component({
     templateUrl: './organization-landing.component.html',
@@ -30,12 +36,23 @@ export class OrganizationLandingComponent extends OrganizationSignupComponent {
         toastService: ToastService, alert: AlertController,
         currentUserService: CurrentUserService, userService: UserService,
         auth: AuthorizationService,
-        organizationService: OrganizationService, facebook: Facebook) {
+        organizationService: OrganizationService, facebook: Facebook,
+        firebaseEnvironmentService: FirebaseEnvironmentService,
+        deviceService: DeviceService) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceService);
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
-        this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
+        this.deviceService.getSetting(lastEnvironmentKey).then((lastEnvironment: FirebaseEnvironment) => {
+            if (lastEnvironment)
+                this.firebaseEnvironmentService.setCurrentEnvironment(lastEnvironment);
+
+            this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
+        });
+
+        this.titleClickObervable.pipe(bufferCount(5)).subscribe(() => {
+            this.iterateEnvironment(lastEnvironmentKey);
+        });
     }
 
     public goToUserSignUpScreen(): void {
