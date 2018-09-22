@@ -28,7 +28,7 @@ export class OrganizationSignupComponent {
             email: ['', Validators.compose([Validators.email, Validators.required])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8)])],
-            phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+            phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9\+\-\ ]/), Validators.minLength(10), Validators.maxLength(13)])],
             website: ['', Validators.compose([Validators.required, this.URLValidator])],
             address: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],

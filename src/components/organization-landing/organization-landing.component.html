@@ -73,7 +73,7 @@
 
                 <ion-item class="padding-right">
                     <ion-label floating>Restaurant Phone Number</ion-label>
-                    <ion-input type="number" formControlName="phoneNumber"></ion-input>
+                    <ion-input formControlName="phoneNumber"></ion-input>
                 </ion-item>
                 <p *ngIf="signUpGroup.get('phoneNumber').errors && signUpGroup.get('phoneNumber').dirty" class="error-message">Restaurant
                     phone number is required and needs to be 10 numbers</p>

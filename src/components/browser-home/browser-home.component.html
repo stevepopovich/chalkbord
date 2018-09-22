@@ -1,6 +1,5 @@
-<div class="browser-home-photo">
+<div class="browser-home-photo"></div>
 
-</div>
 <div class="home-nav-bar">
     <button class="home-nav-button" (click)="showOrganizationPortal()" ion-button>
         <ion-icon name="restaurant"></ion-icon> Organizations
@@ -10,13 +9,31 @@
     </button> -->
 </div>
 
-<div class="center-home-text">Chalkbord</div>
+<ion-content>
+    <div class="center-home-text">Chalkbord</div>
 
-<div class="center-about-text">
-    Chalkbord is a real time deal creation mobile and web application for restaurants and thier patrons. 
-    See us on your app store!
-</div>
+    <ion-card class="centered-card">
+        <ion-card-content>
+            <div class="center-about-text">
+                Chalkbord is a deal creation application for restaurants and thier patrons.
+                Find us on your app store!
+            </div>
 
-<div class="center-about-text-lower">
-    For support and business inquries, contact us at support@chalkbord.com.
-</div>
+            <div class="center-content cta-button-row">
+                <img (click)="goToAppleAppStore()" class="app-store-cta apple" src="assets/images/apple-app-store-cta.png" />
+                <img (click)="goToGooglePlayStore()" class="app-store-cta google-play" src="assets/images/googleplay-cta.png" />
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <div class="center-content">
+        <img (click)="goToAppleAppStore()" class="screen-shot offset-screen-shots" src="assets/images/consumer-screen.png" />
+        <img (click)="goToGooglePlayStore()" class="screen-shot" src="assets/images/restaurant-screen.png" />
+    </div>
+</ion-content>
+
+<ion-footer>
+    <div class="center-about-text-lower">
+        For support and business inquries, contact us at support@chalkbord.com.
+    </div>
+</ion-footer>
