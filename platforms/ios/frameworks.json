@@ -3,7 +3,7 @@
     "CoreLocation.framework": 3,
     "AVFoundation.framework": 1,
     "libz.tbd": 2,
-    "AudioToolbox.framework": 1,
+    "AudioToolbox.framework": 2,
     "WebKit.framework": 1,
     "Security.framework": 1,
     "MapKit.framework": 1,

@@ -60,6 +60,8 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
             if (lastEnvironment || lastEnvironment == 0)
                 this.firebaseEnvironmentService.setCurrentEnvironment(lastEnvironment);
 
+            console.log(this.firebaseEnvironmentService.getCurrentEnvironment());
+
             this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Consumer);
         });
 

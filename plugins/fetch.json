@@ -131,5 +131,21 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-velda-devicefeedback": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-velda-devicefeedback"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-vibration": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-vibration"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

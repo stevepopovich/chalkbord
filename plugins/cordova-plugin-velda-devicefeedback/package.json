@@ -1,0 +1,74 @@
+{
+  "_from": "cordova-plugin-velda-devicefeedback",
+  "_id": "cordova-plugin-velda-devicefeedback@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-ZCnduHXMrCIEpAqA6juzLAovXRo=",
+  "_location": "/cordova-plugin-velda-devicefeedback",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-velda-devicefeedback",
+    "name": "cordova-plugin-velda-devicefeedback",
+    "escapedName": "cordova-plugin-velda-devicefeedback",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-velda-devicefeedback/-/cordova-plugin-velda-devicefeedback-0.0.2.tgz",
+  "_shasum": "6429ddb875ccac2204a40a80ea3bb32c0a2f5d1a",
+  "_spec": "cordova-plugin-velda-devicefeedback",
+  "_where": "/Users/Contence/locale",
+  "author": {
+    "name": "Jan Velecký"
+  },
+  "bugs": {
+    "url": "https://github.com/VVelda/device-feedback/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-velda-devicefeedback",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Plugin provides a way for haptic and acoustic feedback (native alike) to the user.",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0"
+    }
+  ],
+  "homepage": "https://github.com/VVelda/device-feedback",
+  "keywords": [
+    "feedback",
+    "haptic",
+    "acoustic",
+    "aural",
+    "tactile",
+    "sound",
+    "vibrate",
+    "key",
+    "button",
+    "touch",
+    "tap",
+    "vibration",
+    "vibrating",
+    "ux",
+    "user-experience",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "Simplified BSD License",
+  "name": "cordova-plugin-velda-devicefeedback",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VVelda/device-feedback.git"
+  },
+  "version": "0.0.2"
+}

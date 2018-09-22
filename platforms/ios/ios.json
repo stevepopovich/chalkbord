@@ -171,6 +171,10 @@
             {
               "xml": "<feature name=\"LaunchNavigator\"><param name=\"ios-package\" value=\"LaunchNavigator\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -228,6 +232,12 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-velda-devicefeedback": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-vibration": {
       "PACKAGE_NAME": "locale.alpha"
     }
   },
@@ -417,6 +427,22 @@
       "merges": [
         "launchnavigator"
       ]
+    },
+    {
+      "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+      "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+      "pluginId": "cordova-plugin-velda-devicefeedback",
+      "clobbers": [
+        "window.plugins.deviceFeedback"
+      ]
+    },
+    {
+      "id": "cordova-plugin-vibration.notification",
+      "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+      "pluginId": "cordova-plugin-vibration",
+      "merges": [
+        "navigator"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -435,6 +461,8 @@
     "cordova-plugin-whitelist": "1.3.3",
     "cordova-sqlite-storage": "2.3.1",
     "mx.ferreyra.callnumber": "0.0.2",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
+    "cordova-plugin-velda-devicefeedback": "0.0.2",
+    "cordova-plugin-vibration": "3.1.0"
   }
 }

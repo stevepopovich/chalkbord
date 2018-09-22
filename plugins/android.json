@@ -54,6 +54,12 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-velda-devicefeedback": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

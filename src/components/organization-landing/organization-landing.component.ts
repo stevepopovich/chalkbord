@@ -47,6 +47,8 @@ export class OrganizationLandingComponent extends OrganizationSignupComponent {
             if (lastEnvironment)
                 this.firebaseEnvironmentService.setCurrentEnvironment(lastEnvironment);
 
+            console.log(this.firebaseEnvironmentService.getCurrentEnvironment());
+
             this.rememberMeService.loginFromRememberMe(this.userLogInGroup, UserType.Organization);
         });
 

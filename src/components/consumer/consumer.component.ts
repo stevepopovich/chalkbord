@@ -23,6 +23,7 @@ import { CardDataService } from '../../services/firebase/firestore-collection/ca
 import _ from 'underscore';
 import moment from 'Moment';
 import { ConsumerCardList } from '../consumer-card-list/consumer-card-list.component';
+import { FirebaseEnvironmentService, FirebaseEnvironment } from '../../services/firebase/environment.service';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -65,7 +66,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
-        private currentUserService: CurrentUserService, private userService: UserService) {
+        private currentUserService: CurrentUserService, private userService: UserService, private firebaseEnvironmentService: FirebaseEnvironmentService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);
@@ -95,7 +96,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                         this.initialLoading = false;
                         if (cardModels.length > 0) {
                             cardModels = cardModels.filter((card) => {
-                                return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id);
+                                if (this.firebaseEnvironmentService.getCurrentEnvironment() == FirebaseEnvironment.Demo)
+                                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) && !card.deleted;
+                                else {
+                                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) &&
+                                        !card.deleted &&
+                                        moment(card.dealEnd).isAfter(moment());
+                                }
                             })
                             if (!this.cards) {
                                 this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);

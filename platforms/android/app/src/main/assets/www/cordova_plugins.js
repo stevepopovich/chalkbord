@@ -166,6 +166,14 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
+  },
+  {
+    "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+    "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+    "pluginId": "cordova-plugin-velda-devicefeedback",
+    "clobbers": [
+      "window.plugins.deviceFeedback"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -186,7 +194,9 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.3.1",
   "mx.ferreyra.callnumber": "0.0.2",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
+  "cordova-plugin-velda-devicefeedback": "0.0.2",
+  "cordova-plugin-vibration": "3.1.0"
 };
 // BOTTOM OF METADATA
 });

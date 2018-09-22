@@ -55,6 +55,12 @@
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-velda-devicefeedback": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

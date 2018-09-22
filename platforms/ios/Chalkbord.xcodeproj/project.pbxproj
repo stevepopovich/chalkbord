@@ -64,6 +64,7 @@
 		F563379FA52A4E299B807244 /* CDVWKProcessPoolFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 058F100805C942C6B6745A78 /* CDVWKProcessPoolFactory.m */; };
 		FCFE4A731BD54DD9A03E92C8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BDD06AC9C3D4F468B7C5A61 /* libz.tbd */; };
 		FF8FE4A22EAC483C850DFD5E /* LaunchNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = A133C6094DD942DE9CE9D845 /* LaunchNavigator.m */; };
+		C601BB5C31944FE48B590BD3 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F8F3D6D4447E1B28A84CB /* CDVVibration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,8 @@
 		FB6FB72B705A4DC79AF3F707 /* ImageIO.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		FB718A8026C54B46BE3BBCCC /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerFunctions.m; path = "cordova-plugin-ionic-webview/GCDWebServerFunctions.m"; sourceTree = "<group>"; };
 		FD1F38CFC66440EA84A24D64 /* ActionSheet.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = ActionSheet.m; path = "cordova-plugin-actionsheet/ActionSheet.m"; sourceTree = "<group>"; };
+		2F5F8F3D6D4447E1B28A84CB /* CDVVibration.m */ = {isa = PBXFileReference; name = "CDVVibration.m"; path = "cordova-plugin-vibration/CDVVibration.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		2B68404BCD9A45288DF5DBA1 /* CDVVibration.h */ = {isa = PBXFileReference; name = "CDVVibration.h"; path = "cordova-plugin-vibration/CDVVibration.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +413,8 @@
 				D343CD0A261A4907BE0C0E3B /* LN_Reachability.m */,
 				C59DA50AFC5F46C1A521E363 /* LaunchNavigator.h */,
 				F19F4BD0586045FF97001EDB /* LN_Reachability.h */,
+				2F5F8F3D6D4447E1B28A84CB /* CDVVibration.m */,
+				2B68404BCD9A45288DF5DBA1 /* CDVVibration.h */,
 			);
 			name = Plugins;
 			path = Chalkbord/Plugins;
@@ -576,6 +581,7 @@
 				A666F1BD8AB543488A512B21 /* CFCallNumber.m in Sources */,
 				FF8FE4A22EAC483C850DFD5E /* LaunchNavigator.m in Sources */,
 				984890DDC02044D29B1E95B0 /* LN_Reachability.m in Sources */,
+				C601BB5C31944FE48B590BD3 /* CDVVibration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
