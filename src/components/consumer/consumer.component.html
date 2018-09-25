@@ -1,11 +1,15 @@
 <div class="help-overlay" (click)="hideHelpOverlay()" padding [hidden]="swipeHelpOverlayHidden && auxHelpOverlayHidden">
     <div *ngIf="!swipeHelpOverlayHidden" class="help-text">
+        <img class="swipe-help-arrow" src="assets/images/straight-arrow-1.png" />
+        <img class="swipe-help-arrow" style="margin-bottom: 64px;" src="assets/images/straight-arrow-2.png" />
         Swipe right or press the heart to claim a deal or swipe left or press the X to see the next deal.
     </div>
     <div *ngIf="!auxHelpOverlayHidden && swipeHelpOverlayHidden">
+        <img class="claimed-help-arrow" src="assets/images/arrow-3.png" />
         <div class="claimed-help-text">
-            Tap here to see the deals you have claimed and use them.
+            Tap here to see the deals you have claimed and use them
         </div>
+        <img class="filter-help-arrow" src="assets/images/arrow-4.png" />
         <div class="filter-help-text">
             Tap here to filter for different types of deals
         </div>

@@ -47764,7 +47764,27 @@ p {
   width: 60%;
   position: absolute;
   right: 25px;
-  bottom: 80px;
+  bottom: 95px;
+}
+
+.swipe-help-arrow {
+  width: 90%;
+}
+
+.claimed-help-arrow {
+  position: absolute;
+  width: 115px;
+  right: 80px;
+  top: 21px;
+}
+
+.filter-help-arrow {
+  position: absolute;
+  width: 125px;
+  right: 60px;
+  bottom: 20px;
+  -webkit-transform: rotate(50deg);
+  transform: rotate(50deg);
 }
 
 .user-card-list {
