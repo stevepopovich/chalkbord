@@ -50,6 +50,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { ToggleIconButtonComponent } from '../components/toggle-icon-button/toggle-icon-button.component';
 import { SwipeVertical } from '../services/swipe-listener.service';
 import { CallNumber } from '@ionic-native/call-number';
+import { Vibration } from '@ionic-native/vibration';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -151,7 +152,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     InAppBrowser,
     Facebook,
     CallNumber,
-    FirebaseEnvironmentService
+    FirebaseEnvironmentService,
+    Vibration
   ],
 })
 export class AppModule { }

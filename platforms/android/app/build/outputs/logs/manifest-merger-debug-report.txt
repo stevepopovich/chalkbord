@@ -11,10 +11,10 @@ INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManif
 	android:name
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:12:127-181
 manifest
-ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
 MERGED from [com.facebook.android:facebook-android-sdk:4.36.1] /Users/Contence/.gradle/caches/transforms-1/files-1.1/facebook-android-sdk-4.36.1.aar/3ca56c87cb26bd9f9ac14f33a4b4c363/AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-login:4.36.1] /Users/Contence/.gradle/caches/transforms-1/files-1.1/facebook-login-4.36.1.aar/122227535c2de5fb99724c87e7d3040b/AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-share:4.36.1] /Users/Contence/.gradle/caches/transforms-1/files-1.1/facebook-share-4.36.1.aar/9f8a716d167d2a5875fc4707ce5e3feb/AndroidManifest.xml:21:1-31:12
@@ -37,9 +37,9 @@ MERGED from [com.android.support:support-core-ui:27.0.2] /Users/Contence/.gradle
 MERGED from [com.android.support:support-media-compat:27.0.2] /Users/Contence/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/5d0386dd73b2d77dbbfebca7f13a8612/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:27.0.2] /Users/Contence/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/299a624925ee4dd167ec342fb9247eea/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/Contence/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/21a1827f74ce4d13194cc003d912f6c6/AndroidManifest.xml:17:1-24:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:1-29:12
 	package
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:2:100-122
 		INJECTED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml
@@ -238,6 +238,10 @@ uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:27:5-79
 	android:name
 		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:27:22-76
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:28:5-66
+	android:name
+		ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:28:22-63
 meta-data#android.support.FILE_PROVIDER_PATHS
 ADDED from /Users/Contence/locale/platforms/android/app/src/main/AndroidManifest.xml:13:13-116
 	android:resource

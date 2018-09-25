@@ -66,7 +66,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
-        private currentUserService: CurrentUserService, private userService: UserService, private firebaseEnvironmentService: FirebaseEnvironmentService) {
+        private currentUserService: CurrentUserService, private userService: UserService,
+        private firebaseEnvironmentService: FirebaseEnvironmentService) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);

@@ -11,7 +11,6 @@ $button-top-offest: 79%;
 
 .toolbar-background {
     background: black;
-    //background-image: url("assets/images/good\ chalkboard.jpg");
 }
 
 .organization-card {
@@ -39,9 +38,7 @@ $button-top-offest: 79%;
     bottom: 0;
     left: 0;
     width: 100%;
-    font-size: 24px;
-    //http://owumaro.github.io/text-stroke-generator/
-    //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
+    font-size: 32px;
     text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
@@ -63,7 +60,6 @@ $button-top-offest: 79%;
 
 .locale-card-title {
     color: white;
-    //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
     text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
@@ -77,14 +73,13 @@ $button-top-offest: 79%;
 
 .locale-card-time {
     color: white !important;
-    //text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 0.540302px 0.841471px 0px, rgb(0, 0, 0) -0.416147px 0.909297px 0px, rgb(0, 0, 0) -0.989992px 0.14112px 0px, rgb(0, 0, 0) -0.653644px -0.756802px 0px, rgb(0, 0, 0) 0.283662px -0.958924px 0px, rgb(0, 0, 0) 0.96017px -0.279415px 0px;
     text-shadow:
         -1px -1px 0 #000,
         1px -1px 0 #000,
         -1px 1px 0 #000,
         1px 1px 0 #000;
     font-style: italic;
-    font-size: 18px !important;
+    font-size: 24px !important;
 }
 
 .non-draggable-card-image {

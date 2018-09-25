@@ -47403,7 +47403,7 @@ ion-navbar.toolbar {
   height: 100%;
   position: absolute;
   opacity: 0.25;
-  background-size: 100% 100%;
+  background-size: auto 100%;
   z-index: -10;
 }
 
@@ -47569,7 +47569,7 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  font-size: 24px;
+  font-size: 32px;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -47597,7 +47597,7 @@ p {
   color: white !important;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   font-style: italic;
-  font-size: 18px !important;
+  font-size: 24px !important;
 }
 
 .non-draggable-card-image {
@@ -47973,12 +47973,15 @@ p {
 }
 
 .background-photo {
-  background-image: url("../assets/images/restaurant-portrait.jpg");
+  background-image: url("../assets/images/chalkbord-portrait.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 0.25;
-  background-size: 100% 100%;
+  opacity: 0.55;
+  background-size: auto 100%;
+  background-position: center;
+  min-height: 850px;
+  min-width: 500px;
 }
 
 .consumer-type-button {
@@ -48178,12 +48181,12 @@ ion-spinner {
 }
 
 .rest-landing-home-photo {
-  background-image: url("../assets/images/management.jpg");
+  background-image: url("../assets/images/restaurant-pos.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 0.25;
-  background-size: 100% 100%;
+  opacity: 0.55;
+  background-size: auto 100%;
 }
 
 .rest-center-text {

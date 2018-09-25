@@ -10,11 +10,11 @@
           "/resources": [
             {
               "xml": "<string name=\"fb_app_id\">296790334414922</string>",
-              "count": 10
+              "count": 18
             },
             {
               "xml": "<string name=\"fb_app_name\">Chalkbord</string>",
-              "count": 10
+              "count": 18
             }
           ]
         }

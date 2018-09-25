@@ -47397,113 +47397,6 @@ ion-navbar.toolbar {
   height: 2.4em;
 }
 
-.browser-home-photo {
-  background-image: url("../assets/images/rest-room.jpg");
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  opacity: 0.25;
-  background-size: 100% 100%;
-  z-index: -10;
-}
-
-.center-home-text {
-  padding-top: 128px;
-  text-align: center;
-  font-size: 4em;
-  width: 100%;
-  top: 18%;
-  font-family: Baumans;
-}
-
-.centered-card {
-  width: 80%;
-  margin: auto;
-  margin-top: 48px;
-  min-width: 380px;
-}
-
-.center-about-text {
-  text-align: center;
-  top: 28%;
-  font-size: 18px;
-  width: 100%;
-  margin: auto;
-  margin-top: 24px;
-  font-family: Baumans;
-}
-
-.center-about-text-lower {
-  text-align: center;
-  font-size: 18px;
-  width: 100%;
-  font-family: Baumans;
-  padding: 16px;
-  background-color: black;
-  color: white;
-}
-
-.home-nav-bar {
-  height: 40px;
-  width: 100%;
-  position: absolute;
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  z-index: 999;
-  background-image: url("../assets/images/good-chalkboard-dark.jpg");
-  background-size: 100% 100%;
-}
-
-.home-nav-button {
-  float: right;
-  height: 30px;
-}
-
-.app-store-cta {
-  width: auto;
-}
-
-.apple {
-  height: 48px;
-  margin-bottom: 3px;
-  margin-right: 32px;
-}
-
-.google-play {
-  height: 54px;
-}
-
-.center-content {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.cta-button-row {
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-.screen-shot {
-  width: 200px;
-  height: auto;
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-.offset-screen-shots {
-  margin-right: 2em;
-}
-
 #preview-card-stack ion-card {
   position: absolute;
   height: 95%;
@@ -47569,7 +47462,7 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  font-size: 24px;
+  font-size: 32px;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -47597,7 +47490,7 @@ p {
   color: white !important;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   font-style: italic;
-  font-size: 18px !important;
+  font-size: 24px !important;
 }
 
 .non-draggable-card-image {
@@ -47973,12 +47866,15 @@ p {
 }
 
 .background-photo {
-  background-image: url("../assets/images/restaurant-portrait.jpg");
+  background-image: url("../assets/images/chalkbord-portrait.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 0.25;
-  background-size: 100% 100%;
+  opacity: 0.55;
+  background-size: auto 100%;
+  background-position: center;
+  min-height: 850px;
+  min-width: 500px;
 }
 
 .consumer-type-button {
@@ -48178,12 +48074,12 @@ ion-spinner {
 }
 
 .rest-landing-home-photo {
-  background-image: url("../assets/images/management.jpg");
+  background-image: url("../assets/images/restaurant-pos.jpg");
   width: 100%;
   height: 100%;
   position: absolute;
-  opacity: 0.25;
-  background-size: 100% 100%;
+  opacity: 0.55;
+  background-size: auto 100%;
 }
 
 .rest-center-text {
