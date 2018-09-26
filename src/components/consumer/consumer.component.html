@@ -28,16 +28,17 @@
         <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>
     </div>
 </div>
-
-<ion-navbar style="min-height: 56px;">
-    <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">
-        <ion-icon ios="md-contact" md="md-contact"></ion-icon>
-    </button>
-    <img class="textured-name" src="assets/images/chalk-logo.png" />
-    <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">
-        <img class="card-stack-img" src="assets/images/card-stack.png" />
-    </button>
-</ion-navbar>
+<ion-header style="min-height: 56px;">
+    <ion-navbar style="min-height: 56px;">
+        <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">
+            <ion-icon ios="md-contact" md="md-contact"></ion-icon>
+        </button>
+        <img class="textured-name" src="assets/images/chalk-logo.png" />
+        <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">
+            <img class="card-stack-img" src="assets/images/card-stack.png" />
+        </button>
+    </ion-navbar>
+</ion-header>
 
 <img *ngIf="getAuxHelpZ() == '25'" class="card-stack-img-help" src="assets/images/card-stack.png" />
 <!--I am sorry-->

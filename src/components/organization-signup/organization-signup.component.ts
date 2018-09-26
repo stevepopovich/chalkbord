@@ -47,10 +47,6 @@ export class OrganizationSignupComponent {
         });
     }
 
-    public ngAfterViewInit(): void {
-        this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
-    }
-
     public passwordsMatch(): boolean {
         if (this.signUpGroup.get("password").dirty
             && this.signUpGroup.get("confirmPassword").dirty)
@@ -60,6 +56,7 @@ export class OrganizationSignupComponent {
     }
 
     public signUp(): void {
+        console.log("calling sign up");
         FormBuilderHelper.markFormGroupTouched(this.signUpGroup);
         if (this.signUpGroup.valid && this.passwordsMatch()) {
             const address: string = this.signUpGroup.get("address").value;

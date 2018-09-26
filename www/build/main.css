@@ -47397,6 +47397,123 @@ ion-navbar.toolbar {
   height: 2.4em;
 }
 
+header {
+  /* ... */
+  /* Status bar height on iOS 10 */
+  padding-top: 20px;
+  /* Status bar height on iOS 11.0 */
+  padding-top: constant(safe-area-inset-top);
+  /* Status bar height on iOS 11+ */
+  padding-top: env(safe-area-inset-top);
+}
+
+.browser-home-photo {
+  background-image: url("../assets/images/rest-room.jpg");
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.25;
+  background-size: 100% 100%;
+  z-index: -10;
+}
+
+.center-home-text {
+  padding-top: 128px;
+  text-align: center;
+  font-size: 4em;
+  width: 100%;
+  top: 18%;
+  font-family: Baumans;
+}
+
+.centered-card {
+  width: 80%;
+  margin: auto;
+  margin-top: 48px;
+  min-width: 380px;
+}
+
+.center-about-text {
+  text-align: center;
+  top: 28%;
+  font-size: 18px;
+  width: 100%;
+  margin: auto;
+  margin-top: 24px;
+  font-family: Baumans;
+}
+
+.center-about-text-lower {
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+  font-family: Baumans;
+  padding: 16px;
+  background-color: black;
+  color: white;
+}
+
+.home-nav-bar {
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  z-index: 999;
+  background-image: url("../assets/images/good-chalkboard-dark.jpg");
+  background-size: 100% 100%;
+}
+
+.home-nav-button {
+  float: right;
+  height: 30px;
+}
+
+.app-store-cta {
+  width: auto;
+}
+
+.apple {
+  height: 48px;
+  margin-bottom: 3px;
+  margin-right: 32px;
+}
+
+.google-play {
+  height: 54px;
+}
+
+.center-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.cta-button-row {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.screen-shot {
+  width: 200px;
+  height: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.offset-screen-shots {
+  margin-right: 2em;
+}
+
 #preview-card-stack ion-card {
   position: absolute;
   height: 95%;
@@ -47443,6 +47560,7 @@ p {
 
 #card-stack {
   height: 74%;
+  margin-top: 56px;
 }
 
 #card-stack ion-card {

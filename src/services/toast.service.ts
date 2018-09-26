@@ -33,7 +33,7 @@ export class ToastService {
     public showReadableAndAnswerableOkayToast(message: string): Toast {
         let wordTime = this.calculateReadTime(message);
 
-        wordTime *= 2;
+        wordTime *= 1.5;
 
         let toast: Toast = this.toastCtrl.create({
             message: message,

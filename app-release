@@ -1,0 +1,11 @@
+ionic cordova build ios
+ionic cordova build android --release
+cd platforms
+cd android
+cd app
+cd build
+cd outputs
+cd apk
+cd release
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore app-release-unsigned.apk alias_name
+./zipalign -v 4 app-release-unsigned.apk chalkbordxxx.apk

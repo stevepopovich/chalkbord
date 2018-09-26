@@ -2,11 +2,14 @@
 // Makes the @content apply to the given breakpoint and narrower.
 @mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
   $max: breakpoint-max($name, $breakpoints);
+
   @if $max {
     @media (max-width: $max) {
       @content;
     }
-  } @else {
+  }
+
+  @else {
     @content;
   }
 }
@@ -43,6 +46,7 @@
   $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
   @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+
     // Provide text `[text-{bp}]` attributes for aligning text based on screen size
     [text#{$infix}-center] {
       text-align: center;
@@ -72,11 +76,21 @@
   overflow-y: auto !important;
 }
 
-.button-left{
+.button-left {
   position: absolute;
   font-size: 1.4em;
   left: 0;
   top: 0;
   z-index: 10;
   height: 2.4em;
+}
+
+header {
+  /* ... */
+  /* Status bar height on iOS 10 */
+  padding-top: 20px;
+  /* Status bar height on iOS 11.0 */
+  padding-top: constant(safe-area-inset-top);
+  /* Status bar height on iOS 11+ */
+  padding-top: env(safe-area-inset-top);
 }

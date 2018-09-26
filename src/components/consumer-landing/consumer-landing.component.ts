@@ -71,6 +71,7 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     }
 
     public ngAfterViewInit(): void {
+        this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
     }
 
     public async facebookSignUp(): Promise<void> {

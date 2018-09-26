@@ -57,6 +57,10 @@ export class OrganizationLandingComponent extends OrganizationSignupComponent {
         });
     }
 
+    public ngAfterViewInit(): void {
+        this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
+    }
+
     public goToUserSignUpScreen(): void {
         this.signUpCard.nativeElement.scrollIntoView(true);
     }
