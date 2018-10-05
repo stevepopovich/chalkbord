@@ -1,4 +1,4 @@
-<div class="help-overlay" (click)="hideHelpOverlay()" padding [hidden]="swipeHelpOverlayHidden && auxHelpOverlayHidden">
+<div *ngIf="!swipeHelpOverlayHidden || !auxHelpOverlayHidden" class="help-overlay" (click)="hideHelpOverlay()" padding>
     <div *ngIf="!swipeHelpOverlayHidden" class="help-text">
         <img class="swipe-help-arrow" src="assets/images/straight-arrow-1.png" />
         <img class="swipe-help-arrow" style="margin-bottom: 64px;" src="assets/images/straight-arrow-2.png" />
@@ -28,8 +28,9 @@
         <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>
     </div>
 </div>
-<ion-header style="min-height: 56px;">
-    <ion-navbar style="min-height: 56px;">
+
+<ion-header>
+    <ion-toolbar style="min-height: 56px;">
         <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">
             <ion-icon ios="md-contact" md="md-contact"></ion-icon>
         </button>
@@ -37,7 +38,7 @@
         <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">
             <img class="card-stack-img" src="assets/images/card-stack.png" />
         </button>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
 <img *ngIf="getAuxHelpZ() == '25'" class="card-stack-img-help" src="assets/images/card-stack.png" />

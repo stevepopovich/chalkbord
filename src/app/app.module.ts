@@ -51,6 +51,7 @@ import { ToggleIconButtonComponent } from '../components/toggle-icon-button/togg
 import { SwipeVertical } from '../services/swipe-listener.service';
 import { CallNumber } from '@ionic-native/call-number';
 import { Vibration } from '@ionic-native/vibration';
+import { ConsumerContainerComponent } from '../components/consumer-container/consumer-container.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -77,6 +78,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ModalNavbarComponent,
     ConsumerCardList,
     ToggleIconButtonComponent,
+    ConsumerContainerComponent,
     SwipeVertical
   ],
   imports: [
@@ -85,9 +87,12 @@ export class MyHammerConfig extends HammerGestureConfig {
     SwingModule,
     AngularDraggableModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(LocaleApp, {}, {
-      links: [
-      ]
+    IonicModule.forRoot(LocaleApp, {
+      platforms: {
+        ios: {
+          statusbarPadding: true
+        }
+      }
     }),
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,

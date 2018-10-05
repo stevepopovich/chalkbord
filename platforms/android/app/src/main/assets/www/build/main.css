@@ -47397,6 +47397,13 @@ ion-navbar.toolbar {
   height: 2.4em;
 }
 
+.main-area-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -9999;
+}
+
 header {
   /* ... */
   /* Status bar height on iOS 10 */
@@ -47405,6 +47412,13 @@ header {
   padding-top: constant(safe-area-inset-top);
   /* Status bar height on iOS 11+ */
   padding-top: env(safe-area-inset-top);
+}
+
+body {
+  /* Status bar height on iOS 11.0 */
+  padding-top: constant(safe-area-inset-top) !important;
+  /* Status bar height on iOS 11+ */
+  padding-top: env(safe-area-inset-top) !important;
 }
 
 .browser-home-photo {
@@ -47512,6 +47526,15 @@ header {
 
 .offset-screen-shots {
   margin-right: 2em;
+}
+
+.terms-policy {
+  width: 90%;
+  margin: auto;
+  min-width: 380px;
+  height: 600px;
+  margin-top: 48px !important;
+  margin-bottom: 64px !important;
 }
 
 #preview-card-stack ion-card {

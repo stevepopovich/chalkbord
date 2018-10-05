@@ -5,7 +5,7 @@
     position: absolute;
     opacity: 0.25;
     background-size: 100% 100%;
-    z-index: -10;
+    z-index: 0;
 }
 
 .center-home-text {
@@ -23,7 +23,6 @@
     margin: auto;
     margin-top: 48px;
     min-width: 380px;
-
 }
 
 .center-about-text {
@@ -96,4 +95,13 @@
 
 .offset-screen-shots {
     margin-right: 2em;
+}
+
+.terms-policy {
+    width: 90%;
+    margin: auto;
+    min-width: 380px;
+    height: 600px;
+    margin-top: 48px !important;
+    margin-bottom: 64px !important;
 }

@@ -56,7 +56,6 @@ export class OrganizationSignupComponent {
     }
 
     public signUp(): void {
-        console.log("calling sign up");
         FormBuilderHelper.markFormGroupTouched(this.signUpGroup);
         if (this.signUpGroup.valid && this.passwordsMatch()) {
             const address: string = this.signUpGroup.get("address").value;

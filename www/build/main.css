@@ -47397,6 +47397,13 @@ ion-navbar.toolbar {
   height: 2.4em;
 }
 
+.main-area-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -9999;
+}
+
 header {
   /* ... */
   /* Status bar height on iOS 10 */
@@ -47407,6 +47414,13 @@ header {
   padding-top: env(safe-area-inset-top);
 }
 
+body {
+  /* Status bar height on iOS 11.0 */
+  padding-top: constant(safe-area-inset-top) !important;
+  /* Status bar height on iOS 11+ */
+  padding-top: env(safe-area-inset-top) !important;
+}
+
 .browser-home-photo {
   background-image: url("../assets/images/rest-room.jpg");
   width: 100%;
@@ -47414,7 +47428,7 @@ header {
   position: absolute;
   opacity: 0.25;
   background-size: 100% 100%;
-  z-index: -10;
+  z-index: 0;
 }
 
 .center-home-text {
@@ -47512,6 +47526,15 @@ header {
 
 .offset-screen-shots {
   margin-right: 2em;
+}
+
+.terms-policy {
+  width: 90%;
+  margin: auto;
+  min-width: 380px;
+  height: 600px;
+  margin-top: 48px !important;
+  margin-bottom: 64px !important;
 }
 
 #preview-card-stack ion-card {
@@ -48322,4 +48345,12 @@ ion-content {
   margin-bottom: .5em;
   font-size: 2.1em;
   z-index: 999;
+}
+
+.help-support-text {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  font-family: Baumans;
+  font-size: 18px;
 }

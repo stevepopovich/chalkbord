@@ -128,6 +128,14 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+    "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+    "pluginId": "cordova-plugin-velda-devicefeedback",
+    "clobbers": [
+      "window.plugins.deviceFeedback"
+    ]
+  },
+  {
     "id": "cordova-sqlite-storage.SQLitePlugin",
     "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
     "pluginId": "cordova-sqlite-storage",
@@ -166,14 +174,6 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
-  },
-  {
-    "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
-    "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
-    "pluginId": "cordova-plugin-velda-devicefeedback",
-    "clobbers": [
-      "window.plugins.deviceFeedback"
-    ]
   }
 ];
 module.exports.metadata = 
@@ -191,12 +191,12 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "4.1.0",
   "cordova-plugin-statusbar": "2.4.1",
   "cordova-plugin-uniquedeviceid": "1.3.2",
+  "cordova-plugin-velda-devicefeedback": "0.0.2",
+  "cordova-plugin-vibration": "3.1.0",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.3.1",
   "mx.ferreyra.callnumber": "0.0.2",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
-  "cordova-plugin-velda-devicefeedback": "0.0.2",
-  "cordova-plugin-vibration": "3.1.0"
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3"
 };
 // BOTTOM OF METADATA
 });

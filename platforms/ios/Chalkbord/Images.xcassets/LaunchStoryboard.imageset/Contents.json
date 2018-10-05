@@ -126,7 +126,8 @@
       "idiom": "iphone",
       "scale": "2x",
       "width-class": "compact",
-      "height-class": "compact"
+      "height-class": "compact",
+      "filename": "Default@2x~iphone~comcom.png"
     },
     {
       "idiom": "iphone",
@@ -159,7 +160,8 @@
     {
       "idiom": "iphone",
       "scale": "3x",
-      "height-class": "compact"
+      "height-class": "compact",
+      "filename": "Default@3x~iphone~anycom.png"
     },
     {
       "idiom": "iphone",

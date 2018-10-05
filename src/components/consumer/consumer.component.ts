@@ -1,3 +1,4 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { LocaleCard, DealType } from './../../types/deals.type';
 import { CurrentUserService } from './../../services/current-user.service';
 import { LocaleLocation } from './../../types/location.type';
@@ -67,7 +68,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
         private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
         private currentUserService: CurrentUserService, private userService: UserService,
-        private firebaseEnvironmentService: FirebaseEnvironmentService) {
+        private firebaseEnvironmentService: FirebaseEnvironmentService, private statusBar: StatusBar) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);
@@ -121,6 +122,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         }
         else
             console.error("User not logged in when he should be!");
+
+        this.statusBar.overlaysWebView(false);
+        this.statusBar.show();
     }
 
     public ngOnDestroy(): void {
