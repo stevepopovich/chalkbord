@@ -16,6 +16,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { FirebaseEnvironmentService } from '../../services/firebase/environment.service';
 import { DeviceService } from '../../services/device.service';
 import { bufferCount } from 'rxjs/operators';
+import { StatusBar } from '@ionic-native/status-bar';
 
 const lastEnvironmentKey = "lastOrgEnv";
 
@@ -38,9 +39,9 @@ export class OrganizationLandingComponent extends OrganizationSignupComponent {
         auth: AuthorizationService,
         organizationService: OrganizationService, facebook: Facebook,
         firebaseEnvironmentService: FirebaseEnvironmentService,
-        deviceService: DeviceService) {
+        deviceService: DeviceService, statusBar: StatusBar) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceService);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceService, statusBar);
         this.userLogInGroup = new UserLoginFormGroup(this.formBuilder);
 
         this.deviceService.getSetting(lastEnvironmentKey).then((lastEnvironment: FirebaseEnvironment) => {

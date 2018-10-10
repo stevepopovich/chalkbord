@@ -19,7 +19,6 @@ export class FilterDealComponent {
 
     constructor(private viewCtrl: ViewController, private navParams: NavParams) {
         const appliedFilterOptions: FilterDealsOptionsInterface = this.navParams.data;
-        console.log(this.navParams.data);
         this.setDealType(appliedFilterOptions.dealTypes);
         this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
         this.boolValues.vegan = appliedFilterOptions.onlyVegan;

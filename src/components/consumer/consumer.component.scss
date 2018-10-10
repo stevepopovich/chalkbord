@@ -219,6 +219,7 @@ $button-top-offest: 79%;
 
 .middle-button {
     height: 85%;
+    max-width: 200px;
 }
 
 .bottom-button {
@@ -257,7 +258,8 @@ $button-top-offest: 79%;
     right: 3%;
     width: 3.2em;
     min-height: 4.8rem;
-    background-color: #212121;
+    background: transparent;
+    border-radius: 40px;
 }
 
 .button-top-left {
@@ -265,8 +267,9 @@ $button-top-offest: 79%;
     top: 0%;
     left: 0%;
     font-size: 1.3em;
-    background-color: #212121;
     height: 4.8rem;
+    background: transparent;
+    border-radius: 40px;
 }
 
 .card-stack-img {

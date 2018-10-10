@@ -123,8 +123,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         else
             console.error("User not logged in when he should be!");
 
-        this.statusBar.overlaysWebView(false);
+        this.statusBar.hide();
         this.statusBar.show();
+        this.statusBar.overlaysWebView(false);
     }
 
     public ngOnDestroy(): void {
@@ -294,7 +295,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 }
             ],
             title: "You are going to " + card.organization.name + "!",
-            message: "Bring this code to " + card.organization.name + " and show it when you sit down. Remember, your deal is: " + card.dealDescription + ". Have fun!"
+            message: "Click the button in the top right to use your deal at the restaurant. Have fun!"
         });
 
         likeAlert.present().then(() => {

@@ -47428,7 +47428,7 @@ body {
   position: absolute;
   opacity: 0.25;
   background-size: 100% 100%;
-  z-index: -10;
+  z-index: 0;
 }
 
 .center-home-text {
@@ -47780,6 +47780,7 @@ p {
 
 .middle-button {
   height: 85%;
+  max-width: 200px;
 }
 
 .bottom-button {
@@ -47821,7 +47822,8 @@ p {
   right: 3%;
   width: 3.2em;
   min-height: 4.8rem;
-  background-color: #212121;
+  background: transparent;
+  border-radius: 40px;
 }
 
 .button-top-left {
@@ -47829,8 +47831,9 @@ p {
   top: 0%;
   left: 0%;
   font-size: 1.3em;
-  background-color: #212121;
   height: 4.8rem;
+  background: transparent;
+  border-radius: 40px;
 }
 
 .card-stack-img {
@@ -48345,4 +48348,12 @@ ion-content {
   margin-bottom: .5em;
   font-size: 2.1em;
   z-index: 999;
+}
+
+.help-support-text {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  font-family: Baumans;
+  font-size: 18px;
 }

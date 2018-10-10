@@ -1,3 +1,4 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { bufferCount } from 'rxjs/operators';
 import { FirebaseEnvironmentService, FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { AlertController } from 'ionic-angular';
@@ -42,9 +43,10 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     public constructor(formBuilder: FormBuilder, auth: AuthorizationService,
         rememberMeService: RememberMeService, alert: AlertController, organizationService: OrganizationService,
         toastService: ToastService, currentUserService: CurrentUserService, deviceStorage: DeviceService,
-        userService: UserService, loginService: LoginService, facebook: Facebook, firebaseEnvironmentService: FirebaseEnvironmentService) {
+        userService: UserService, loginService: LoginService, facebook: Facebook, firebaseEnvironmentService: FirebaseEnvironmentService,
+        statusBar: StatusBar) {
 
-        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceStorage);
+        super(toastService, alert, currentUserService, userService, formBuilder, auth, organizationService, loginService, rememberMeService, facebook, firebaseEnvironmentService, deviceStorage, statusBar);
 
         this.userSignUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -72,6 +74,10 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
 
     public ngAfterViewInit(): void {
         this.map = new google.maps.Map(document.getElementById('map'), { zoom: 15 });
+
+        this.statusBar.hide();
+        this.statusBar.show();
+        this.statusBar.overlaysWebView(false);
     }
 
     public async facebookSignUp(): Promise<void> {

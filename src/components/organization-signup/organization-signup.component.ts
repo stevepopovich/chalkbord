@@ -1,3 +1,4 @@
+import { StatusBar } from '@ionic-native/status-bar';
 import { FirebaseEnvironmentService, FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { FormBuilderHelper } from '../../types/utils.type';
 import { ToastService } from '../../services/toast.service';
@@ -30,7 +31,7 @@ export class OrganizationSignupComponent {
         public formBuilder: FormBuilder, public auth: AuthorizationService,
         public organizationService: OrganizationService, public loginService: LoginService,
         public rememberMeService: RememberMeService, public facebook: Facebook, public firebaseEnvironmentService: FirebaseEnvironmentService,
-        public deviceService: DeviceService) {
+        public deviceService: DeviceService, public statusBar: StatusBar) {
 
         this.signUpGroup = this.formBuilder.group({
             email: ['', Validators.compose([Validators.email, Validators.required])],
