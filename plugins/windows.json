@@ -60,6 +60,12 @@
     },
     "uk.co.workingedge.phonegap.plugin.launchnavigator": {
       "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-mauron85-background-geolocation": {
+      "PACKAGE_NAME": "Chalkbord"
     }
   },
   "dependent_plugins": {

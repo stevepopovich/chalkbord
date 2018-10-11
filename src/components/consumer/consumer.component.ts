@@ -1,3 +1,4 @@
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { LocaleCard, DealType } from './../../types/deals.type';
 import { CurrentUserService } from './../../services/current-user.service';
@@ -23,8 +24,8 @@ import _ from 'underscore';
 import moment from 'Moment';
 import { ConsumerCardList } from '../consumer-card-list/consumer-card-list.component';
 import { FirebaseEnvironmentService, FirebaseEnvironment } from '../../services/firebase/environment.service';
-import { LocationService } from '../../services/location.service';
-import { Geoposition } from '@ionic-native/geolocation';
+import { LocationCardsService } from '../../services/location-cards.service';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -66,9 +67,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     constructor(private alert: AlertController, private popoverCtrl: PopoverController,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
-        private imageService: ImageService, private modalCtrl: ModalController, private locationService: LocationService,
-        private currentUserService: CurrentUserService, private userService: UserService,
-        private firebaseEnvironmentService: FirebaseEnvironmentService, private statusBar: StatusBar) {
+        private imageService: ImageService, private modalCtrl: ModalController, private locationService: LocationCardsService,
+        private currentUserService: CurrentUserService, private userService: UserService, private geolocation: Geolocation,
+        private firebaseEnvironmentService: FirebaseEnvironmentService, private statusBar: StatusBar, private splashScreen: SplashScreen) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
                 const throwoutHorizontal = Math.abs(offsetX) / (element.offsetWidth / 4.0);
@@ -89,41 +90,45 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public ngAfterViewInit(): void {
         if (this.authService.checkLoggedIn) {
-            this.locationService.getCurrentLocation().then((value: Geoposition) => {
-                this.currentLocation.lat = value.coords.latitude;
-                this.currentLocation.lng = value.coords.longitude;
-
-                if (!this.cardSubscription) {
-                    this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
-                        this.initialLoading = false;
-                        if (cardModels.length > 0) {
-                            cardModels = cardModels.filter((card) => {
-                                if (this.firebaseEnvironmentService.getCurrentEnvironment() == FirebaseEnvironment.Demo)
-                                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) && !card.deleted;
-                                else {
-                                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) &&
-                                        !card.deleted &&
-                                        moment(card.dealEnd).isAfter(moment());
-                                }
-                            })
-                            if (!this.cards) {
-                                this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
-
-                                this.filterCards(this.currentFilter);
-                            }
-                            else
-                                LocaleCard.findAndUpdateCards(this.organizationViewCards, cardModels as LocaleCard[]);
-                        }
-                    });
-                }
-            });
+            if (this.locationService.cardModels && this.locationService.cardModels.length > 0) {
+                this.setUpInitalViewCards(this.locationService.cardModels);
+            }
+            else {
+                this.locationService.setUpCurrentLocationCards(this.geolocation, this.cardService, this.locationService.currentLocation).then((cardModels) => {
+                    this.setUpInitalViewCards(cardModels);
+                })
+            }
         }
-        else
-            console.error("User not logged in when he should be!");
 
         this.statusBar.hide();
         this.statusBar.show();
         this.statusBar.overlaysWebView(false);
+
+        this.delay(650).then(() => {
+            this.splashScreen.hide();
+        });
+    }
+
+    private setUpInitalViewCards(cardModels: LocaleCard[]) {
+        this.initialLoading = false;
+        if (cardModels.length > 0) {
+            cardModels = cardModels.filter((card) => {
+                if (this.firebaseEnvironmentService.getCurrentEnvironment() == FirebaseEnvironment.Demo)
+                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) && !card.deleted;
+                else {
+                    return !_.contains(this.currentUserService.getCurrentUser().cardIds, card.id) &&
+                        !card.deleted &&
+                        moment(card.dealEnd).isAfter(moment());
+                }
+            })
+            if (!this.cards) {
+                this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
+
+                this.filterCards(this.currentFilter);
+            }
+            else
+                LocaleCard.findAndUpdateCards(this.organizationViewCards, cardModels as LocaleCard[]);
+        }
     }
 
     public ngOnDestroy(): void {
@@ -273,13 +278,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     private popLikeAlert(card: LocaleCard): void {
         let likeAlert = this.alert.create({
             buttons: [
-                {
-                    text: 'Share',
-                    role: 'share',
-                    handler: () => {
-                        console.log('Share');
-                    }
-                },
                 {
                     text: 'Go',
                     role: 'go',

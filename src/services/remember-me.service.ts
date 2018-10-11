@@ -1,3 +1,4 @@
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { Injectable } from "@angular/core";
 import { DeviceService, EmailPasswordTuple } from "./device.service";
 import { LoginKeys } from "./login-keys.service";
@@ -9,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 @Injectable()
 export class RememberMeService {
 
-    constructor(private deviceService: DeviceService, private loginService: LoginService) {
+    constructor(private deviceService: DeviceService, private loginService: LoginService, private splashScreen: SplashScreen) {
         this.loginService;
     }
 
@@ -25,6 +26,11 @@ export class RememberMeService {
 
                         this.loginService.login(formGroup);
                     }
+                });
+            }
+            else {
+                this.delay(300).then(() => {
+                    this.splashScreen.hide();
                 });
             }
         });
@@ -46,5 +52,9 @@ export class RememberMeService {
             return { deviceKey: LoginKeys.rememberMeRestKey, tupleKey: LoginKeys.restEmailPasswordComboKey };
         else if (userType == UserType.Consumer)
             return { deviceKey: LoginKeys.rememberMeUserKey, tupleKey: LoginKeys.userEmailPasswordComboKey };
+    }
+
+    private delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

@@ -200,6 +200,22 @@ module.exports = [
     "merges": [
       "navigator"
     ]
+  },
+  {
+    "id": "cordova-plugin-request-location-accuracy.RequestLocationAccuracy",
+    "file": "plugins/cordova-plugin-request-location-accuracy/www/ios/RequestLocationAccuracy.js",
+    "pluginId": "cordova-plugin-request-location-accuracy",
+    "clobbers": [
+      "cordova.plugins.locationAccuracy"
+    ]
+  },
+  {
+    "id": "cordova-plugin-mauron85-background-geolocation.backgroundGeolocation",
+    "file": "plugins/cordova-plugin-mauron85-background-geolocation/www/backgroundGeolocation.js",
+    "pluginId": "cordova-plugin-mauron85-background-geolocation",
+    "clobbers": [
+      "backgroundGeolocation"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -222,7 +238,9 @@ module.exports.metadata =
   "mx.ferreyra.callnumber": "0.0.2",
   "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
   "cordova-plugin-velda-devicefeedback": "0.0.2",
-  "cordova-plugin-vibration": "3.1.0"
+  "cordova-plugin-vibration": "3.1.0",
+  "cordova-plugin-request-location-accuracy": "2.2.3",
+  "cordova-plugin-mauron85-background-geolocation": "2.3.6"
 };
 // BOTTOM OF METADATA
 });

@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { Component, AfterViewInit } from "@angular/core";
 import { DealEditorComponent } from "../deal-editor/deal-editor.component";
 import { ToastService } from '../../services/toast.service';
 import { LoginKeys } from '../../services/login-keys.service';
@@ -13,12 +14,17 @@ import { CurrentUserService } from '../../services/current-user.service';
     selector: 'organization-deals-home',
     styleUrls: ['/organization-deals-home.component.scss']
 })
-export class OrganizationDealsHomeComponent {
+export class OrganizationDealsHomeComponent implements AfterViewInit {
+
     public root: any = DealEditorComponent;
 
     constructor(private toastService: ToastService, private deviceService: DeviceService,
         private platform: Platform, private viewControllerService: ViewControllerService,
-        private currentUserService: CurrentUserService) { }
+        private currentUserService: CurrentUserService, private splashScreen: SplashScreen) { }
+
+    public ngAfterViewInit(): void {
+        this.splashScreen.hide();
+    }
 
     public logout() {
         const toast = this.toastService.showReadableAndAnswerableOkayToast("Are you sure you want to log out?");

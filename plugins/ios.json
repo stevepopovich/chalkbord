@@ -61,6 +61,13 @@
     },
     "cordova-plugin-vibration": {
       "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "cordova-plugin-mauron85-background-geolocation": {
+      "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking",
+      "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {

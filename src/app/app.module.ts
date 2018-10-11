@@ -52,7 +52,9 @@ import { SwipeVertical } from '../services/swipe-listener.service';
 import { CallNumber } from '@ionic-native/call-number';
 import { Vibration } from '@ionic-native/vibration';
 import { ConsumerContainerComponent } from '../components/consumer-container/consumer-container.component';
-import { LocationService } from '../services/location.service';
+import { LocationCardsService } from '../services/location-cards.service';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -160,7 +162,9 @@ export class MyHammerConfig extends HammerGestureConfig {
     CallNumber,
     FirebaseEnvironmentService,
     Vibration,
-    LocationService,
+    LocationCardsService,
+    BackgroundGeolocation,
+    SplashScreen,
   ],
 })
 export class AppModule { }

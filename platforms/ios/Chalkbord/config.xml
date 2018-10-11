@@ -78,6 +78,13 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="RequestLocationAccuracy">
+        <param name="ios-package" value="RequestLocationAccuracy" />
+    </feature>
+    <feature name="BackgroundGeolocation">
+        <param name="ios-package" value="CDVBackgroundGeolocation" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Chalkbord</name>
     <icon src="src/assets/images/icon.png" />
     <description>An app to let you get deals</description>

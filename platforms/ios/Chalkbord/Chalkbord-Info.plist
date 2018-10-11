@@ -128,12 +128,18 @@
       <string>baidumap</string>
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app requires access to your location for navigation purposes</string>
+    <string>This app always requires location tracking</string>
     <key>UILaunchStoryboardName</key>
     <string>CDVLaunchScreen</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>to upload photos</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>to find you local deals</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>This app always requires location tracking</string>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>location</string>
+    </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>to upload photos</string>
   </dict>
 </plist>
