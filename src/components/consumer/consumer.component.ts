@@ -16,8 +16,6 @@ import { AuthorizationService } from '../../services/firebase/authorization.serv
 import { ImageService } from '../../services/firebase/image-service.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { ToastService } from '../../services/toast.service';
-import { Geolocation } from '@ionic-native/geolocation';
 import { MoreCardInfoComponent } from '../more-card-info/more-card-info.component';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
 import { CardDataService } from '../../services/firebase/firestore-collection/card-data.service';
@@ -25,6 +23,8 @@ import _ from 'underscore';
 import moment from 'Moment';
 import { ConsumerCardList } from '../consumer-card-list/consumer-card-list.component';
 import { FirebaseEnvironmentService, FirebaseEnvironment } from '../../services/firebase/environment.service';
+import { LocationService } from '../../services/location.service';
+import { Geoposition } from '@ionic-native/geolocation';
 
 @Component({
     templateUrl: './consumer.component.html',
@@ -64,9 +64,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     public swipeHelpOverlayHidden: boolean = true;
     public auxHelpOverlayHidden: boolean = true;
 
-    constructor(private alert: AlertController, private popoverCtrl: PopoverController, private toastService: ToastService,
+    constructor(private alert: AlertController, private popoverCtrl: PopoverController,
         private launchNavigator: LaunchNavigator, private cardService: CardDataService, private authService: AuthorizationService,
-        private imageService: ImageService, private modalCtrl: ModalController, private geolocation: Geolocation,
+        private imageService: ImageService, private modalCtrl: ModalController, private locationService: LocationService,
         private currentUserService: CurrentUserService, private userService: UserService,
         private firebaseEnvironmentService: FirebaseEnvironmentService, private statusBar: StatusBar) {
         this.stackConfig = {
@@ -89,9 +89,9 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     public ngAfterViewInit(): void {
         if (this.authService.checkLoggedIn) {
-            this.geolocation.watchPosition().subscribe((resp) => {
-                this.currentLocation.lat = resp.coords.latitude;
-                this.currentLocation.lng = resp.coords.longitude;
+            this.locationService.getCurrentLocation().then((value: Geoposition) => {
+                this.currentLocation.lat = value.coords.latitude;
+                this.currentLocation.lng = value.coords.longitude;
 
                 if (!this.cardSubscription) {
                     this.cardSubscription = this.cardService.getCardsByLatLng(this.currentLocation, 100000000).subscribe((cardModels) => {
@@ -116,8 +116,6 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                         }
                     });
                 }
-            }, (error) => {
-                this.toastService.showReadableToast("We could not find your location, please contact support. " + error);
             });
         }
         else

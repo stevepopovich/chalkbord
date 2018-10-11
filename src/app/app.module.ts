@@ -52,6 +52,7 @@ import { SwipeVertical } from '../services/swipe-listener.service';
 import { CallNumber } from '@ionic-native/call-number';
 import { Vibration } from '@ionic-native/vibration';
 import { ConsumerContainerComponent } from '../components/consumer-container/consumer-container.component';
+import { LocationService } from '../services/location.service';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -158,7 +159,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     Facebook,
     CallNumber,
     FirebaseEnvironmentService,
-    Vibration
+    Vibration,
+    LocationService,
   ],
 })
 export class AppModule { }
