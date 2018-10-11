@@ -17,12 +17,8 @@
           ],
           "NSLocationAlwaysUsageDescription": [
             {
-              "xml": "<string>This app always requires location tracking</string>",
-              "count": 1
-            },
-            {
               "xml": "<string>to find you local deals</string>",
-              "count": 1,
+              "count": 2,
               "mode": "merge",
               "id": "config.xml"
             }
