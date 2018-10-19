@@ -9,7 +9,7 @@
         "parents": {
           "NSPhotoLibraryUsageDescription": [
             {
-              "xml": "<string>to upload photos</string>",
+              "xml": "<string>This app requires photo access so you can upload photos for deals.</string>",
               "count": 1,
               "mode": "merge",
               "id": "config.xml"
@@ -17,8 +17,8 @@
           ],
           "NSLocationAlwaysUsageDescription": [
             {
-              "xml": "<string>to find you local deals</string>",
-              "count": 2,
+              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
+              "count": 1,
               "mode": "merge",
               "id": "config.xml"
             }
@@ -59,18 +59,18 @@
           ],
           "NSLocationWhenInUseUsageDescription": [
             {
-              "xml": "<string>This app requires access to your location for navigation purposes</string>",
-              "count": 1
-            },
-            {
-              "xml": "<string>This app always requires location tracking</string>",
-              "count": 1
+              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
+              "count": 2,
+              "mode": "merge",
+              "id": "config.xml"
             }
           ],
           "NSLocationAlwaysAndWhenInUseUsageDescription": [
             {
-              "xml": "<string>This app always requires location tracking</string>",
-              "count": 1
+              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
             }
           ],
           "UIBackgroundModes": [

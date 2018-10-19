@@ -12,7 +12,7 @@
         <form [formGroup]="dealEditorFormGroup">
             <ion-grid style="padding: 0px;">
                 <ion-row>
-                    <ion-col col-12 col-sm-6 style="padding: 0px;">
+                    <ion-col col-12 col-sm-6 style="padding: 0px; padding-right: 1em;">
                         <ion-item>
                             <ion-label floating>Deal description</ion-label>
                             <ion-input formControlName="dealDescription"></ion-input>
@@ -22,7 +22,7 @@
 
                         <ion-item>
                             <ion-label floating>Long deal description</ion-label>
-                            <ion-textarea formControlName="longDealDescription"></ion-textarea>
+                            <ion-input formControlName="longDealDescription"></ion-input>
                         </ion-item>
 
                         <ion-item>
@@ -56,8 +56,8 @@
                             <ion-input type="number" formControlName="numberOfDeals"></ion-input>
                         </ion-item> -->
 
-                        <ion-list style="padding: 1em;" radio-group formControlName="dealType">
-                            Deal Type
+                        <div class="deal-type-text">Deal Type</div>
+                        <ion-list style="padding: 1em; padding-right: 0;" radio-group formControlName="dealType">
                             <ion-item>
                                 <ion-label>Drinks</ion-label>
                                 <ion-radio value="0"></ion-radio>

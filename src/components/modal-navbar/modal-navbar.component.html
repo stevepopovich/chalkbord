@@ -1,8 +1,8 @@
-<ion-toolbar>
+<ion-toolbar class="modal-navbar">
     <button style="color: white;" (click)="closeProfile()" ion-button icon-only menuToggle>
         <ion-icon name="arrow-back"></ion-icon>
     </button>
-    <ion-title style="font-family: Baumans">chalkbord</ion-title>
+    <img class="textured-name" src="assets/images/chalk-logo.png" />
     <button style="color: white; " *ngIf="profileModal" (click)="logout()" ion-button icon-only menuToggle right>
         <ion-icon name="log-out"></ion-icon>
     </button>

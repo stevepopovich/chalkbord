@@ -104,7 +104,7 @@
       "cordova-plugin-uniquedeviceid": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you for to find the nearest deals"
+        "GEOLOCATION_USAGE_DESCRIPTION": "This app always requires location tracking so we can find the latest deals near you."
       },
       "cordova-plugin-facebook4": {
         "APP_ID": "296790334414922",
@@ -123,7 +123,7 @@
         "ACCOUNT_LABEL": "@string/app_name",
         "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
         "CONTENT_AUTHORITY": "$PACKAGE_NAME",
-        "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking"
+        "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking so we can find the latest deals near you."
       }
     }
   }

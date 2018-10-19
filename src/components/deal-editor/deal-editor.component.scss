@@ -15,7 +15,7 @@
     margin-right: 2em;
     max-width: 325px;
     max-height: 450px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .error-message {
@@ -43,4 +43,8 @@ ion-spinner {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.deal-type-text {
+    margin-left: 0.5em;
 }

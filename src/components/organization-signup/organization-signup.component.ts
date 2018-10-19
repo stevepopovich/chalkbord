@@ -2,7 +2,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { FirebaseEnvironmentService, FirebaseEnvironment } from './../../services/firebase/environment.service';
 import { FormBuilderHelper } from '../../types/utils.type';
 import { ToastService } from '../../services/toast.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 import { CurrentUserService } from '../../services/current-user.service';
 import { UserService } from '../../services/firebase/firestore-collection/user.service';
@@ -38,7 +38,7 @@ export class OrganizationSignupComponent {
             password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
             confirmPassword: ['', Validators.compose([Validators.minLength(8)])],
             phoneNumber: ['', Validators.compose([Validators.required, Validators.pattern(/[0-9\+\-\ ]/), Validators.minLength(10), Validators.maxLength(13)])],
-            website: ['', Validators.compose([Validators.required, this.URLValidator])],
+            website: [''],
             address: ['', Validators.compose([Validators.required])],
             city: ['', Validators.compose([Validators.required])],
             state: ['', Validators.compose([Validators.required])],
@@ -187,13 +187,13 @@ export class OrganizationSignupComponent {
         }
     }
 
-    private URLValidator(control: FormControl) {
-        const regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    // private URLValidator(control: FormControl) {
+    //     const regexp = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
 
-        return regexp.test(control.value) ? null : {
-            'invalidUrl': {
-                valid: false
-            }
-        };
-    }
+    //     return regexp.test(control.value) ? null : {
+    //         'invalidUrl': {
+    //             valid: false
+    //         }
+    //     };
+    // }
 }

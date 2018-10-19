@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1112" id="locale.alpha" version="1.1.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="1114" id="locale.alpha" version="1.1.14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
@@ -132,10 +132,16 @@
     <splash src="res/screen/ios/Default@2x~ipad~anyany.png" />
     <splash src="res/screen/ios/Default@2x~ipad~comany.png" />
     <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-        <string>to upload photos</string>
+        <string>This app requires photo access so you can upload photos for deals.</string>
     </edit-config>
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
-        <string>to find you local deals</string>
+        <string>This app always requires location tracking so we can find the latest deals near you.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>This app always requires location tracking so we can find the latest deals near you.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
+        <string>This app always requires location tracking so we can find the latest deals near you.</string>
     </edit-config>
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="none" />
@@ -163,4 +169,5 @@
     <preference name="StatusBarBackgroundColor" value="transparent" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="orientation" value="portrait" />
+    <preference name="HeaderColor" value="#FFFFFF" />
 </widget>

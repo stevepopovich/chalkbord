@@ -47962,6 +47962,14 @@ p {
   border: 0;
 }
 
+.card-ios .item-ios.item-block:not(:last-child) .item-inner {
+  border-bottom: 1px solid #dedede;
+}
+
+.card-ios .item-ios.item-block:not(.item-input):not(.item-select):not(.item-radio):not(.item-checkbox) .item-inner {
+  border: 0;
+}
+
 .button-group {
   display: block;
   margin: 0 auto;
@@ -48137,6 +48145,10 @@ ion-spinner {
   justify-content: center;
 }
 
+.deal-type-text {
+  margin-left: 0.5em;
+}
+
 .title {
   color: black;
   padding: 0.5em;
@@ -48146,6 +48158,31 @@ ion-spinner {
 
 .label {
   width: 100%;
+}
+
+.textured-name {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  position: absolute;
+  left: 50%;
+  margin-left: -95px;
+  width: 190px;
+  height: auto;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.modal-navbar {
+  min-height: 56px;
+}
+
+.toolbar-background {
+  background-image: url("../assets/images/good-chalkboard.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .present-card-image {

@@ -56,8 +56,10 @@
                 {{card.organization.name}}
             </ion-card-title>
             {{card.dealDescription}}
-            <p class="locale-card-time">{{getMomentFormatted(card.dealStart, "MM/DD")}}
-                {{getMomentFormatted(card.dealStart, "hh:mm a")}} - {{getMomentFormatted(card.dealEnd,
+            <p class="locale-card-time">Available on {{getMomentFormatted(card.dealStart,
+                "MM/DD")}}
+                between {{getMomentFormatted(card.dealStart, "hh:mm a")}} -
+                {{getMomentFormatted(card.dealEnd,
                 "hh:mm a")}}</p>
         </ion-card-content>
     </ion-card>

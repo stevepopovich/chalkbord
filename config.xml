@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1112" id="locale.alpha" version="1.1.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="1114" id="locale.alpha" version="1.1.14" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chalkbord</name>
     <icon src="src/assets/images/icon.png" />
     <description>An app to let you get deals</description>
@@ -63,10 +63,16 @@
         <splash src="res/screen/ios/Default@2x~ipad~anyany.png" />
         <splash src="res/screen/ios/Default@2x~ipad~comany.png" />
         <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-            <string>to upload photos</string>
+            <string>This app requires photo access so you can upload photos for deals.</string>
         </edit-config>
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
-            <string>to find you local deals</string>
+            <string>This app always requires location tracking so we can find the latest deals near you.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>This app always requires location tracking so we can find the latest deals near you.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
+            <string>This app always requires location tracking so we can find the latest deals near you.</string>
         </edit-config>
     </platform>
     <preference name="SplashScreen" value="screen" />
@@ -81,6 +87,7 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="orientation" value="portrait" />
+    <preference name="HeaderColor" value="#FFFFFF" />
     <allow-navigation href="http://192.168.1.94:8100" />
     <allow-navigation href="http://10.10.10.113:8100" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
@@ -95,7 +102,7 @@
     <plugin name="cordova-plugin-uniquedeviceid" spec="^1.3.2" />
     <plugin name="cordova-sqlite-storage" spec="^2.3.1" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate your nearby deals" />
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="This app always requires location tracking so we can find the latest deals near you." />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="cordova-plugin-facebook4" spec="^2.2.0">
@@ -115,7 +122,7 @@
         <variable name="ACCOUNT_LABEL" value="@string/app_name" />
         <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account" />
         <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
-        <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app always requires location tracking" />
+        <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app always requires location tracking so we can find the latest deals near you." />
     </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <engine name="browser" spec="5.0.3" />

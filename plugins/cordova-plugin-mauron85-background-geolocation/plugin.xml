@@ -164,7 +164,7 @@
 
     <platform name="ios">
         <!-- required background modes:  App registers for location updates -->
-        <preference name="ALWAYS_USAGE_DESCRIPTION" default="This app always requires location tracking" />
+        <preference name="ALWAYS_USAGE_DESCRIPTION" default="This app always requires location tracking so we can find the latest deals near you." />
 
         <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
             <string>$ALWAYS_USAGE_DESCRIPTION</string>
