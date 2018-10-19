@@ -109,6 +109,12 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         });
     }
 
+    public ionViewDidEnter(): void {
+        this.statusBar.hide();
+        this.statusBar.show();
+        this.statusBar.overlaysWebView(false);
+    }
+
     private setUpInitalViewCards(cardModels: LocaleCard[]) {
         this.initialLoading = false;
         if (cardModels.length > 0) {

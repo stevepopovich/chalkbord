@@ -6,6 +6,7 @@ import { ViewController, Platform } from "ionic-angular";
 import { ViewControllerService } from '../../services/view-controller.service';
 import { LoginKeys } from '../../services/login-keys.service';
 import { IonicPlatform } from '../../enums/ionic-platform.enum';
+import { StatusBar } from '@ionic-native/status-bar';
 
 @Component({
     templateUrl: './modal-navbar.component.html',
@@ -18,7 +19,13 @@ export class ModalNavbarComponent {
 
     constructor(private toastService: ToastService, private ionicViewController: ViewController,
         private deviceService: DeviceService, private viewControllerService: ViewControllerService,
-        private currentUserService: CurrentUserService, private platform: Platform) {
+        private currentUserService: CurrentUserService, private platform: Platform, private statusBar: StatusBar) {
+    }
+
+    public ionViewDidEnter(): void {
+        this.statusBar.hide();
+        this.statusBar.show();
+        this.statusBar.overlaysWebView(false);
     }
 
     public logout() {

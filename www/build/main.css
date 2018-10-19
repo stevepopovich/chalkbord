@@ -48146,7 +48146,9 @@ ion-spinner {
 }
 
 .deal-type-text {
-  margin-left: 0.5em;
+  margin-left: 1.0em;
+  font-size: 17px;
+  margin-top: 0.5em;
 }
 
 .title {

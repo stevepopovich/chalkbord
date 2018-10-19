@@ -60,7 +60,7 @@
           "NSLocationWhenInUseUsageDescription": [
             {
               "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
-              "count": 2,
+              "count": 1,
               "mode": "merge",
               "id": "config.xml"
             }

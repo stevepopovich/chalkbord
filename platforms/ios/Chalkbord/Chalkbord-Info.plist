@@ -21,11 +21,11 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.1.14</string>
+    <string>1.1.15</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>1.1.14</string>
+    <string>1.1.15</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMainNibFile</key>
@@ -127,8 +127,6 @@
       <string>cabify</string>
       <string>baidumap</string>
     </array>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app always requires location tracking so we can find the latest deals near you.</string>
     <key>UILaunchStoryboardName</key>
     <string>CDVLaunchScreen</string>
     <key>UIBackgroundModes</key>
@@ -138,6 +136,8 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>This app requires photo access so you can upload photos for deals.</string>
     <key>NSLocationAlwaysUsageDescription</key>
+    <string>This app always requires location tracking so we can find the latest deals near you.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
     <string>This app always requires location tracking so we can find the latest deals near you.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>This app always requires location tracking so we can find the latest deals near you.</string>
