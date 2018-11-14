@@ -1291,6 +1291,27 @@ var DealEditorComponent = (function () {
         this.fileReader.readAsDataURL(this.imageDataForUploadDesktop);
     };
     DealEditorComponent.prototype.delete = function () {
+        var _this = this;
+        var deleteAlert = this.alert.create({
+            buttons: [
+                {
+                    text: 'Yes',
+                    role: 'yes',
+                    handler: function () {
+                        _this.deleteCurrentDealAndClearFields();
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'close',
+                }
+            ],
+            title: "Are you sure?",
+            message: "Are you want to delete this deal? Deleting can not be undone."
+        });
+        deleteAlert.present();
+    };
+    DealEditorComponent.prototype.deleteCurrentDealAndClearFields = function () {
         this.dealEditorService.currentDealBeingEdited.deleted = true;
         this.cardService.set(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);

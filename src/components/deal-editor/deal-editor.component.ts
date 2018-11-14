@@ -112,6 +112,28 @@ export class DealEditorComponent {
     }
 
     public delete() {//maybe kill photo TODO
+        let deleteAlert = this.alert.create({
+            buttons: [
+                {
+                    text: 'Yes',
+                    role: 'yes',
+                    handler: () => {
+                        this.deleteCurrentDealAndClearFields();
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'close',
+                }
+            ],
+            title: "Are you sure?",
+            message: "Are you want to delete this deal? Deleting can not be undone."
+        });
+
+        deleteAlert.present();
+    }
+
+    public deleteCurrentDealAndClearFields() {
         this.dealEditorService.currentDealBeingEdited.deleted = true;
         this.cardService.set(this.dealEditorService.currentDealBeingEdited);
         this.dealEditorService.deleteDealSubject.next(this.dealEditorService.currentDealBeingEdited);
