@@ -40,7 +40,29 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <button style="width: 100%;" ion-button (click)="applyFilters()">Apply</button>
+        <div class="title">I am looking for deals...</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-list style="width: 100%" radio-group [(ngModel)]="dayFilter">
+        <ion-item>
+          <ion-label>Today</ion-label>
+          <ion-radio value="today"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>In the next week</ion-label>
+          <ion-radio value="thisWeek"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Anytime</ion-label>
+          <ion-radio value="anytime"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button style="width: 100%;" ion-button (click)="applyFilters()">Apply
+        </button>
       </ion-col>
     </ion-row>
   </ion-grid>

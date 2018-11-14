@@ -9,6 +9,8 @@ import { ViewController, NavParams } from "ionic-angular";
 })
 export class FilterDealComponent {
 
+    public dayFilter: string;
+
     public boolValues = {
         vegetarian: false,
         vegan: false,
@@ -22,14 +24,17 @@ export class FilterDealComponent {
         this.setDealType(appliedFilterOptions.dealTypes);
         this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
         this.boolValues.vegan = appliedFilterOptions.onlyVegan;
+        this.dayFilter = DayFilter[appliedFilterOptions.dayFilter];
     }
 
     public applyFilters() {
         const returnData: FilterDealsOptionsInterface = {
             onlyVegetarian: this.boolValues.vegetarian,
             onlyVegan: this.boolValues.vegan,
-            dealTypes: this.getDealTypesValue()
+            dealTypes: this.getDealTypesValue(),
+            dayFilter: DayFilter[this.dayFilter]
         };
+
         this.viewCtrl.dismiss(returnData);
     }
 
@@ -78,4 +83,11 @@ export interface FilterDealsOptionsInterface {
     onlyVegetarian: boolean;
     onlyVegan: boolean;
     dealTypes: DealType[];
+    dayFilter: DayFilter;
+}
+
+export enum DayFilter {
+    today,
+    thisWeek,
+    anytime,
 }

@@ -11,7 +11,7 @@ import {
     Direction
 } from 'angular2-swing';
 import { AlertController, PopoverController, ModalController } from 'ionic-angular';
-import { FilterDealComponent, FilterDealsOptionsInterface } from '../filter-deals/filter-deal.component';
+import { FilterDealComponent, FilterDealsOptionsInterface, DayFilter } from '../filter-deals/filter-deal.component';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { AuthorizationService } from '../../services/firebase/authorization.service';
 import { ImageService } from '../../services/firebase/image-service.service';
@@ -52,7 +52,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
 
     private animatingCard: boolean = false;
 
-    public currentFilter: FilterDealsOptionsInterface = { dealTypes: [], onlyVegan: false, onlyVegetarian: false };
+    public currentFilter: FilterDealsOptionsInterface = { dealTypes: [], onlyVegan: false, onlyVegetarian: false, dayFilter: DayFilter.anytime };
 
     public cards: LocaleCard[];
 
@@ -107,6 +107,8 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         this.delay(650).then(() => {
             this.splashScreen.hide();
         });
+
+        this.viewCardIndex = this.numberOfCardsToHaveInView;
     }
 
     public ionViewDidEnter(): void {
@@ -130,12 +132,12 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             if (!this.cards) {
                 this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
 
-                this.cards.sort(function (a, b) {
+                this.cards = this.cards.sort(function (a, b) {
                     if (moment(a.dealStart).isAfter(b.dealStart))
                         return 1;
                     else
                         return -1;
-                })
+                });
 
                 this.filterCards(this.currentFilter);
             }
@@ -323,7 +325,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         this.organizationViewCards = new Array<LocaleCard>();
         this.filteredCards = [];
 
-        for (var i = this.viewCardIndex; i < this.cards.length; i++)
+        for (var i = this.viewCardIndex - this.numberOfCardsToHaveInView; i < this.cards.length; i++)
             this.filteredCards.push(this.cards[i]);
 
         if (filterOptions.dealTypes.length > 0) {
@@ -344,6 +346,28 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             });
         }
 
+        if (filterOptions.dayFilter != DayFilter.anytime) {
+            if (filterOptions.dayFilter == DayFilter.today) {
+                this.filteredCards = this.filteredCards.filter((card) => {
+                    return moment().dayOfYear() == moment(card.dealStart).dayOfYear() &&
+                        moment().year() == moment(card.dealStart).year();
+                });
+            }
+            else if (filterOptions.dayFilter == DayFilter.thisWeek) {
+                this.filteredCards = this.filteredCards.filter((card) => {
+                    return moment(card.dealStart).isBefore(moment().add('7', 'days')) &&
+                        moment().year() == moment(card.dealStart).year();
+                });
+            }
+        }
+
+        this.filteredCards = this.filteredCards.sort(function (a, b) {
+            if (moment(a.dealStart).isAfter(b.dealStart))
+                return 1;
+            else
+                return -1;
+        });
+
         this.setUpViewCards();
 
         this.delay(600).then(() => {//this sucks
@@ -355,24 +379,22 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     private addCardToStack() {
-        if (this.viewCardIndex < this.filteredCards.length) {
+        if (this.viewCardIndex < this.filteredCards.length && this.filteredCards[this.viewCardIndex] != null) {
             var nextCard = this.filteredCards[this.viewCardIndex];
 
             this.imageService.setDealImageURL(nextCard);
 
             this.organizationViewCards.push(nextCard);
 
-            this.viewCardIndex++;
-
             for (var i = 0; i < this.swingCards.toArray.length; i++) {
                 this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = `translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)`;
             }
         }
+
+        this.viewCardIndex++;
     }
 
     private setUpViewCards() {
-        this.viewCardIndex = this.numberOfCardsToHaveInView;
-
         for (var i: number = 0; i < this.numberOfCardsToHaveInView; i++) {
             if (this.filteredCards[i]) {
                 this.imageService.setDealImageURL(this.filteredCards[i]);
@@ -380,6 +402,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
                 this.organizationViewCards.push(this.filteredCards[i]);
             }
         }
+    }
+
+    public filterIsApplied(): boolean {
+        return (this.currentFilter.dealTypes && this.currentFilter.dealTypes.length > 0)
+            || this.currentFilter.onlyVegan
+            || this.currentFilter.onlyVegetarian
+            || this.currentFilter.dayFilter != DayFilter.anytime;
     }
 
     //used simply to async wait for something

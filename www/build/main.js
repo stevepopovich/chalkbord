@@ -1845,7 +1845,7 @@ var ConsumerComponent = (function () {
         this.viewCardIndex = 0;
         this.likingCard = false;
         this.animatingCard = false;
-        this.currentFilter = { dealTypes: [], onlyVegan: false, onlyVegetarian: false };
+        this.currentFilter = { dealTypes: [], onlyVegan: false, onlyVegetarian: false, dayFilter: __WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* DayFilter */].anytime };
         this.currentLocation = new __WEBPACK_IMPORTED_MODULE_4__types_location_type__["a" /* LocaleLocation */]();
         this.initialLoading = true;
         this.swipeHelpOverlayHidden = true;
@@ -1883,6 +1883,7 @@ var ConsumerComponent = (function () {
         this.delay(650).then(function () {
             _this.splashScreen.hide();
         });
+        this.viewCardIndex = this.numberOfCardsToHaveInView;
     };
     ConsumerComponent.prototype.ionViewDidEnter = function () {
         this.statusBar.hide();
@@ -1904,7 +1905,7 @@ var ConsumerComponent = (function () {
             });
             if (!this.cards) {
                 this.cards = this.cardService.filterNonDuplicateDeals(cardModels);
-                this.cards.sort(function (a, b) {
+                this.cards = this.cards.sort(function (a, b) {
                     if (__WEBPACK_IMPORTED_MODULE_17_Moment___default()(a.dealStart).isAfter(b.dealStart))
                         return 1;
                     else
@@ -2009,7 +2010,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.openFilterPopover = function (event) {
         var _this = this;
-        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* FilterDealComponent */], this.currentFilter);
+        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["b" /* FilterDealComponent */], this.currentFilter);
         filterPopover.onDidDismiss(function (data) {
             if (data) {
                 _this.currentFilter = data;
@@ -2063,7 +2064,7 @@ var ConsumerComponent = (function () {
         var _this = this;
         this.organizationViewCards = new Array();
         this.filteredCards = [];
-        for (var i = this.viewCardIndex; i < this.cards.length; i++)
+        for (var i = this.viewCardIndex - this.numberOfCardsToHaveInView; i < this.cards.length; i++)
             this.filteredCards.push(this.cards[i]);
         if (filterOptions.dealTypes.length > 0) {
             this.filteredCards = this.filteredCards.filter(function (card) {
@@ -2080,6 +2081,26 @@ var ConsumerComponent = (function () {
                 return card.isVegetarian;
             });
         }
+        if (filterOptions.dayFilter != __WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* DayFilter */].anytime) {
+            if (filterOptions.dayFilter == __WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* DayFilter */].today) {
+                this.filteredCards = this.filteredCards.filter(function (card) {
+                    return __WEBPACK_IMPORTED_MODULE_17_Moment___default()().dayOfYear() == __WEBPACK_IMPORTED_MODULE_17_Moment___default()(card.dealStart).dayOfYear() &&
+                        __WEBPACK_IMPORTED_MODULE_17_Moment___default()().year() == __WEBPACK_IMPORTED_MODULE_17_Moment___default()(card.dealStart).year();
+                });
+            }
+            else if (filterOptions.dayFilter == __WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* DayFilter */].thisWeek) {
+                this.filteredCards = this.filteredCards.filter(function (card) {
+                    return __WEBPACK_IMPORTED_MODULE_17_Moment___default()(card.dealStart).isBefore(__WEBPACK_IMPORTED_MODULE_17_Moment___default()().add('7', 'days')) &&
+                        __WEBPACK_IMPORTED_MODULE_17_Moment___default()().year() == __WEBPACK_IMPORTED_MODULE_17_Moment___default()(card.dealStart).year();
+                });
+            }
+        }
+        this.filteredCards = this.filteredCards.sort(function (a, b) {
+            if (__WEBPACK_IMPORTED_MODULE_17_Moment___default()(a.dealStart).isAfter(b.dealStart))
+                return 1;
+            else
+                return -1;
+        });
         this.setUpViewCards();
         this.delay(600).then(function () {
             var topCard = _this.swingCards.toArray()[0];
@@ -2088,24 +2109,29 @@ var ConsumerComponent = (function () {
         });
     };
     ConsumerComponent.prototype.addCardToStack = function () {
-        if (this.viewCardIndex < this.filteredCards.length) {
+        if (this.viewCardIndex < this.filteredCards.length && this.filteredCards[this.viewCardIndex] != null) {
             var nextCard = this.filteredCards[this.viewCardIndex];
             this.imageService.setDealImageURL(nextCard);
             this.organizationViewCards.push(nextCard);
-            this.viewCardIndex++;
             for (var i = 0; i < this.swingCards.toArray.length; i++) {
                 this.swingCards.toArray()[i].getElementRef().nativeElement.style['transform'] = "translate3d(0, 0, 0) translate(0px, 0px) rotate(0deg)";
             }
         }
+        this.viewCardIndex++;
     };
     ConsumerComponent.prototype.setUpViewCards = function () {
-        this.viewCardIndex = this.numberOfCardsToHaveInView;
         for (var i = 0; i < this.numberOfCardsToHaveInView; i++) {
             if (this.filteredCards[i]) {
                 this.imageService.setDealImageURL(this.filteredCards[i]);
                 this.organizationViewCards.push(this.filteredCards[i]);
             }
         }
+    };
+    ConsumerComponent.prototype.filterIsApplied = function () {
+        return (this.currentFilter.dealTypes && this.currentFilter.dealTypes.length > 0)
+            || this.currentFilter.onlyVegan
+            || this.currentFilter.onlyVegetarian
+            || this.currentFilter.dayFilter != __WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["a" /* DayFilter */].anytime;
     };
     //used simply to async wait for something
     ConsumerComponent.prototype.delay = function (ms) {
@@ -2119,21 +2145,24 @@ var ConsumerComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["ViewChild"])('myswing1'),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6_angular2_swing__["SwingStackComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6_angular2_swing__["SwingStackComponent"]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_6_angular2_swing__["SwingStackComponent"])
     ], ConsumerComponent.prototype, "swingStack", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["ViewChildren"])('mycards1'),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_core__["QueryList"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_core__["QueryList"]) === "function" && _b || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__angular_core__["QueryList"])
     ], ConsumerComponent.prototype, "swingCards", void 0);
     ConsumerComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div *ngIf="!swipeHelpOverlayHidden || !auxHelpOverlayHidden" class="help-overlay" (click)="hideHelpOverlay()" padding>\n    <div *ngIf="!swipeHelpOverlayHidden" class="help-text">\n        <img class="swipe-help-arrow" src="assets/images/straight-arrow-1.png" />\n        <img class="swipe-help-arrow" style="margin-bottom: 64px;" src="assets/images/straight-arrow-2.png" />\n        Swipe right or press the heart to claim a deal or swipe left or press the X to see the next deal.\n    </div>\n    <div *ngIf="!auxHelpOverlayHidden && swipeHelpOverlayHidden">\n        <img class="claimed-help-arrow" src="assets/images/arrow-3.png" />\n        <div class="claimed-help-text">\n            Tap here to see the deals you have claimed and use them\n        </div>\n        <img class="filter-help-arrow" src="assets/images/arrow-4.png" />\n        <div class="filter-help-text">\n            Tap here to filter for different types of deals\n        </div>\n    </div>\n</div>\n\n<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>That\'s all the deals in your area.</h2>\n        <h2 *ngIf="(currentFilter.dealTypes && currentFilter.dealTypes.length > 0) || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"\n            style="margin-top: 0" ion-text>Try removing filters.</h2>\n        <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>\n    </div>\n</div>\n\n<ion-header no-border style="z-index: -20;">\n    <ion-toolbar style="min-height: 56px;" transparent>\n        <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">\n            <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n        </button>\n        <img class="textured-name" src="assets/images/chalk-logo.png" />\n        <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">\n            <img class="card-stack-img" src="assets/images/card-stack.png" />\n        </button>\n    </ion-toolbar>\n</ion-header>\n\n<img *ngIf="getAuxHelpZ() == \'25\'" class="card-stack-img-help" src="assets/images/card-stack.png" />\n<!--I am sorry-->\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n        <img class="gradient-on-card" src="assets/images/gradient.png" />\n\n        <ion-card-content class="card-text card-inner-shadow">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">Available on {{getMomentFormatted(card.dealStart,\n                "MM/DD")}}\n                between {{getMomentFormatted(card.dealStart, "hh:mm a")}} -\n                {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid" [ngStyle]="{\'z-index\':getBottomGridZ()}">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button (click)="showHelpOverlay()" class="transparent-button bottom-button outside-button" ion-button\n                icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickNo()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickLike()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button [ngStyle]="{\'z-index\':getAuxHelpZ()}" (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/'<div *ngIf="!swipeHelpOverlayHidden || !auxHelpOverlayHidden" class="help-overlay" (click)="hideHelpOverlay()" padding>\n    <div *ngIf="!swipeHelpOverlayHidden" class="help-text">\n        <img class="swipe-help-arrow" src="assets/images/straight-arrow-1.png" />\n        <img class="swipe-help-arrow" style="margin-bottom: 64px;" src="assets/images/straight-arrow-2.png" />\n        Swipe right or press the heart to claim a deal or swipe left or press the X to see the next deal.\n    </div>\n    <div *ngIf="!auxHelpOverlayHidden && swipeHelpOverlayHidden">\n        <img class="claimed-help-arrow" src="assets/images/arrow-3.png" />\n        <div class="claimed-help-text">\n            Tap here to see the deals you have claimed and use them\n        </div>\n        <img class="filter-help-arrow" src="assets/images/arrow-4.png" />\n        <div class="filter-help-text">\n            Tap here to filter for different types of deals\n        </div>\n    </div>\n</div>\n\n<div class="loading-div">\n    <div *ngIf="initialLoading">\n        <ion-spinner class="ion-spinner-consumer"></ion-spinner>\n        <h2 ion-text style="text-align: center; color: white;">Getting your local deals!</h2>\n    </div>\n    <div *ngIf="!initialLoading">\n        <h2 class="no-consumer-cards-text" ion-text>That\'s all the deals in your area.</h2>\n        <h2 *ngIf="filterIsApplied()" class="no-consumer-cards-text" style="margin-top: 0" ion-text>Try removing\n            filters.</h2>\n        <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>\n    </div>\n</div>\n\n<ion-header no-border style="z-index: -20;">\n    <ion-toolbar style="min-height: 56px;" transparent>\n        <button (click)="openProfile()" class="button-nav-bar button-top-left" ion-button icon-only [clear]="true">\n            <ion-icon ios="md-contact" md="md-contact"></ion-icon>\n        </button>\n        <img class="textured-name" src="assets/images/chalk-logo.png" />\n        <button class="button-top-right" (click)="openConsumerCardList()" ion-button icon-only [clear]="true">\n            <img class="card-stack-img" src="assets/images/card-stack.png" />\n        </button>\n    </ion-toolbar>\n</ion-header>\n\n<img *ngIf="getAuxHelpZ() == \'25\'" class="card-stack-img-help" src="assets/images/card-stack.png" />\n<!--I am sorry-->\n\n<div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="voteUp(false)" (throwoutright)="voteUp(true)" id="card-stack"\n    [style.zIindex]="-1000 ">\n    <ion-card #mycards1 swing-card *ngFor="let card of organizationViewCards; let i=index;" [style.zIndex]="-1*i"\n        [ngStyle]="{\'transition\':transitionString}" (click)="moreInfo()">\n        <img class="non-draggable-card-image fill" src="{{card.imageURL}}" />\n        <img class="gradient-on-card" src="assets/images/gradient.png" />\n\n        <ion-card-content class="card-text card-inner-shadow">\n            <ion-card-title class="locale-card-title">\n                {{card.organization.name}}\n            </ion-card-title>\n            {{card.dealDescription}}\n            <p class="locale-card-time">Available on {{getMomentFormatted(card.dealStart,\n                "MM/DD")}}\n                between {{getMomentFormatted(card.dealStart, "hh:mm a")}} -\n                {{getMomentFormatted(card.dealEnd,\n                "hh:mm a")}}</p>\n        </ion-card-content>\n    </ion-card>\n</div>\n\n<ion-grid class="bottom-grid" [ngStyle]="{\'z-index\':getBottomGridZ()}">\n    <ion-row style="height: 100%">\n        <ion-col class="center-content-column" col-2>\n            <button (click)="showHelpOverlay()" class="transparent-button bottom-button outside-button" ion-button\n                icon-only round>\n                <ion-icon name="help"></ion-icon>\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickNo()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="x-button" src="assets/images/x-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-4>\n            <button [ngStyle]="{\'z-index\':getSwipeHelpZ()}" (click)="clickLike()" class="transparent-button bottom-button middle-button"\n                ion-button icon-only round>\n                <img class="heart-button" src="assets/images/heart-chalk.png" />\n            </button>\n        </ion-col>\n        <ion-col class="center-content-column" col-2>\n            <button [ngStyle]="{\'z-index\':getAuxHelpZ()}" (click)="openFilterPopover($event)" class="transparent-button bottom-button outside-button aux-button"\n                ion-button icon-only round>\n                <ion-icon name="funnel"></ion-icon>\n            </button>\n        </ion-col>\n    </ion-row>\n</ion-grid>'/*ion-inline-end:"/Users/Contence/locale/src/components/consumer/consumer.component.html"*/,
             selector: 'consumer',
             styleUrls: ['/consumer.component.scss']
         }),
-        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["b" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["k" /* PopoverController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["k" /* PopoverController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_9__ionic_native_launch_navigator__["a" /* LaunchNavigator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_9__ionic_native_launch_navigator__["a" /* LaunchNavigator */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_10__services_firebase_authorization_service__["a" /* AuthorizationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__services_firebase_authorization_service__["a" /* AuthorizationService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__["a" /* ImageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__["a" /* ImageService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["h" /* ModalController */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_20__services_location_cards_service__["a" /* LocationCardsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_20__services_location_cards_service__["a" /* LocationCardsService */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_3__services_current_user_service__["a" /* CurrentUserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_current_user_service__["a" /* CurrentUserService */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_0__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _o || Object, typeof (_p = typeof __WEBPACK_IMPORTED_MODULE_19__services_firebase_environment_service__["b" /* FirebaseEnvironmentService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_19__services_firebase_environment_service__["b" /* FirebaseEnvironmentService */]) === "function" && _p || Object, typeof (_q = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _q || Object, typeof (_r = typeof __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _r || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["k" /* PopoverController */],
+            __WEBPACK_IMPORTED_MODULE_9__ionic_native_launch_navigator__["a" /* LaunchNavigator */], __WEBPACK_IMPORTED_MODULE_15__services_firebase_firestore_collection_card_data_service__["a" /* CardDataService */], __WEBPACK_IMPORTED_MODULE_10__services_firebase_authorization_service__["a" /* AuthorizationService */],
+            __WEBPACK_IMPORTED_MODULE_11__services_firebase_image_service_service__["a" /* ImageService */], __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_20__services_location_cards_service__["a" /* LocationCardsService */],
+            __WEBPACK_IMPORTED_MODULE_3__services_current_user_service__["a" /* CurrentUserService */], __WEBPACK_IMPORTED_MODULE_14__services_firebase_firestore_collection_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_0__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_19__services_firebase_environment_service__["b" /* FirebaseEnvironmentService */], __WEBPACK_IMPORTED_MODULE_1__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], ConsumerComponent);
     return ConsumerComponent;
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
 }());
 
 //# sourceMappingURL=consumer.component.js.map
@@ -2144,7 +2173,8 @@ var ConsumerComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterDealComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FilterDealComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DayFilter; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__types_deals_type__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(35);
@@ -2175,12 +2205,14 @@ var FilterDealComponent = (function () {
         this.setDealType(appliedFilterOptions.dealTypes);
         this.boolValues.vegetarian = appliedFilterOptions.onlyVegetarian;
         this.boolValues.vegan = appliedFilterOptions.onlyVegan;
+        this.dayFilter = DayFilter[appliedFilterOptions.dayFilter];
     }
     FilterDealComponent.prototype.applyFilters = function () {
         var returnData = {
             onlyVegetarian: this.boolValues.vegetarian,
             onlyVegan: this.boolValues.vegan,
-            dealTypes: this.getDealTypesValue()
+            dealTypes: this.getDealTypesValue(),
+            dayFilter: DayFilter[this.dayFilter]
         };
         this.viewCtrl.dismiss(returnData);
     };
@@ -2220,7 +2252,7 @@ var FilterDealComponent = (function () {
         });
     };
     FilterDealComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div class="title">I am looking for...</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Drinks</div>\n        <button (click)="toggle(\'drink\')" outline ion-button icon-only round>\n          <ion-icon name="beer" color="{{getColor(\'drink\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Food</div>\n        <button (click)="toggle(\'food\')" outline ion-button icon-only round>\n          <ion-icon name="pizza" color="{{getColor(\'food\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="title">My Preferences are...</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Vegan</div>\n        <button (click)="toggle(\'vegan\')" outline ion-button icon-only round>\n          <ion-icon name="leaf" color="{{getColor(\'vegan\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Vegetarian</div>\n        <button (click)="toggle(\'vegetarian\')" outline ion-button icon-only round>\n          <ion-icon name="nutrition" color="{{getColor(\'vegetarian\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <button style="width: 100%;" ion-button (click)="applyFilters()">Apply</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/'<ion-content>\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <div class="title">I am looking for...</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Drinks</div>\n        <button (click)="toggle(\'drink\')" outline ion-button icon-only round>\n          <ion-icon name="beer" color="{{getColor(\'drink\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Food</div>\n        <button (click)="toggle(\'food\')" outline ion-button icon-only round>\n          <ion-icon name="pizza" color="{{getColor(\'food\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="title">My Preferences are...</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="label">Vegan</div>\n        <button (click)="toggle(\'vegan\')" outline ion-button icon-only round>\n          <ion-icon name="leaf" color="{{getColor(\'vegan\')}}"></ion-icon>\n        </button>\n      </ion-col>\n      <ion-col>\n        <div class="label">Vegetarian</div>\n        <button (click)="toggle(\'vegetarian\')" outline ion-button icon-only round>\n          <ion-icon name="nutrition" color="{{getColor(\'vegetarian\')}}"></ion-icon>\n        </button>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <div class="title">I am looking for deals...</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-list style="width: 100%" radio-group [(ngModel)]="dayFilter">\n        <ion-item>\n          <ion-label>Today</ion-label>\n          <ion-radio value="today"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>In the next week</ion-label>\n          <ion-radio value="thisWeek"></ion-radio>\n        </ion-item>\n        <ion-item>\n          <ion-label>Anytime</ion-label>\n          <ion-radio value="anytime"></ion-radio>\n        </ion-item>\n      </ion-list>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <button style="width: 100%;" ion-button (click)="applyFilters()">Apply\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>'/*ion-inline-end:"/Users/Contence/locale/src/components/filter-deals/filter-deal.component.html"*/,
             selector: 'filter-deal',
             styleUrls: ['/filter-deal.component.scss']
         }),
@@ -2229,6 +2261,12 @@ var FilterDealComponent = (function () {
     return FilterDealComponent;
 }());
 
+var DayFilter;
+(function (DayFilter) {
+    DayFilter[DayFilter["today"] = 0] = "today";
+    DayFilter[DayFilter["thisWeek"] = 1] = "thisWeek";
+    DayFilter[DayFilter["anytime"] = 2] = "anytime";
+})(DayFilter || (DayFilter = {}));
 //# sourceMappingURL=filter-deal.component.js.map
 
 /***/ }),
@@ -2887,7 +2925,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_18__components_consumer_consumer_component__["a" /* ConsumerComponent */],
                 __WEBPACK_IMPORTED_MODULE_4__components_organization_deal_list_organization_deal_list_component__["a" /* OrganizationDealListComponent */],
                 __WEBPACK_IMPORTED_MODULE_22__components_deal_editor_deal_editor_component__["a" /* DealEditorComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_filter_deals_filter_deal_component__["a" /* FilterDealComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__components_filter_deals_filter_deal_component__["b" /* FilterDealComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__components_consumer_landing_consumer_landing_component__["a" /* ConsumerLandingComponent */],
                 __WEBPACK_IMPORTED_MODULE_37__components_user_profile_user_profile_component__["a" /* UserProfileComponent */],
                 __WEBPACK_IMPORTED_MODULE_39__components_browser_home_browser_home_component__["a" /* BrowserHomeComponent */],
@@ -2938,7 +2976,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_18__components_consumer_consumer_component__["a" /* ConsumerComponent */],
                 __WEBPACK_IMPORTED_MODULE_4__components_organization_deal_list_organization_deal_list_component__["a" /* OrganizationDealListComponent */],
                 __WEBPACK_IMPORTED_MODULE_22__components_deal_editor_deal_editor_component__["a" /* DealEditorComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__components_filter_deals_filter_deal_component__["a" /* FilterDealComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__components_filter_deals_filter_deal_component__["b" /* FilterDealComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__components_consumer_landing_consumer_landing_component__["a" /* ConsumerLandingComponent */],
                 __WEBPACK_IMPORTED_MODULE_37__components_user_profile_user_profile_component__["a" /* UserProfileComponent */],
                 __WEBPACK_IMPORTED_MODULE_39__components_browser_home_browser_home_component__["a" /* BrowserHomeComponent */],
