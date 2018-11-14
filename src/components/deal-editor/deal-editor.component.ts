@@ -7,7 +7,7 @@ import { LocaleCard } from "../../types/deals.type";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from "../../services/uploader.service";
 import { DealEditorService } from "../../services/deal-editing.service";
-import { Platform, ActionSheetController, LoadingController } from "ionic-angular";
+import { Platform, ActionSheetController, LoadingController, AlertController } from "ionic-angular";
 import { IonicScreenSize } from "../../enums/ionic-screen-sizes.enum";
 import { IonicPlatform } from '../../enums/ionic-platform.enum';
 import { ImageService } from '../../services/firebase/image-service.service';
@@ -53,7 +53,9 @@ export class DealEditorComponent {
     public constructor(private cardService: CardDataService, public formBuilder: FormBuilder, private uploader: UploadService,
         private dealEditorService: DealEditorService, private userService: UserService, private toastService: ToastService,
         private platform: Platform, public actionSheetCtrl: ActionSheetController, private imageService: ImageService,
-        private currentUserService: CurrentUserService, private cameraService: Camera, private loadingController: LoadingController) {
+        private currentUserService: CurrentUserService, private cameraService: Camera, private loadingController: LoadingController,
+        private alert: AlertController
+    ) {
 
         this.dealEditorFormGroup = this.formBuilder.group({
             dealDescription: ['', Validators.required],
@@ -262,6 +264,32 @@ export class DealEditorComponent {
     }
 
     public cancel(): void {
+        if (this.cardIsEdited()) {
+            let likeAlert = this.alert.create({
+                buttons: [
+                    {
+                        text: 'Yes',
+                        role: 'yes',
+                        handler: () => {
+                            this.newDeal();
+                        }
+                    },
+                    {
+                        text: 'No',
+                        role: 'close',
+                    }
+                ],
+                title: "Are you sure?",
+                message: "Are you want to create a new deal? Changes to this deal will be lost"
+            });
+
+            likeAlert.present();
+        }
+        else
+            this.newDeal();
+    }
+
+    private newDeal() {
         this.dealEditorService.setCurrentDeal(null);
 
         this.clearFields();

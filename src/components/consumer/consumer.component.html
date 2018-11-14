@@ -23,7 +23,7 @@
     </div>
     <div *ngIf="!initialLoading">
         <h2 class="no-consumer-cards-text" ion-text>That's all the deals in your area.</h2>
-        <h2 *ngIf="currentFilter.dealType != null || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"
+        <h2 *ngIf="(currentFilter.dealTypes && currentFilter.dealTypes.length > 0) || currentFilter.onlyVegan || currentFilter.onlyVegetarian" class="no-consumer-cards-text"
             style="margin-top: 0" ion-text>Try removing filters.</h2>
         <h2 class="bottom-no-consumer-card-text" ion-text>Check back later!</h2>
     </div>
