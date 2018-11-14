@@ -130,6 +130,13 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
             if (!this.cards) {
                 this.cards = this.cardService.filterNonDuplicateDeals(cardModels as LocaleCard[]);
 
+                this.cards.sort(function (a, b) {
+                    if (moment(a.dealStart).isAfter(b.dealStart))
+                        return 1;
+                    else
+                        return -1;
+                })
+
                 this.filterCards(this.currentFilter);
             }
             else
