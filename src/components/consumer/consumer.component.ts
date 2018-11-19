@@ -117,6 +117,12 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
         this.statusBar.overlaysWebView(false);
     }
 
+    public ionViewDidLoad(): void {
+        this.statusBar.hide();
+        this.statusBar.show();
+        this.statusBar.overlaysWebView(false);
+    }
+
     private setUpInitalViewCards(cardModels: LocaleCard[]) {
         this.initialLoading = false;
         if (cardModels.length > 0) {
@@ -260,7 +266,7 @@ export class ConsumerComponent implements AfterViewInit, OnDestroy {
     }
 
     public openFilterPopover(event) {
-        var filterPopover = this.popoverCtrl.create(FilterDealComponent, this.currentFilter);
+        var filterPopover = this.popoverCtrl.create(FilterDealComponent, this.currentFilter, { cssClass: 'custom-popover' });
 
         filterPopover.onDidDismiss((data: FilterDealsOptionsInterface) => {
             if (data) {

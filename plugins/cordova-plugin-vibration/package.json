@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-vibration",
+  "_from": "cordova-plugin-vibration@^3.1.0",
   "_id": "cordova-plugin-vibration@3.1.0",
   "_inBundle": false,
   "_integrity": "sha1-Y+V6HecuMYsJRO9yfXxO/xPKLJM=",
   "_location": "/cordova-plugin-vibration",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-vibration",
+    "raw": "cordova-plugin-vibration@^3.1.0",
     "name": "cordova-plugin-vibration",
     "escapedName": "cordova-plugin-vibration",
-    "rawSpec": "",
+    "rawSpec": "^3.1.0",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^3.1.0"
   },
   "_requiredBy": [
     "#USER",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-vibration/-/cordova-plugin-vibration-3.1.0.tgz",
   "_shasum": "63e57a1de72e318b0944ef727d7c4eff13ca2c93",
-  "_spec": "cordova-plugin-vibration",
+  "_spec": "cordova-plugin-vibration@^3.1.0",
   "_where": "/Users/Contence/locale",
   "author": {
     "name": "Apache Software Foundation"

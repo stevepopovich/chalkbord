@@ -44,32 +44,32 @@
     "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.5",
     "cordova-plugin-actionsheet": "^2.3.3",
-    "cordova-plugin-camera": "^4.0.2",
+    "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "^2.0.1",
-    "cordova-plugin-facebook4": "^2.2.0",
+    "cordova-plugin-facebook4": "^2.5.0",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-inappbrowser": "^1.7.2",
-    "cordova-plugin-ionic-keyboard": "^2.0.5",
-    "cordova-plugin-ionic-webview": "^1.1.16",
+    "cordova-plugin-ionic-keyboard": "^2.1.3",
+    "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-mauron85-background-geolocation": "^2.3.6",
     "cordova-plugin-splashscreen": "^4.1.0",
-    "cordova-plugin-statusbar": "^2.4.1",
+    "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-uniquedeviceid": "^1.3.2",
     "cordova-plugin-velda-devicefeedback": "0.0.2",
     "cordova-plugin-vibration": "^3.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-sqlite-storage": "^2.3.1",
+    "cordova-sqlite-storage": "^2.5.1",
     "cordova-windows": "5.0.0",
     "firebase": "^4.12.0",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
     "moment": "^2.22.2",
-    "mx.ferreyra.callnumber": "~0.0.2",
+    "mx.ferreyra.callnumber": "0.0.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
     "sw-toolbox": "3.6.0",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.1.3",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.2",
     "underscore": "^1.9.1",
     "zone.js": "0.8.18"
   },
@@ -83,10 +83,9 @@
   },
   "cordova": {
     "platforms": [
-      "browser",
       "ios",
-      "android",
-      "windows"
+      "windows",
+      "android"
     ],
     "plugins": {
       "cordova-plugin-device": {},
@@ -111,20 +110,7 @@
         "APP_NAME": "Chalkbord",
         "ANDROID_SDK_VERSION": "4.+"
       },
-      "mx.ferreyra.callnumber": {},
-      "cordova-plugin-velda-devicefeedback": {},
-      "cordova-plugin-vibration": {},
-      "cordova-plugin-mauron85-background-geolocation": {
-        "GOOGLE_PLAY_SERVICES_VERSION": "11+",
-        "ANDROID_SUPPORT_LIBRARY_VERSION": "23+",
-        "ICON": "@mipmap/icon",
-        "SMALL_ICON": "@mipmap/icon",
-        "ACCOUNT_NAME": "@string/app_name",
-        "ACCOUNT_LABEL": "@string/app_name",
-        "ACCOUNT_TYPE": "$PACKAGE_NAME.account",
-        "CONTENT_AUTHORITY": "$PACKAGE_NAME",
-        "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking so we can find the latest deals near you."
-      }
+      "mx.ferreyra.callnumber": {}
     }
   }
 }

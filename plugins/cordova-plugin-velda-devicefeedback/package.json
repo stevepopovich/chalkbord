@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-velda-devicefeedback",
+  "_from": "cordova-plugin-velda-devicefeedback@0.0.2",
   "_id": "cordova-plugin-velda-devicefeedback@0.0.2",
   "_inBundle": false,
   "_integrity": "sha1-ZCnduHXMrCIEpAqA6juzLAovXRo=",
   "_location": "/cordova-plugin-velda-devicefeedback",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-velda-devicefeedback",
+    "raw": "cordova-plugin-velda-devicefeedback@0.0.2",
     "name": "cordova-plugin-velda-devicefeedback",
     "escapedName": "cordova-plugin-velda-devicefeedback",
-    "rawSpec": "",
+    "rawSpec": "0.0.2",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "0.0.2"
   },
   "_requiredBy": [
     "#USER",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-velda-devicefeedback/-/cordova-plugin-velda-devicefeedback-0.0.2.tgz",
   "_shasum": "6429ddb875ccac2204a40a80ea3bb32c0a2f5d1a",
-  "_spec": "cordova-plugin-velda-devicefeedback",
+  "_spec": "cordova-plugin-velda-devicefeedback@0.0.2",
   "_where": "/Users/Contence/locale",
   "author": {
     "name": "Jan Velecký"

@@ -285,8 +285,8 @@ $button-top-offest: 79%;
     background-color: #212121;
 }
 
-.popover-md .popover-content {
-    width: 195px;
+.custom-popover .popover-content {
+    min-width: 210px;
 }
 
 .gradient-on-card {

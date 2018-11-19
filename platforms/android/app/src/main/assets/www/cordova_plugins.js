@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
   {
+    "id": "call-number.CallNumber",
+    "file": "plugins/call-number/www/CallNumber.js",
+    "pluginId": "call-number",
+    "clobbers": [
+      "call"
+    ]
+  },
+  {
     "id": "cordova-plugin-actionsheet.ActionSheet",
     "file": "plugins/cordova-plugin-actionsheet/www/ActionSheet.js",
     "pluginId": "cordova-plugin-actionsheet",
@@ -144,14 +152,6 @@ module.exports = [
     ]
   },
   {
-    "id": "mx.ferreyra.callnumber.CallNumber",
-    "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
-    "pluginId": "mx.ferreyra.callnumber",
-    "clobbers": [
-      "call"
-    ]
-  },
-  {
     "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
     "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
     "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
@@ -174,47 +174,29 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
-  },
-  {
-    "id": "cordova-plugin-request-location-accuracy.RequestLocationAccuracy",
-    "file": "plugins/cordova-plugin-request-location-accuracy/www/android/RequestLocationAccuracy.js",
-    "pluginId": "cordova-plugin-request-location-accuracy",
-    "clobbers": [
-      "cordova.plugins.locationAccuracy"
-    ]
-  },
-  {
-    "id": "cordova-plugin-mauron85-background-geolocation.backgroundGeolocation",
-    "file": "plugins/cordova-plugin-mauron85-background-geolocation/www/backgroundGeolocation.js",
-    "pluginId": "cordova-plugin-mauron85-background-geolocation",
-    "clobbers": [
-      "backgroundGeolocation"
-    ]
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+  "call-number": "0.0.2",
   "cordova-plugin-actionsheet": "2.3.3",
-  "cordova-plugin-camera": "4.0.2",
+  "cordova-plugin-camera": "4.0.3",
   "cordova-plugin-device": "1.1.7",
   "cordova-plugin-dialogs": "2.0.1",
-  "cordova-plugin-facebook4": "2.2.0",
+  "cordova-plugin-facebook4": "2.5.0",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-inappbrowser": "1.7.2",
-  "cordova-plugin-ionic-keyboard": "2.0.5",
-  "cordova-plugin-ionic-webview": "1.1.16",
+  "cordova-plugin-ionic-keyboard": "2.1.3",
+  "cordova-plugin-ionic-webview": "1.2.1",
   "cordova-plugin-splashscreen": "4.1.0",
-  "cordova-plugin-statusbar": "2.4.1",
+  "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-uniquedeviceid": "1.3.2",
   "cordova-plugin-velda-devicefeedback": "0.0.2",
   "cordova-plugin-vibration": "3.1.0",
   "cordova-plugin-whitelist": "1.3.3",
-  "cordova-sqlite-storage": "2.3.1",
-  "mx.ferreyra.callnumber": "0.0.2",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
-  "cordova-plugin-request-location-accuracy": "2.2.3",
-  "cordova-plugin-mauron85-background-geolocation": "2.3.6"
+  "cordova-sqlite-storage": "2.5.1",
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.2.2"
 };
 // BOTTOM OF METADATA
 });

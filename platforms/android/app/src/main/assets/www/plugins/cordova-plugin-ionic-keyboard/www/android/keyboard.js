@@ -12,11 +12,21 @@ Keyboard.fireOnShow = function (height) {
     cordova.fireWindowEvent('keyboardDidShow', {
         'keyboardHeight': height
     });
+
+    // To support the keyboardAttach directive listening events
+    // inside Ionic's main bundle
+    cordova.fireWindowEvent('native.keyboardshow', {
+        'keyboardHeight': height
+    });
 };
 
 Keyboard.fireOnHide = function () {
     Keyboard.isVisible = false;
     cordova.fireWindowEvent('keyboardDidHide');
+
+    // To support the keyboardAttach directive listening events
+    // inside Ionic's main bundle
+    cordova.fireWindowEvent('native.keyboardhide');
 };
 
 Keyboard.fireOnHiding = function () {
@@ -29,12 +39,12 @@ Keyboard.fireOnShowing = function (height) {
     });
 };
 
-Keyboard.hideKeyboardAccessoryBar = function (hide) {
+Keyboard.hideFormAccessoryBar = Keyboard.hideKeyboardAccessoryBar = function (hide) {
     exec(null, null, "Keyboard", "hideKeyboardAccessoryBar", [hide]);
 };
 
-Keyboard.close = function () {
-    exec(null, null, "Keyboard", "close", []);
+Keyboard.hide = function () {
+    exec(null, null, "Keyboard", "hide", []);
 };
 
 Keyboard.show = function () {
@@ -44,6 +54,10 @@ Keyboard.show = function () {
 Keyboard.disableScroll = function (disable) {
     console.warn("Keyboard.disableScroll() was removed");
 };
+
+Keyboard.setResizeMode = function (mode) {
+    console.warn("Keyboard.setResizeMode() not supported in Android");
+}
 
 channel.onCordovaReady.subscribe(function () {
     exec(success, null, 'Keyboard', 'init', []);
@@ -66,4 +80,5 @@ channel.onCordovaReady.subscribe(function () {
 Keyboard.isVisible = false;
 
 module.exports = Keyboard;
+
 });

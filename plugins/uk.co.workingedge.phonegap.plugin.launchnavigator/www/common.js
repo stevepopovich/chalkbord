@@ -113,7 +113,9 @@ ln.APP = {
     LYFT: "lyft",
     MAPS_ME: "maps_me",
     CABIFY: "cabify",
-    BAIDU: "baidu"
+    BAIDU: "baidu",
+    TAXIS_99: "taxis_99",
+    GAODE: "gaode"
 };
 
 /**
@@ -134,7 +136,9 @@ ln.APPS_BY_PLATFORM[ln.PLATFORM.ANDROID] = [
     ln.APP.LYFT,
     ln.APP.MAPS_ME,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.APPS_BY_PLATFORM[ln.PLATFORM.IOS] = [
     ln.APP.USER_SELECT,
@@ -153,7 +157,9 @@ ln.APPS_BY_PLATFORM[ln.PLATFORM.IOS] = [
     ln.APP.LYFT,
     ln.APP.MAPS_ME,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.APPS_BY_PLATFORM[ln.PLATFORM.WINDOWS] = [
     ln.APP.BING_MAPS
@@ -191,6 +197,8 @@ ln.APP_NAMES[ln.APP.LYFT] = "Lyft";
 ln.APP_NAMES[ln.APP.MAPS_ME] = "MAPS.ME";
 ln.APP_NAMES[ln.APP.CABIFY] = "Cabify";
 ln.APP_NAMES[ln.APP.BAIDU] = "Baidu Maps";
+ln.APP_NAMES[ln.APP.TAXIS_99] = "99 Taxi";
+ln.APP_NAMES[ln.APP.GAODE] = "Gaode Maps (Amap)";
 
 /**
  * All possible transport modes
@@ -233,6 +241,12 @@ ln.TRANSPORT_MODES[ln.PLATFORM.ANDROID][ln.APP.MAPS_ME] = [
     ln.TRANSPORT_MODE.TRANSIT
 ];
 ln.TRANSPORT_MODES[ln.PLATFORM.ANDROID][ln.APP.BAIDU] = [
+    ln.TRANSPORT_MODE.DRIVING,
+    ln.TRANSPORT_MODE.WALKING,
+    ln.TRANSPORT_MODE.BICYCLING,
+    ln.TRANSPORT_MODE.TRANSIT
+];
+ln.TRANSPORT_MODES[ln.PLATFORM.ANDROID][ln.APP.GAODE] = [
     ln.TRANSPORT_MODE.DRIVING,
     ln.TRANSPORT_MODE.WALKING,
     ln.TRANSPORT_MODE.BICYCLING,
@@ -282,6 +296,12 @@ ln.TRANSPORT_MODES[ln.PLATFORM.IOS][ln.APP.BAIDU] = [
     ln.TRANSPORT_MODE.BICYCLING,
     ln.TRANSPORT_MODE.TRANSIT
 ];
+ln.TRANSPORT_MODES[ln.PLATFORM.IOS][ln.APP.GAODE] = [
+    ln.TRANSPORT_MODE.DRIVING,
+    ln.TRANSPORT_MODE.WALKING,
+    ln.TRANSPORT_MODE.BICYCLING,
+    ln.TRANSPORT_MODE.TRANSIT
+];
 
 /**
  * Apps by platform that support specifying a start location
@@ -299,7 +319,9 @@ ln.SUPPORTS_START[ln.PLATFORM.ANDROID] = [
     ln.APP.LYFT,
     ln.APP.MAPS_ME,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.SUPPORTS_START[ln.PLATFORM.IOS] = [
     ln.APP.USER_SELECT,
@@ -314,7 +336,9 @@ ln.SUPPORTS_START[ln.PLATFORM.IOS] = [
     ln.APP.LYFT,
     ln.APP.MAPS_ME,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.SUPPORTS_START[ln.PLATFORM.WINDOWS] = [
     ln.APP.BING_MAPS
@@ -332,7 +356,9 @@ ln.SUPPORTS_START_NAME[ln.PLATFORM.ANDROID] = [
     ln.APP.HERE_MAPS,
     ln.APP.MOOVIT,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.SUPPORTS_START_NAME[ln.PLATFORM.IOS] = [
     ln.APP.USER_SELECT,
@@ -342,7 +368,9 @@ ln.SUPPORTS_START_NAME[ln.PLATFORM.IOS] = [
     ln.APP.HERE_MAPS,
     ln.APP.MOOVIT,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 
 /**
@@ -358,7 +386,9 @@ ln.SUPPORTS_DEST_NAME[ln.PLATFORM.ANDROID] = [
     ln.APP.HERE_MAPS,
     ln.APP.MOOVIT,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 ln.SUPPORTS_DEST_NAME[ln.PLATFORM.IOS] = [
     ln.APP.USER_SELECT,
@@ -370,7 +400,9 @@ ln.SUPPORTS_DEST_NAME[ln.PLATFORM.IOS] = [
     ln.APP.HERE_MAPS,
     ln.APP.MOOVIT,
     ln.APP.CABIFY,
-    ln.APP.BAIDU
+    ln.APP.BAIDU,
+    ln.APP.TAXIS_99,
+    ln.APP.GAODE
 ];
 
 /**
@@ -636,7 +668,7 @@ ln.userSelect = function(destination, options, successCallback, errorCallback){
         }
 
         if(buttonList.length === 0){
-            return options.errorCallback('No apps in selection list are available');
+            return options.errorCallback("No supported navigation apps are available on the device");
         }
 
         if(buttonList.length === 1){
