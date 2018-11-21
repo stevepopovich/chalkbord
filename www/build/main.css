@@ -47431,6 +47431,76 @@ body {
   z-index: 0;
 }
 
+.home-nav-bar {
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  z-index: 999;
+  background-image: url("../assets/images/good-chalkboard-dark.jpg");
+  background-size: 100% 100%;
+}
+
+.home-nav-button {
+  float: right;
+  height: 30px;
+}
+
+.screen-shot {
+  width: 200px;
+  height: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.offset-screen-shots {
+  margin-right: 2em;
+}
+
+#preview-card-stack ion-card {
+  position: absolute;
+  height: 95%;
+  width: 95%;
+  max-width: 325px;
+  max-height: 450px;
+  border-radius: 14px;
+  text-align: center;
+  background-color: white;
+  margin-top: 8px;
+  border: 3px solid #404040;
+}
+
+.centered-tap-text {
+  -webkit-transform: translateY(1200%);
+  transform: translateY(1200%);
+}
+
+.locale-card-time {
+  color: white !important;
+  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
+  font-style: italic;
+}
+
+p {
+  margin: 0;
+}
+
+.center-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .center-home-text {
   padding-top: 128px;
   text-align: center;
@@ -47467,22 +47537,6 @@ body {
   color: white;
 }
 
-.home-nav-bar {
-  height: 40px;
-  width: 100%;
-  position: absolute;
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  z-index: 999;
-  background-image: url("../assets/images/good-chalkboard-dark.jpg");
-  background-size: 100% 100%;
-}
-
-.home-nav-button {
-  float: right;
-  height: 30px;
-}
-
 .app-store-cta {
   width: auto;
 }
@@ -47515,54 +47569,6 @@ body {
 .cta-button-row {
   margin-top: 2em;
   margin-bottom: 2em;
-}
-
-.screen-shot {
-  width: 200px;
-  height: auto;
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-.offset-screen-shots {
-  margin-right: 2em;
-}
-
-.terms-policy {
-  width: 90%;
-  margin: auto;
-  min-width: 380px;
-  height: 600px;
-  margin-top: 48px !important;
-  margin-bottom: 64px !important;
-}
-
-#preview-card-stack ion-card {
-  position: absolute;
-  height: 95%;
-  width: 95%;
-  max-width: 325px;
-  max-height: 450px;
-  border-radius: 14px;
-  text-align: center;
-  background-color: white;
-  margin-top: 8px;
-  border: 3px solid #404040;
-}
-
-.centered-tap-text {
-  -webkit-transform: translateY(1200%);
-  transform: translateY(1200%);
-}
-
-.locale-card-time {
-  color: white !important;
-  text-shadow: black 1px 0px 0px, black 0.5403px 0.84147px 0px, black -0.41615px 0.9093px 0px, black -0.98999px 0.14112px 0px, black -0.65364px -0.7568px 0px, black 0.28366px -0.95892px 0px, black 0.96017px -0.27942px 0px;
-  font-style: italic;
-}
-
-p {
-  margin: 0;
 }
 
 .title-big .toolbar-title-md .toolbar-title-ios {
@@ -48358,6 +48364,31 @@ ion-content {
   color: red !important;
   margin: 0 !important;
   margin-top: 0.5em !important;
+}
+
+.terms-policy {
+  min-width: 575px;
+  height: 600px;
+  margin-top: 32px !important;
+  margin-bottom: 64px !important;
+}
+
+.center-policy {
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-52.75%, 0);
+  transform: translate(-52.75%, 0);
+  top: 23%;
+}
+
+.center-home-text-abs {
+  position: absolute;
+  text-align: center;
+  font-size: 2.5em;
+  width: 100%;
+  top: 12%;
+  font-family: Baumans;
 }
 
 .nav-round {

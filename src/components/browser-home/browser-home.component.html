@@ -1,36 +1,16 @@
 <div class="browser-home-photo"></div>
 
 <div class="home-nav-bar">
-    <button class="home-nav-button" (click)="showOrganizationPortal()" ion-button>
+    <button class="home-nav-button" routerLink="/your-chalkbord" routerLinkActive="active" ion-button>
         <ion-icon name="restaurant"></ion-icon> Organizations
     </button>
-    <!-- <button click="contact()" class="home-nav-button" ion-button>
-        <ion-icon name="send"></ion-icon> Contact
-    </button> -->
+    <button routerLink="/policy" routerLinkActive="active" class="home-nav-button" ion-button>
+        <ion-icon name="document"></ion-icon> Terms of Use
+    </button>
 </div>
 
 <ion-content>
-    <div class="center-home-text">chalkbord</div>
-
-    <ion-card class="centered-card">
-        <ion-card-content>
-            <div class="center-about-text">
-                chalkbord is a deal creation application for restaurants and thier patrons.
-                Find us on your app store!
-            </div>
-
-            <div class="center-content cta-button-row">
-                <img (click)="goToAppleAppStore()" class="app-store-cta apple" src="assets/images/apple-app-store-cta.png" />
-                <img (click)="goToGooglePlayStore()" class="app-store-cta google-play" src="assets/images/googleplay-cta.png" />
-            </div>
-        </ion-card-content>
-    </ion-card>
-
-    <ion-card class="terms-policy">
-        <ion-card-content>
-            <iframe style="width: 100%; height: 575px;" src="https://docs.google.com/document/d/e/2PACX-1vSEtdVjG9Cvi8kfcplgDoQqVqB7lTjuVozk3f7SScQ6sh1daysrJI8e_OfJxop_BHN3Um4zsy3NIJ6u/pub?embedded=true"></iframe>
-        </ion-card-content>
-    </ion-card>
+    <router-outlet></router-outlet>
 </ion-content>
 
 <ion-footer>

@@ -2015,7 +2015,7 @@ var ConsumerComponent = (function () {
     };
     ConsumerComponent.prototype.openFilterPopover = function (event) {
         var _this = this;
-        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["b" /* FilterDealComponent */], this.currentFilter);
+        var filterPopover = this.popoverCtrl.create(__WEBPACK_IMPORTED_MODULE_8__filter_deals_filter_deal_component__["b" /* FilterDealComponent */], this.currentFilter, { cssClass: 'custom-popover' });
         filterPopover.onDidDismiss(function (data) {
             if (data) {
                 _this.currentFilter = data;

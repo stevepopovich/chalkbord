@@ -1,3 +1,5 @@
+import { ChalkbordWebsiteInfoComponent } from './../components/chalkbord-website-info/chalkbord-website-info.component';
+import { PrivacyPolicyComponent } from './../components/privacy-policy/privacy-policy.component';
 import { FirebaseEnvironmentService } from './../services/firebase/environment.service';
 import { OrganizationService } from './../services/firebase/firestore-collection/organization-service';
 import { ConsumerLandingComponent } from './../components/consumer-landing/consumer-landing.component';
@@ -53,6 +55,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { ConsumerContainerComponent } from '../components/consumer-container/consumer-container.component';
 import { LocationCardsService } from '../services/location-cards.service';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { RouterModule, Routes } from '@angular/router';
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -61,6 +64,19 @@ export class MyHammerConfig extends HammerGestureConfig {
     'rotate': { enabled: false }, // override default settings,
   }
 }
+
+const appRoutes: Routes = [
+  {
+    path: 'policy', component: PrivacyPolicyComponent
+  },
+  {
+    path: '', component: ChalkbordWebsiteInfoComponent
+  },
+  {
+    path: 'your-chalkbord', component: OrganizationLandingComponent
+  },
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   declarations: [
@@ -80,9 +96,15 @@ export class MyHammerConfig extends HammerGestureConfig {
     ConsumerCardList,
     ToggleIconButtonComponent,
     ConsumerContainerComponent,
-    SwipeVertical
+    SwipeVertical,
+    PrivacyPolicyComponent,
+    ChalkbordWebsiteInfoComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { useHash: false }
+    ),
     BrowserModule,
     HttpModule,
     SwingModule,
@@ -127,7 +149,9 @@ export class MyHammerConfig extends HammerGestureConfig {
     MoreCardInfoComponent,
     ModalNavbarComponent,
     ConsumerCardList,
-    ToggleIconButtonComponent
+    ToggleIconButtonComponent,
+    PrivacyPolicyComponent,
+    ChalkbordWebsiteInfoComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

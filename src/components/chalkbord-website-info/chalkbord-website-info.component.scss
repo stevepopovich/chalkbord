@@ -1,0 +1,67 @@
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-home-text {
+    padding-top: 128px;
+    text-align: center;
+    font-size: 4em;
+    width: 100%;
+    top: 18%;
+    font-family: Baumans;
+}
+
+.centered-card {
+    width: 80%;
+    margin: auto;
+    margin-top: 48px;
+    min-width: 380px;
+}
+
+.center-about-text {
+    text-align: center;
+    top: 28%;
+    font-size: 18px;
+    width: 100%;
+    margin: auto;
+    margin-top: 24px;
+    font-family: Baumans;
+
+}
+
+.center-about-text-lower {
+    text-align: center;
+    font-size: 18px;
+    width: 100%;
+    font-family: Baumans;
+    padding: 16px;
+    background-color: black;
+    color: white;
+}
+
+.app-store-cta {
+    width: auto;
+}
+
+.apple {
+    height: 48px;
+    margin-bottom: 3px;
+    margin-right: 32px;
+}
+
+.google-play {
+    height: 54px;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-button-row {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
