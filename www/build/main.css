@@ -48332,6 +48332,7 @@ ion-spinner {
 
 .main-area {
   width: 100%;
+  background: transparent;
 }
 
 .log-in-card {
@@ -48364,6 +48365,12 @@ ion-content {
   color: red !important;
   margin: 0 !important;
   margin-top: 0.5em !important;
+}
+
+.restrict-width {
+  width: 80%;
+  -webkit-transform: translate(10%, 0);
+  transform: translate(10%, 0);
 }
 
 .terms-policy {
