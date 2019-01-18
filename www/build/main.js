@@ -27,20 +27,15 @@ var BrowserHomeComponent = (function () {
     };
     BrowserHomeComponent.prototype.contact = function () {
     };
-    BrowserHomeComponent.prototype.goToGooglePlayStore = function () {
-        window.open("https://play.google.com/store/apps/details?id=locale.alpha", '_system');
-    };
-    BrowserHomeComponent.prototype.goToAppleAppStore = function () {
-        window.open("https://itunes.apple.com/us/app/chalkbord/id1376925008?ls=1&mt=8", '_system');
-    };
     BrowserHomeComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/'<div class="browser-home-photo"></div>\n\n<div class="home-nav-bar">\n    <button class="home-nav-button" routerLink="/your-chalkbord" routerLinkActive="active" ion-button>\n        <ion-icon name="restaurant"></ion-icon> Organizations\n    </button>\n    <button routerLink="/policy" routerLinkActive="active" class="home-nav-button" ion-button>\n        <ion-icon name="document"></ion-icon> Terms of Use\n    </button>\n</div>\n\n<ion-content>\n    <router-outlet></router-outlet>\n</ion-content>\n\n<ion-footer>\n    <div class="center-about-text-lower">\n        For support and business inquiries, contact us at support@chalkbord.com.\n    </div>\n</ion-footer>'/*ion-inline-end:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/'<div class="home-nav-bar">\n    <button class="home-nav-button" routerLink="/your-chalkbord" routerLinkActive="active" ion-button>\n        <ion-icon name="restaurant"></ion-icon> Organizations\n    </button>\n    <button routerLink="/policy" routerLinkActive="active" class="home-nav-button" ion-button>\n        <ion-icon name="document"></ion-icon> Terms of Use\n    </button>\n</div>\n<ion-content>\n    <div class="browser-home-photo"></div>\n    <router-outlet></router-outlet>\n</ion-content>\n<ion-footer>\n    <div class="center-about-text-lower"> For support and business inquiries, contact us at support@chalkbord.com.\n    </div>\n</ion-footer>'/*ion-inline-end:"/Users/Contence/locale/src/components/browser-home/browser-home.component.html"*/,
             selector: 'browser-home',
             styleUrls: ['/browser-home.component.scss']
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_view_controller_service__["a" /* ViewControllerService */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_view_controller_service__["a" /* ViewControllerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_view_controller_service__["a" /* ViewControllerService */]) === "function" && _a || Object])
     ], BrowserHomeComponent);
     return BrowserHomeComponent;
+    var _a;
 }());
 
 //# sourceMappingURL=browser-home.component.js.map
@@ -3070,6 +3065,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var ChalkbordWebsiteInfoComponent = (function () {
     function ChalkbordWebsiteInfoComponent() {
     }
+    ChalkbordWebsiteInfoComponent.prototype.goToGooglePlayStore = function () {
+        window.open("https://play.google.com/store/apps/details?id=locale.alpha", '_system');
+    };
+    ChalkbordWebsiteInfoComponent.prototype.goToAppleAppStore = function () {
+        window.open("https://itunes.apple.com/us/app/chalkbord/id1376925008?ls=1&mt=8", '_system');
+    };
     ChalkbordWebsiteInfoComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Contence/locale/src/components/chalkbord-website-info/chalkbord-website-info.component.html"*/'<div class="center-home-text">chalkbord</div>\n\n<ion-card class="centered-card">\n    <ion-card-content>\n        <div class="center-about-text">\n            chalkbord is a peer to peer deal application for getting you the latest restaurant deals.\n            Find us on your app store!\n        </div>\n\n        <div class="center-content cta-button-row">\n            <img (click)="goToAppleAppStore()" class="app-store-cta apple" src="assets/images/apple-app-store-cta.png" />\n            <img (click)="goToGooglePlayStore()" class="app-store-cta google-play" src="assets/images/googleplay-cta.png" />\n        </div>\n    </ion-card-content>\n</ion-card>'/*ion-inline-end:"/Users/Contence/locale/src/components/chalkbord-website-info/chalkbord-website-info.component.html"*/,
             selector: 'chalkbord-website-info',
