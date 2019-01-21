@@ -1,11 +1,11 @@
 import { FirebaseEnvironmentService } from './../environment.service';
 import { LocaleCard } from './../../../types/deals.type';
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { LocaleLocation } from '../../../types/location.type';
 import { Guid } from '../../../types/utils.type';
 import _ from 'underscore';
+import { Observable, merge, of } from 'rxjs';
 
 @Injectable()
 export class CardDataService {
@@ -30,11 +30,11 @@ export class CardDataService {
                 else
                     observables.push(this.database.collection<LocaleCard>(this.firebaseEnvironmentService.getCurrentEnvironmentPrefix() + "cards", ref => ref.where("id", "==", id).where("deleted", "==", false)).valueChanges());
             }
-            const allCardsObservableMerged: Observable<LocaleCard[]> = Observable.merge(...observables);//so if you just pass it an array
+            const allCardsObservableMerged: Observable<LocaleCard[]> = merge(...observables);//so if you just pass it an array
             //you get an Observable<Observable<>> but if you add ... it passes each observable seperately giving a single observable out
             return allCardsObservableMerged;
         } else
-            return Observable.of([]);
+            return of([]);
     }
 
     public setMutli(models: Array<LocaleCard>): void {
@@ -91,7 +91,7 @@ export class CardDataService {
             .where("deleted", "==", false))
             .valueChanges();
 
-        return Observable.merge(latDeals, lngDeals);
+        return merge(...[latDeals, lngDeals]);
     }
 
     public filterNonDuplicateDeals(cards: LocaleCard[]): LocaleCard[] {

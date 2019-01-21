@@ -1,1 +1,0 @@
-window.swing = require('swing');
