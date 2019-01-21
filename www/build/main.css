@@ -47428,7 +47428,7 @@ body {
   position: absolute;
   opacity: 0.25;
   background-size: 100% 100%;
-  z-index: 0;
+  z-index: -10;
 }
 
 .home-nav-bar {
