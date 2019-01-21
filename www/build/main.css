@@ -4872,10 +4872,6 @@ textarea::-webkit-input-placeholder {
   padding-left: 2px;
 }
 
-textarea:-ms-input-placeholder {
-  padding-left: 2px;
-}
-
 textarea::-ms-input-placeholder {
   padding-left: 2px;
 }
@@ -48092,6 +48088,10 @@ p {
 .facebook-icon {
   margin-right: 0.25em;
   margin-bottom: 0.06em;
+}
+
+.pad-icon {
+  padding-right: 0.25em;
 }
 
 .button-group {

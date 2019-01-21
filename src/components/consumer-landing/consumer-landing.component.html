@@ -1,25 +1,16 @@
 <div class="background-photo">
-
 </div>
-
 <div id="map" name="map">
-
 </div>
-
-<ion-content>
+<ion-content style="background-color: transparent;">
     <div #welcomeScreen class="gs-font animate-form" style="left: 0%">
         <div (click)="titleClickSubject.next($event)" class="center-text">chalkbord</div>
         <div class="button-area">
-            <button class="welcome-button" ion-button (click)="goToUserTypeScreen()">
-                sign up
-            </button>
+            <button class="welcome-button" ion-button (click)="goToUserTypeScreen()"> sign up </button>
             <div class="or-text">or</div>
-            <button class="welcome-button" ion-button outline (click)="goToLoginScreen()">
-                login
-            </button>
+            <button class="welcome-button" ion-button outline (click)="goToLoginScreen()"> login </button>
         </div>
     </div>
-
     <div #logInScreen class="animate-form offset-form">
         <ion-card>
             <ion-card-content>
@@ -29,12 +20,10 @@
                             <ion-label floating>Email</ion-label>
                             <ion-input type="email" formControlName="email"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label floating>Password</ion-label>
                             <ion-input type="password" formControlName="password"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label>Stay signed in</ion-label>
                             <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
@@ -43,44 +32,34 @@
                 </ion-list>
             </ion-card-content>
         </ion-card>
-
-        <button class="welcome-button" ion-button (click)="loginHandler()">
-            login
-        </button>
+        <button class="welcome-button" ion-button (click)="loginHandler()"> login </button>
         <div class="or-text">or</div>
         <button ion-button round class="welcome-button facebook-button" (click)="facebookLogin()">
             <ion-icon class="facebook-icon" name="logo-facebook"></ion-icon>facebook
         </button>
-
-        <button class="welcome-button" ion-button outline (click)="resetPassword()">
-            reset password
-        </button>
+        <button class="welcome-button" ion-button outline (click)="resetPassword()"> reset password </button>
     </div>
-
     <div #userTypeChoiceFields class="animate-form offset-form" style="height: 100%;">
         <ion-grid style="height: 100%">
             <ion-row style="height: 33%">
                 <ion-col class="center-content">
                     <button class="consumer-type-button" ion-button (click)="goToUserSignUpScreen()">
-                        <ion-icon name="contact"></ion-icon> personal
+                        <ion-icon class="pad-icon" name="contact"></ion-icon> personal
                     </button>
                 </ion-col>
             </ion-row>
             <ion-row style="height: 33%">
-                <ion-col class="center-content or-text">
-                    or
-                </ion-col>
+                <ion-col class="center-content or-text"> or </ion-col>
             </ion-row>
             <ion-row style="height: 33%">
                 <ion-col class="center-content">
                     <button class="restaurant-type-button" ion-button outline (click)="goToRestaurantSignUpScreen()">
-                        <ion-icon name="restaurant"></ion-icon> restaurant
+                        <ion-icon class="pad-icon" name="restaurant"></ion-icon> restaurant
                     </button>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </div>
-
     <div #userSignUpFields class="animate-form offset-form">
         <ion-card>
             <ion-card-content>
@@ -90,22 +69,18 @@
                             <ion-label floating>First Name</ion-label>
                             <ion-input formControlName="name"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label floating>Email</ion-label>
                             <ion-input type="email" formControlName="email"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label floating>Password</ion-label>
                             <ion-input type="password" formControlName="password"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label floating>Confirm Password</ion-label>
                             <ion-input type="password" formControlName="confirmPassword"></ion-input>
                         </ion-item>
-
                         <ion-item>
                             <ion-label>Stay signed in</ion-label>
                             <ion-checkbox formControlName="rememberMe" [(ngModel)]="remembered" checked="false"></ion-checkbox>
@@ -114,15 +89,12 @@
                 </ion-list>
             </ion-card-content>
         </ion-card>
-        <button ion-button class="welcome-button" (click)="signUpUser()">
-            sign up
-        </button>
+        <button ion-button class="welcome-button" (click)="signUpUser()"> sign up </button>
         <div class="or-text">or</div>
         <button ion-button round class="welcome-button facebook-button" (click)="facebookSignUp()">
             <ion-icon class="facebook-icon" name="logo-facebook"></ion-icon>facebook
         </button>
     </div>
-
     <div #restaurantSignUpFields class="animate-form offset-form">
         <ion-card>
             <ion-card-content>
@@ -134,20 +106,17 @@
                         </ion-item>
                         <p *ngIf="signUpGroup.get('email').errors && signUpGroup.get('email').dirty" class="error-message">Make
                             sure your email is formatted correctly.</p>
-
                         <ion-item>
                             <ion-label floating>Password</ion-label>
                             <ion-input type="password" formControlName="password"></ion-input>
                         </ion-item>
                         <p *ngIf="signUpGroup.get('password').errors && signUpGroup.get('password').dirty" class="error-message">Make
                             sure your password is at least eight characters long</p>
-
                         <ion-item>
                             <ion-label floating>Confirm Password</ion-label>
                             <ion-input type="password" formControlName="confirmPassword"></ion-input>
                         </ion-item>
                         <p *ngIf="!passwordsMatch()" class="error-message">Make sure your passwords match</p>
-
                         <ion-item>
                             <ion-label floating>Organization Name</ion-label>
                             <ion-input formControlName="name"></ion-input>
@@ -160,14 +129,12 @@
                         </ion-item>
                         <p *ngIf="signUpGroup.get('phoneNumber').errors && signUpGroup.get('phoneNumber').dirty" class="error-message">Restaurant
                             phone number is required and needs to be 10 numbers</p>
-
                         <ion-item class="padding-right">
                             <ion-label floating>Restaurant Website</ion-label>
                             <ion-input formControlName="website"></ion-input>
                         </ion-item>
                         <p *ngIf="signUpGroup.get('website').errors && signUpGroup.get('website').dirty" class="error-message">Restaurant
                             website is required and needs to be a valid website</p>
-
                         <ion-item>
                             <ion-label floating>Address </ion-label>
                             <ion-input formControlName="address"></ion-input>
@@ -200,12 +167,9 @@
                 </ion-list>
             </ion-card-content>
         </ion-card>
-        <button ion-button class="welcome-button" (click)="signUp()">
-            sign up
-        </button>
+        <button ion-button class="welcome-button" (click)="signUp()"> sign up </button>
     </div>
 </ion-content>
-
 <div #goBackButton class="go-back-button">
     <button ion-fab (click)="goBackAScreen()">
         <ion-icon name="arrow-back"></ion-icon>
