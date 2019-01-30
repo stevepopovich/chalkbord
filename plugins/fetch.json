@@ -31,14 +31,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-ionic-keyboard": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-ionic-keyboard@^2.0.5"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-dialogs": {
     "source": {
       "type": "registry",
@@ -133,6 +125,30 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-splashscreen@^4.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-keyboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-keyboard"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-velda-devicefeedback": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-velda-devicefeedback"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-vibration": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-vibration"
     },
     "is_top_level": true,
     "variables": {}

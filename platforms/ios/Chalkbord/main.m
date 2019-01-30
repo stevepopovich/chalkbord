@@ -1,7 +1,7 @@
 /*
  Licensed to the Apache Software Foundation (ASF) under one
- or more contributor license agreements.  See the NOTICE file distributed with this work for additional information
- 
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
  regarding copyright ownership.  The ASF licenses this file
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
@@ -18,7 +18,7 @@
  */
 //
 //  main.m
-//  Chalkbord`
+//  Chalkbord
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.

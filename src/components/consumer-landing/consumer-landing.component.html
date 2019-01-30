@@ -1,8 +1,8 @@
 <div id="map" name="map">
 </div>
-<ion-content>
-    <div class="background-photo">
-    </div>
+<div class="background-photo">
+</div>
+<ion-content style="background-color: transparent">
     <div #welcomeScreen class="gs-font animate-form" style="left: 0%">
         <div (click)="titleClickSubject.next($event)" class="center-text">chalkbord</div>
         <div class="button-area">
@@ -170,7 +170,7 @@
         <button ion-button class="welcome-button" (click)="signUp()"> sign up </button>
     </div>
 </ion-content>
-<div #goBackButton class="go-back-button">
+<div [hidden]="hideGoBackButton" #goBackButton class="go-back-button">
     <button ion-fab (click)="goBackAScreen()">
         <ion-icon name="arrow-back"></ion-icon>
     </button>

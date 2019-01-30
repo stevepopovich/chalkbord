@@ -90,10 +90,29 @@ NSDictionary* extras;
 }
 
 + (void)initialize{
-    appNames = @[@"apple_maps", @"citymapper", @"google_maps", @"navigon", @"transit_app", @"tomtom", @"uber", @"waze", @"yandex", @"sygic", @"here_maps", @"moovit", @"lyft", @"maps_me"];
+    appNames = @[
+                 @"apple_maps",
+                 @"citymapper",
+                 @"google_maps",
+                 @"navigon",
+                 @"transit_app",
+                 @"waze",
+                 @"yandex",
+                 @"uber",
+                 @"tomtom",
+                 @"sygic",
+                 @"here_maps",
+                 @"moovit",
+                 @"lyft",
+                 @"maps_me",
+                 @"cabify",
+                 @"baidu",
+                 @"taxis_99",
+                 @"gaode"
+                 ];
     AppLocationTypes = @{
                          @(LNAppAppleMaps): LNLocTypeBoth,
-                         @(LNAppCitymapper): LNLocTypeBoth,
+                         @(LNAppCitymapper): LNLocTypeCoords,
                          @(LNAppGoogleMaps): LNLocTypeBoth,
                          @(LNAppNavigon): LNLocTypeCoords,
                          @(LNAppTheTransitApp): LNLocTypeCoords,
@@ -107,7 +126,9 @@ NSDictionary* extras;
                          @(LNAppLyft): LNLocTypeCoords,
                          @(LNAppMapsMe): LNLocTypeCoords,
                          @(LNAppCabify): LNLocTypeCoords,
-                         @(LNAppBaidu): LNLocTypeBoth
+                         @(LNAppBaidu): LNLocTypeBoth,
+                         @(LNAppTaxis99): LNLocTypeCoords,
+                         @(LNAppGaode): LNLocTypeCoords
                          };
     LNEmptyCoord = CLLocationCoordinate2DMake(LNEmptyLocation, LNEmptyLocation);
     
@@ -252,14 +273,14 @@ NSDictionary* extras;
                              ] mutableCopy];
     
     if([self isEmptyCoordinate:destCoord]){
-        [url appendFormat:@"daddr=%@", [destAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [url appendFormat:@"daddr=%@", [destAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     }else{
         [url appendFormat:@"daddr=%@", [self stringForCoord:destCoord]];
     }
     
     if(![jsStartType isEqual: LNLocTypeNone]){
         if([self isEmptyCoordinate:startCoord]){
-            [url appendFormat:@"&saddr=%@", [startAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [url appendFormat:@"&saddr=%@", [startAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }else{
             [url appendFormat:@"&saddr=%@", [self stringForCoord:startCoord]];
         }
@@ -279,7 +300,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchAppleMapsWithMapKit {
@@ -334,14 +355,14 @@ NSDictionary* extras;
                              ] mutableCopy];
     
     if([self isEmptyCoordinate:destCoord]){
-        [url appendFormat:@"daddr=%@", [destAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [url appendFormat:@"daddr=%@", [destAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     }else{
         [url appendFormat:@"daddr=%@", [self stringForCoord:destCoord]];
     }
     
     if(![jsStartType isEqual: LNLocTypeNone]){
         if([self isEmptyCoordinate:startCoord]){
-            [url appendFormat:@"&saddr=%@", [startAddress stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [url appendFormat:@"&saddr=%@", [startAddress stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }else{
             [url appendFormat:@"&saddr=%@", [self stringForCoord:startCoord]];
         }
@@ -355,15 +376,13 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchCitymapper {
     NSMutableArray* params = [NSMutableArray arrayWithCapacity:10];
     if (!startIsCurrentLocation) {
-        if(![self isEmptyCoordinate:startCoord]){
-            [params addObject:[NSString stringWithFormat:@"startcoord=%f,%f", startCoord.latitude, startCoord.longitude]];
-        }
+        [params addObject:[NSString stringWithFormat:@"startcoord=%f,%f", startCoord.latitude, startCoord.longitude]];
         if(startName){
             [params addObject:[NSString stringWithFormat:@"startname=%@", [self urlEncode:startName]]];
         }
@@ -372,9 +391,7 @@ NSDictionary* extras;
         }
     }
     
-    if(![self isEmptyCoordinate:destCoord]){
-        [params addObject:[NSString stringWithFormat:@"endcoord=%f,%f", destCoord.latitude, destCoord.longitude]];
-    }
+    [params addObject:[NSString stringWithFormat:@"endcoord=%f,%f", destCoord.latitude, destCoord.longitude]];
     if(destName){
         [params addObject:[NSString stringWithFormat:@"endname=%@", [self urlEncode:destName]]];
     }
@@ -382,14 +399,13 @@ NSDictionary* extras;
         [params addObject:[NSString stringWithFormat:@"endaddress=%@", [self urlEncode:destAddress]]];
     }
     
-    NSMutableString* url = [NSMutableString stringWithFormat:@"%@directions?%@",
-                            [self urlPrefixForMapApp:LNAppCitymapper],
+    NSMutableString* url = [NSMutableString stringWithFormat:@"https://citymapper.com/directions?%@",                            
                             [params componentsJoinedByString:@"&"]];
     if(extras){
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchTheTransitApp {
@@ -409,7 +425,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchNavigon {
@@ -426,7 +442,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchWaze {
@@ -437,7 +453,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchYandex {
@@ -455,7 +471,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchUber {
@@ -467,7 +483,7 @@ NSDictionary* extras;
                destCoord.longitude];
         
         if(destName){
-            url = [NSMutableString stringWithFormat:@"%@&dropoff[nickname]=%@",url,[destName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            url = [NSMutableString stringWithFormat:@"%@&dropoff[nickname]=%@",url,[destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }
         
     } else {
@@ -479,18 +495,18 @@ NSDictionary* extras;
                destCoord.longitude];
         
         if(destName){
-            url = [NSMutableString stringWithFormat:@"%@&dropoff[nickname]=%@",url,[destName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            url = [NSMutableString stringWithFormat:@"%@&dropoff[nickname]=%@",url,[destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }
         
         if(startName){
-            url = [NSMutableString stringWithFormat:@"%@&pickup[nickname]=%@",url,[startName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            url = [NSMutableString stringWithFormat:@"%@&pickup[nickname]=%@",url,[startName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }
     }
     if(extras){
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchTomTom {
@@ -498,13 +514,13 @@ NSDictionary* extras;
                             destCoord.latitude,
                             destCoord.longitude];
     if(destName){
-        url = [NSMutableString stringWithFormat:@"%@&name=%@",url,[destName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        url = [NSMutableString stringWithFormat:@"%@&name=%@",url,[destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     }
     if(extras){
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchSygic {
@@ -523,7 +539,7 @@ NSDictionary* extras;
                             separator,
                             directionsMode];
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchHereMaps {
@@ -535,7 +551,7 @@ NSDictionary* extras;
                       startCoord.latitude, startCoord.longitude];
         
         if (startName) {
-            [startParam appendFormat:@",%@", [startName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [startParam appendFormat:@",%@", [startName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }
     }
     
@@ -543,7 +559,7 @@ NSDictionary* extras;
                                   destCoord.latitude, destCoord.longitude];
     
     if (destName) {
-        [destParam appendFormat:@",%@", [destName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [destParam appendFormat:@",%@", [destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     }
     
     NSMutableString* url = [NSMutableString stringWithFormat:@"%@%@/%@",
@@ -555,7 +571,7 @@ NSDictionary* extras;
         [url appendFormat:@"?%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchMoovit {
@@ -565,7 +581,7 @@ NSDictionary* extras;
      destCoord.latitude, destCoord.longitude];
     
     if (destName) {
-        [url appendFormat:@"&dest_name=%@", [destName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        [url appendFormat:@"&dest_name=%@", [destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     }
     
     if (!startIsCurrentLocation) {
@@ -573,7 +589,7 @@ NSDictionary* extras;
          startCoord.latitude, startCoord.longitude];
         
         if (startName) {
-            [url appendFormat:@"&orig_name=%@", [startName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [url appendFormat:@"&orig_name=%@", [startName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
         }
     }
     
@@ -581,7 +597,7 @@ NSDictionary* extras;
         [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     }
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchLyft {
@@ -603,7 +619,7 @@ NSDictionary* extras;
     }
     
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchMapsMe {
@@ -637,7 +653,7 @@ NSDictionary* extras;
     }
     
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchCabify {
@@ -647,13 +663,13 @@ NSDictionary* extras;
 
     NSMutableDictionary* dDest = [NSMutableDictionary new];
     NSMutableDictionary* dDestLoc = [NSMutableDictionary new];
-    [dDestLoc setValue:[NSMutableString stringWithFormat:@"%f",destCoord.latitude] forKey:@"latitude"];
-    [dDestLoc setValue:[NSMutableString stringWithFormat:@"%f",destCoord.longitude] forKey:@"longitude"];
+    dDestLoc[@"latitude"] = @((float)destCoord.latitude);
+    dDestLoc[@"longitude"] = @((float)destCoord.longitude);
     [dDest setObject:dDestLoc forKey:@"loc"];
 
 
     if (destName) {
-        [dDest setValue:[self urlEncode:destName] forKey:@"name"];
+        [dDest setValue:destName forKey:@"name"];
     }
 
     NSMutableDictionary* dStart = [NSMutableDictionary new];
@@ -661,32 +677,34 @@ NSDictionary* extras;
     if (startIsCurrentLocation) {
         [dDest setValue:@"current" forKey:@"loc"];
     }else{
-        [dStartLoc setValue:[NSMutableString stringWithFormat:@"%f",startCoord.latitude] forKey:@"latitude"];
-        [dStartLoc setValue:[NSMutableString stringWithFormat:@"%f",startCoord.longitude] forKey:@"longitude"];
+        dStartLoc[@"latitude"] = @((float)startCoord.latitude);
+        dStartLoc[@"longitude"] = @((float)startCoord.longitude);
         [dStart setObject:dStartLoc forKey:@"loc"];
     }
 
     if (startName) {
-        [dStart setValue:[self urlEncode:startName]  forKey:@"name"];
+        [dStart setValue:startName  forKey:@"name"];
     }
 
     NSMutableArray* aStops = [NSMutableArray new];
     [aStops addObject:dStart];
     if(extras){
-        dJson = (NSMutableDictionary*) extras;
+        dJson = [extras mutableCopy];
         if([dJson objectForKey:@"stops"] != nil){
             [aStops addObjectsFromArray:[dJson objectForKey:@"stops"]];
         }
     }
     [aStops addObject:dDest];
+    
+    if([dJson objectForKey:@"vehicle_type"] == nil){
+        [dJson setValue:@"" forKey:@"vehicle_type"];
+    }
     [dJson setObject:aStops forKey:@"stops"];
-
-    url = [NSMutableString stringWithFormat:@"%@%@", url, [self dictionaryToJsonString:dJson]];
-
-    //url = [NSMutableString stringWithFormat:@"%@", @"cabify://cabify/journey?json={\"vehicle_type\":\"c52ce29f50438491f8d6e55d5259dd40\",\"stops\":[{\"loc\":{\"latitude\":40.3979288915956,\"longitude\":-3.70257262140512 },\"name\":\"Goiko%20Grill\"},{\"loc\":{\"latitude\":40.697,\"longitude\":-3.90257262140512}}]}"];
+    NSString* sJson = [[self dictionaryToJsonString:dJson] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    url = [NSMutableString stringWithFormat:@"%@%@", url, sJson];
 
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
 
 -(void)launchBaidu {
@@ -732,8 +750,104 @@ NSDictionary* extras;
     [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
     
     [self logDebugURI:url];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    [self openScheme:url];
 }
+
+-(void)launchGaode {
+    NSMutableString* url = [NSMutableString stringWithFormat:@"%@path?", [self urlPrefixForMapApp:LNAppGaode]];
+
+    NSMutableDictionary* mExtras;
+    if(extras){
+        mExtras = [extras mutableCopy];
+    }else{
+        mExtras = [[NSMutableDictionary alloc] init];
+    }
+    if([mExtras objectForKey:@"applicationName"] == nil){
+        [mExtras setValue:[self getThisAppName] forKey:@"applicationName"];
+    }
+
+    // Destination
+    [url appendFormat:@"dlat=%f&dlon=%f",destCoord.latitude, destCoord.longitude];
+    if(![self isNull:destName]){
+       [url appendFormat:@"&dname=%@", [destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    }
+    
+    // Start
+    NSString* start;
+    if(![self isEmptyCoordinate:startCoord]){
+        [url appendFormat:@"&slat=%f&slon=%f",startCoord.latitude, startCoord.longitude];
+        if(![self isNull:startName]){
+            start = [NSString stringWithFormat:@"&sname=%@", [startName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+        }
+    }
+
+    // Transport mode
+    if([directionsMode isEqual: @"walking"]){
+        [url appendFormat:@"&t=2"];
+    }else if([directionsMode isEqual: @"transit"]){
+        [url appendFormat:@"&t=1"];
+    }else if([directionsMode isEqual: @"bicycling"]){
+        [url appendFormat:@"&t=3"];
+    }else{
+        [url appendFormat:@"&t=0"];
+    }
+    
+    // Extras
+    [url appendFormat:@"%@", [self extrasToQueryParams:mExtras]];
+    
+    //url = (NSMutableString*) @"iosamap://path?sourceApplication=applicationName&sid=BGVIS1&slat=39.92848272&slon=116.39560823&sname=A&did=BGVIS2&dlat=39.98848272&dlon=116.47560823&dname=B&dev=0&t=0";
+
+    [self logDebugURI:url];
+    [self openScheme:url];
+}
+
+-(void)launch99Taxis {
+    NSMutableString* url = [NSMutableString stringWithFormat:@"%@call?", [self urlPrefixForMapApp:LNAppTaxis99]];
+    
+    NSMutableDictionary* mExtras;
+    if(extras){
+        mExtras = [extras mutableCopy];
+    }else{
+        mExtras = [[NSMutableDictionary alloc] init];
+    }
+    if([mExtras objectForKey:@"deep_link_product_id"] == nil){
+        [mExtras setValue:@"316" forKey:@"deep_link_product_id"];
+    }
+    if([mExtras objectForKey:@"client_id"] == nil){
+        [mExtras setValue:@"MAP_123" forKey:@"client_id"];
+    }
+
+    // Destination
+    if([self isNull:destName]){
+       if(![self isNull:destAddress]){
+           destName = destAddress;
+       }else{
+           destName = @"Dropoff";
+       }
+    }
+    
+    // Start
+    if (![self isNull:startName]) {
+        // use it
+    }else if(![self isNull:startAddress]){
+        startName = startAddress;
+    }else if(startIsCurrentLocation){
+        startName = @"Current location";
+    }else{
+        startName = @"Pickup";
+    }
+    [url appendFormat:@"pickup_latitude=%f&pickup_longitude=%f",startCoord.latitude, startCoord.longitude];
+    [url appendFormat:@"&pickup_title=%@", [startName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    [url appendFormat:@"&dropoff_latitude=%f&dropoff_longitude=%f",destCoord.latitude, destCoord.longitude];
+    [url appendFormat:@"&dropoff_title=%@", [destName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+    [url appendFormat:@"%@", [self extrasToQueryParams:mExtras]];
+    
+    //url = (NSMutableString*) @"taxis99://call?pickup_latitude=-23.543869&pickup_longitude=-46.642264&pickup_title=Republica&dropoff_latitude=-23.600010&dropoff_longitude=-46.720348&dropoff_title=Morumbi&deep_link_product_id=316&client_id=MAP_123";
+
+    [self logDebugURI:url];
+    [self openScheme:url];
+}
+
 /**************
  * Utilities
  **************/
@@ -928,6 +1042,10 @@ NSDictionary* extras;
         [self launchCabify];
     }else if(app == LNAppBaidu){
         [self launchBaidu];
+    }else if(app == LNAppGaode){
+        [self launchGaode];
+    }else if(app == LNAppTaxis99){
+        [self launch99Taxis];
     }
     
     [self sendPluginSuccess];
@@ -994,6 +1112,10 @@ NSDictionary* extras;
         name = @"cabify";
         case LNAppBaidu:
         name = @"baidu";
+        case LNAppGaode:
+        name = @"gaode";
+        case LNAppTaxis99:
+        name = @"taxis_99";
         break;
         default:
         [NSException raise:NSGenericException format:@"Unexpected app name"];
@@ -1037,6 +1159,10 @@ NSDictionary* extras;
         cmmName = LNAppCabify;
     }else if([lnName isEqual: @"baidu"]){
         cmmName = LNAppBaidu;
+    }else if([lnName isEqual: @"gaode"]){
+        cmmName = LNAppGaode;
+    }else if([lnName isEqual: @"taxis_99"]){
+        cmmName = LNAppTaxis99;
     }else{
         [NSException raise:NSGenericException format:@"Unexpected app name: %@", lnName];
     }
@@ -1271,6 +1397,12 @@ NSDictionary* extras;
             
         case LNAppBaidu:
         return @"baidumap://";
+
+        case LNAppGaode:
+        return @"iosamap://";
+
+        case LNAppTaxis99:
+        return @"taxis99://";
         
         default:
         return nil;
@@ -1283,6 +1415,9 @@ NSDictionary* extras;
             
         case LNAppMapsMe:
             return YES;
+
+        case LNAppTaxis99:
+            return YES;        
             
         default:
             return NO;
@@ -1308,7 +1443,7 @@ NSDictionary* extras;
     while ((key = [keyEnum nextObject]))
     {
         id value = [extras objectForKey:key];
-        queryParams = [NSString stringWithFormat:@"%@&%@=%@)", queryParams, key, [self urlEncode:value]];
+        queryParams = [NSString stringWithFormat:@"%@&%@=%@", queryParams, key, [self urlEncode:value]];
     }
     return queryParams;
 }
@@ -1389,4 +1524,40 @@ NSDictionary* extras;
     return [self arrayToJsonString:(NSArray*) dictionary];
 }
 
+- (NSString*) getThisAppName
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+}
+
+- (void)openScheme:(NSString *)scheme {
+  UIApplication *application = [UIApplication sharedApplication];
+  NSURL *URL = [NSURL URLWithString:scheme];
+
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_10_0
+      if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [application openURL:URL options:@{}
+           completionHandler:^(BOOL success) {
+           [self onOpenSchemeResult:scheme schemeResult:success];
+        }];
+      } else {
+        BOOL success = [application openURL:URL];
+        [self onOpenSchemeResult:scheme schemeResult:success];
+      }
+    #else
+        BOOL success = [application openURL:URL];
+        [self onOpenSchemeResult:scheme schemeResult:success];
+    #endif
+    
+}
+
+- (void)onOpenSchemeResult:(NSString *)scheme schemeResult:(BOOL)success
+{
+    if(success){
+        [self sendPluginSuccess];
+    }else{
+        [self sendPluginError:[NSString stringWithFormat:@"Failed to open app scheme: %@", scheme]];
+    }
+}
+    
 @end
+

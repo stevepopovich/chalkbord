@@ -104,14 +104,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-ionic-keyboard.keyboard",
-    "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
-    "pluginId": "cordova-plugin-ionic-keyboard",
-    "clobbers": [
-      "window.Keyboard"
-    ]
-  },
-  {
     "id": "cordova-plugin-splashscreen.SplashScreen",
     "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
     "pluginId": "cordova-plugin-splashscreen",
@@ -174,6 +166,14 @@ module.exports = [
     "merges": [
       "launchnavigator"
     ]
+  },
+  {
+    "id": "cordova-plugin-ionic-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
+    "pluginId": "cordova-plugin-ionic-keyboard",
+    "clobbers": [
+      "window.Keyboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -187,7 +187,6 @@ module.exports.metadata =
   "cordova-plugin-facebook4": "2.5.0",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-inappbrowser": "1.7.2",
-  "cordova-plugin-ionic-keyboard": "2.1.3",
   "cordova-plugin-ionic-webview": "1.2.1",
   "cordova-plugin-splashscreen": "4.1.0",
   "cordova-plugin-statusbar": "2.4.2",
@@ -196,7 +195,8 @@ module.exports.metadata =
   "cordova-plugin-vibration": "3.1.0",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-sqlite-storage": "2.5.1",
-  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.2.2"
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.2.2",
+  "cordova-plugin-ionic-keyboard": "2.1.3"
 };
 // BOTTOM OF METADATA
 });

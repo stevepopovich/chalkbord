@@ -23,6 +23,22 @@
               "id": "config.xml"
             }
           ],
+          "NSLocationWhenInUseUsageDescription": [
+            {
+              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ],
+          "NSLocationAlwaysAndWhenInUseUsageDescription": [
+            {
+              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ],
           "FacebookAppID": [
             {
               "xml": "<string>296790334414922</string>",
@@ -53,29 +69,7 @@
               "count": 1
             },
             {
-              "xml": "<array><string>citymapper</string><string>comgooglemaps</string><string>navigon</string><string>transit</string><string>waze</string><string>yandexnavi</string><string>uber</string><string>tomtomhome</string><string>com.sygic.aura</string><string>here-route</string><string>moovit</string><string>lyft</string><string>mapsme</string><string>cabify</string><string>baidumap</string></array>",
-              "count": 1
-            }
-          ],
-          "NSLocationWhenInUseUsageDescription": [
-            {
-              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
-              "count": 1,
-              "mode": "merge",
-              "id": "config.xml"
-            }
-          ],
-          "NSLocationAlwaysAndWhenInUseUsageDescription": [
-            {
-              "xml": "<string>This app always requires location tracking so we can find the latest deals near you.</string>",
-              "count": 1,
-              "mode": "merge",
-              "id": "config.xml"
-            }
-          ],
-          "UIBackgroundModes": [
-            {
-              "xml": "<array><string>location</string></array>",
+              "xml": "<array><string>citymapper</string><string>comgooglemaps</string><string>navigon</string><string>transit</string><string>waze</string><string>yandexnavi</string><string>uber</string><string>tomtomhome</string><string>com.sygic.aura</string><string>here-route</string><string>moovit</string><string>lyft</string><string>mapsme</string><string>cabify</string><string>baidumap</string><string>taxis99</string><string>iosamap</string></array>",
               "count": 1
             }
           ]
@@ -84,6 +78,10 @@
       "config.xml": {
         "parents": {
           "/*": [
+            {
+              "xml": "<feature name=\"CallNumber\"><param name=\"ios-package\" value=\"CFCallNumber\" /></feature>",
+              "count": 1
+            },
             {
               "xml": "<feature name=\"ActionSheet\"><param name=\"ios-package\" value=\"ActionSheet\" /></feature>",
               "count": 1
@@ -177,27 +175,15 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"SQLitePlugin\"><param name=\"ios-package\" value=\"SQLitePlugin\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"CallNumber\"><param name=\"ios-package\" value=\"CFCallNumber\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"LaunchNavigator\"><param name=\"ios-package\" value=\"LaunchNavigator\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
               "count": 1
             },
             {
-              "xml": "<feature name=\"RequestLocationAccuracy\"><param name=\"ios-package\" value=\"RequestLocationAccuracy\" /></feature>",
+              "xml": "<feature name=\"SQLitePlugin\"><param name=\"ios-package\" value=\"SQLitePlugin\" /></feature>",
               "count": 1
             },
             {
-              "xml": "<feature name=\"BackgroundGeolocation\"><param name=\"ios-package\" value=\"CDVBackgroundGeolocation\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "xml": "<feature name=\"LaunchNavigator\"><param name=\"ios-package\" value=\"LaunchNavigator\" /></feature>",
               "count": 1
             }
           ]
@@ -206,6 +192,9 @@
     }
   },
   "installed_plugins": {
+    "call-number": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
     "cordova-plugin-actionsheet": {
       "PACKAGE_NAME": "locale.alpha"
     },
@@ -221,7 +210,7 @@
     "cordova-plugin-facebook4": {
       "APP_ID": "296790334414922",
       "APP_NAME": "Chalkbord",
-      "ANDROID_SDK_VERSION": "4.+",
+      "FACEBOOK_ANDROID_SDK_VERSION": "4.+",
       "PACKAGE_NAME": "locale.alpha"
     },
     "cordova-plugin-geolocation": {
@@ -245,35 +234,33 @@
     "cordova-plugin-uniquedeviceid": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "mx.ferreyra.callnumber": {
-      "PACKAGE_NAME": "locale.alpha"
-    },
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
-      "PACKAGE_NAME": "locale.alpha"
-    },
     "cordova-plugin-velda-devicefeedback": {
       "PACKAGE_NAME": "locale.alpha"
     },
     "cordova-plugin-vibration": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "cordova-plugin-request-location-accuracy": {
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "locale.alpha"
     },
-    "cordova-plugin-mauron85-background-geolocation": {
-      "ALWAYS_USAGE_DESCRIPTION": "This app always requires location tracking",
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "locale.alpha"
+    },
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+      "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes",
       "PACKAGE_NAME": "locale.alpha"
     }
   },
   "dependent_plugins": {},
   "modules": [
+    {
+      "id": "call-number.CallNumber",
+      "file": "plugins/call-number/www/CallNumber.js",
+      "pluginId": "call-number",
+      "clobbers": [
+        "call"
+      ]
+    },
     {
       "id": "cordova-plugin-actionsheet.ActionSheet",
       "file": "plugins/cordova-plugin-actionsheet/www/ActionSheet.js",
@@ -420,19 +407,27 @@
       ]
     },
     {
+      "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
+      "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
+      "pluginId": "cordova-plugin-velda-devicefeedback",
+      "clobbers": [
+        "window.plugins.deviceFeedback"
+      ]
+    },
+    {
+      "id": "cordova-plugin-vibration.notification",
+      "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+      "pluginId": "cordova-plugin-vibration",
+      "merges": [
+        "navigator"
+      ]
+    },
+    {
       "id": "cordova-sqlite-storage.SQLitePlugin",
       "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
       "pluginId": "cordova-sqlite-storage",
       "clobbers": [
         "SQLitePlugin"
-      ]
-    },
-    {
-      "id": "mx.ferreyra.callnumber.CallNumber",
-      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
-      "pluginId": "mx.ferreyra.callnumber",
-      "clobbers": [
-        "call"
       ]
     },
     {
@@ -458,60 +453,26 @@
       "merges": [
         "launchnavigator"
       ]
-    },
-    {
-      "id": "cordova-plugin-velda-devicefeedback.DeviceFeedback",
-      "file": "plugins/cordova-plugin-velda-devicefeedback/DeviceFeedback.js",
-      "pluginId": "cordova-plugin-velda-devicefeedback",
-      "clobbers": [
-        "window.plugins.deviceFeedback"
-      ]
-    },
-    {
-      "id": "cordova-plugin-vibration.notification",
-      "file": "plugins/cordova-plugin-vibration/www/vibration.js",
-      "pluginId": "cordova-plugin-vibration",
-      "merges": [
-        "navigator"
-      ]
-    },
-    {
-      "id": "cordova-plugin-request-location-accuracy.RequestLocationAccuracy",
-      "file": "plugins/cordova-plugin-request-location-accuracy/www/ios/RequestLocationAccuracy.js",
-      "pluginId": "cordova-plugin-request-location-accuracy",
-      "clobbers": [
-        "cordova.plugins.locationAccuracy"
-      ]
-    },
-    {
-      "id": "cordova-plugin-mauron85-background-geolocation.backgroundGeolocation",
-      "file": "plugins/cordova-plugin-mauron85-background-geolocation/www/backgroundGeolocation.js",
-      "pluginId": "cordova-plugin-mauron85-background-geolocation",
-      "clobbers": [
-        "backgroundGeolocation"
-      ]
     }
   ],
   "plugin_metadata": {
+    "call-number": "0.0.2",
     "cordova-plugin-actionsheet": "2.3.3",
-    "cordova-plugin-camera": "4.0.2",
+    "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-device": "1.1.7",
     "cordova-plugin-dialogs": "2.0.1",
-    "cordova-plugin-facebook4": "2.2.0",
+    "cordova-plugin-facebook4": "2.5.0",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-inappbrowser": "1.7.2",
-    "cordova-plugin-ionic-keyboard": "2.0.5",
-    "cordova-plugin-ionic-webview": "1.1.16",
+    "cordova-plugin-ionic-keyboard": "2.1.3",
+    "cordova-plugin-ionic-webview": "1.2.1",
     "cordova-plugin-splashscreen": "4.1.0",
-    "cordova-plugin-statusbar": "2.4.1",
+    "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-uniquedeviceid": "1.3.2",
-    "cordova-plugin-whitelist": "1.3.3",
-    "cordova-sqlite-storage": "2.3.1",
-    "mx.ferreyra.callnumber": "0.0.2",
-    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.1.3",
     "cordova-plugin-velda-devicefeedback": "0.0.2",
     "cordova-plugin-vibration": "3.1.0",
-    "cordova-plugin-request-location-accuracy": "2.2.3",
-    "cordova-plugin-mauron85-background-geolocation": "2.3.6"
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-sqlite-storage": "2.5.1",
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.2.2"
   }
 }

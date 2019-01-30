@@ -1,0 +1,27 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "call-number": {
+      "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-velda-devicefeedback": {
+      "PACKAGE_NAME": "Chalkbord"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "Chalkbord"
+    }
+  },
+  "dependent_plugins": {}
+}

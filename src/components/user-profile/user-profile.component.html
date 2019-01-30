@@ -4,18 +4,11 @@
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="firstName"></ion-input>
     </ion-item>
-
     <ion-item *ngIf="!isOrganization">
         <ion-label floating>Email</ion-label>
         <ion-input type="email" [(ngModel)]="userEmail"></ion-input>
     </ion-item>
-
-    <button *ngIf="!isOrganization && valueChanged()" (click)="save()" class="reset-button" ion-button>
-        save
-    </button>
-
-    <div class="help-support-text">
-        For help, please contact us at
-        <a href="mailto:support@chalkbord.com?subject=Support">support@chalkbord.com</a>
+    <button *ngIf="!isOrganization && valueChanged()" (click)="save()" class="reset-button" ion-button> save </button>
+    <div class="help-support-text"> For help, please contact us at <a href="mailto:support@chalkbord.com">support@chalkbord.com</a>
     </div>
 </ion-content>

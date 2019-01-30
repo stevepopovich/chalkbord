@@ -16,6 +16,7 @@ import { UserService } from '../../services/firebase/firestore-collection/user.s
 import { OrganizationService } from '../../services/firebase/firestore-collection/organization-service';
 import { Facebook } from '@ionic-native/facebook';
 import { DeviceService } from '../../services/device.service';
+import { Observable } from 'rxjs';
 
 const lastConsumerEnvKey = "lastConsumerEnvKey";
 
@@ -39,6 +40,7 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
     public attemptingSignup: boolean = false;
     public attemptingLogin: boolean = false;
     public remembered = false;
+    public hideGoBackButton = false;
 
     public constructor(formBuilder: FormBuilder, auth: AuthorizationService,
         rememberMeService: RememberMeService, alert: AlertController, organizationService: OrganizationService,
@@ -70,6 +72,16 @@ export class ConsumerLandingComponent extends OrganizationSignupComponent implem
         this.titleClickObervable.pipe(bufferCount(5)).subscribe(() => {
             this.iterateEnvironment(lastConsumerEnvKey);
         });
+
+		Observable.fromEvent(window, 'keyboardWillShow').subscribe(() => {
+            this.hideGoBackButton = true;
+			this.goBackButton.nativeElement.style['bottom'] = "-18%";
+		});
+
+		Observable.fromEvent(window, 'keyboardWillHide').subscribe(() => {
+            this.hideGoBackButton = false;
+            this.goBackButton.nativeElement.style['bottom'] = "2%";
+		});
     }
 
     public ngAfterViewInit(): void {
